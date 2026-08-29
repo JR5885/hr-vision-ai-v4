@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HR Vision AI | 14天 HRBP 實戰工作台</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: #fcfcfd; color: #1e293b; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.5; }
+    header { background: #fff; border-bottom: 1px solid #f1f5f9; padding: 0.85rem 2rem; position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-size: 1.25rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .tag { font-size: 0.75rem; background: #eff6ff; color: #2563eb; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; }
+    .nav-links { display: flex; align-items: center; gap: 1.25rem; font-size: 0.9rem; }
+    .nav-links a { text-decoration: none; color: #64748b; }
+    .hero { text-align: center; padding: 3.5rem 1rem 2rem; max-width: 850px; margin: 0 auto; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: #f8fafc; border: 1px solid #e2e8f0; padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.8rem; color: #475569; margin-bottom: 1.25rem; }
+    .hero h1 { font-size: 2.3rem; font-weight: 900; color: #0f172a; line-height: 1.3; margin-bottom: 0.75rem; }
+    .gradient-text { background: linear-gradient(90deg, #2563eb, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: #64748b; font-size: 1.05rem; margin-bottom: 2rem; }
+    .hero-btns { display: flex; justify-content: center; gap: 1rem; }
+    .btn-primary { background: #2563eb; color: #fff; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; }
+    .btn-secondary { background: #fff; border: 1px solid #e2e8f0; color: #334155; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
+    
+    .map-container { max-width: 1240px; margin: 0 auto 2rem; padding: 0 1rem; }
+    .map-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem; overflow-x: auto; }
+    .day-pill { font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 4px; white-space: nowrap; background: #f1f5f9; color: #64748b; font-weight: 500; }
+    .day-pill.active { background: #2563eb; color: #fff; font-weight: 700; }
+
+    .main-layout { max-width: 1240px; margin: 0 auto; padding: 0 1rem; display: grid; grid-template-columns: 1fr 380px; gap: 2rem; }
+    .left-col { display: flex; flex-direction: column; gap: 2rem; }
+    
+    .sandbox-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2.5rem 2rem; text-align: center; }
+    .sandbox-input-box { display: flex; max-width: 720px; margin: 1.5rem auto 1rem; background: #f8fafc; border-radius: 50px; padding: 0.4rem 0.5rem 0.4rem 1.25rem; border: 1px solid #e2e8f0; }
+    .sandbox-input-box input { flex: 1; border: none; background: transparent; outline: none; font-size: 0.95rem; }
+    .quick-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; max-width: 750px; margin: 0 auto; }
+    .tag-btn { background: #fff; border: 1px solid #e2e8f0; padding: 0.4rem 0.85rem; border-radius: 50px; font-size: 0.825rem; color: #475569; cursor: pointer; }
+
+    .chat-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; height: 480px; display: flex; flex-direction: column; overflow: hidden; }
+    .chat-messages { flex: 1; padding: 1.25rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; background: #f8fafc; }
+    .msg { max-width: 85%; padding: 0.85rem 1.1rem; border-radius: 10px; font-size: 0.925rem; line-height: 1.6; white-space: pre-wrap; }
+    .msg.ai { align-self: flex-start; background: #fff; color: #1e293b; border: 1px solid #e2e8f0; }
+    .msg.user { align-self: flex-end; background: #2563eb; color: #fff; }
+    .chat-input-bar { padding: 0.75rem 1rem; border-top: 1px solid #e2e8f0; display: flex; gap: 0.5rem; background: #fff; }
+    .chat-input-bar input { flex: 1; padding: 0.65rem 1rem; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; }
+
+    .booking-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.75rem; position: sticky; top: 5.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .form-control { width: 100%; padding: 0.65rem 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; outline: none; font-size: 0.9rem; }
+    textarea.form-control { height: 110px; resize: vertical; }
+
+    article { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem; }
+    footer { border-top: 1px solid #e2e8f0; margin-top: 4rem; padding: 2rem 1rem; font-size: 0.85rem; color: #94a3b8; text-align: center; background: #fff; }
+
+    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1000; align-items: center; justify-content: center; }
+    .modal-box { background: #fff; border-radius: 12px; padding: 1.5rem; width: 90%; max-width: 420px; }
+
+    @media (max-width: 900px) { .main-layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span class="brand">✦ HR Vision AI</span>
+        <span class="tag">14天 HRBP 實戰工作台</span>
+      </div>
+      <div class="nav-links">
+        <a href="#diagnostics">AI 診斷</a>
+        <a href="#booking">預約諮詢</a>
+        <div style="border-left: 1px solid #e2e8f0; padding-left: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span id="quota-display" style="font-size: 0.8rem; color: #2563eb; font-weight: 700;">今日額度：3 / 3</span>
+          <button onclick="openKeyModal()" style="background: #0f172a; color: #fff; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">自備 Key</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge"><span style="color: #16a34a;">●</span> Powered by Google Gemini</div>
+    <h1>15+ 年資深 HRBP 經驗 x 生成式 AI 賦能<br><span class="gradient-text">全方位組織升級</span></h1>
+    <p>即時輸入您的組織痛點，AI 戰略顧問將針對人才、合規、文化、招聘自動化等 HR 領域，提供深度剖析與可落地行動方案。</p>
+    <div class="hero-btns">
+      <a href="#diagnostics" class="btn-primary">開始 AI 診斷</a>
+      <a href="#booking" class="btn-secondary">預約戰略諮詢</a>
+    </div>
+  </section>
+
+  <div class="map-container">
+    <div class="map-box">
+      <span style="font-size: 0.85rem; font-weight: 700; white-space: nowrap;">🎯 14天修煉地圖：</span>
+      <span class="day-pill active">D1 業務痛點解構</span>
+      <span class="day-pill">D2 六盒組織診斷</span>
+      <span class="day-pill">D3 動態人才盤點</span>
+      <span class="day-pill">D4 九宮格校準會</span>
+      <span class="day-pill">D5 關鍵崗位繼任</span>
+      <span class="day-pill">D6 激勵與績效改進</span>
+      <span class="day-pill">D7 OKR 與業務對齊</span>
+      <span class="day-pill">D8 跨部門衝突協商</span>
+      <span class="day-pill">D9 招募漏斗與人效</span>
+      <span class="day-pill">D10 核心文化落地</span>
+      <span class="day-pill">D11 勞資法規防禦</span>
+      <span class="day-pill">D12 主管教練式對話</span>
+      <span class="day-pill">D13 戰略提案 Deck</span>
+      <span class="day-pill">D14 落地執行閉環</span>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <div class="left-col">
+      <section id="diagnostics" class="sandbox-card">
+        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">動態 AI HR 戰略診斷沙盒</h2>
+        <p style="color: #64748b; font-size: 0.95rem;">描述您正面臨的組織挑戰，AI 將即時歸類、剖析並產出可落地的行動方案。</p>
+
+        <div class="sandbox-input-box">
+          <span style="margin-right: 0.5rem; display: flex; align-items: center;">🔍</span>
+          <input type="text" id="sandbox-input" placeholder="例如：團隊擴編快，但關鍵職位一直找不到合適的人選......" onkeydown="if(event.key==='Enter') triggerSend(this.value)">
+          <button class="btn-primary" style="padding: 0.65rem 1.5rem; border-radius: 50px;" onclick="triggerSend(document.getElementById('sandbox-input').value)">開始診斷</button>
+        </div>
+
+        <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.75rem;">點選下方標籤，快速帶入範例問題</p>
+        <div class="quick-tags">
+          <button class="tag-btn" onclick="tagClick('人才戰略配置規劃')">🧭 人才戰略配置規劃</button>
+          <button class="tag-btn" onclick="tagClick('全球員工關係與合規')">🌐 全球員工關係與合規</button>
+          <button class="tag-btn" onclick="tagClick('晉升與留才－人才盤點和人才梯隊')">📈 人才盤點和梯隊</button>
+          <button class="tag-btn" onclick="tagClick('組織文化建設')">🌱 組織文化建設</button>
+          <button class="tag-btn" onclick="tagClick('自動化招聘 Dashboard')">📊 自動化招聘 Dashboard</button>
+          <button class="tag-btn" onclick="tagClick('合同處理自動化')">📝 合同處理自動化</button>
+          <button class="tag-btn" onclick="tagClick('HRBP 對業務主管的教練式領導與支持')">🤝 教練式領導支持</button>
+          <button class="tag-btn" onclick="tagClick('跨部門高效會議和衝突解決')">🔄 跨部門衝突解決</button>
+          <button class="tag-btn" onclick="tagClick('OKR 和季獎金設計')">🎯 OKR 與季獎金</button>
+        </div>
+      </section>
+
+      <section class="chat-card">
+        <div class="chat-messages" id="chat-box">
+          <div class="msg ai">你好！我是你的 HRBP 14天躍升教練。在對話中，系統將依據您的年資深度自適應推進，拆解業務偽需求並產出主管可簽核之落地方案。
+
+請在上方沙盒輸入您面臨的具體組織難題，或直接點選標籤開始診斷！</div>
+        </div>
+        <div class="chat-input-bar">
+          <input type="text" id="chat-input" placeholder="請補充更多情境或回覆 AI 的追問..." onkeydown="if(event.key==='Enter') triggerSend(this.value)">
+          <button class="btn-primary" onclick="triggerSend(document.getElementById('chat-input').value)">推進</button>
+        </div>
+      </section>
+
+      <article>
+        <h2 style="font-size: 1.35rem; margin-bottom: 0.75rem;">HRBP 14 天段位躍升方法論架構</h2>
+        <p style="font-size: 0.875rem; color: #475569; margin-bottom: 0.75rem;">許多人資轉型為 HRBP（Human Resource Business Partner）後，容易陷入「高級行政」或被動接單的困局。本平台基於 Dave Ulrich 戰略人資模型與敏捷組織診斷法，協助學員在 14 天內透過多輪場景推演，將業務痛點轉化為高落地性的具體行動方案。</p>
+        <ul style="padding-left: 1.25rem; font-size: 0.85rem; color: #475569;">
+          <li><strong>業務真偽需求拆解：</strong>辨識業務主管是否將「業績下滑」單純歸因為「招募不力」。</li>
+          <li><strong>數據化歸因推演：</strong>運用人效產出、離職週期分析取代主觀推論。</li>
+          <li><strong>三層行動閉環：</strong>提供包含「短線降火、中線賦能、長線機制」的完整架構。</li>
+        </ul>
+      </article>
+    </div>
+
+    <aside>
+      <div id="booking" class="booking-card">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem;">預約診斷諮詢</h2>
+        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1.25rem;">留下您的聯絡資訊，我們將依據 AI 診斷結果，為您安排一對一戰略諮詢。</p>
+        
+        <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="form-group">
+          <div class="form-grid">
+            <input type="text" name="name" id="b-name" class="form-control" placeholder="姓名" required>
+            <input type="email" name="email" id="b-email" class="form-control" placeholder="公司信箱" required>
+          </div>
+          <input type="text" name="company" id="b-company" class="form-control" placeholder="公司名稱">
+          <textarea name="challenge" id="b-challenge" class="form-control" placeholder="您的 HR 挑戰簡述（完成上方 AI 診斷後將自動帶入分析摘要）"></textarea>
+          <button type="submit" id="b-submit-btn" class="btn-primary" style="width: 100%; padding: 0.8rem;">送出預約</button>
+        </form>
+      </div>
+    </aside>
+  </div>
+
+  <div id="key-modal" class="modal-backdrop">
+    <div class="modal-box">
+      <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">🔑 設定個人 Gemini API Key</h3>
+      <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 1rem;">輸入個人免費 API Key 可解鎖無限暢聊模式。金鑰僅儲存於本地瀏覽器，不會上傳伺服器。</p>
+      <input type="password" id="custom-key-input" class="form-control" placeholder="貼上 AI Studio 取得的 API Key" style="margin-bottom: 1rem;">
+      <div style="display: flex; gap: 0.5rem;">
+        <button type="button" onclick="closeKeyModal()" class="btn-secondary" style="flex: 1; padding: 0.5rem;">取消</button>
+        <button type="button" onclick="saveCustomKey()" class="btn-primary" style="flex: 1; padding: 0.5rem;">儲存解鎖</button>
+      </div>
+      <div style="text-align: center; margin-top: 0.75rem;">
+        <a href="https://aistudio.google.com/app/apikey" target="_blank" style="font-size: 0.75rem; color: #2563eb;">點此 1 分鐘免費領取官方 Key</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div style="max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+      <div>&copy; 2026 HR Vision AI. All rights reserved.</div>
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="#diagnostics" style="color: #64748b; text-decoration: none;">AI 診斷</a>
+        <a href="#booking" style="color: #64748b; text-decoration: none;">預約諮詢</a>
+        <a href="mailto:mshappyj@gmail.com" style="color: #64748b; text-decoration: none;">聯絡我們</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let quota = 3;
+    let customKey = localStorage.getItem('hr_custom_api_key') || '';
+    const messages = [];
+    const DEFAULT_KEY = "YOUR_FALLBACK_FREE_GEMINI_KEY";
+
+    function initQuota() {
+      const today = new Date().toISOString().split('T')[0];
+      const storedDate = localStorage.getItem('hr_quota_date');
+      if (customKey.length > 10) {
+        quota = 9999;
+      } else if (storedDate !== today) {
+        localStorage.setItem('hr_quota_date', today);
+        localStorage.setItem('hr_quota_count', '3');
+        quota = 3;
+      } else {
+        quota = parseInt(localStorage.getItem('hr_quota_count') || '3', 10);
+      }
+      updateQuotaUI();
+    }
+
+    function updateQuotaUI() {
+      const el = document.getElementById('quota-display');
+      if (quota >= 999) {
+        el.innerText = '✨ 無限暢聊';
+        el.style.color = '#16a34a';
+      } else {
+        el.innerText = `今日額度：${quota} / 3`;
+        el.style.color = quota === 0 ? '#ef4444' : '#2563eb';
+      }
+    }
+
+    function openKeyModal() { document.getElementById('key-modal').style.display = 'flex'; }
+    function closeKeyModal() { document.getElementById('key-modal').style.display = 'none'; }
+    function saveCustomKey() {
+      const val = document.getElementById('custom-key-input').value.trim();
+      if (!val) return;
+      localStorage.setItem('hr_custom_api_key', val);
+      customKey = val;
+      quota = 9999;
+      updateQuotaUI();
+      closeKeyModal();
+      alert('儲存成功！已解鎖無限深度暢聊模式。');
+    }
+
+    function tagClick(title) {
+      const text = `我想探討關於【${title}】的挑戰，請協助分析。`;
+      document.getElementById('sandbox-input').value = text;
+      triggerSend(text);
+    }
+
+    async function triggerSend(text) {
+      if (!text || !text.trim()) return;
+      if (quota <= 0) {
+        alert('今日 3 次免費額度已用完！請點擊右上角「自備 Key」解鎖無限對話，或明日再次造訪。');
+        return;
+      }
+
+      const inputVal = text.trim();
+      document.getElementById('sandbox-input').value = '';
+      document.getElementById('chat-input').value = '';
+      document.getElementById('b-challenge').value = `【AI 診斷議題】\n${inputVal}`;
+
+      appendMsg('user', inputVal);
+      messages.push({ role: 'user', text: inputVal });
+
+      if (quota < 999) {
+        quota--;
+        localStorage.setItem('hr_quota_count', quota.toString());
+        updateQuotaUI();
+      }
+
+      const activeKey = customKey || DEFAULT_KEY;
+      const loadingEl = appendMsg('ai', 'AI 教練正在解析業務情境並組織提問...');
+
+      const systemPrompt = `你是一位擁有 15+ 年經驗的資深 HRVP / 戰略顧問，擔任使用者的「14天 HRBP 實戰修煉教練」。
+對話規範：
+1. 嚴禁直接給予通篇死板的公版模板。
+2. 採用蘇格拉底式提問法：先指出業務痛點背後的真偽需求，並提出 1-2 個關鍵數據指標追問。
+3. 循序漸進引導出可供業務主管直接簽核之【短線降火、中線賦能、長線機制】方案。
+4. 結尾鼓勵用戶在實際工作中驗證，並提示明日繼續下一階段推演。`;
+
+      try {
+        const history = messages.map(m => ({
+          role: m.role === 'user' ? 'user' : 'model',
+          parts: [{ text: m.text }]
+        }));
+
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${activeKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: systemPrompt }] },
+            contents: history
+          })
+        });
+
+        const data = await res.json();
+        if (data.candidates && data.candidates[0].content) {
+          const reply = data.candidates[0].content.parts[0].text;
+          loadingEl.innerText = reply;
+          messages.push({ role: 'ai', text: reply });
+        } else {
+          loadingEl.innerText = '對話處理遇到問題。若您使用的是預設配額，可於右上角設定自備的免費 Gemini Key 獲得穩定連線。';
+        }
+      } catch (err) {
+        loadingEl.innerText = '網路連線異常，請稍後重試。';
+      }
+    }
+
+    function appendMsg(role, text) {
+      const box = document.getElementById('chat-box');
+      const div = document.createElement('div');
+      div.className = `msg ${role}`;
+      div.innerText = text;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+      return div;
+    }
+
+    async function handleBookingSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('b-submit-btn');
+      const name = document.getElementById('b-name').value;
+      const email = document.getElementById('b-email').value;
+      const company = document.getElementById('b-company').value;
+      const challenge = document.getElementById('b-challenge').value;
+
+      btn.disabled = true;
+      btn.innerText = '傳送中...';
+
+      try {
+        const res = await fetch('https://formspree.io/f/mshappyj@gmail.com', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, company, challenge, _replyto: email, _subject: `【HR Vision AI】諮詢預約：${name}` })
+        });
+
+        if (res.ok) {
+          alert(`預約已成功送出！\n\n系統已將通知發送至 mshappyj@gmail.com，我們將盡快與您聯繫。`);
+          document.getElementById('booking-form').reset();
+        } else {
+          window.location.href = `mailto:mshappyj@gmail.com?subject=諮詢預約&body=${encodeURIComponent(challenge)}`;
+        }
+      } catch (err) {
+        window.location.href = `mailto:mshappyj@gmail.com?subject=諮詢預約&body=${encodeURIComponent(challenge)}`;
+      } finally {
+        btn.disabled = false;
+        btn.innerText = '送出預約';
+      }
+    }
+
+    initQuota();
+  </script>
+</body>
+</html>
