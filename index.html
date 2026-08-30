@@ -91,7 +91,6 @@
             color: var(--primary-color);
         }
 
-        /* 語言切換 Tab 按鈕 */
         .lang-switch {
             display: inline-flex;
             background: #f1f5f9;
@@ -559,7 +558,6 @@
                     <a href="#framework" id="nav-framework">運作架構</a>
                     <a href="#faq" id="nav-faq">常見問題</a>
                 </nav>
-                <!-- 語言切換 Tab -->
                 <div class="lang-switch">
                     <button class="lang-btn active" id="btn-lang-zh" onclick="switchLanguage('zh')">繁中</button>
                     <button class="lang-btn" id="btn-lang-en" onclick="switchLanguage('en')">English</button>
@@ -604,9 +602,7 @@
             <!-- 引導問題標籤區 -->
             <div class="tags-section">
                 <div class="tags-title" id="tags-title">點選下方標籤，快速帶入範例問題</div>
-                <div class="tags-container" id="tags-container">
-                    <!-- 動態由 JavaScript 載入雙語標籤 -->
-                </div>
+                <div class="tags-container" id="tags-container"></div>
             </div>
 
             <!-- 超額時才顯示的 Google API Key 區塊 -->
@@ -650,33 +646,25 @@
         <!-- 目標受眾與價值 -->
         <section id="audience" class="section-block">
             <h2 id="aud-title">誰適合使用本沙盒？</h2>
-            <div class="grid-4" id="aud-grid">
-                <!-- 動態雙語更新 -->
-            </div>
+            <div class="grid-4" id="aud-grid"></div>
         </section>
 
         <!-- 核心運作架構 -->
         <section id="framework" class="section-block">
             <h2 id="frame-title">Business × People 沙盒運作架構</h2>
-            <div class="grid-3" id="frame-grid">
-                <!-- 動態雙語更新 -->
-            </div>
+            <div class="grid-3" id="frame-grid"></div>
         </section>
 
         <!-- FAQ 常見問題 -->
         <section id="faq" class="section-block">
             <h2 id="faq-title">常見問題 (FAQ)</h2>
-            <div id="faq-list">
-                <!-- 動態雙語更新 -->
-            </div>
+            <div id="faq-list"></div>
         </section>
 
         <!-- 關於我們 & 合規宣告 -->
         <section id="about" class="section-block">
             <h2 id="about-title">關於 HR Vision AI 與服務條款</h2>
-            <div id="about-content">
-                <!-- 動態雙語更新 -->
-            </div>
+            <div id="about-content"></div>
         </section>
     </div>
 
@@ -697,10 +685,12 @@
     <!-- 前端互動、多語系字庫與 API 邏輯 -->
     <script>
         const MAX_FREE_QUOTA = 5;
+        const DEFAULT_API_KEY = "AQ.Ab8RN6KRGgiTrSpurK2eoy9HU9SBKpOkjVv-DR38DKhV944ZNA";
+        const MODEL_NAME = "gemini-3.6-flash";
+
         let currentLang = 'zh';
         let conversationHistory = [];
 
-        // 雙語字典
         const i18n = {
             zh: {
                 navSandbox: "診斷沙盒",
@@ -804,7 +794,7 @@
                 byokDesc: "When your 5 free trial runs are used, enter your personal free Google API Key to continue unlimited usage.",
                 byokTutorial: `<strong>⚡ 3-Second Guide to Get a Free Google API Key:</strong>
                     <ol>
-                        <li>Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key Page</a> and log in with Google.</li>
+                        <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key Page</a> and log in with Google.</li>
                         <li>Click <strong>'Create API key'</strong> to generate a key.</li>
                         <li>Copy and paste it into the field above to run Gemini directly!</li>
                     </ol>`,
@@ -848,22 +838,18 @@
             currentLang = lang;
             const data = i18n[lang];
 
-            // 按鈕狀態
             document.getElementById('btn-lang-zh').classList.toggle('active', lang === 'zh');
             document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
 
-            // 導覽列
             document.getElementById('nav-sandbox').innerText = data.navSandbox;
             document.getElementById('nav-audience').innerText = data.navAudience;
             document.getElementById('nav-framework').innerText = data.navFramework;
             document.getElementById('nav-faq').innerText = data.navFaq;
 
-            // 核心標題與描述
             document.getElementById('hero-title').innerText = data.heroTitle;
             document.getElementById('hero-desc').innerText = data.heroDesc;
             document.getElementById('label-target').innerText = data.labelTarget;
 
-            // 下拉選單
             const selectEl = document.getElementById('sandbox-target');
             const currentVal = selectEl.value;
             selectEl.innerHTML = '';
@@ -875,7 +861,6 @@
                 selectEl.appendChild(el);
             });
 
-            // 搜尋與標籤
             document.getElementById('challenge-input').placeholder = data.searchPlaceholder;
             document.getElementById('btn-diagnose').innerText = data.btnDiagnose;
             document.getElementById('tags-title').innerText = data.tagsTitle;
@@ -890,12 +875,10 @@
                 tagsContainer.appendChild(btn);
             });
 
-            // BYOK 區塊
             document.getElementById('byok-title').innerText = data.byokTitle;
             document.getElementById('byok-desc').innerText = data.byokDesc;
             document.getElementById('tutorial-card').innerHTML = data.byokTutorial;
 
-            // 追問介面
             document.getElementById('followup-header').innerText = data.followupHeader;
             document.getElementById('btn-pos-1').innerText = data.posBtn1;
             document.getElementById('btn-pos-2').innerText = data.posBtn2;
@@ -904,7 +887,6 @@
             document.getElementById('custom-followup-input').placeholder = data.customFollowupPlaceholder;
             document.getElementById('btn-send-followup').innerText = data.btnSendFollowup;
 
-            // 說明區塊：適用對象
             document.getElementById('aud-title').innerText = data.audienceTitle;
             const audGrid = document.getElementById('aud-grid');
             audGrid.innerHTML = '';
@@ -912,7 +894,6 @@
                 audGrid.innerHTML += `<div class="card-item"><h3>${c.title}</h3><p>${c.desc}</p></div>`;
             });
 
-            // 說明區塊：運作架構
             document.getElementById('frame-title').innerText = data.frameworkTitle;
             const frameGrid = document.getElementById('frame-grid');
             frameGrid.innerHTML = '';
@@ -920,7 +901,6 @@
                 frameGrid.innerHTML += `<div class="card-item"><h3>${c.title}</h3><p>${c.desc}</p></div>`;
             });
 
-            // FAQ
             document.getElementById('faq-title').innerText = data.faqTitle;
             const faqList = document.getElementById('faq-list');
             faqList.innerHTML = '';
@@ -928,7 +908,6 @@
                 faqList.innerHTML += `<div class="faq-item"><h3>${item.q}</h3><p>${item.a}</p></div>`;
             });
 
-            // 關於我們
             document.getElementById('about-title').innerText = data.aboutTitle;
             document.getElementById('about-content').innerHTML = data.aboutHtml;
 
@@ -963,7 +942,6 @@
             document.getElementById('challenge-input').focus();
         }
 
-        // 首輪診斷
         async function startInitialDiagnosis() {
             const target = document.getElementById('sandbox-target').value;
             const input = document.getElementById('challenge-input').value.trim();
@@ -998,28 +976,26 @@
             const initialPrompt = currentLang === 'zh' 
                 ? `你是一位世界級商業與組織發展顧問。請以【${target}】視角，剖析以下組織挑戰並產出高階戰略診斷報告：
 組織挑戰：${input}
-請輸出：1. 組織維度歸類與問題定義 2. 核心根因剖析 3. 給 ${target} 的具體落地行動方案`
+請輸出：
+1. 組織維度歸類與問題定義 (Problem Framing)
+2. 核心根因剖析 (Root Cause Analysis)
+3. 給 ${target} 的具體落地行動方案與執行步驟 (Actionable Plan)`
                 : `You are a world-class Business and Organizational Development Consultant. Analyze the following challenge from the perspective of a 【${target}】:
 Challenge: ${input}
-Provide: 1. Problem Framing & Dimension 2. Root Cause Analysis 3. Actionable Roadmap for the ${target}`;
+Provide:
+1. Problem Framing & Dimension
+2. Root Cause Analysis
+3. Actionable Roadmap for the ${target}`;
+
+            const activeKey = userApiKey || DEFAULT_API_KEY;
 
             try {
-                let report = "";
-                if (userApiKey) {
-                    report = await sendGeminiTurn(userApiKey, initialPrompt);
-                } else {
+                const report = await sendGeminiTurn(activeKey, initialPrompt);
+                if (!userApiKey) {
                     let used = parseInt(localStorage.getItem('hrvision_sandbox_used') || 0, 10);
                     localStorage.setItem('hrvision_sandbox_used', used + 1);
                     updateQuotaUI();
-
-                    report = currentLang === 'zh' 
-                        ? `【${target} 戰略診斷報告】\n\n1. 組織挑戰歸類：\n- 維度：業務短期目標與組織能力建設失衡\n- 影響等級：高（直接影響年度增長與關鍵人才留存）\n\n2. 核心根因剖析：\n- 擴編速度與主管賦能機制脫鉤，缺乏教練式支持。\n- 績效考核過度單一，缺乏團隊梯隊牽引。\n\n3. ${target} 專屬落地方案：\n- 短期（1-2週）：導入 1-on-1 教練式對話指引。\n- 中期（1-2月）：重構關鍵指標，將團隊培育納入考評。`
-                        : `【${target} Strategic Diagnostic Report】\n\n1. Problem Framing:\n- Dimension: Imbalance between short-term KPI and long-term capability building\n- Impact: High (Directly affects revenue expansion and talent retention)\n\n2. Root Cause Analysis:\n- Scaling pace is detached from frontline management enablement.\n- Incentive schemes lack team development metrics.\n\n3. Actionable Roadmap for ${target}:\n- Short-term (Weeks 1-2): Deploy 1-on-1 coaching dialogue frameworks.\n- Mid-term (Months 1-2): Realign OKRs to include capability building.`;
-
-                    conversationHistory.push({ role: "user", parts: [{ text: initialPrompt }] });
-                    conversationHistory.push({ role: "model", parts: [{ text: report }] });
                 }
-
                 updateLatestAIResponse(report);
                 followupBox.style.display = 'block';
             } catch (err) {
@@ -1027,7 +1003,6 @@ Provide: 1. Problem Framing & Dimension 2. Root Cause Analysis 3. Actionable Roa
             }
         }
 
-        // 追問邏輯
         async function triggerFollowUp(questionText) {
             await handleFollowUpExecution(questionText);
         }
@@ -1054,33 +1029,18 @@ Provide: 1. Problem Framing & Dimension 2. Root Cause Analysis 3. Actionable Roa
 
             appendTurnUI(questionText, currentLang === 'zh' ? 'AI 顧問正在基於上下文深入分析中...' : 'Deep diving into the follow-up scenario...');
 
-            try {
-                let followUpResponse = "";
-                const contextualPrompt = currentLang === 'zh'
-                    ? `請延續前面的診斷脈絡，以【${target}】的實戰顧問角度，深度回答以下追問：\n${questionText}`
-                    : `Continuing the context above, act as an executive consultant for 【${target}】 and answer:\n${questionText}`;
+            const activeKey = userApiKey || DEFAULT_API_KEY;
+            const contextualPrompt = currentLang === 'zh'
+                ? `請延續前面的診斷脈絡，以【${target}】的實戰顧問角度，深度回答以下追問：\n${questionText}`
+                : `Continuing the context above, act as an executive consultant for 【${target}】 and answer:\n${questionText}`;
 
-                if (userApiKey) {
-                    followUpResponse = await sendGeminiTurn(userApiKey, contextualPrompt);
-                } else {
+            try {
+                const followUpResponse = await sendGeminiTurn(activeKey, contextualPrompt);
+                if (!userApiKey) {
                     let used = parseInt(localStorage.getItem('hrvision_sandbox_used') || 0, 10);
                     localStorage.setItem('hrvision_sandbox_used', used + 1);
                     updateQuotaUI();
-
-                    if (questionText.includes('壓力測試') || questionText.includes('Stress Test') || questionText.includes('盲點') || questionText.includes('Blind Spot')) {
-                        followUpResponse = currentLang === 'zh'
-                            ? `【反面壓力測試與破局方案】\n\n⚠️ 阻力預警：業務主管常以「業績缺口無法承擔」為由排斥介入。\n\n🛠️ 破局策略：\n1. 利益捆綁：證明新人上手縮短兩週可直接釋放 30% 業務產能。\n2. 輕量試點：改採每週 15 分鐘「微教練」解決即時痛點。`
-                            : `【Stress Test & Breakthrough Solution】\n\n⚠️ Core Resistance: Managers may resist citing tight revenue targets.\n\n🛠️ Breakthrough:\n1. Tie to ROI: Show that reducing onboarding time by 2 weeks directly boosts team sales capacity.\n2. Micro-Coaching: Replace heavy courses with 15-minute weekly micro-coaching sessions.`;
-                    } else {
-                        followUpResponse = currentLang === 'zh'
-                            ? `【正面推進落地指引】\n\n📋 溝通引導範本：\n- 開場破冰：「這季業績挑戰很大，在衝刺時最讓你消耗精力的團隊卡點在哪？」\n- 承諾支持：「HRBP 會為你準備輕量工具包，不增加任何行政負擔。」`
-                            : `【Execution Guide & Scripts】\n\n📋 Dialogue Script:\n- Icebreaker: 'With high targets this quarter, what is draining most of your energy regarding team execution?'\n- Commitment: 'We provide lightweight toolkits without adding administrative burdens.'`;
-                    }
-
-                    conversationHistory.push({ role: "user", parts: [{ text: contextualPrompt }] });
-                    conversationHistory.push({ role: "model", parts: [{ text: followUpResponse }] });
                 }
-
                 updateLatestAIResponse(followUpResponse);
             } catch (err) {
                 updateLatestAIResponse('Error: ' + err.message);
@@ -1090,16 +1050,23 @@ Provide: 1. Problem Framing & Dimension 2. Root Cause Analysis 3. Actionable Roa
         async function sendGeminiTurn(apiKey, newPromptText) {
             conversationHistory.push({ role: "user", parts: [{ text: newPromptText }] });
 
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${encodeURIComponent(apiKey)}`;
+            
+            const headers = {
+                'Content-Type': 'application/json',
+                'x-goog-api-key': apiKey,
+                'Authorization': `Bearer ${apiKey}`
+            };
+
             const response = await fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: headers,
                 body: JSON.stringify({ contents: conversationHistory })
             });
 
             if (!response.ok) {
-                const errData = await response.json();
-                throw new Error(errData.error?.message || 'API request failed');
+                const errData = await response.json().catch(() => ({}));
+                throw new Error(errData.error?.message || `API request failed (HTTP ${response.status})`);
             }
 
             const data = await response.json();
@@ -1135,7 +1102,6 @@ Provide: 1. Problem Framing & Dimension 2. Root Cause Analysis 3. Actionable Roa
             );
         }
 
-        // 預設初始化為繁體中文
         document.addEventListener('DOMContentLoaded', () => {
             switchLanguage('zh');
         });
