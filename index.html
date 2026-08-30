@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Vision AI - Business × People Solution Sandbox | 動態 AI HR 戰略診斷沙盒</title>
-    <meta name="description" content="專為 CEO、HRBP、高階領導管理者及培訓機構打造的 Business × People 策略沙盒。描述您面臨的組織挑戰，AI 即時歸類、剖析並支援正反面互動深度追問。">
-    <meta name="keywords" content="HRBP, CEO, 領導力評鑑, 培訓機構, 人才戰略配置, OKR設計, 組織文化, 招募自動化">
+    <title>HR Vision AI - Business × People Solution Sandbox</title>
+    <meta name="description" content="AI Strategy Diagnostic Sandbox for CEOs, HRBPs, Leadership Managers, and Training Institutes.">
+    <meta name="keywords" content="HRBP, CEO, Leadership, Training, Talent Strategy, OKR, Organization Culture">
 
-    <!-- Google AdSense 驗證代碼（請將 ca-pub-XXXXXXXXXXXXXXXX 替換為您的發布商 ID） -->
+    <!-- Google AdSense Code -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
     <style>
@@ -73,8 +73,13 @@
             margin-left: 0.25rem;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
         nav a {
-            margin-left: 1.5rem;
             text-decoration: none;
             color: var(--text-muted);
             font-size: 0.95rem;
@@ -84,6 +89,33 @@
 
         nav a:hover {
             color: var(--primary-color);
+        }
+
+        /* 語言切換 Tab 按鈕 */
+        .lang-switch {
+            display: inline-flex;
+            background: #f1f5f9;
+            padding: 0.25rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .container {
@@ -299,7 +331,6 @@
             margin-bottom: 0.25rem;
         }
 
-        /* 結果與互動追問面板 */
         .result-panel {
             max-width: 860px;
             margin: 2rem auto 0 auto;
@@ -342,7 +373,6 @@
             color: var(--text-main);
         }
 
-        /* 正面 / 反面 追問按鈕區塊 */
         .followup-box {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -433,7 +463,6 @@
             background-color: var(--primary-hover);
         }
 
-        /* 內容與說明區塊 */
         .section-block {
             background: var(--white);
             border: 1px solid var(--border-color);
@@ -522,14 +551,20 @@
     <!-- 頂部導覽 -->
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">HR Vision AI <span>| Business × People Solution Sandbox</span></a>
-            <nav>
-                <a href="#sandbox">診斷沙盒</a>
-                <a href="#audience">適用對象</a>
-                <a href="#framework">運作架構</a>
-                <a href="#faq">常見問題</a>
-                <a href="#about">關於我們</a>
-            </nav>
+            <a href="#" class="logo">HR Vision AI <span id="nav-subtitle">| Business × People Solution Sandbox</span></a>
+            <div class="nav-right">
+                <nav>
+                    <a href="#sandbox" id="nav-sandbox">診斷沙盒</a>
+                    <a href="#audience" id="nav-audience">適用對象</a>
+                    <a href="#framework" id="nav-framework">運作架構</a>
+                    <a href="#faq" id="nav-faq">常見問題</a>
+                </nav>
+                <!-- 語言切換 Tab -->
+                <div class="lang-switch">
+                    <button class="lang-btn active" id="btn-lang-zh" onclick="switchLanguage('zh')">繁中</button>
+                    <button class="lang-btn" id="btn-lang-en" onclick="switchLanguage('en')">English</button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -537,17 +572,17 @@
         <!-- 動態 AI HR 戰略診斷沙盒核心區 -->
         <section id="sandbox" class="sandbox-card">
             <div class="sandbox-header">
-                <h1>動態 AI HR 戰略診斷沙盒</h1>
-                <p>描述您正面臨的組織挑戰，AI 將即時歸類、剖析並產出可落地的行動方案與深度追問交互。</p>
+                <h1 id="hero-title">動態 AI HR 戰略診斷沙盒</h1>
+                <p id="hero-desc">描述您正面臨的組織挑戰，AI 將即時歸類、剖析並產出可落地的行動方案與深度追問交互。</p>
             </div>
 
             <!-- 選擇策略沙盒對象 -->
             <div class="target-selector-box">
-                <label for="sandbox-target">選擇策略沙盒對象：</label>
+                <label for="sandbox-target" id="label-target">選擇策略沙盒對象：</label>
                 <select id="sandbox-target">
                     <option value="CEO">CEO (執行長 / 創辦人)</option>
                     <option value="HRBP" selected>HRBP (人資業務夥伴)</option>
-                    <option value="培訓機構">培訓機構 (企業教練 / 顧問)</option>
+                    <option value="Training Institute">培訓機構 (企業教練 / 顧問)</option>
                     <option value="Manager">Manager (高階領導主管)</option>
                 </select>
             </div>
@@ -563,33 +598,25 @@
             <div class="search-input-wrapper">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="challenge-input" class="search-input" placeholder="例如：團隊擴編快，但關鍵職位一直找不到合適的人選......">
-                <button class="btn-diagnose" onclick="startInitialDiagnosis()">開始診斷</button>
+                <button class="btn-diagnose" id="btn-diagnose" onclick="startInitialDiagnosis()">開始診斷</button>
             </div>
 
             <!-- 引導問題標籤區 -->
             <div class="tags-section">
-                <div class="tags-title">點選下方標籤，快速帶入範例問題</div>
-                <div class="tags-container">
-                    <button class="tag-btn" onclick="fillPrompt('🎯 人才戰略配置規劃：面對業務轉型，如何重新盤點關鍵職位勝任力與組織編制？')">🎯 人才戰略配置規劃</button>
-                    <button class="tag-btn" onclick="fillPrompt('🌐 全球員工關係與合規：跨國遠端團隊在合規治理與文化整合上面臨衝突，該如何解？')">🌐 全球員工關係與合規</button>
-                    <button class="tag-btn" onclick="fillPrompt('📈 晉升與留才－人才盤點和人才梯隊：關鍵主管流失率高，缺乏二梯隊接班人該如何建立機制？')">📈 晉升與留才－人才盤點和人才梯隊</button>
-                    <button class="tag-btn" onclick="fillPrompt('🌱 組織文化建設：業務擴張迅速導致跨部門協作壁壘加深，如何落地價值觀考核？')">🌱 組織文化建設</button>
-                    <button class="tag-btn" onclick="fillPrompt('📊 自動化招聘 Dashboard：如何建立招募漏斗指標並運用數據優化獵才週期？')">📊 自動化招聘 Dashboard</button>
-                    <button class="tag-btn" onclick="fillPrompt('📝 合同處理自動化：如何簡化大量跨區域勞動合約與入職合規流程？')">📝 合同處理自動化</button>
-                    <button class="tag-btn" onclick="fillPrompt('🤝 HRBP 對業務主管的教練式領導與支持：業務主管重視短期業績忽略團隊培育，HRBP 如何介入引導？')">🤝 HRBP 對業務主管的教練式領導與支持</button>
-                    <button class="tag-btn" onclick="fillPrompt('👥 跨部門高效會議和衝突解決：跨職能專案推進延宕且權責不清，如何設計共識工作坊？')">👥 跨部門高效會議和衝突解決</button>
-                    <button class="tag-btn" onclick="fillPrompt('🎯 OKR 和季獎金設計：如何將組織年度戰略拆解為團隊 OKR 並連動激勵機制？')">🎯 OKR 和季獎金設計</button>
+                <div class="tags-title" id="tags-title">點選下方標籤，快速帶入範例問題</div>
+                <div class="tags-container" id="tags-container">
+                    <!-- 動態由 JavaScript 載入雙語標籤 -->
                 </div>
             </div>
 
             <!-- 超額時才顯示的 Google API Key 區塊 -->
             <div id="api-key-container" class="api-key-container">
-                <h3>自備 Google Gemini API Key (BYOK 模式)</h3>
-                <p>當免費 5 次額度用罄時，輸入個人免費 API Key 即可無限次自由使用本沙盒。</p>
+                <h3 id="byok-title">自備 Google Gemini API Key (BYOK 模式)</h3>
+                <p id="byok-desc">當免費 5 次額度用罄時，輸入個人免費 API Key 即可無限次自由使用本沙盒。</p>
                 <div class="api-input-group">
                     <input type="password" id="user-api-key" placeholder="貼上你的 Google AI Studio API Key (AIzaSy...)">
                 </div>
-                <div class="tutorial-card">
+                <div class="tutorial-card" id="tutorial-card">
                     <strong>⚡ 3 秒獲取 Google 免費 API 教程：</strong>
                     <ol>
                         <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key 頁面</a> 並登入 Google 帳號。</li>
@@ -605,18 +632,16 @@
 
                 <!-- 動態追問互動區 -->
                 <div id="followup-box" class="followup-box" style="display: none;">
-                    <div class="followup-title">⚡ 深度策略追問（點擊預設提問或自訂方向）：</div>
-                    <div class="followup-actions" id="followup-buttons">
-                        <!-- 正面追問 -->
-                        <button class="btn-followup-pos" onclick="triggerFollowUp('💡 正面推進：請提供具體落地的【話術對話腳本 / 溝通步驟範本】')">💡 正面推進：索取溝通話術範本</button>
-                        <button class="btn-followup-pos" onclick="triggerFollowUp('📊 工具設計：請為此方案設計一套【量化評鑑指標或檢核表】')">📊 工具設計：索取量化檢核表</button>
-                        <!-- 反面追問 / 壓力測試 -->
-                        <button class="btn-followup-neg" onclick="triggerFollowUp('🔥 壓力測試：若對方強烈抗拒或業務壓力極大拒絕配合，該如何破局？')">🔥 壓力測試：抗拒推託如何破局？</button>
-                        <button class="btn-followup-neg" onclick="triggerFollowUp('⚠️ 盲點質疑：此方案在執行上可能遭遇的最大【組織政治或資源瓶頸】為何？如何預防？')">⚠️ 盲點質疑：潛在組織阻力預警</button>
+                    <div class="followup-title" id="followup-header">⚡ 深度策略追問（點擊預設提問或自訂方向）：</div>
+                    <div class="followup-actions" id="followup-actions">
+                        <button class="btn-followup-pos" id="btn-pos-1" onclick="triggerFollowUp(currentLang === 'zh' ? '💡 正面推進：請提供具體落地的【話術對話腳本 / 溝通步驟範本】' : '💡 Positive Deep-Dive: Provide practical dialogue scripts and action steps.')">💡 正面推進：索取溝通話術範本</button>
+                        <button class="btn-followup-pos" id="btn-pos-2" onclick="triggerFollowUp(currentLang === 'zh' ? '📊 工具設計：請為此方案設計一套【量化評鑑指標或檢核表】' : '📊 Tool Design: Design quantitative metrics or a checklist for this plan.')">📊 工具設計：索取量化檢核表</button>
+                        <button class="btn-followup-neg" id="btn-neg-1" onclick="triggerFollowUp(currentLang === 'zh' ? '🔥 壓力測試：若對方強烈抗拒或業務壓力極大拒絕配合，該如何破局？' : '🔥 Stress Test: If stakeholders strongly resist due to KPI pressure, how to break the deadlock?')">🔥 壓力測試：抗拒推託如何破局？</button>
+                        <button class="btn-followup-neg" id="btn-neg-2" onclick="triggerFollowUp(currentLang === 'zh' ? '⚠️ 盲點質疑：此方案在執行上可能遭遇的最大【組織政治或資源瓶頸】為何？如何預防？' : '⚠️ Blind Spot: What is the biggest organizational politics/resource roadblock? How to prevent it?')">⚠️ 盲點質疑：潛在組織阻力預警</button>
                     </div>
                     <div class="custom-followup-wrapper">
                         <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="或輸入您想自訂的深入追問問題...">
-                        <button class="btn-send-followup" onclick="sendCustomFollowUp()">送出追問</button>
+                        <button class="btn-send-followup" id="btn-send-followup" onclick="sendCustomFollowUp()">送出追問</button>
                     </div>
                 </div>
             </div>
@@ -624,100 +649,291 @@
 
         <!-- 目標受眾與價值 -->
         <section id="audience" class="section-block">
-            <h2>誰適合使用本沙盒？</h2>
-            <div class="grid-4">
-                <div class="card-item">
-                    <h3>CEO & 創辦人</h3>
-                    <p>校準組織架構與商業戰略之適配度，預警關鍵崗位風險，建立可持續擴張的人才梯隊。</p>
-                </div>
-                <div class="card-item">
-                    <h3>HRBP (人資業務夥伴)</h3>
-                    <p>深入業務場景，將業務痛點轉化為組織與人才解決方案，提供業務主管教練式支持。</p>
-                </div>
-                <div class="card-item">
-                    <h3>培訓機構 & 顧問</h3>
-                    <p>快速診斷企業客戶組織盲點，產出具備商業說服力之培訓需求分析 (TNA) 與工作坊設計。</p>
-                </div>
-                <div class="card-item">
-                    <h3>Manager (領導主管)</h3>
-                    <p>掌握高階行為面試、績效激勵與跨部門衝突化解技巧，打造高敏捷協作團隊。</p>
-                </div>
+            <h2 id="aud-title">誰適合使用本沙盒？</h2>
+            <div class="grid-4" id="aud-grid">
+                <!-- 動態雙語更新 -->
             </div>
         </section>
 
         <!-- 核心運作架構 -->
         <section id="framework" class="section-block">
-            <h2>Business × People 沙盒運作架構</h2>
-            <div class="grid-3">
-                <div class="card-item">
-                    <h3>1. 組織痛點歸類 (Categorize)</h3>
-                    <p>基於組織行為學與商業運營模型，即時將非結構化的挑戰描述轉化為結構化維度。</p>
-                </div>
-                <div class="card-item">
-                    <h3>2. 根因深度剖析 (Diagnose)</h3>
-                    <p>比對組織機制、激勵制度與領導力短板，精準定位影響業務產出的瓶頸核心。</p>
-                </div>
-                <div class="card-item">
-                    <h3>3. 行動方案產出 (Actionable)</h3>
-                    <p>提供包含制度設計、對話腳本、面試矩陣與 OKR 連動之可執行落地工具包。</p>
-                </div>
+            <h2 id="frame-title">Business × People 沙盒運作架構</h2>
+            <div class="grid-3" id="frame-grid">
+                <!-- 動態雙語更新 -->
             </div>
         </section>
 
         <!-- FAQ 常見問題 -->
         <section id="faq" class="section-block">
-            <h2>常見問題 (FAQ)</h2>
-            <div class="faq-item">
-                <h3>Q1：免費 5 次使用額度如何計算？</h3>
-                <p>系統會透過瀏覽器自動記錄前 5 次診斷體驗額度。當額度用完後，您僅需填入個人免費的 Google Gemini API Key，即可繼續免費使用所有功能。</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q2：為什麼需要自備 Google API Key？資料會外洩嗎？</h3>
-                <p>本站採用 Client-Side 本地端處理機制，輸入的 API Key 與分析文本直接發送至 Google 官方端點，本站伺服器不會保存您的金鑰或商業機密資料。</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q3：動態戰略沙盒與一般 HR 工具的差別是什麼？</h3>
-                <p>一般工具僅處理單一流程（如篩選履歷或考勤）；本沙盒專注於 <strong>Business × People</strong> 的策略連動，協助不同決策角色從商業目標切入解決人與組織的系統性問題。</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q4：Google Gemini API 是免費的嗎？</h3>
-                <p>是的，Google AI Studio 提供充足的免費請求額度（Free Tier），一般日常管理評鑑與組織診斷使用完全足夠，無須支付任何費用。</p>
+            <h2 id="faq-title">常見問題 (FAQ)</h2>
+            <div id="faq-list">
+                <!-- 動態雙語更新 -->
             </div>
         </section>
 
         <!-- 關於我們 & 合規宣告 -->
         <section id="about" class="section-block">
-            <h2>關於 HR Vision AI 與服務條款</h2>
-            <p style="margin-bottom: 1rem;">
-                <strong>關於我們：</strong> HR Vision AI 致力於透過生成式 AI 技術搭建組織商業目標與人才發展之間的橋樑。我們為企業高階決策者、HRBP 與管理顧問提供客觀、敏捷且具洞察力的決策實驗沙盒。
-            </p>
-            <p id="privacy" style="margin-bottom: 1rem;">
-                <strong>隱私權政策與 Cookie 規範：</strong> 本站尊重使用者隱私，不長期儲存任何個人識別或機密數據。本網站可能使用 Cookie 以提供良好的瀏覽體驗，並配合第三方廣告供應商（如 Google AdSense）展示相關廣告。
-            </p>
-            <p id="contact">
-                <strong>聯絡與合作諮詢：</strong> 如有企業內訓、顧問合作或系統串接需求，歡迎來信：<a href="mailto:support@yourdomain.com">support@yourdomain.com</a>
-            </p>
+            <h2 id="about-title">關於 HR Vision AI 與服務條款</h2>
+            <div id="about-content">
+                <!-- 動態雙語更新 -->
+            </div>
         </section>
     </div>
 
     <!-- 頁尾 -->
     <footer>
         <div class="footer-container">
-            <div>
+            <div id="footer-copy">
                 &copy; 2026 HR Vision AI. All rights reserved. Business × People Solution Sandbox.
             </div>
             <div class="footer-links">
-                <a href="#privacy">隱私權政策 (Privacy Policy)</a>
-                <a href="#about">服務條款 (Terms)</a>
-                <a href="#contact">聯絡我們 (Contact)</a>
+                <a href="#about" id="footer-privacy">隱私權政策 (Privacy Policy)</a>
+                <a href="#about" id="footer-terms">服務條款 (Terms)</a>
+                <a href="#about" id="footer-contact">聯絡我們 (Contact)</a>
             </div>
         </div>
     </footer>
 
-    <!-- 前端互動與對話記憶呼叫邏輯 -->
+    <!-- 前端互動、多語系字庫與 API 邏輯 -->
     <script>
         const MAX_FREE_QUOTA = 5;
-        let conversationHistory = []; // 用於累積多輪對話上下文
+        let currentLang = 'zh';
+        let conversationHistory = [];
+
+        // 雙語字典
+        const i18n = {
+            zh: {
+                navSandbox: "診斷沙盒",
+                navAudience: "適用對象",
+                navFramework: "運作架構",
+                navFaq: "常見問題",
+                heroTitle: "動態 AI HR 戰略診斷沙盒",
+                heroDesc: "描述您正面臨的組織挑戰，AI 將即時歸類、剖析並產出可落地的行動方案與深度追問交互。",
+                labelTarget: "選擇策略沙盒對象：",
+                targetOptions: [
+                    { value: "CEO", text: "CEO (執行長 / 創辦人)" },
+                    { value: "HRBP", text: "HRBP (人資業務夥伴)" },
+                    { value: "Training Institute", text: "培訓機構 (企業教練 / 顧問)" },
+                    { value: "Manager", text: "Manager (高階領導主管)" }
+                ],
+                searchPlaceholder: "例如：團隊擴編快，但關鍵職位一直找不到合適的人選......",
+                btnDiagnose: "開始診斷",
+                tagsTitle: "點選下方標籤，快速帶入範例問題",
+                tags: [
+                    { title: "🎯 人才戰略配置規劃", prompt: "🎯 人才戰略配置規劃：面對業務轉型，如何重新盤點關鍵職位勝任力與組織編制？" },
+                    { title: "🌐 全球員工關係與合規", prompt: "🌐 全球員工關係與合規：跨國遠端團隊在合規治理與文化整合上面臨衝突，該如何解？" },
+                    { title: "📈 晉升與留才－人才盤點和梯隊", prompt: "📈 晉升與留才－人才盤點和人才梯隊：關鍵主管流失率高，缺乏二梯隊接班人該如何建立機制？" },
+                    { title: "🌱 組織文化建設", prompt: "🌱 組織文化建設：業務擴張迅速導致跨部門協作壁壘加深，如何落地價值觀考核？" },
+                    { title: "📊 自動化招聘 Dashboard", prompt: "📊 自動化招聘 Dashboard：如何建立招募漏斗指標並運用數據優化獵才週期？" },
+                    { title: "📝 合同處理自動化", prompt: "📝 合同處理自動化：如何簡化大量跨區域勞動合約與入職合規流程？" },
+                    { title: "🤝 HRBP 教練式領導支持", prompt: "🤝 HRBP 對業務主管的教練式領導與支持：業務主管重視短期業績忽略團隊培育，HRBP 如何介入引導？" },
+                    { title: "👥 跨部門高效會議與衝突", prompt: "👥 跨部門高效會議和衝突解決：跨職能專案推進延宕且權責不清，如何設計共識工作坊？" },
+                    { title: "🎯 OKR 和季獎金設計", prompt: "🎯 OKR 和季獎金設計：如何將組織年度戰略拆解為團隊 OKR 並連動激勵機制？" }
+                ],
+                byokTitle: "自備 Google Gemini API Key (BYOK 模式)",
+                byokDesc: "當免費 5 次額度用罄時，輸入個人免費 API Key 即可無限次自由使用本沙盒。",
+                byokTutorial: `<strong>⚡ 3 秒獲取 Google 免費 API 教程：</strong>
+                    <ol>
+                        <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key 頁面</a> 並登入 Google 帳號。</li>
+                        <li>點擊 <strong>「Create API key」</strong> 建立一組全新金鑰。</li>
+                        <li>複製代碼並貼回上方輸入框，即可直接使用 Gemini 模型進行分析！</li>
+                    </ol>`,
+                followupHeader: "⚡ 深度策略追問（點擊預設提問或自訂方向）：",
+                posBtn1: "💡 正面推進：索取溝通話術範本",
+                posBtn2: "📊 工具設計：索取量化檢核表",
+                negBtn1: "🔥 壓力測試：抗拒推託如何破局？",
+                negBtn2: "⚠️ 盲點質疑：潛在組織阻力預警",
+                customFollowupPlaceholder: "或輸入您想自訂的深入追問問題...",
+                btnSendFollowup: "送出追問",
+                audienceTitle: "誰適合使用本沙盒？",
+                audienceCards: [
+                    { title: "CEO & 創辦人", desc: "校準組織架構與商業戰略之適配度，預警關鍵崗位風險，建立可持續擴張的人才梯隊。" },
+                    { title: "HRBP (人資業務夥伴)", desc: "深入業務場景，將業務痛點轉化為組織與人才解決方案，提供業務主管教練式支持。" },
+                    { title: "培訓機構 & 顧問", desc: "快速診斷企業客戶組織盲點，產出具備商業說服力之培訓需求分析 (TNA) 與工作坊設計。" },
+                    { title: "Manager (領導主管)", desc: "掌握高階行為面試、績效激勵與跨部門衝突化解技巧，打造高敏捷協作團隊。" }
+                ],
+                frameworkTitle: "Business × People 沙盒運作架構",
+                frameworkCards: [
+                    { title: "1. 組織痛點歸類 (Categorize)", desc: "基於組織行為學與商業運營模型，即時將非結構化的挑戰描述轉化為結構化維度。" },
+                    { title: "2. 根因深度剖析 (Diagnose)", desc: "比對組織機制、激勵制度與領導力短板，精準定位影響業務產出的瓶頸核心。" },
+                    { title: "3. 行動方案產出 (Actionable)", desc: "提供包含制度設計、對話腳本、面試矩陣與 OKR 連動之可執行落地工具包。" }
+                ],
+                faqTitle: "常見問題 (FAQ)",
+                faqItems: [
+                    { q: "Q1：免費 5 次使用額度如何計算？", a: "系統會透過瀏覽器自動記錄前 5 次診斷體驗額度。當額度用完後，您僅需填入個人免費的 Google Gemini API Key，即可繼續免費使用所有功能。" },
+                    { q: "Q2：為什麼需要自備 Google API Key？資料會外洩嗎？", a: "本站採用 Client-Side 本地端處理機制，輸入的 API Key 與分析文本直接發送至 Google 官方端點，本站伺服器不會保存您的金鑰或商業機密資料。" },
+                    { q: "Q3：動態戰略沙盒與一般 HR 工具的差別是什麼？", a: "一般工具僅處理單一流程（如篩選履歷）；本沙盒專注於 Business × People 的策略連動，協助不同決策角色從商業目標切入解決人與組織的系統性問題。" },
+                    { q: "Q4：Google Gemini API 是免費的嗎？", a: "是的，Google AI Studio 提供充足的免費請求額度（Free Tier），日常管理評鑑與組織診斷使用完全足夠，無須支付任何費用。" }
+                ],
+                aboutTitle: "關於 HR Vision AI 與服務條款",
+                aboutHtml: `
+                    <p style="margin-bottom: 1rem;"><strong>關於我們：</strong> HR Vision AI 致力於透過生成式 AI 技術搭建組織商業目標與人才發展之間的橋樑。我們為企業高階決策者、HRBP 與管理顧問提供客觀、敏捷且具洞察力的決策實驗沙盒。</p>
+                    <p style="margin-bottom: 1rem;"><strong>隱私權政策與 Cookie 規範：</strong> 本站尊重使用者隱私，不長期儲存任何個人識別或機密數據。本網站可能使用 Cookie 以提供良好的瀏覽體驗，並配合第三方廣告供應商（如 Google AdSense）展示相關廣告。</p>
+                    <p><strong>聯絡與合作諮詢：</strong> 如有企業內訓、顧問合作或系統串接需求，歡迎來信：<a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
+                `
+            },
+            en: {
+                navSandbox: "Sandbox",
+                navAudience: "Audience",
+                navFramework: "Framework",
+                navFaq: "FAQ",
+                heroTitle: "Dynamic AI HR Strategy Sandbox",
+                heroDesc: "Describe your organization challenges. AI instantly categorizes, analyzes root causes, and delivers actionable roadmaps with deep interactive follow-ups.",
+                labelTarget: "Target Role:",
+                targetOptions: [
+                    { value: "CEO", text: "CEO / Founder" },
+                    { value: "HRBP", text: "HRBP (HR Business Partner)" },
+                    { value: "Training Institute", text: "Training Institute / Consultant" },
+                    { value: "Manager", text: "Leadership Manager" }
+                ],
+                searchPlaceholder: "e.g., Team expands fast, but hard to find the right candidates for key roles...",
+                btnDiagnose: "Start Diagnosis",
+                tagsTitle: "Click any tag below to load sample challenges:",
+                tags: [
+                    { title: "🎯 Strategic Workforce Planning", prompt: "🎯 Strategic Workforce Planning: How to realign competencies and headcounts during business transformation?" },
+                    { title: "🌐 Global Employee Relations", prompt: "🌐 Global Employee Relations: Resolving compliance and cultural conflicts in cross-border remote teams." },
+                    { title: "📈 Talent Review & Succession", prompt: "📈 Talent Review & Succession: High manager turnover and lack of bench strength. How to build pipeline?" },
+                    { title: "🌱 Culture Building", prompt: "🌱 Culture Building: Cross-department silos growing after rapid scaling. How to implement value assessment?" },
+                    { title: "📊 Automated Recruitment Dashboard", prompt: "📊 Automated Recruitment Dashboard: How to set up hiring funnel metrics and reduce time-to-hire?" },
+                    { title: "📝 Contract Automation", prompt: "📝 Contract Automation: Streamlining multi-regional labor contracts and compliance onboarding." },
+                    { title: "🤝 HRBP Coaching Support", prompt: "🤝 HRBP Coaching Support: Business leaders prioritize short-term targets over team development. How to guide?" },
+                    { title: "👥 Cross-Team Alignment", prompt: "👥 Cross-Team Alignment & Conflict: Delayed cross-functional projects due to unclear ownership. Workshop design?" },
+                    { title: "🎯 OKR & Incentive Design", prompt: "🎯 OKR & Incentive Design: Decomposing annual business goals into team OKRs and linked bonuses." }
+                ],
+                byokTitle: "Bring Your Own Google Gemini API Key (BYOK)",
+                byokDesc: "When your 5 free trial runs are used, enter your personal free Google API Key to continue unlimited usage.",
+                byokTutorial: `<strong>⚡ 3-Second Guide to Get a Free Google API Key:</strong>
+                    <ol>
+                        <li>Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key Page</a> and log in with Google.</li>
+                        <li>Click <strong>'Create API key'</strong> to generate a key.</li>
+                        <li>Copy and paste it into the field above to run Gemini directly!</li>
+                    </ol>`,
+                followupHeader: "⚡ Deep-Dive Follow-ups (Click quick prompts or type custom questions):",
+                posBtn1: "💡 Positive: Get Dialogue Scripts",
+                posBtn2: "📊 Tools: Get Action Checklist",
+                negBtn1: "🔥 Stress Test: Handling Strong Pushback",
+                negBtn2: "⚠️ Blind Spot: Organizational Roadblock Alert",
+                customFollowupPlaceholder: "Or type your specific follow-up question...",
+                btnSendFollowup: "Send",
+                audienceTitle: "Who is this Sandbox for?",
+                audienceCards: [
+                    { title: "CEO & Founders", desc: "Align organizational structure with business growth, spot key leadership risks, and build scalable talent benches." },
+                    { title: "HRBPs", desc: "Translate business pain points into tangible people solutions and provide coaching support to department leaders." },
+                    { title: "Training Institutes", desc: "Quickly assess corporate client bottlenecks to design convincing Training Needs Analysis (TNA) and workshops." },
+                    { title: "Leadership Managers", desc: "Master behavioral interviewing, team alignment, and performance coaching to build high-velocity teams." }
+                ],
+                frameworkTitle: "Business × People Sandbox Framework",
+                frameworkCards: [
+                    { title: "1. Categorize Problem", desc: "Structure unstructured organizational challenges into clear operational and capability dimensions." },
+                    { title: "2. Root Cause Diagnosis", desc: "Pinpoint core bottlenecks across leadership behaviors, incentive models, and workflows." },
+                    { title: "3. Actionable Roadmap", desc: "Generate practical toolkits including 1-on-1 scripts, interview rubrics, and OKR alignment plans." }
+                ],
+                faqTitle: "Frequently Asked Questions (FAQ)",
+                faqItems: [
+                    { q: "Q1: How do the 5 free uses work?", a: "Your browser tracks your first 5 analyses. Once finished, enter your free Google Gemini API Key to continue using the sandbox for free." },
+                    { q: "Q2: Is my data safe with BYOK mode?", a: "Yes. All requests are sent client-side directly to Google's official endpoints. We never store your API keys or confidential corporate data." },
+                    { q: "Q3: How is this different from standard HR tools?", a: "Standard tools focus on simple resume parsing. This sandbox focuses on Business × People strategic alignment to solve systemic organizational issues." },
+                    { q: "Q4: Is Google Gemini API free?", a: "Yes. Google AI Studio offers a generous Free Tier that is more than sufficient for everyday management scenarios and strategy design." }
+                ],
+                aboutTitle: "About HR Vision AI & Terms",
+                aboutHtml: `
+                    <p style="margin-bottom: 1rem;"><strong>About Us:</strong> HR Vision AI bridges business strategy and people enablement. We provide decision sandboxes for executive leaders, HRBPs, and consultants.</p>
+                    <p style="margin-bottom: 1rem;"><strong>Privacy & Cookies:</strong> We respect your privacy and never store confidential data. We may use cookies to improve user experience and deliver relevant ads via partners like Google AdSense.</p>
+                    <p><strong>Contact:</strong> For corporate inquiries, custom workshops, or integrations, reach out to: <a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
+                `
+            }
+        };
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            const data = i18n[lang];
+
+            // 按鈕狀態
+            document.getElementById('btn-lang-zh').classList.toggle('active', lang === 'zh');
+            document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+
+            // 導覽列
+            document.getElementById('nav-sandbox').innerText = data.navSandbox;
+            document.getElementById('nav-audience').innerText = data.navAudience;
+            document.getElementById('nav-framework').innerText = data.navFramework;
+            document.getElementById('nav-faq').innerText = data.navFaq;
+
+            // 核心標題與描述
+            document.getElementById('hero-title').innerText = data.heroTitle;
+            document.getElementById('hero-desc').innerText = data.heroDesc;
+            document.getElementById('label-target').innerText = data.labelTarget;
+
+            // 下拉選單
+            const selectEl = document.getElementById('sandbox-target');
+            const currentVal = selectEl.value;
+            selectEl.innerHTML = '';
+            data.targetOptions.forEach(opt => {
+                const el = document.createElement('option');
+                el.value = opt.value;
+                el.innerText = opt.text;
+                if (opt.value === currentVal) el.selected = true;
+                selectEl.appendChild(el);
+            });
+
+            // 搜尋與標籤
+            document.getElementById('challenge-input').placeholder = data.searchPlaceholder;
+            document.getElementById('btn-diagnose').innerText = data.btnDiagnose;
+            document.getElementById('tags-title').innerText = data.tagsTitle;
+
+            const tagsContainer = document.getElementById('tags-container');
+            tagsContainer.innerHTML = '';
+            data.tags.forEach(tag => {
+                const btn = document.createElement('button');
+                btn.className = 'tag-btn';
+                btn.innerText = tag.title;
+                btn.onclick = () => fillPrompt(tag.prompt);
+                tagsContainer.appendChild(btn);
+            });
+
+            // BYOK 區塊
+            document.getElementById('byok-title').innerText = data.byokTitle;
+            document.getElementById('byok-desc').innerText = data.byokDesc;
+            document.getElementById('tutorial-card').innerHTML = data.byokTutorial;
+
+            // 追問介面
+            document.getElementById('followup-header').innerText = data.followupHeader;
+            document.getElementById('btn-pos-1').innerText = data.posBtn1;
+            document.getElementById('btn-pos-2').innerText = data.posBtn2;
+            document.getElementById('btn-neg-1').innerText = data.negBtn1;
+            document.getElementById('btn-neg-2').innerText = data.negBtn2;
+            document.getElementById('custom-followup-input').placeholder = data.customFollowupPlaceholder;
+            document.getElementById('btn-send-followup').innerText = data.btnSendFollowup;
+
+            // 說明區塊：適用對象
+            document.getElementById('aud-title').innerText = data.audienceTitle;
+            const audGrid = document.getElementById('aud-grid');
+            audGrid.innerHTML = '';
+            data.audienceCards.forEach(c => {
+                audGrid.innerHTML += `<div class="card-item"><h3>${c.title}</h3><p>${c.desc}</p></div>`;
+            });
+
+            // 說明區塊：運作架構
+            document.getElementById('frame-title').innerText = data.frameworkTitle;
+            const frameGrid = document.getElementById('frame-grid');
+            frameGrid.innerHTML = '';
+            data.frameworkCards.forEach(c => {
+                frameGrid.innerHTML += `<div class="card-item"><h3>${c.title}</h3><p>${c.desc}</p></div>`;
+            });
+
+            // FAQ
+            document.getElementById('faq-title').innerText = data.faqTitle;
+            const faqList = document.getElementById('faq-list');
+            faqList.innerHTML = '';
+            data.faqItems.forEach(item => {
+                faqList.innerHTML += `<div class="faq-item"><h3>${item.q}</h3><p>${item.a}</p></div>`;
+            });
+
+            // 關於我們
+            document.getElementById('about-title').innerText = data.aboutTitle;
+            document.getElementById('about-content').innerHTML = data.aboutHtml;
+
+            updateQuotaUI();
+        }
 
         function getRemainingQuota() {
             const used = localStorage.getItem('hrvision_sandbox_used') || 0;
@@ -730,10 +946,14 @@
             const apiKeyContainer = document.getElementById('api-key-container');
 
             if (remaining > 0) {
-                quotaDisplay.innerHTML = `🚀 系統免費體驗額度剩餘：<strong>${remaining} / ${MAX_FREE_QUOTA} 次</strong>`;
+                quotaDisplay.innerHTML = currentLang === 'zh'
+                    ? `🚀 系統免費體驗額度剩餘：<strong>${remaining} / ${MAX_FREE_QUOTA} 次</strong>`
+                    : `🚀 Free Trial Remaining: <strong>${remaining} / ${MAX_FREE_QUOTA}</strong>`;
                 apiKeyContainer.style.display = 'none';
             } else {
-                quotaDisplay.innerHTML = `⚠️ 系統免費額度已用完，請於下方輸入<strong>個人 Google 免費 API Key</strong> 繼續使用。`;
+                quotaDisplay.innerHTML = currentLang === 'zh'
+                    ? `⚠️ 系統免費額度已用完，請於下方輸入<strong>個人 Google 免費 API Key</strong> 繼續使用。`
+                    : `⚠️ Free runs depleted. Enter your <strong>Free Google API Key</strong> below to continue.`;
                 apiKeyContainer.style.display = 'block';
             }
         }
@@ -743,9 +963,7 @@
             document.getElementById('challenge-input').focus();
         }
 
-        document.addEventListener('DOMContentLoaded', updateQuotaUI);
-
-        // 首次發起診斷
+        // 首輪診斷
         async function startInitialDiagnosis() {
             const target = document.getElementById('sandbox-target').value;
             const input = document.getElementById('challenge-input').value.trim();
@@ -753,18 +971,17 @@
             const remaining = getRemainingQuota();
 
             if (!input) {
-                alert('請先輸入您正面臨的組織挑戰，或點選下方範例標籤！');
+                alert(currentLang === 'zh' ? '請先輸入組織挑戰或點選範例標籤！' : 'Please enter a challenge or click a sample tag!');
                 return;
             }
 
             if (remaining <= 0 && !userApiKey) {
-                alert('您的 5 次免費體驗額度已使用完畢！\n\n請依照下方 3 秒教學獲取免費 Google Gemini API Key 並貼上，即可繼續免費使用。');
+                alert(currentLang === 'zh' ? '免費額度已用完，請貼上 Google Gemini API Key！' : 'Free quota depleted. Please enter your Google API Key!');
                 document.getElementById('api-key-container').style.display = 'block';
                 document.getElementById('user-api-key').focus();
                 return;
             }
 
-            // 重設對話歷程
             conversationHistory = [];
             const resultBox = document.getElementById('result-box');
             const conversationContainer = document.getElementById('conversation-container');
@@ -774,17 +991,17 @@
             followupBox.style.display = 'none';
             conversationContainer.innerHTML = '';
 
-            // 建立首輪對話節點
-            appendTurnUI(`【${target} 診斷需求】${input}`, '正在進行組織維度歸類與 Business × People 策略剖析中，請稍候...');
+            const userPromptText = currentLang === 'zh' ? `【${target} 診斷需求】${input}` : `[${target} Request] ${input}`;
+            const loadingText = currentLang === 'zh' ? '正在進行 Business × People 策略剖析中...' : 'Analyzing Business × People strategies...';
+            appendTurnUI(userPromptText, loadingText);
 
-            const initialPrompt = `你是一位世界級商業與組織發展顧問。請以【${target}】的視角，深入剖析以下組織挑戰並產出高階戰略診斷報告：
-
-組織挑戰描述：${input}
-
-請依照以下結構輸出繁體中文報告：
-1. 組織維度歸類與問題定義 (Problem Framing)
-2. 核心根因剖析 (Root Cause Analysis)
-3. 給 ${target} 的具體落地行動方案與執行步驟 (Actionable Plan)`;
+            const initialPrompt = currentLang === 'zh' 
+                ? `你是一位世界級商業與組織發展顧問。請以【${target}】視角，剖析以下組織挑戰並產出高階戰略診斷報告：
+組織挑戰：${input}
+請輸出：1. 組織維度歸類與問題定義 2. 核心根因剖析 3. 給 ${target} 的具體落地行動方案`
+                : `You are a world-class Business and Organizational Development Consultant. Analyze the following challenge from the perspective of a 【${target}】:
+Challenge: ${input}
+Provide: 1. Problem Framing & Dimension 2. Root Cause Analysis 3. Actionable Roadmap for the ${target}`;
 
             try {
                 let report = "";
@@ -795,13 +1012,10 @@
                     localStorage.setItem('hrvision_sandbox_used', used + 1);
                     updateQuotaUI();
 
-                    // 示範模擬回覆
-                    report = `【${target} 戰略診斷輸出】\n\n` +
-                             `1. 組織挑戰歸類 (Classification)：\n- 維度：業務短期目標與長期組織能力建設失衡\n- 影響等級：高（直接影響業務年度增長指標與主管留存）\n\n` +
-                             `2. 核心根因剖析 (Root Cause)：\n- 業務擴張節奏與人才培育機制脫鉤，缺乏明確的教練式支持引導。\n- 考核制度過度偏重短期業績，未將團隊培育納入管理幹部核心職能。\n\n` +
-                             `3. ${target} 專屬落地行動方案 (Action Plan)：\n- 短期（1-2週）：建立教練式 1-on-1 對話指引，協助業務主管拆解業務阻力。\n- 中期（1-2月）：重構績效考核矩陣，將人才梯隊培養權重納入季考核。`;
-                    
-                    // 記錄至歷史
+                    report = currentLang === 'zh' 
+                        ? `【${target} 戰略診斷報告】\n\n1. 組織挑戰歸類：\n- 維度：業務短期目標與組織能力建設失衡\n- 影響等級：高（直接影響年度增長與關鍵人才留存）\n\n2. 核心根因剖析：\n- 擴編速度與主管賦能機制脫鉤，缺乏教練式支持。\n- 績效考核過度單一，缺乏團隊梯隊牽引。\n\n3. ${target} 專屬落地方案：\n- 短期（1-2週）：導入 1-on-1 教練式對話指引。\n- 中期（1-2月）：重構關鍵指標，將團隊培育納入考評。`
+                        : `【${target} Strategic Diagnostic Report】\n\n1. Problem Framing:\n- Dimension: Imbalance between short-term KPI and long-term capability building\n- Impact: High (Directly affects revenue expansion and talent retention)\n\n2. Root Cause Analysis:\n- Scaling pace is detached from frontline management enablement.\n- Incentive schemes lack team development metrics.\n\n3. Actionable Roadmap for ${target}:\n- Short-term (Weeks 1-2): Deploy 1-on-1 coaching dialogue frameworks.\n- Mid-term (Months 1-2): Realign OKRs to include capability building.`;
+
                     conversationHistory.push({ role: "user", parts: [{ text: initialPrompt }] });
                     conversationHistory.push({ role: "model", parts: [{ text: report }] });
                 }
@@ -809,16 +1023,15 @@
                 updateLatestAIResponse(report);
                 followupBox.style.display = 'block';
             } catch (err) {
-                updateLatestAIResponse('診斷過程中發生錯誤：' + err.message + '\n請確認 API Key 是否有效或網路連線正常。');
+                updateLatestAIResponse('Error: ' + err.message);
             }
         }
 
-        // 觸發預設正/反面追問
+        // 追問邏輯
         async function triggerFollowUp(questionText) {
             await handleFollowUpExecution(questionText);
         }
 
-        // 送出自訂追問
         async function sendCustomFollowUp() {
             const inputEl = document.getElementById('custom-followup-input');
             const questionText = inputEl.value.trim();
@@ -827,24 +1040,25 @@
             await handleFollowUpExecution(questionText);
         }
 
-        // 執行追問邏輯
         async function handleFollowUpExecution(questionText) {
             const userApiKey = document.getElementById('user-api-key').value.trim();
             const target = document.getElementById('sandbox-target').value;
             const remaining = getRemainingQuota();
 
             if (remaining <= 0 && !userApiKey) {
-                alert('您的免費額度已用完，請填入個人 Google API Key 繼續追問。');
+                alert(currentLang === 'zh' ? '免費額度已用完，請貼上 API Key 繼續！' : 'Quota depleted. Please enter your API Key!');
                 document.getElementById('api-key-container').style.display = 'block';
                 document.getElementById('user-api-key').focus();
                 return;
             }
 
-            appendTurnUI(questionText, 'AI 顧問正在基於上下文深入分析中，請稍候...');
+            appendTurnUI(questionText, currentLang === 'zh' ? 'AI 顧問正在基於上下文深入分析中...' : 'Deep diving into the follow-up scenario...');
 
             try {
                 let followUpResponse = "";
-                const contextualPrompt = `請延續前面的診斷脈絡，以【${target}】的實戰顧問角度，深度回答以下追問：\n${questionText}`;
+                const contextualPrompt = currentLang === 'zh'
+                    ? `請延續前面的診斷脈絡，以【${target}】的實戰顧問角度，深度回答以下追問：\n${questionText}`
+                    : `Continuing the context above, act as an executive consultant for 【${target}】 and answer:\n${questionText}`;
 
                 if (userApiKey) {
                     followUpResponse = await sendGeminiTurn(userApiKey, contextualPrompt);
@@ -853,13 +1067,14 @@
                     localStorage.setItem('hrvision_sandbox_used', used + 1);
                     updateQuotaUI();
 
-                    if (questionText.includes('壓力測試') || questionText.includes('盲點質疑')) {
-                        followUpResponse = `【反面壓力測試與破局方案】\n\n` +
-                                           `⚠️ 潛在核心阻力：業務主管可能以「業績缺口無法承擔」為由排斥介入。\n\n` +
-                                           `🛠️ 破局策略：\n1. 利益捆綁：向主管證明「團隊流失率每降低 10%，可為其省下 30% 獵才與新人培訓時間，直接釋放業務產能」。\n2. 輕量試點：不推行大課程，改採每週 15 分鐘「微教練 (Micro-coaching)」解決當前最痛的業務單點問題。`;
+                    if (questionText.includes('壓力測試') || questionText.includes('Stress Test') || questionText.includes('盲點') || questionText.includes('Blind Spot')) {
+                        followUpResponse = currentLang === 'zh'
+                            ? `【反面壓力測試與破局方案】\n\n⚠️ 阻力預警：業務主管常以「業績缺口無法承擔」為由排斥介入。\n\n🛠️ 破局策略：\n1. 利益捆綁：證明新人上手縮短兩週可直接釋放 30% 業務產能。\n2. 輕量試點：改採每週 15 分鐘「微教練」解決即時痛點。`
+                            : `【Stress Test & Breakthrough Solution】\n\n⚠️ Core Resistance: Managers may resist citing tight revenue targets.\n\n🛠️ Breakthrough:\n1. Tie to ROI: Show that reducing onboarding time by 2 weeks directly boosts team sales capacity.\n2. Micro-Coaching: Replace heavy courses with 15-minute weekly micro-coaching sessions.`;
                     } else {
-                        followUpResponse = `【正面推進落地指引】\n\n` +
-                                           `📋 1-on-1 溝通引導腳本範例：\n- 開場破冰：「我注意到這季業績目標挑戰很大，你目前在帶領團隊衝刺時，最讓你消耗精力的卡點在哪？」\n- 痛點轉化：「如果我們能把新人上手時間縮短兩週，對你的業績目標會有什麼具體幫助？」\n- 承諾支持：「HRBP 會為你設計專屬工具包，不需要你額外花時間做行政事務。」`;
+                        followUpResponse = currentLang === 'zh'
+                            ? `【正面推進落地指引】\n\n📋 溝通引導範本：\n- 開場破冰：「這季業績挑戰很大，在衝刺時最讓你消耗精力的團隊卡點在哪？」\n- 承諾支持：「HRBP 會為你準備輕量工具包，不增加任何行政負擔。」`
+                            : `【Execution Guide & Scripts】\n\n📋 Dialogue Script:\n- Icebreaker: 'With high targets this quarter, what is draining most of your energy regarding team execution?'\n- Commitment: 'We provide lightweight toolkits without adding administrative burdens.'`;
                     }
 
                     conversationHistory.push({ role: "user", parts: [{ text: contextualPrompt }] });
@@ -868,44 +1083,31 @@
 
                 updateLatestAIResponse(followUpResponse);
             } catch (err) {
-                updateLatestAIResponse('追問過程中發生錯誤：' + err.message);
+                updateLatestAIResponse('Error: ' + err.message);
             }
         }
 
-        // 串接 Google Gemini API (支援多輪上下文)
         async function sendGeminiTurn(apiKey, newPromptText) {
-            conversationHistory.push({
-                role: "user",
-                parts: [{ text: newPromptText }]
-            });
+            conversationHistory.push({ role: "user", parts: [{ text: newPromptText }] });
 
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: conversationHistory
-                })
+                body: JSON.stringify({ contents: conversationHistory })
             });
 
             if (!response.ok) {
                 const errData = await response.json();
-                throw new Error(errData.error?.message || 'API 請求失敗');
+                throw new Error(errData.error?.message || 'API request failed');
             }
 
             const data = await response.json();
             const aiText = data.candidates[0].content.parts[0].text;
-
-            // 記錄 AI 回應進入歷史
-            conversationHistory.push({
-                role: "model",
-                parts: [{ text: aiText }]
-            });
-
+            conversationHistory.push({ role: "model", parts: [{ text: aiText }] });
             return aiText;
         }
 
-        // 介面節點輔助函式
         function appendTurnUI(userText, initialAIText) {
             const container = document.getElementById('conversation-container');
             const turnDiv = document.createElement('div');
@@ -932,6 +1134,11 @@
                 tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
             );
         }
+
+        // 預設初始化為繁體中文
+        document.addEventListener('DOMContentLoaded', () => {
+            switchLanguage('zh');
+        });
     </script>
 </body>
 </html>
