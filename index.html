@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HR Vision AI - Business × People Solution Sandbox | 動態 AI HR 戰略診斷沙盒</title>
-    <meta name="description" content="專為 CEO、HRBP、高階領導管理者及培訓機構打造的 Business × People 策略沙盒。描述您面臨的組織挑戰，AI 即時歸類、剖析並產出可落地的行動方案。">
+    <meta name="description" content="專為 CEO、HRBP、高階領導管理者及培訓機構打造的 Business × People 策略沙盒。描述您面臨的組織挑戰，AI 即時歸類、剖析並支援正反面互動深度追問。">
     <meta name="keywords" content="HRBP, CEO, 領導力評鑑, 培訓機構, 人才戰略配置, OKR設計, 組織文化, 招募自動化">
 
     <!-- Google AdSense 驗證代碼（請將 ca-pub-XXXXXXXXXXXXXXXX 替換為您的發布商 ID） -->
@@ -92,7 +92,6 @@
             padding: 2.5rem 1.5rem;
         }
 
-        /* 策略沙盒操作卡片 */
         .sandbox-card {
             background: var(--white);
             border: 1px solid var(--border-color);
@@ -143,7 +142,6 @@
             outline: none;
         }
 
-        /* 額度狀態列 */
         .quota-banner {
             display: inline-flex;
             align-items: center;
@@ -157,7 +155,6 @@
             font-weight: 600;
         }
 
-        /* 搜尋/診斷輸入框 */
         .search-input-wrapper {
             position: relative;
             max-width: 860px;
@@ -209,7 +206,6 @@
             background-color: var(--primary-hover);
         }
 
-        /* 引導問題標籤區 */
         .tags-section {
             max-width: 860px;
             margin: 0 auto;
@@ -248,7 +244,6 @@
             transform: translateY(-1px);
         }
 
-        /* 自備 API Key 提示區塊（超額時動態顯示） */
         .api-key-container {
             display: none;
             max-width: 860px;
@@ -304,19 +299,141 @@
             margin-bottom: 0.25rem;
         }
 
-        /* 結果展示面板 */
+        /* 結果與互動追問面板 */
         .result-panel {
             max-width: 860px;
             margin: 2rem auto 0 auto;
-            padding: 1.5rem;
+            padding: 1.75rem;
             background-color: #f8fafc;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
             text-align: left;
             display: none;
         }
 
-        /* 內容與說明區塊 (AdSense 審核核心) */
+        .conversation-history {
+            margin-bottom: 1.5rem;
+        }
+
+        .dialogue-turn {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .dialogue-turn:last-child {
+            border-bottom: none;
+        }
+
+        .turn-user {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .turn-ai {
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+
+        /* 正面 / 反面 追問按鈕區塊 */
+        .followup-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .followup-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .followup-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-followup-pos {
+            background-color: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-followup-pos:hover {
+            background-color: #d1fae5;
+            transform: translateY(-1px);
+        }
+
+        .btn-followup-neg {
+            background-color: #fff1f2;
+            border: 1px solid #fecdd3;
+            color: #9f1239;
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-followup-neg:hover {
+            background-color: #ffe4e6;
+            transform: translateY(-1px);
+        }
+
+        .custom-followup-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .custom-followup-input {
+            flex: 1;
+            padding: 0.6rem 0.85rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .btn-send-followup {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-send-followup:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* 內容與說明區塊 */
         .section-block {
             background: var(--white);
             border: 1px solid var(--border-color);
@@ -370,7 +487,6 @@
             color: #0f172a;
         }
 
-        /* 頁尾 */
         footer {
             background: var(--white);
             border-top: 1px solid var(--border-color);
@@ -422,7 +538,7 @@
         <section id="sandbox" class="sandbox-card">
             <div class="sandbox-header">
                 <h1>動態 AI HR 戰略診斷沙盒</h1>
-                <p>描述您正面臨的組織挑戰，AI 將即時歸類、剖析並產出可落地的行動方案。</p>
+                <p>描述您正面臨的組織挑戰，AI 將即時歸類、剖析並產出可落地的行動方案與深度追問交互。</p>
             </div>
 
             <!-- 選擇策略沙盒對象 -->
@@ -447,7 +563,7 @@
             <div class="search-input-wrapper">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="challenge-input" class="search-input" placeholder="例如：團隊擴編快，但關鍵職位一直找不到合適的人選......">
-                <button class="btn-diagnose" onclick="startDiagnosis()">開始診斷</button>
+                <button class="btn-diagnose" onclick="startInitialDiagnosis()">開始診斷</button>
             </div>
 
             <!-- 引導問題標籤區 -->
@@ -483,14 +599,30 @@
                 </div>
             </div>
 
-            <!-- 分析結果展示區 -->
+            <!-- 分析結果與正反面追問展示區 -->
             <div id="result-box" class="result-panel">
-                <h3 id="result-title" style="margin-bottom: 0.75rem; color: var(--primary-color);">沙盒戰略診斷報告：</h3>
-                <div id="result-content" style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7;"></div>
+                <div id="conversation-container" class="conversation-history"></div>
+
+                <!-- 動態追問互動區 -->
+                <div id="followup-box" class="followup-box" style="display: none;">
+                    <div class="followup-title">⚡ 深度策略追問（點擊預設提問或自訂方向）：</div>
+                    <div class="followup-actions" id="followup-buttons">
+                        <!-- 正面追問 -->
+                        <button class="btn-followup-pos" onclick="triggerFollowUp('💡 正面推進：請提供具體落地的【話術對話腳本 / 溝通步驟範本】')">💡 正面推進：索取溝通話術範本</button>
+                        <button class="btn-followup-pos" onclick="triggerFollowUp('📊 工具設計：請為此方案設計一套【量化評鑑指標或檢核表】')">📊 工具設計：索取量化檢核表</button>
+                        <!-- 反面追問 / 壓力測試 -->
+                        <button class="btn-followup-neg" onclick="triggerFollowUp('🔥 壓力測試：若對方強烈抗拒或業務壓力極大拒絕配合，該如何破局？')">🔥 壓力測試：抗拒推託如何破局？</button>
+                        <button class="btn-followup-neg" onclick="triggerFollowUp('⚠️ 盲點質疑：此方案在執行上可能遭遇的最大【組織政治或資源瓶頸】為何？如何預防？')">⚠️ 盲點質疑：潛在組織阻力預警</button>
+                    </div>
+                    <div class="custom-followup-wrapper">
+                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="或輸入您想自訂的深入追問問題...">
+                        <button class="btn-send-followup" onclick="sendCustomFollowUp()">送出追問</button>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- 目標受眾與價值 (Target Audience) -->
+        <!-- 目標受眾與價值 -->
         <section id="audience" class="section-block">
             <h2>誰適合使用本沙盒？</h2>
             <div class="grid-4">
@@ -532,7 +664,7 @@
             </div>
         </section>
 
-        <!-- FAQ 常見問題 (AdSense 審核核心) -->
+        <!-- FAQ 常見問題 -->
         <section id="faq" class="section-block">
             <h2>常見問題 (FAQ)</h2>
             <div class="faq-item">
@@ -582,9 +714,10 @@
         </div>
     </footer>
 
-    <!-- 前端互動與 API 呼叫邏輯 -->
+    <!-- 前端互動與對話記憶呼叫邏輯 -->
     <script>
         const MAX_FREE_QUOTA = 5;
+        let conversationHistory = []; // 用於累積多輪對話上下文
 
         function getRemainingQuota() {
             const used = localStorage.getItem('hrvision_sandbox_used') || 0;
@@ -612,7 +745,8 @@
 
         document.addEventListener('DOMContentLoaded', updateQuotaUI);
 
-        async function startDiagnosis() {
+        // 首次發起診斷
+        async function startInitialDiagnosis() {
             const target = document.getElementById('sandbox-target').value;
             const input = document.getElementById('challenge-input').value.trim();
             const userApiKey = document.getElementById('user-api-key').value.trim();
@@ -630,52 +764,127 @@
                 return;
             }
 
+            // 重設對話歷程
+            conversationHistory = [];
             const resultBox = document.getElementById('result-box');
-            const resultContent = document.getElementById('result-content');
-            const resultTitle = document.getElementById('result-title');
+            const conversationContainer = document.getElementById('conversation-container');
+            const followupBox = document.getElementById('followup-box');
 
             resultBox.style.display = 'block';
-            resultTitle.innerText = `【${target} 視角】沙盒戰略診斷報告：`;
-            resultContent.innerHTML = '正在進行組織維度歸類與 Business × People 策略剖析中，請稍候...';
+            followupBox.style.display = 'none';
+            conversationContainer.innerHTML = '';
+
+            // 建立首輪對話節點
+            appendTurnUI(`【${target} 診斷需求】${input}`, '正在進行組織維度歸類與 Business × People 策略剖析中，請稍候...');
+
+            const initialPrompt = `你是一位世界級商業與組織發展顧問。請以【${target}】的視角，深入剖析以下組織挑戰並產出高階戰略診斷報告：
+
+組織挑戰描述：${input}
+
+請依照以下結構輸出繁體中文報告：
+1. 組織維度歸類與問題定義 (Problem Framing)
+2. 核心根因剖析 (Root Cause Analysis)
+3. 給 ${target} 的具體落地行動方案與執行步驟 (Actionable Plan)`;
 
             try {
                 let report = "";
-
                 if (userApiKey) {
-                    report = await callGeminiAPI(userApiKey, target, input);
+                    report = await sendGeminiTurn(userApiKey, initialPrompt);
                 } else {
                     let used = parseInt(localStorage.getItem('hrvision_sandbox_used') || 0, 10);
                     localStorage.setItem('hrvision_sandbox_used', used + 1);
                     updateQuotaUI();
 
+                    // 示範模擬回覆
                     report = `【${target} 戰略診斷輸出】\n\n` +
-                             `1. 組織挑戰歸類 (Classification)：\n- 維度：人才梯隊與關鍵崗位承載力失衡\n- 影響等級：高（直接影響業務年度增長指標）\n\n` +
-                             `2. 核心根因剖析 (Root Cause)：\n- 業務擴張節奏與人才畫像定義脫鉤，缺乏明確的勝任力指標。\n- 跨部門協作中缺乏量化之 OKR 牽引，導致內部溝通成本增加。\n\n` +
-                             `3. ${target} 專屬落地行動方案 (Action Plan)：\n- 短期（1-2週）：建立關鍵崗位勝任力卡片，導入結構化行為面試追問庫。\n- 中期（1-2月）：設計業務對齊工作坊，重新校準考核指標與激勵機制。`;
+                             `1. 組織挑戰歸類 (Classification)：\n- 維度：業務短期目標與長期組織能力建設失衡\n- 影響等級：高（直接影響業務年度增長指標與主管留存）\n\n` +
+                             `2. 核心根因剖析 (Root Cause)：\n- 業務擴張節奏與人才培育機制脫鉤，缺乏明確的教練式支持引導。\n- 考核制度過度偏重短期業績，未將團隊培育納入管理幹部核心職能。\n\n` +
+                             `3. ${target} 專屬落地行動方案 (Action Plan)：\n- 短期（1-2週）：建立教練式 1-on-1 對話指引，協助業務主管拆解業務阻力。\n- 中期（1-2月）：重構績效考核矩陣，將人才梯隊培養權重納入季考核。`;
+                    
+                    // 記錄至歷史
+                    conversationHistory.push({ role: "user", parts: [{ text: initialPrompt }] });
+                    conversationHistory.push({ role: "model", parts: [{ text: report }] });
                 }
 
-                resultContent.innerText = report;
+                updateLatestAIResponse(report);
+                followupBox.style.display = 'block';
             } catch (err) {
-                resultContent.innerText = '診斷過程中發生錯誤：' + err.message + '\n請確認 API Key 是否有效或網路連線正常。';
+                updateLatestAIResponse('診斷過程中發生錯誤：' + err.message + '\n請確認 API Key 是否有效或網路連線正常。');
             }
         }
 
-        async function callGeminiAPI(apiKey, target, challenge) {
-            const prompt = `你是一位世界級的商業與組織發展顧問。請以【${target}】的視角，深入剖析以下組織挑戰並產出高階戰略診斷報告：
+        // 觸發預設正/反面追問
+        async function triggerFollowUp(questionText) {
+            await handleFollowUpExecution(questionText);
+        }
 
-組織挑戰描述：${challenge}
+        // 送出自訂追問
+        async function sendCustomFollowUp() {
+            const inputEl = document.getElementById('custom-followup-input');
+            const questionText = inputEl.value.trim();
+            if (!questionText) return;
+            inputEl.value = '';
+            await handleFollowUpExecution(questionText);
+        }
 
-請依照以下結構輸出繁體中文報告：
-1. 組織維度歸類與問題定義 (Problem Framing)
-2. 根因剖析 (Root Cause Analysis)
-3. 給 ${target} 的具體落地行動方案與執行步驟 (Actionable Plan)`;
+        // 執行追問邏輯
+        async function handleFollowUpExecution(questionText) {
+            const userApiKey = document.getElementById('user-api-key').value.trim();
+            const target = document.getElementById('sandbox-target').value;
+            const remaining = getRemainingQuota();
+
+            if (remaining <= 0 && !userApiKey) {
+                alert('您的免費額度已用完，請填入個人 Google API Key 繼續追問。');
+                document.getElementById('api-key-container').style.display = 'block';
+                document.getElementById('user-api-key').focus();
+                return;
+            }
+
+            appendTurnUI(questionText, 'AI 顧問正在基於上下文深入分析中，請稍候...');
+
+            try {
+                let followUpResponse = "";
+                const contextualPrompt = `請延續前面的診斷脈絡，以【${target}】的實戰顧問角度，深度回答以下追問：\n${questionText}`;
+
+                if (userApiKey) {
+                    followUpResponse = await sendGeminiTurn(userApiKey, contextualPrompt);
+                } else {
+                    let used = parseInt(localStorage.getItem('hrvision_sandbox_used') || 0, 10);
+                    localStorage.setItem('hrvision_sandbox_used', used + 1);
+                    updateQuotaUI();
+
+                    if (questionText.includes('壓力測試') || questionText.includes('盲點質疑')) {
+                        followUpResponse = `【反面壓力測試與破局方案】\n\n` +
+                                           `⚠️ 潛在核心阻力：業務主管可能以「業績缺口無法承擔」為由排斥介入。\n\n` +
+                                           `🛠️ 破局策略：\n1. 利益捆綁：向主管證明「團隊流失率每降低 10%，可為其省下 30% 獵才與新人培訓時間，直接釋放業務產能」。\n2. 輕量試點：不推行大課程，改採每週 15 分鐘「微教練 (Micro-coaching)」解決當前最痛的業務單點問題。`;
+                    } else {
+                        followUpResponse = `【正面推進落地指引】\n\n` +
+                                           `📋 1-on-1 溝通引導腳本範例：\n- 開場破冰：「我注意到這季業績目標挑戰很大，你目前在帶領團隊衝刺時，最讓你消耗精力的卡點在哪？」\n- 痛點轉化：「如果我們能把新人上手時間縮短兩週，對你的業績目標會有什麼具體幫助？」\n- 承諾支持：「HRBP 會為你設計專屬工具包，不需要你額外花時間做行政事務。」`;
+                    }
+
+                    conversationHistory.push({ role: "user", parts: [{ text: contextualPrompt }] });
+                    conversationHistory.push({ role: "model", parts: [{ text: followUpResponse }] });
+                }
+
+                updateLatestAIResponse(followUpResponse);
+            } catch (err) {
+                updateLatestAIResponse('追問過程中發生錯誤：' + err.message);
+            }
+        }
+
+        // 串接 Google Gemini API (支援多輪上下文)
+        async function sendGeminiTurn(apiKey, newPromptText) {
+            conversationHistory.push({
+                role: "user",
+                parts: [{ text: newPromptText }]
+            });
 
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }]
+                    contents: conversationHistory
                 })
             });
 
@@ -685,7 +894,43 @@
             }
 
             const data = await response.json();
-            return data.candidates[0].content.parts[0].text;
+            const aiText = data.candidates[0].content.parts[0].text;
+
+            // 記錄 AI 回應進入歷史
+            conversationHistory.push({
+                role: "model",
+                parts: [{ text: aiText }]
+            });
+
+            return aiText;
+        }
+
+        // 介面節點輔助函式
+        function appendTurnUI(userText, initialAIText) {
+            const container = document.getElementById('conversation-container');
+            const turnDiv = document.createElement('div');
+            turnDiv.className = 'dialogue-turn';
+            turnDiv.innerHTML = `
+                <div class="turn-user">${escapeHTML(userText)}</div>
+                <div class="turn-ai">${escapeHTML(initialAIText)}</div>
+            `;
+            container.appendChild(turnDiv);
+        }
+
+        function updateLatestAIResponse(text) {
+            const container = document.getElementById('conversation-container');
+            const turns = container.getElementsByClassName('dialogue-turn');
+            if (turns.length > 0) {
+                const lastTurn = turns[turns.length - 1];
+                const aiEl = lastTurn.querySelector('.turn-ai');
+                aiEl.innerText = text;
+            }
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
         }
     </script>
 </body>
