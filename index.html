@@ -661,9 +661,9 @@
                 &copy; 2026 HR Vision AI. All rights reserved. Business × People Solution Sandbox.
             </div>
             <div class="footer-links">
-                <a href="#about" id="footer-privacy">隱私權政策 (Privacy Policy)</a>
-                <a href="#about" id="footer-terms">服務條款 (Terms)</a>
-                <a href="#about" id="footer-contact">聯絡我們 (Contact)</a>
+                <a href="/privacy.html" id="footer-privacy">隱私權政策 (Privacy Policy)</a>
+                <a href="/terms.html" id="footer-terms">服務條款 (Terms)</a>
+                <a href="/about.html" id="footer-contact">關於我們 (About Us)</a>
             </div>
         </div>
     </footer>
@@ -742,7 +742,7 @@
                 aboutHtml: `
                     <p style="margin-bottom: 1rem;"><strong>關於我們：</strong> HR Vision AI 致力於透過生成式 AI 技術搭建組織商業目標與人才發展之間的橋樑。我們為企業高階決策者、HRBP 與管理顧問提供客觀、敏捷且具洞察力的決策實驗沙盒。</p>
                     <p style="margin-bottom: 1rem;"><strong>隱私權政策與 Cookie 規範：</strong> 本站尊重使用者隱私，不長期儲存任何個人識別或機密數據。本網站可能使用 Cookie 以提供良好的瀏覽體驗，並配合第三方廣告供應商（如 Google AdSense）展示相關廣告。</p>
-                    <p><strong>聯絡與合作諮詢：</strong> 如有企業內訓、顧問合作或系統串接需求，歡迎來信：<a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
+                    <p><strong>聯絡與合作諮詢：</strong> 如有企業內訓、顧問合作或系統串接需求，歡迎來信：<a href="mailto:support@hrvision.ai">support@hrvision.ai</a></p>
                 `
             },
             en: {
@@ -812,7 +812,7 @@
                 aboutHtml: `
                     <p style="margin-bottom: 1rem;"><strong>About Us:</strong> HR Vision AI bridges business strategy and people enablement. We provide decision sandboxes for executive leaders, HRBPs, and consultants.</p>
                     <p style="margin-bottom: 1rem;"><strong>Privacy & Cookies:</strong> We respect your privacy and never store confidential data. We may use cookies to improve user experience and deliver relevant ads via partners like Google AdSense.</p>
-                    <p><strong>Contact:</strong> For corporate inquiries, custom workshops, or integrations, reach out to: <a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
+                    <p><strong>Contact:</strong> For corporate inquiries, custom workshops, or integrations, reach out to: <a href="mailto:support@hrvision.ai">support@hrvision.ai</a></p>
                 `
             }
         };
@@ -851,7 +851,7 @@
             const tagsContainer = document.getElementById('tags-container');
             tagsContainer.innerHTML = '';
             data.tags.forEach(tag => {
-                const btn = document.createElement('button');
+                const btn = document.createElement('tag-btn');
                 btn.className = 'tag-btn';
                 btn.innerText = tag.title;
                 btn.onclick = () => fillPrompt(tag.prompt);
@@ -925,19 +925,18 @@
             document.getElementById('challenge-input').focus();
         }
 
-        // 全面清除所有 Markdown 格式符號（標題、粗體、斜體、引用、橫線、代碼塊）
         function cleanMarkdownFormatting(text) {
             if (!text) return "";
             return text
-                .replace(/^[ \t]*#+[ \t]*/gm, '')             // 移除開頭的 #, ##, ###, #### 標題
-                .replace(/\*\*([^*]+)\*\*/g, '$1')            // 移除 **粗體**
-                .replace(/\*([^*]+)\*/g, '$1')                // 移除 *斜體*
-                .replace(/__([^_]+)__/g, '$1')                // 移除 __粗體__
-                .replace(/_([^_]+)_/g, '$1')                  // 移除 _斜體_
-                .replace(/^[ \t]*>[ \t]*/gm, '')              // 移除引用符號 >
-                .replace(/^[ \t]*[-*_]{3,}[ \t]*$/gm, '')     // 移除分隔線 ---, ***, ___
-                .replace(/`{1,3}([^`]+)`{1,3}/g, '$1')        // 移除代碼塊
-                .replace(/\n{3,}/g, '\n\n')                   // 壓縮過多換行
+                .replace(/^[ \t]*#+[ \t]*/gm, '')
+                .replace(/\*\*([^*]+)\*\*/g, '$1')
+                .replace(/\*([^*]+)\*/g, '$1')
+                .replace(/__([^_]+)__/g, '$1')
+                .replace(/_([^_]+)_/g, '$1')
+                .replace(/^[ \t]*>[ \t]*/gm, '')
+                .replace(/^[ \t]*[-*_]{3,}[ \t]*$/gm, '')
+                .replace(/`{1,3}([^`]+)`{1,3}/g, '$1')
+                .replace(/\n{3,}/g, '\n\n')
                 .trim();
         }
 
