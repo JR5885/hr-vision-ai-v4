@@ -547,7 +547,6 @@
 </head>
 <body>
 
-    <!-- 頂部導覽 -->
     <header>
         <div class="nav-container">
             <a href="#" class="logo">HR Vision AI <span id="nav-subtitle">| Business × People Solution Sandbox</span></a>
@@ -567,14 +566,12 @@
     </header>
 
     <div class="container">
-        <!-- 動態 AI HR 戰略診斷沙盒核心區 -->
         <section id="sandbox" class="sandbox-card">
             <div class="sandbox-header">
                 <h1 id="hero-title">動態 AI HR 戰略診斷沙盒</h1>
                 <p id="hero-desc">描述您正面臨的組織挑戰，AI 將即時歸類、剖析並產出可落地的行動方案與深度追問交互。</p>
             </div>
 
-            <!-- 選擇策略沙盒對象 -->
             <div class="target-selector-box">
                 <label for="sandbox-target" id="label-target">選擇策略沙盒對象：</label>
                 <select id="sandbox-target">
@@ -585,27 +582,23 @@
                 </select>
             </div>
 
-            <!-- 額度標籤 -->
             <div>
                 <div class="quota-banner">
                     <span id="quota-display">🚀 系統免費體驗額度剩餘：5 / 5 次</span>
                 </div>
             </div>
 
-            <!-- 主診斷搜尋框 -->
             <div class="search-input-wrapper">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="challenge-input" class="search-input" placeholder="例如：團隊擴編快，但關鍵職位一直找不到合適的人選......">
                 <button class="btn-diagnose" id="btn-diagnose" onclick="startInitialDiagnosis()">開始診斷</button>
             </div>
 
-            <!-- 引導問題標籤區 -->
             <div class="tags-section">
                 <div class="tags-title" id="tags-title">點選下方標籤，快速帶入範例問題</div>
                 <div class="tags-container" id="tags-container"></div>
             </div>
 
-            <!-- 超額時才顯示的 Google API Key 區塊 -->
             <div id="api-key-container" class="api-key-container">
                 <h3 id="byok-title">自備 Google Gemini API Key (BYOK 模式)</h3>
                 <p id="byok-desc">當免費 5 次額度用罄時，輸入個人免費 API Key 即可無限次自由使用本沙盒。</p>
@@ -622,11 +615,9 @@
                 </div>
             </div>
 
-            <!-- 分析結果與正反面追問展示區 -->
             <div id="result-box" class="result-panel">
                 <div id="conversation-container" class="conversation-history"></div>
 
-                <!-- 動態追問互動區 -->
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="followup-title" id="followup-header">⚡ 深度策略追問（點擊預設提問或自訂方向）：</div>
                     <div class="followup-actions" id="followup-actions">
@@ -643,32 +634,27 @@
             </div>
         </section>
 
-        <!-- 目標受眾與價值 -->
         <section id="audience" class="section-block">
             <h2 id="aud-title">誰適合使用本沙盒？</h2>
             <div class="grid-4" id="aud-grid"></div>
         </section>
 
-        <!-- 核心運作架構 -->
         <section id="framework" class="section-block">
             <h2 id="frame-title">Business × People 沙盒運作架構</h2>
             <div class="grid-3" id="frame-grid"></div>
         </section>
 
-        <!-- FAQ 常見問題 -->
         <section id="faq" class="section-block">
             <h2 id="faq-title">常見問題 (FAQ)</h2>
             <div id="faq-list"></div>
         </section>
 
-        <!-- 關於我們 & 合規宣告 -->
         <section id="about" class="section-block">
             <h2 id="about-title">關於 HR Vision AI 與服務條款</h2>
             <div id="about-content"></div>
         </section>
     </div>
 
-    <!-- 頁尾 -->
     <footer>
         <div class="footer-container">
             <div id="footer-copy">
@@ -682,12 +668,8 @@
         </div>
     </footer>
 
-    <!-- 前端互動、多語系字庫與 API 邏輯 -->
     <script>
         const MAX_FREE_QUOTA = 5;
-        const DEFAULT_API_KEY = "AQ.Ab8RN6KRGgiTrSpurK2eoy9HU9SBKpOkjVv-DR38DKhV944ZNA";
-        const MODEL_NAME = "gemini-3.6-flash";
-
         let currentLang = 'zh';
         let conversationHistory = [];
 
@@ -987,10 +969,8 @@ Provide:
 2. Root Cause Analysis
 3. Actionable Roadmap for the ${target}`;
 
-            const activeKey = userApiKey || DEFAULT_API_KEY;
-
             try {
-                const report = await sendGeminiTurn(activeKey, initialPrompt);
+                const report = await sendDiagnosisRequest(userApiKey, initialPrompt);
                 if (!userApiKey) {
                     let used = parseInt(localStorage.getItem('hrvision_sandbox_used') || 0, 10);
                     localStorage.setItem('hrvision_sandbox_used', used + 1);
@@ -1029,13 +1009,12 @@ Provide:
 
             appendTurnUI(questionText, currentLang === 'zh' ? 'AI 顧問正在基於上下文深入分析中...' : 'Deep diving into the follow-up scenario...');
 
-            const activeKey = userApiKey || DEFAULT_API_KEY;
             const contextualPrompt = currentLang === 'zh'
                 ? `請延續前面的診斷脈絡，以【${target}】的實戰顧問角度，深度回答以下追問：\n${questionText}`
                 : `Continuing the context above, act as an executive consultant for 【${target}】 and answer:\n${questionText}`;
 
             try {
-                const followUpResponse = await sendGeminiTurn(activeKey, contextualPrompt);
+                const followUpResponse = await sendDiagnosisRequest(userApiKey, contextualPrompt);
                 if (!userApiKey) {
                     let used = parseInt(localStorage.getItem('hrvision_sandbox_used') || 0, 10);
                     localStorage.setItem('hrvision_sandbox_used', used + 1);
@@ -1047,26 +1026,28 @@ Provide:
             }
         }
 
-        async function sendGeminiTurn(apiKey, newPromptText) {
+        async function sendDiagnosisRequest(userApiKey, newPromptText) {
             conversationHistory.push({ role: "user", parts: [{ text: newPromptText }] });
 
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${encodeURIComponent(apiKey)}`;
-            
-            const headers = {
-                'Content-Type': 'application/json',
-                'x-goog-api-key': apiKey,
-                'Authorization': `Bearer ${apiKey}`
-            };
-
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify({ contents: conversationHistory })
-            });
+            let response;
+            if (userApiKey) {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(userApiKey)}`;
+                response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: conversationHistory })
+                });
+            } else {
+                response = await fetch('/api/diagnose', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: conversationHistory })
+                });
+            }
 
             if (!response.ok) {
                 const errData = await response.json().catch(() => ({}));
-                throw new Error(errData.error?.message || `API request failed (HTTP ${response.status})`);
+                throw new Error(errData.error || `請求失敗 (HTTP ${response.status})`);
             }
 
             const data = await response.json();
