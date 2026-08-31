@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     try {
         const { contents } = req.body;
         const apiKey = process.env.GEMINI_API_KEY || "AQ.Ab8RN6KRGgiTrSpurK2eoy9HU9SBKpOkjVv-DR38DKhV944ZNA";
-        const MODEL = "gemini-1.5-flash";
+        const MODEL = "gemini-3.6-flash";
 
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
 
