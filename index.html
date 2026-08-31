@@ -670,6 +670,7 @@
 
     <script>
         const MAX_FREE_QUOTA = 5;
+        const MODEL_NAME = "gemini-3.6-flash";
         let currentLang = 'zh';
         let conversationHistory = [];
 
@@ -1031,8 +1032,8 @@ Provide:
 
             let response;
             if (userApiKey) {
-                // 使用者自備 API Key（BYOK 模式）：加入 x-goog-api-key 標頭支援 AQ. 格式金鑰
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(userApiKey)}`;
+                // 使用者自備 API Key（BYOK 模式）：直連 Google 官方端點
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${encodeURIComponent(userApiKey)}`;
                 response = await fetch(url, {
                     method: 'POST',
                     headers: { 
@@ -1052,7 +1053,6 @@ Provide:
 
             if (!response.ok) {
                 const errData = await response.json().catch(() => ({}));
-                // 解析錯誤物件，避免出現 [object Object]
                 const errMsg = (errData.error && typeof errData.error === 'object')
                     ? (errData.error.message || JSON.stringify(errData.error))
                     : (errData.error || `請求失敗 (HTTP ${response.status})`);
