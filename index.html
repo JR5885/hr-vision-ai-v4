@@ -7,8 +7,9 @@
     <meta name="description" content="AI Strategy Diagnostic Sandbox for CEOs, HRBPs, Leadership Managers, and Training Institutes.">
     <meta name="keywords" content="HRBP, CEO, Leadership, Training, Talent Strategy, OKR, Organization Culture">
 
-    <!-- Google AdSense Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <!-- Google AdSense 官方專屬驗證代碼 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9353163507052465"
+         crossorigin="anonymous"></script>
 
     <style>
         :root {
@@ -851,7 +852,7 @@
             const tagsContainer = document.getElementById('tags-container');
             tagsContainer.innerHTML = '';
             data.tags.forEach(tag => {
-                const btn = document.createElement('tag-btn');
+                const btn = document.createElement('button');
                 btn.className = 'tag-btn';
                 btn.innerText = tag.title;
                 btn.onclick = () => fillPrompt(tag.prompt);
