@@ -925,6 +925,16 @@
             document.getElementById('challenge-input').focus();
         }
 
+        // 移除 Markdown 標題符號、粗體星號與分割線
+        function cleanMarkdownFormatting(text) {
+            if (!text) return "";
+            return text
+                .replace(/^#+\s+/gm, '')       // 移除開頭的 #, ##, ### 等標題符號
+                .replace(/\*\*(.*?)\*\*/g, '$1') // 移除 **粗體** 符號
+                .replace(/---+/g, '')           // 移除 --- 分割線
+                .trim();
+        }
+
         async function startInitialDiagnosis() {
             const target = document.getElementById('sandbox-target').value;
             const input = document.getElementById('challenge-input').value.trim();
@@ -957,18 +967,30 @@
             appendTurnUI(userPromptText, loadingText);
 
             const initialPrompt = currentLang === 'zh' 
-                ? `你是一位世界級商業與組織發展顧問。請以【${target}】視角，剖析以下組織挑戰並產出高階戰略診斷報告：
+                ? `你是一位資深高階商業與組織實戰顧問。請以【${target}】的實務視角，剖析以下組織挑戰並產出可落地的實戰方案：
 組織挑戰：${input}
-請輸出：
-1. 組織維度歸類與問題定義 (Problem Framing)
-2. 核心根因剖析 (Root Cause Analysis)
-3. 給 ${target} 的具體落地行動方案與執行步驟 (Actionable Plan)`
-                : `You are a world-class Business and Organizational Development Consultant. Analyze the following challenge from the perspective of a 【${target}】:
+
+輸出要求：
+1. 組織維度與核心痛點
+2. 根因剖析（切中本質）
+3. ${target} 落地實戰步驟（具體、有力、直接切入操作）
+
+【格式硬性規則】：
+- 嚴禁使用任何 Markdown 格式符號（完全不要出現 **、#、##、###、--- 等符號）。
+- 排版請直接使用純文字條列或清晰換行。
+- 回答必須簡潔有力、直球切入實務，不要任何空泛問候或引言廢話。`
+                : `You are an executive Business and Organizational Development Consultant. Analyze the following challenge from the practical perspective of a 【${target}】:
 Challenge: ${input}
+
 Provide:
-1. Problem Framing & Dimension
+1. Problem Framing & Core Pain Point
 2. Root Cause Analysis
-3. Actionable Roadmap for the ${target}`;
+3. Practical Action Steps for ${target}
+
+【Strict Formatting Rules】:
+- Do NOT use any Markdown formatting symbols (strictly no **, #, ##, ###, ---).
+- Use clean plain text with standard line breaks.
+- Be concise, direct, highly actionable, and avoid generic fluff or greetings.`;
 
             try {
                 const report = await sendDiagnosisRequest(userApiKey, initialPrompt);
@@ -977,7 +999,7 @@ Provide:
                     localStorage.setItem('hrvision_sandbox_used', used + 1);
                     updateQuotaUI();
                 }
-                updateLatestAIResponse(report);
+                updateLatestAIResponse(cleanMarkdownFormatting(report));
                 followupBox.style.display = 'block';
             } catch (err) {
                 updateLatestAIResponse('Error: ' + err.message);
@@ -1011,8 +1033,8 @@ Provide:
             appendTurnUI(questionText, currentLang === 'zh' ? 'AI 顧問正在基於上下文深入分析中...' : 'Deep diving into the follow-up scenario...');
 
             const contextualPrompt = currentLang === 'zh'
-                ? `請延續前面的診斷脈絡，以【${target}】的實戰顧問角度，深度回答以下追問：\n${questionText}`
-                : `Continuing the context above, act as an executive consultant for 【${target}】 and answer:\n${questionText}`;
+                ? `請延續前面的診斷脈絡，以【${target}】的實戰顧問角度，深度回答以下追問：\n${questionText}\n\n【格式硬性規則】：嚴禁使用 **、#、##、###、--- 等 Markdown 標記，直接輸出簡潔有力且可落地的純文字步驟。`
+                : `Continuing the context above, act as an executive consultant for 【${target}】 and answer:\n${questionText}\n\n【Strict Rules】: Do NOT use **, #, ##, ###, --- Markdown symbols. Deliver concise, highly actionable plain-text steps.`;
 
             try {
                 const followUpResponse = await sendDiagnosisRequest(userApiKey, contextualPrompt);
@@ -1021,7 +1043,7 @@ Provide:
                     localStorage.setItem('hrvision_sandbox_used', used + 1);
                     updateQuotaUI();
                 }
-                updateLatestAIResponse(followUpResponse);
+                updateLatestAIResponse(cleanMarkdownFormatting(followUpResponse));
             } catch (err) {
                 updateLatestAIResponse('Error: ' + err.message);
             }
@@ -1032,7 +1054,6 @@ Provide:
 
             let response;
             if (userApiKey) {
-                // 使用者自備 API Key（BYOK 模式）：直連 Google 官方端點
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${encodeURIComponent(userApiKey)}`;
                 response = await fetch(url, {
                     method: 'POST',
@@ -1043,7 +1064,6 @@ Provide:
                     body: JSON.stringify({ contents: conversationHistory })
                 });
             } else {
-                // 前 5 次免費額度：呼叫後端代理 (/api/diagnose)
                 response = await fetch('/api/diagnose', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
