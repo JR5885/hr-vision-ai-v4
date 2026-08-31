@@ -925,13 +925,19 @@
             document.getElementById('challenge-input').focus();
         }
 
-        // 移除 Markdown 標題符號、粗體星號與分割線
+        // 全面清除所有 Markdown 格式符號（標題、粗體、斜體、引用、橫線、代碼塊）
         function cleanMarkdownFormatting(text) {
             if (!text) return "";
             return text
-                .replace(/^#+\s+/gm, '')       // 移除開頭的 #, ##, ### 等標題符號
-                .replace(/\*\*(.*?)\*\*/g, '$1') // 移除 **粗體** 符號
-                .replace(/---+/g, '')           // 移除 --- 分割線
+                .replace(/^[ \t]*#+[ \t]*/gm, '')             // 移除開頭的 #, ##, ###, #### 標題
+                .replace(/\*\*([^*]+)\*\*/g, '$1')            // 移除 **粗體**
+                .replace(/\*([^*]+)\*/g, '$1')                // 移除 *斜體*
+                .replace(/__([^_]+)__/g, '$1')                // 移除 __粗體__
+                .replace(/_([^_]+)_/g, '$1')                  // 移除 _斜體_
+                .replace(/^[ \t]*>[ \t]*/gm, '')              // 移除引用符號 >
+                .replace(/^[ \t]*[-*_]{3,}[ \t]*$/gm, '')     // 移除分隔線 ---, ***, ___
+                .replace(/`{1,3}([^`]+)`{1,3}/g, '$1')        // 移除代碼塊
+                .replace(/\n{3,}/g, '\n\n')                   // 壓縮過多換行
                 .trim();
         }
 
@@ -967,30 +973,30 @@
             appendTurnUI(userPromptText, loadingText);
 
             const initialPrompt = currentLang === 'zh' 
-                ? `你是一位資深高階商業與組織實戰顧問。請以【${target}】的實務視角，剖析以下組織挑戰並產出可落地的實戰方案：
+                ? `請以【${target}】高階商業實務視角，診斷以下組織挑戰：
 組織挑戰：${input}
 
-輸出要求：
-1. 組織維度與核心痛點
-2. 根因剖析（切中本質）
-3. ${target} 落地實戰步驟（具體、有力、直接切入操作）
+輸出結構：
+1. 組織維度與痛點本質
+2. 核心根因剖析（精準切入機制與領導力）
+3. ${target} 落地實務行動步驟（具體、直接、可執行）
 
-【格式硬性規則】：
-- 嚴禁使用任何 Markdown 格式符號（完全不要出現 **、#、##、###、--- 等符號）。
-- 排版請直接使用純文字條列或清晰換行。
-- 回答必須簡潔有力、直球切入實務，不要任何空泛問候或引言廢話。`
-                : `You are an executive Business and Organizational Development Consultant. Analyze the following challenge from the practical perspective of a 【${target}】:
+【輸出限制】：
+- 嚴禁使用任何 Markdown 格式符號（絕對不要出現 **、#、##、###、---、> 等符號）。
+- 全部使用純文字排版，以清晰分段和數字條列表達。
+- 內容務必簡潔有力、直球切入實務，不要任何客套話與引言。`
+                : `Analyze this challenge from the executive perspective of a 【${target}】:
 Challenge: ${input}
 
-Provide:
-1. Problem Framing & Core Pain Point
+Output Structure:
+1. Problem Framing & Core Issue
 2. Root Cause Analysis
 3. Practical Action Steps for ${target}
 
-【Strict Formatting Rules】:
-- Do NOT use any Markdown formatting symbols (strictly no **, #, ##, ###, ---).
-- Use clean plain text with standard line breaks.
-- Be concise, direct, highly actionable, and avoid generic fluff or greetings.`;
+【Strict Rules】:
+- Do NOT use any Markdown formatting symbols (strictly no **, #, ##, ###, ---, >).
+- Use clean plain text with standard line breaks and bullet numbers.
+- Be concise, direct, and practical. No fluff or greetings.`;
 
             try {
                 const report = await sendDiagnosisRequest(userApiKey, initialPrompt);
@@ -1030,11 +1036,11 @@ Provide:
                 return;
             }
 
-            appendTurnUI(questionText, currentLang === 'zh' ? 'AI 顧問正在基於上下文深入分析中...' : 'Deep diving into the follow-up scenario...');
+            appendTurnUI(questionText, currentLang === 'zh' ? 'AI 顧問正在深入分析中...' : 'Deep diving into the follow-up scenario...');
 
             const contextualPrompt = currentLang === 'zh'
-                ? `請延續前面的診斷脈絡，以【${target}】的實戰顧問角度，深度回答以下追問：\n${questionText}\n\n【格式硬性規則】：嚴禁使用 **、#、##、###、--- 等 Markdown 標記，直接輸出簡潔有力且可落地的純文字步驟。`
-                : `Continuing the context above, act as an executive consultant for 【${target}】 and answer:\n${questionText}\n\n【Strict Rules】: Do NOT use **, #, ##, ###, --- Markdown symbols. Deliver concise, highly actionable plain-text steps.`;
+                ? `請延續前面的診斷脈絡，以【${target}】實戰顧問角度回答追問：\n${questionText}\n\n【輸出限制】：嚴禁使用 **、#、##、###、---、> 等 Markdown 符號，直接輸出簡潔有力且可落地的純文字步驟。`
+                : `Continuing the context above, act as an executive consultant for 【${target}】 and answer:\n${questionText}\n\n【Strict Rules】: Do NOT use **, #, ##, ###, ---, > Markdown symbols. Output concise, actionable plain text.`;
 
             try {
                 const followUpResponse = await sendDiagnosisRequest(userApiKey, contextualPrompt);
