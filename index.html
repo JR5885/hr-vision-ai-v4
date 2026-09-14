@@ -1,176 +1,1126 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Vision AI - 智慧人力資源與招募自動化解決方案</title>
-    <meta name="description" content="HR Vision AI 運用先進 AI 與數據驅動技術，提供企業智慧履歷解析、招募漏斗優化與全球化人才地圖解決方案。">
+    <title>HR Vision AI - Business × People Solution Sandbox</title>
+    <meta name="description" content="AI Strategy Diagnostic Sandbox for CEOs, HRBPs, Leadership Managers, and Training Institutes.">
+    <meta name="keywords" content="HRBP, CEO, Leadership, Training, Talent Strategy, OKR, Organization Culture">
+
+    <!-- Google AdSense 官方專屬驗證代碼 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9353163507052465"
+         crossorigin="anonymous"></script>
+
     <style>
         :root {
-            --primary-color: #1a365d;
-            --secondary-color: #2b6cb0;
-            --accent-color: #38a169;
-            --bg-color: #f7fafc;
-            --text-color: #2d3748;
-            --border-color: #cbd5e0;
+            --primary-color: #0f766e;
+            --primary-hover: #115e59;
+            --secondary-color: #0284c7;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --accent-bg: #f0fdf4;
+            --accent-border: #bbf7d0;
+            --accent-text: #166534;
+            --tag-bg: #ffffff;
+            --tag-border: #e2e8f0;
+            --tag-hover: #f1f5f9;
         }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
+
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            padding: 20px;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.65;
         }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
+
         header {
-            text-align: center;
-            margin-bottom: 40px;
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        h1 {
-            font-size: 2.2rem;
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--primary-color);
-            margin-bottom: 15px;
+            text-decoration: none;
+            letter-spacing: -0.5px;
         }
-        header p {
-            font-size: 1.1rem;
-            color: #4a5568;
-        }
-        h2 {
-            font-size: 1.5rem;
+
+        .logo span {
             color: var(--secondary-color);
-            margin-top: 35px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 8px;
+            font-weight: 400;
+            font-size: 0.95rem;
+            margin-left: 0.25rem;
         }
-        p {
-            margin-bottom: 15px;
-            font-size: 1.05rem;
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
-        ul {
-            margin-bottom: 20px;
-            padding-left: 25px;
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
         }
-        li {
-            margin-bottom: 8px;
+
+        nav a:hover {
+            color: var(--primary-color);
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-        }
-        th, td {
+
+        .lang-switch {
+            display: inline-flex;
+            background: #f1f5f9;
+            padding: 0.25rem;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            padding: 12px 15px;
-            text-align: left;
-            vertical-align: top;
         }
-        th {
-            background-color: #ebf8ff;
-            color: var(--secondary-color);
-            font-weight: bold;
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #64748b;
+            transition: all 0.2s;
         }
-        tr:nth-child(even) {
-            background-color: #f7fafc;
+
+        .lang-btn.active {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .highlight-box {
-            background-color: #f0fff4;
-            border-left: 4px solid var(--accent-color);
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 0 4px 4px 0;
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
         }
-        footer {
+
+        .sandbox-card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
             text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+        }
+
+        .sandbox-header h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .sandbox-header p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .target-selector-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .target-selector-box label {
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.95rem;
+        }
+
+        .target-selector-box select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background-color: #ffffff;
+            color: var(--text-main);
+            font-weight: 500;
+            outline: none;
+        }
+
+        .quota-banner {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--accent-bg);
+            border: 1px solid var(--accent-border);
+            color: var(--accent-text);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            max-width: 860px;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            padding: 0.35rem 0.5rem 0.35rem 1.25rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input-wrapper:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 16px rgba(15, 118, 110, 0.12);
+        }
+
+        .search-icon {
+            font-size: 1.2rem;
+            margin-right: 0.75rem;
+            color: #64748b;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            background: transparent;
+        }
+
+        .btn-diagnose {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-diagnose:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .tags-section {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .tags-title {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0.85rem;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .tag-btn {
+            background: var(--tag-bg);
+            border: 1px solid var(--tag-border);
+            border-radius: 50px;
+            padding: 0.45rem 1rem;
+            font-size: 0.85rem;
+            color: #334155;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .tag-btn:hover {
+            background: var(--tag-hover);
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+        }
+
+        .api-key-container {
+            display: none;
+            max-width: 860px;
+            margin: 2rem auto 0 auto;
+            text-align: left;
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .api-key-container h3 {
+            color: #92400e;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .api-key-container p {
+            color: #78350f;
             font-size: 0.9rem;
-            color: #718096;
+            margin-bottom: 1rem;
+        }
+
+        .api-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .api-input-group input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .tutorial-card {
+            background: #ffffff;
+            border: 1px dashed #d97706;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #451a03;
+        }
+
+        .tutorial-card ol {
+            margin-left: 1.25rem;
+            margin-top: 0.35rem;
+        }
+
+        .tutorial-card li {
+            margin-bottom: 0.25rem;
+        }
+
+        .result-panel {
+            max-width: 860px;
+            margin: 2rem auto 0 auto;
+            padding: 1.75rem;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-align: left;
+            display: none;
+        }
+
+        .conversation-history {
+            margin-bottom: 1.5rem;
+        }
+
+        .dialogue-turn {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .dialogue-turn:last-child {
+            border-bottom: none;
+        }
+
+        .turn-user {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .turn-ai {
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+
+        .followup-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .followup-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .followup-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-followup-pos {
+            background-color: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-followup-pos:hover {
+            background-color: #d1fae5;
+            transform: translateY(-1px);
+        }
+
+        .btn-followup-neg {
+            background-color: #fff1f2;
+            border: 1px solid #fecdd3;
+            color: #9f1239;
+            padding: 0.5rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-followup-neg:hover {
+            background-color: #ffe4e6;
+            transform: translateY(-1px);
+        }
+
+        .custom-followup-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .custom-followup-input {
+            flex: 1;
+            padding: 0.6rem 0.85rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .btn-send-followup {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-send-followup:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .section-block {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-block h2 {
+            font-size: 1.45rem;
+            margin-bottom: 1rem;
+            color: #0f172a;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.25rem;
+        }
+
+        .card-item {
+            background: var(--bg-light);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .card-item h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+            color: var(--primary-color);
+        }
+
+        .faq-item {
+            margin-bottom: 1.25rem;
+        }
+
+        .faq-item h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.35rem;
+            color: #0f172a;
+        }
+
+        footer {
+            background: var(--white);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            margin-top: 3rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
         }
     </style>
 </head>
 <body>
 
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">HR Vision AI <span id="nav-subtitle">| Business × People Solution Sandbox</span></a>
+            <div class="nav-right">
+                <nav>
+                    <a href="#sandbox" id="nav-sandbox">診斷沙盒</a>
+                    <a href="#audience" id="nav-audience">適用對象</a>
+                    <a href="#framework" id="nav-framework">運作架構</a>
+                    <a href="#faq" id="nav-faq">常見問題</a>
+                </nav>
+                <div class="lang-switch">
+                    <button class="lang-btn active" id="btn-lang-zh" onclick="switchLanguage('zh')">繁中</button>
+                    <button class="lang-btn" id="btn-lang-en" onclick="switchLanguage('en')">English</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
-        <header>
-            <h1>HR Vision AI：次世代智慧人力資源與招募自動化平台</h1>
-            <p>運用先進人工智慧與數據驅動技術，為現代企業打造高效、精準且具前瞻性的招募解決方案。</p>
-        </header>
+        <section id="sandbox" class="sandbox-card">
+            <div class="sandbox-header">
+                <h1 id="hero-title">動態 AI HR 戰略診斷沙盒</h1>
+                <p id="hero-desc">描述您正面臨的組織挑戰，AI 將即時歸類、剖析並產出可落地的行動方案與深度追問交互。</p>
+            </div>
 
-        <section>
-            <h2>平台核心價值與使命</h2>
-            <p>在當今快速變遷的數位與全球化職場中，傳統的人力資源作業模式往往受限於繁瑣的手動篩選、資訊不對稱以及溝通延遲。HR Vision AI 的誕生，正是為了解決企業在招募與人才培育上面臨的關鍵痛點：</p>
-            <ul>
-                <li><strong>提升招募效率：</strong>透過自動化工作流程與 AI 語意分析，大幅縮短履歷篩選與面試協調時間。</li>
-                <li><strong>數據驅動決策：</strong>協助招募主管與 HRBP 建立量化指標（KPI），減少主觀偏見，精準評估候選人適任度。</li>
-                <li><strong>優化候選人體驗：</strong>打造透明、流暢的招募漏斗，提升企業雇主品牌形象（Employer Brand）。</li>
-            </ul>
+            <div class="target-selector-box">
+                <label for="sandbox-target" id="label-target">選擇策略沙盒對象：</label>
+                <select id="sandbox-target">
+                    <option value="CEO">CEO (執行長 / 創辦人)</option>
+                    <option value="HRBP" selected>HRBP (人資業務夥伴)</option>
+                    <option value="Training Institute">培訓機構 (企業教練 / 顧問)</option>
+                    <option value="Manager">Manager (高階領導主管)</option>
+                </select>
+            </div>
+
+            <div>
+                <div class="quota-banner">
+                    <span id="quota-display">🚀 系統免費體驗額度剩餘：5 / 5 次</span>
+                </div>
+            </div>
+
+            <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="challenge-input" class="search-input" placeholder="例如：團隊擴編快，但關鍵職位一直找不到合適的人選......">
+                <button class="btn-diagnose" id="btn-diagnose" onclick="startInitialDiagnosis()">開始診斷</button>
+            </div>
+
+            <div class="tags-section">
+                <div class="tags-title" id="tags-title">點選下方標籤，快速帶入範例問題</div>
+                <div class="tags-container" id="tags-container"></div>
+            </div>
+
+            <div id="api-key-container" class="api-key-container">
+                <h3 id="byok-title">自備 Google Gemini API Key (BYOK 模式)</h3>
+                <p id="byok-desc">當免費 5 次額度用罄時，輸入個人免費 API Key 即可無限次自由使用本沙盒。</p>
+                <div class="api-input-group">
+                    <input type="password" id="user-api-key" placeholder="貼上你的 Google AI Studio API Key (AIzaSy...)">
+                </div>
+                <div class="tutorial-card" id="tutorial-card">
+                    <strong>⚡ 3 秒獲取 Google 免費 API 教程：</strong>
+                    <ol>
+                        <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key 頁面</a> 並登入 Google 帳號。</li>
+                        <li>點擊 <strong>「Create API key」</strong> 建立一組全新金鑰。</li>
+                        <li>複製代碼並貼回上方輸入框，即可直接使用 Gemini 模型進行分析！</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div id="result-box" class="result-panel">
+                <div id="conversation-container" class="conversation-history"></div>
+
+                <div id="followup-box" class="followup-box" style="display: none;">
+                    <div class="followup-title" id="followup-header">⚡ 深度策略追問（點擊預設提問或自訂方向）：</div>
+                    <div class="followup-actions" id="followup-actions">
+                        <button class="btn-followup-pos" id="btn-pos-1" onclick="triggerFollowUp(currentLang === 'zh' ? '💡 正面推進：請提供具體落地的【話術對話腳本 / 溝通步驟範本】' : '💡 Positive Deep-Dive: Provide practical dialogue scripts and action steps.')">💡 正面推進：索取溝通話術範本</button>
+                        <button class="btn-followup-pos" id="btn-pos-2" onclick="triggerFollowUp(currentLang === 'zh' ? '📊 工具設計：請為此方案設計一套【量化評鑑指標或檢核表】' : '📊 Tool Design: Design quantitative metrics or a checklist for this plan.')">📊 工具設計：索取量化檢核表</button>
+                        <button class="btn-followup-neg" id="btn-neg-1" onclick="triggerFollowUp(currentLang === 'zh' ? '🔥 壓力測試：若對方強烈抗拒或業務壓力極大拒絕配合，該如何破局？' : '🔥 Stress Test: If stakeholders strongly resist due to KPI pressure, how to break the deadlock?')">🔥 壓力測試：抗拒推託如何破局？</button>
+                        <button class="btn-followup-neg" id="btn-neg-2" onclick="triggerFollowUp(currentLang === 'zh' ? '⚠️ 盲點質疑：此方案在執行上可能遭遇的最大【組織政治或資源瓶頸】為何？如何預防？' : '⚠️ Blind Spot: What is the biggest organizational politics/resource roadblock? How to prevent it?')">⚠️ 盲點質疑：潛在組織阻力預警</button>
+                    </div>
+                    <div class="custom-followup-wrapper">
+                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="或輸入您想自訂的深入追問問題...">
+                        <button class="btn-send-followup" id="btn-send-followup" onclick="sendCustomFollowUp()">送出追問</button>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section>
-            <h2>核心功能與技術優勢</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>功能模組</th>
-                        <th>應用場景</th>
-                        <th>核心效益</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>AI 智慧履歷解析</strong></td>
-                        <td>自動化處理海量履歷，依據職缺關鍵指標（KPI）進行多維度評分與資格分級。</td>
-                        <td>節省高達 70% 的手動篩選時間，加速人才進入面試流程。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>招募數據漏斗優化</strong></td>
-                        <td>即時診斷招募流程中的流失點（Drop-off Rate），自動化追蹤面試反饋與 SLA。</td>
-                        <td>有效降低關鍵職缺的流失率，提升錄用轉化率。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>全球化人才地圖</strong></td>
-                        <td>針對跨國團隊（如 APAC、SEA、US 等市場）進行市場對標與潛在人才搜尋。</td>
-                        <td>突破地域限制，精準鎖定具備遠端協作與高適應力的頂尖人才。</td>
-                    </tr>
-                </tbody>
-            </table>
+        <section id="audience" class="section-block">
+            <h2 id="aud-title">誰適合使用本沙盒？</h2>
+            <div class="grid-4" id="aud-grid"></div>
         </section>
 
-        <section>
-            <h2>關於我們與專業團隊</h2>
-            <p>HR Vision AI 由具備豐富跨國企業經驗的人力資源專家、資料科學家及軟體工程師共同創辦。團隊成員曾任職於各大前沿科技公司與跨國企業，深諳高科技產業對敏捷、高效、合規人才的強烈需求。</p>
-            <p>我們結合實務上的 HRBP 營運經驗與頂尖 AI 技術（如自動化框架與語意模型），確保每一項功能都能切中企業實際痛點，真正實現「以業務引擎為核心」的現代化人才策略。</p>
+        <section id="framework" class="section-block">
+            <h2 id="frame-title">Business × People 沙盒運作架構</h2>
+            <div class="grid-3" id="frame-grid"></div>
         </section>
 
-        <section class="highlight-box">
-            <h2>聯絡我們與諮詢</h2>
-            <p>如果您想進一步了解 HR Vision AI 如何為您的企業量身打造自動化招募解決方案，或有任何合作與技術諮詢需求，歡迎隨時與我們的專業團隊取得聯繫。</p>
-            <p><strong>電子郵件：</strong>contact@hr-vision-ai.vercel.app</p>
+        <section id="faq" class="section-block">
+            <h2 id="faq-title">常見問題 (FAQ)</h2>
+            <div id="faq-list"></div>
         </section>
 
-        <section>
-            <h2>隱私權與服務條款說明</h2>
-            <p>我們極度重視用戶與企業數據的隱私安全。所有透過本平台處理的履歷資料、招募指標與通訊內容，均嚴格遵守國際資安與各地勞動法規標準。我們採用最先進的加密技術與嚴格的存取控制，確保您的數據在安全、合規的前提下發揮最大價值。</p>
+        <section id="about" class="section-block">
+            <h2 id="about-title">關於 HR Vision AI 與服務條款</h2>
+            <div id="about-content"></div>
         </section>
-
-        <footer>
-            <p>&copy; 2026 HR Vision AI. All rights reserved. | hr-vision-ai-v4.vercel.app</p>
-        </footer>
     </div>
 
+    <footer>
+        <div class="footer-container">
+            <div id="footer-copy">
+                &copy; 2026 HR Vision AI. All rights reserved. Business × People Solution Sandbox.
+            </div>
+            <div class="footer-links">
+                <a href="/privacy.html" id="footer-privacy">隱私權政策 (Privacy Policy)</a>
+                <a href="/terms.html" id="footer-terms">服務條款 (Terms)</a>
+                <a href="/about.html" id="footer-contact">關於我們 (About Us)</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const MAX_FREE_QUOTA = 5;
+        const MODEL_NAME = "gemini-3.6-flash";
+        let currentLang = 'zh';
+        let conversationHistory = [];
+
+        const i18n = {
+            zh: {
+                navSandbox: "診斷沙盒",
+                navAudience: "適用對象",
+                navFramework: "運作架構",
+                navFaq: "常見問題",
+                heroTitle: "動態 AI HR 戰略診斷沙盒",
+                heroDesc: "描述您正面臨的組織挑戰，AI 將即時歸類、剖析並產出可落地的行動方案與深度追問交互。",
+                labelTarget: "選擇策略沙盒對象：",
+                targetOptions: [
+                    { value: "CEO", text: "CEO (執行長 / 創辦人)" },
+                    { value: "HRBP", text: "HRBP (人資業務夥伴)" },
+                    { value: "Training Institute", text: "培訓機構 (企業教練 / 顧問)" },
+                    { value: "Manager", text: "Manager (高階領導主管)" }
+                ],
+                searchPlaceholder: "例如：團隊擴編快，但關鍵職位一直找不到合適的人選......",
+                btnDiagnose: "開始診斷",
+                tagsTitle: "點選下方標籤，快速帶入範例問題",
+                tags: [
+                    { title: "🎯 人才戰略配置規劃", prompt: "🎯 人才戰略配置規劃：面對業務轉型，如何重新盤點關鍵職位勝任力與組織編制？" },
+                    { title: "🌐 全球員工關係與合規", prompt: "🌐 全球員工關係與合規：跨國遠端團隊在合規治理與文化整合上面臨衝突，該如何解？" },
+                    { title: "📈 晉升與留才－人才盤點和梯隊", prompt: "📈 晉升與留才－人才盤點和人才梯隊：關鍵主管流失率高，缺乏二梯隊接班人該如何建立機制？" },
+                    { title: "🌱 組織文化建設", prompt: "🌱 組織文化建設：業務擴張迅速導致跨部門協作壁壘加深，如何落地價值觀考核？" },
+                    { title: "📊 自動化招聘 Dashboard", prompt: "📊 自動化招聘 Dashboard：如何建立招募漏斗指標並運用數據優化獵才週期？" },
+                    { title: "📝 合同處理自動化", prompt: "📝 合同處理自動化：如何簡化大量跨區域勞動合約與入職合規流程？" },
+                    { title: "🤝 HRBP 教練式領導支持", prompt: "🤝 HRBP 對業務主管的教練式領導與支持：業務主管重視短期業績忽略團隊培育，HRBP 如何介入引導？" },
+                    { title: "👥 跨部門高效會議與衝突", prompt: "👥 跨部門高效會議和衝突解決：跨職能專案推進延宕且權責不清，如何設計共識工作坊？" },
+                    { title: "🎯 OKR 和季獎金設計", prompt: "🎯 OKR 和季獎金設計：如何將組織年度戰略拆解為團隊 OKR 並連動激勵機制？" }
+                ],
+                byokTitle: "自備 Google Gemini API Key (BYOK 模式)",
+                byokDesc: "當免費 5 次額度用罄時，輸入個人免費 API Key 即可無限次自由使用本沙盒。",
+                byokTutorial: `<strong>⚡ 3 秒獲取 Google 免費 API 教程：</strong>
+                    <ol>
+                        <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key 頁面</a> 並登入 Google 帳號。</li>
+                        <li>點擊 <strong>「Create API key」</strong> 建立一組全新金鑰。</li>
+                        <li>複製代碼並貼回上方輸入框，即可直接使用 Gemini 模型進行分析！</li>
+                    </ol>`,
+                followupHeader: "⚡ 深度策略追問（點擊預設提問或自訂方向）：",
+                posBtn1: "💡 正面推進：索取溝通話術範本",
+                posBtn2: "📊 工具設計：索取量化檢核表",
+                negBtn1: "🔥 壓力測試：抗拒推託如何破局？",
+                negBtn2: "⚠️ 盲點質疑：潛在組織阻力預警",
+                customFollowupPlaceholder: "或輸入您想自訂的深入追問問題...",
+                btnSendFollowup: "送出追問",
+                audienceTitle: "誰適合使用本沙盒？",
+                audienceCards: [
+                    { title: "CEO & 創辦人", desc: "校準組織架構與商業戰略之適配度，預警關鍵崗位風險，建立可持續擴張的人才梯隊。" },
+                    { title: "HRBP (人資業務夥伴)", desc: "深入業務場景，將業務痛點轉化為組織與人才解決方案，提供業務主管教練式支持。" },
+                    { title: "培訓機構 & 顧問", desc: "快速診斷企業客戶組織盲點，產出具備商業說服力之培訓需求分析 (TNA) 與工作坊設計。" },
+                    { title: "Manager (領導主管)", desc: "掌握高階行為面試、績效激勵與跨部門衝突化解技巧，打造高敏捷協作團隊。" }
+                ],
+                frameworkTitle: "Business × People 沙盒運作架構",
+                frameworkCards: [
+                    { title: "1. 組織痛點歸類 (Categorize)", desc: "基於組織行為學與商業運營模型，即時將非結構化的挑戰描述轉化為結構化維度。" },
+                    { title: "2. 根因深度剖析 (Diagnose)", desc: "比對組織機制、激勵制度與領導力短板，精準定位影響業務產出的瓶頸核心。" },
+                    { title: "3. 行動方案產出 (Actionable)", desc: "提供包含制度設計、對話腳本、面試矩陣與 OKR 連動之可執行落地工具包。" }
+                ],
+                faqTitle: "常見問題 (FAQ)",
+                faqItems: [
+                    { q: "Q1：免費 5 次使用額度如何計算？", a: "系統會透過瀏覽器自動記錄前 5 次診斷體驗額度。當額度用完後，您僅需填入個人免費的 Google Gemini API Key，即可繼續免費使用所有功能。" },
+                    { q: "Q2：為什麼需要自備 Google API Key？資料會外洩嗎？", a: "本站採用 Client-Side 本地端處理機制，輸入的 API Key 與分析文本直接發送至 Google 官方端點，本站伺服器不會保存您的金鑰或商業機密資料。" },
+                    { q: "Q3：動態戰略沙盒與一般 HR 工具的差別是什麼？", a: "一般工具僅處理單一流程（如篩選履歷）；本沙盒專注於 Business × People 的策略連動，協助不同決策角色從商業目標切入解決人與組織的系統性問題。" },
+                    { q: "Q4：Google Gemini API 是免費的嗎？", a: "是的，Google AI Studio 提供充足的免費請求額度（Free Tier），日常管理評鑑與組織診斷使用完全足夠，無須支付任何費用。" }
+                ],
+                aboutTitle: "關於 HR Vision AI 與服務條款",
+                aboutHtml: `
+                    <p style="margin-bottom: 1rem;"><strong>關於我們：</strong> HR Vision AI 致力於透過生成式 AI 技術搭建組織商業目標與人才發展之間的橋樑。我們為企業高階決策者、HRBP 與管理顧問提供客觀、敏捷且具洞察力的決策實驗沙盒。</p>
+                    <p style="margin-bottom: 1rem;"><strong>隱私權政策與 Cookie 規範：</strong> 本站尊重使用者隱私，不長期儲存任何個人識別或機密數據。本網站可能使用 Cookie 以提供良好的瀏覽體驗，並配合第三方廣告供應商（如 Google AdSense）展示相關廣告。</p>
+                    <p><strong>聯絡與合作諮詢：</strong> 如有企業內訓、顧問合作或系統串接需求，歡迎來信：<a href="mailto:support@hrvision.ai">support@hrvision.ai</a></p>
+                `
+            },
+            en: {
+                navSandbox: "Sandbox",
+                navAudience: "Audience",
+                navFramework: "Framework",
+                navFaq: "FAQ",
+                heroTitle: "Dynamic AI HR Strategy Sandbox",
+                heroDesc: "Describe your organization challenges. AI instantly categorizes, analyzes root causes, and delivers actionable roadmaps with deep interactive follow-ups.",
+                labelTarget: "Target Role:",
+                targetOptions: [
+                    { value: "CEO", text: "CEO / Founder" },
+                    { value: "HRBP", text: "HRBP (HR Business Partner)" },
+                    { value: "Training Institute", text: "Training Institute / Consultant" },
+                    { value: "Manager", text: "Leadership Manager" }
+                ],
+                searchPlaceholder: "e.g., Team expands fast, but hard to find the right candidates for key roles...",
+                btnDiagnose: "Start Diagnosis",
+                tagsTitle: "Click any tag below to load sample challenges:",
+                tags: [
+                    { title: "🎯 Strategic Workforce Planning", prompt: "🎯 Strategic Workforce Planning: How to realign competencies and headcounts during business transformation?" },
+                    { title: "🌐 Global Employee Relations", prompt: "🌐 Global Employee Relations: Resolving compliance and cultural conflicts in cross-border remote teams." },
+                    { title: "📈 Talent Review & Succession", prompt: "📈 Talent Review & Succession: High manager turnover and lack of bench strength. How to build pipeline?" },
+                    { title: "🌱 Culture Building", prompt: "🌱 Culture Building: Cross-department silos growing after rapid scaling. How to implement value assessment?" },
+                    { title: "📊 Automated Recruitment Dashboard", prompt: "📊 Automated Recruitment Dashboard: How to set up hiring funnel metrics and reduce time-to-hire?" },
+                    { title: "📝 Contract Automation", prompt: "📝 Contract Automation: Streamlining multi-regional labor contracts and compliance onboarding." },
+                    { title: "🤝 HRBP Coaching Support", prompt: "🤝 HRBP Coaching Support: Business leaders prioritize short-term targets over team development. How to guide?" },
+                    { title: "👥 Cross-Team Alignment", prompt: "👥 Cross-Team Alignment & Conflict: Delayed cross-functional projects due to unclear ownership. Workshop design?" },
+                    { title: "🎯 OKR & Incentive Design", prompt: "🎯 OKR & Incentive Design: Decomposing annual business goals into team OKRs and linked bonuses." }
+                ],
+                byokTitle: "Bring Your Own Google Gemini API Key (BYOK)",
+                byokDesc: "When your 5 free trial runs are used, enter your personal free Google API Key to continue unlimited usage.",
+                byokTutorial: `<strong>⚡ 3-Second Guide to Get a Free Google API Key:</strong>
+                    <ol>
+                        <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key Page</a> and log in with Google.</li>
+                        <li>Click <strong>'Create API key'</strong> to generate a key.</li>
+                        <li>Copy and paste it into the field above to run Gemini directly!</li>
+                    </ol>`,
+                followupHeader: "⚡ Deep-Dive Follow-ups (Click quick prompts or type custom questions):",
+                posBtn1: "💡 Positive: Get Dialogue Scripts",
+                posBtn2: "📊 Tools: Get Action Checklist",
+                negBtn1: "🔥 Stress Test: Handling Strong Pushback",
+                negBtn2: "⚠️ Blind Spot: Organizational Roadblock Alert",
+                customFollowupPlaceholder: "Or type your specific follow-up question...",
+                btnSendFollowup: "Send",
+                audienceTitle: "Who is this Sandbox for?",
+                audienceCards: [
+                    { title: "CEO & Founders", desc: "Align organizational structure with business growth, spot key leadership risks, and build scalable talent benches." },
+                    { title: "HRBPs", desc: "Translate business pain points into tangible people solutions and provide coaching support to department leaders." },
+                    { title: "Training Institutes", desc: "Quickly assess corporate client bottlenecks to design convincing Training Needs Analysis (TNA) and workshops." },
+                    { title: "Leadership Managers", desc: "Master behavioral interviewing, team alignment, and performance coaching to build high-velocity teams." }
+                ],
+                frameworkTitle: "Business × People Sandbox Framework",
+                frameworkCards: [
+                    { title: "1. Categorize Problem", desc: "Structure unstructured organizational challenges into clear operational and capability dimensions." },
+                    { title: "2. Root Cause Diagnosis", desc: "Pinpoint core bottlenecks across leadership behaviors, incentive models, and workflows." },
+                    { title: "3. Actionable Roadmap", desc: "Generate practical toolkits including 1-on-1 scripts, interview rubrics, and OKR alignment plans." }
+                ],
+                faqTitle: "Frequently Asked Questions (FAQ)",
+                faqItems: [
+                    { q: "Q1: How do the 5 free uses work?", a: "Your browser tracks your first 5 analyses. Once finished, enter your free Google Gemini API Key to continue using the sandbox for free." },
+                    { q: "Q2: Is my data safe with BYOK mode?", a: "Yes. All requests are sent client-side directly to Google's official endpoints. We never store your API keys or confidential corporate data." },
+                    { q: "Q3: How is this different from standard HR tools?", a: "Standard tools focus on simple resume parsing. This sandbox focuses on Business × People strategic alignment to solve systemic organizational issues." },
+                    { q: "Q4: Is Google Gemini API free?", a: "Yes. Google AI Studio offers a generous Free Tier that is more than sufficient for everyday management scenarios and strategy design." }
+                ],
+                aboutTitle: "About HR Vision AI & Terms",
+                aboutHtml: `
+                    <p style="margin-bottom: 1rem;"><strong>About Us:</strong> HR Vision AI bridges business strategy and people enablement. We provide decision sandboxes for executive leaders, HRBPs, and consultants.</p>
+                    <p style="margin-bottom: 1rem;"><strong>Privacy & Cookies:</strong> We respect your privacy and never store confidential data. We may use cookies to improve user experience and deliver relevant ads via partners like Google AdSense.</p>
+                    <p><strong>Contact:</strong> For corporate inquiries, custom workshops, or integrations, reach out to: <a href="mailto:support@hrvision.ai">support@hrvision.ai</a></p>
+                `
+            }
+        };
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            const data = i18n[lang];
+
+            document.getElementById('btn-lang-zh').classList.toggle('active', lang === 'zh');
+            document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+
+            document.getElementById('nav-sandbox').innerText = data.navSandbox;
+            document.getElementById('nav-audience').innerText = data.navAudience;
+            document.getElementById('nav-framework').innerText = data.navFramework;
+            document.getElementById('nav-faq').innerText = data.navFaq;
+
+            document.getElementById('hero-title').innerText = data.heroTitle;
+            document.getElementById('hero-desc').innerText = data.heroDesc;
+            document.getElementById('label-target').innerText = data.labelTarget;
+
+            const selectEl = document.getElementById('sandbox-target');
+            const currentVal = selectEl.value;
+            selectEl.innerHTML = '';
+            data.targetOptions.forEach(opt => {
+                const el = document.createElement('option');
+                el.value = opt.value;
+                el.innerText = opt.text;
+                if (opt.value === currentVal) el.selected = true;
+                selectEl.appendChild(el);
+            });
+
+            document.getElementById('challenge-input').placeholder = data.searchPlaceholder;
+            document.getElementById('btn-diagnose').innerText = data.btnDiagnose;
+            document.getElementById('tags-title').innerText = data.tagsTitle;
+
+            const tagsContainer = document.getElementById('tags-container');
+            tagsContainer.innerHTML = '';
+            data.tags.forEach(tag => {
+                const btn = document.createElement('button');
+                btn.className = 'tag-btn';
+                btn.innerText = tag.title;
+                btn.onclick = () => fillPrompt(tag.prompt);
+                tagsContainer.appendChild(btn);
+            });
+
+            document.getElementById('byok-title').innerText = data.byokTitle;
+            document.getElementById('byok-desc').innerText = data.byokDesc;
+            document.getElementById('tutorial-card').innerHTML = data.byokTutorial;
+
+            document.getElementById('followup-header').innerText = data.followupHeader;
+            document.getElementById('btn-pos-1').innerText = data.posBtn1;
+            document.getElementById('btn-pos-2').innerText = data.posBtn2;
+            document.getElementById('btn-neg-1').innerText = data.negBtn1;
+            document.getElementById('btn-neg-2').innerText = data.negBtn2;
+            document.getElementById('custom-followup-input').placeholder = data.customFollowupPlaceholder;
+            document.getElementById('btn-send-followup').innerText = data.btnSendFollowup;
+
+            document.getElementById('aud-title').innerText = data.audienceTitle;
+            const audGrid = document.getElementById('aud-grid');
+            audGrid.innerHTML = '';
+            data.audienceCards.forEach(c => {
+                audGrid.innerHTML += `<div class="card-item"><h3>${c.title}</h3><p>${c.desc}</p></div>`;
+            });
+
+            document.getElementById('frame-title').innerText = data.frameworkTitle;
+            const frameGrid = document.getElementById('frame-grid');
+            frameGrid.innerHTML = '';
+            data.frameworkCards.forEach(c => {
+                frameGrid.innerHTML += `<div class="card-item"><h3>${c.title}</h3><p>${c.desc}</p></div>`;
+            });
+
+            document.getElementById('faq-title').innerText = data.faqTitle;
+            const faqList = document.getElementById('faq-list');
+            faqList.innerHTML = '';
+            data.faqItems.forEach(item => {
+                faqList.innerHTML += `<div class="faq-item"><h3>${item.q}</h3><p>${item.a}</p></div>`;
+            });
+
+            document.getElementById('about-title').innerText = data.aboutTitle;
+            document.getElementById('about-content').innerHTML = data.aboutHtml;
+
+            updateQuotaUI();
+        }
+
+        function getRemainingQuota() {
+            const used = localStorage.getItem('hrvision_sandbox_used') || 0;
+            return Math.max(0, MAX_FREE_QUOTA - parseInt(used, 10));
+        }
+
+        function updateQuotaUI() {
+            const remaining = getRemainingQuota();
+            const quotaDisplay = document.getElementById('quota-display');
+            const apiKeyContainer = document.getElementById('api-key-container');
+
+            if (remaining > 0) {
+                quotaDisplay.innerHTML = currentLang === 'zh'
+                    ? `🚀 系統免費體驗額度剩餘：<strong>${remaining} / ${MAX_FREE_QUOTA} 次</strong>`
+                    : `🚀 Free Trial Remaining: <strong>${remaining} / ${MAX_FREE_QUOTA}</strong>`;
+                apiKeyContainer.style.display = 'none';
+            } else {
+                quotaDisplay.innerHTML = currentLang === 'zh'
+                    ? `⚠️ 系統免費額度已用完，請於下方輸入<strong>個人 Google 免費 API Key</strong> 繼續使用。`
+                    : `⚠️ Free runs depleted. Enter your <strong>Free Google API Key</strong> below to continue.`;
+                apiKeyContainer.style.display = 'block';
+            }
+        }
+
+        function fillPrompt(text) {
+            document.getElementById('challenge-input').value = text;
+            document.getElementById('challenge-input').focus();
+        }
+
+        function cleanMarkdownFormatting(text) {
+            if (!text) return "";
+            return text
+                .replace(/^[ \t]*#+[ \t]*/gm, '')
+                .replace(/\*\*([^*]+)\*\*/g, '$1')
+                .replace(/\*([^*]+)\*/g, '$1')
+                .replace(/__([^_]+)__/g, '$1')
+                .replace(/_([^_]+)_/g, '$1')
+                .replace(/^[ \t]*>[ \t]*/gm, '')
+                .replace(/^[ \t]*[-*_]{3,}[ \t]*$/gm, '')
+                .replace(/`{1,3}([^`]+)`{1,3}/g, '$1')
+                .replace(/\n{3,}/g, '\n\n')
+                .trim();
+        }
+
+        async function startInitialDiagnosis() {
+            const target = document.getElementById('sandbox-target').value;
+            const input = document.getElementById('challenge-input').value.trim();
+            const userApiKey = document.getElementById('user-api-key').value.trim();
+            const remaining = getRemainingQuota();
+
+            if (!input) {
+                alert(currentLang === 'zh' ? '請先輸入組織挑戰或點選範例標籤！' : 'Please enter a challenge or click a sample tag!');
+                return;
+            }
+
+            if (remaining <= 0 && !userApiKey) {
+                alert(currentLang === 'zh' ? '免費額度已用完，請貼上 Google Gemini API Key！' : 'Free quota depleted. Please enter your Google API Key!');
+                document.getElementById('api-key-container').style.display = 'block';
+                document.getElementById('user-api-key').focus();
+                return;
+            }
+
+            conversationHistory = [];
+            const resultBox = document.getElementById('result-box');
+            const conversationContainer = document.getElementById('conversation-container');
+            const followupBox = document.getElementById('followup-box');
+
+            resultBox.style.display = 'block';
+            followupBox.style.display = 'none';
+            conversationContainer.innerHTML = '';
+
+            const userPromptText = currentLang === 'zh' ? `【${target} 診斷需求】${input}` : `[${target} Request] ${input}`;
+            const loadingText = currentLang === 'zh' ? '正在進行 Business × People 策略剖析中...' : 'Analyzing Business × People strategies...';
+            appendTurnUI(userPromptText, loadingText);
+
+            const initialPrompt = currentLang === 'zh' 
+                ? `請以【${target}】高階商業實務視角，診斷以下組織挑戰：
+組織挑戰：${input}
+
+輸出結構：
+1. 組織維度與痛點本質
+2. 核心根因剖析（精準切入機制與領導力）
+3. ${target} 落地實務行動步驟（具體、直接、可執行）
+
+【輸出限制】：
+- 嚴禁使用任何 Markdown 格式符號（絕對不要出現 **、#、##、###、---、> 等符號）。
+- 全部使用純文字排版，以清晰分段和數字條列表達。
+- 內容務必簡潔有力、直球切入實務，不要任何客套話與引言。`
+                : `Analyze this challenge from the executive perspective of a 【${target}】:
+Challenge: ${input}
+
+Output Structure:
+1. Problem Framing & Core Issue
+2. Root Cause Analysis
+3. Practical Action Steps for ${target}
+
+【Strict Rules】:
+- Do NOT use any Markdown formatting symbols (strictly no **, #, ##, ###, ---, >).
+- Use clean plain text with standard line breaks and bullet numbers.
+- Be concise, direct, and practical. No fluff or greetings.`;
+
+            try {
+                const report = await sendDiagnosisRequest(userApiKey, initialPrompt);
+                if (!userApiKey) {
+                    let used = parseInt(localStorage.getItem('hrvision_sandbox_used') || 0, 10);
+                    localStorage.setItem('hrvision_sandbox_used', used + 1);
+                    updateQuotaUI();
+                }
+                updateLatestAIResponse(cleanMarkdownFormatting(report));
+                followupBox.style.display = 'block';
+            } catch (err) {
+                updateLatestAIResponse('Error: ' + err.message);
+            }
+        }
+
+        async function triggerFollowUp(questionText) {
+            await handleFollowUpExecution(questionText);
+        }
+
+        async function sendCustomFollowUp() {
+            const inputEl = document.getElementById('custom-followup-input');
+            const questionText = inputEl.value.trim();
+            if (!questionText) return;
+            inputEl.value = '';
+            await handleFollowUpExecution(questionText);
+        }
+
+        async function handleFollowUpExecution(questionText) {
+            const userApiKey = document.getElementById('user-api-key').value.trim();
+            const target = document.getElementById('sandbox-target').value;
+            const remaining = getRemainingQuota();
+
+            if (remaining <= 0 && !userApiKey) {
+                alert(currentLang === 'zh' ? '免費額度已用完，請貼上 API Key 繼續！' : 'Quota depleted. Please enter your API Key!');
+                document.getElementById('api-key-container').style.display = 'block';
+                document.getElementById('user-api-key').focus();
+                return;
+            }
+
+            appendTurnUI(questionText, currentLang === 'zh' ? 'AI 顧問正在深入分析中...' : 'Deep diving into the follow-up scenario...');
+
+            const contextualPrompt = currentLang === 'zh'
+                ? `請延續前面的診斷脈絡，以【${target}】實戰顧問角度回答追問：\n${questionText}\n\n【輸出限制】：嚴禁使用 **、#、##、###、---、> 等 Markdown 符號，直接輸出簡潔有力且可落地的純文字步驟。`
+                : `Continuing the context above, act as an executive consultant for 【${target}】 and answer:\n${questionText}\n\n【Strict Rules】: Do NOT use **, #, ##, ###, ---, > Markdown symbols. Output concise, actionable plain text.`;
+
+            try {
+                const followUpResponse = await sendDiagnosisRequest(userApiKey, contextualPrompt);
+                if (!userApiKey) {
+                    let used = parseInt(localStorage.getItem('hrvision_sandbox_used') || 0, 10);
+                    localStorage.setItem('hrvision_sandbox_used', used + 1);
+                    updateQuotaUI();
+                }
+                updateLatestAIResponse(cleanMarkdownFormatting(followUpResponse));
+            } catch (err) {
+                updateLatestAIResponse('Error: ' + err.message);
+            }
+        }
+
+        async function sendDiagnosisRequest(userApiKey, newPromptText) {
+            conversationHistory.push({ role: "user", parts: [{ text: newPromptText }] });
+
+            let response;
+            if (userApiKey) {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${encodeURIComponent(userApiKey)}`;
+                response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'x-goog-api-key': userApiKey
+                    },
+                    body: JSON.stringify({ contents: conversationHistory })
+                });
+            } else {
+                response = await fetch('/api/diagnose', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: conversationHistory })
+                });
+            }
+
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({}));
+                const errMsg = (errData.error && typeof errData.error === 'object')
+                    ? (errData.error.message || JSON.stringify(errData.error))
+                    : (errData.error || `請求失敗 (HTTP ${response.status})`);
+                throw new Error(errMsg);
+            }
+
+            const data = await response.json();
+            const aiText = data.candidates[0].content.parts[0].text;
+            conversationHistory.push({ role: "model", parts: [{ text: aiText }] });
+            return aiText;
+        }
+
+        function appendTurnUI(userText, initialAIText) {
+            const container = document.getElementById('conversation-container');
+            const turnDiv = document.createElement('div');
+            turnDiv.className = 'dialogue-turn';
+            turnDiv.innerHTML = `
+                <div class="turn-user">${escapeHTML(userText)}</div>
+                <div class="turn-ai">${escapeHTML(initialAIText)}</div>
+            `;
+            container.appendChild(turnDiv);
+        }
+
+        function updateLatestAIResponse(text) {
+            const container = document.getElementById('conversation-container');
+            const turns = container.getElementsByClassName('dialogue-turn');
+            if (turns.length > 0) {
+                const lastTurn = turns[turns.length - 1];
+                const aiEl = lastTurn.querySelector('.turn-ai');
+                aiEl.innerText = text;
+            }
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            switchLanguage('zh');
+        });
+    </script>
 </body>
 </html>
