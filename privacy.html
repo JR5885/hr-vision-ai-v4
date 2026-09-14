@@ -3,84 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>隱私權政策 (Privacy Policy) - HR Vision AI</title>
-    <meta name="description" content="HR Vision AI 的隱私權政策與 Cookie 規範宣告。">
+    <title id="page-title">隱私權政策與 Cookie 規範 - HR Vision AI</title>
     <style>
         :root {
             --primary-color: #0f766e;
-            --primary-hover: #115e59;
-            --secondary-color: #0284c7;
             --text-main: #0f172a;
             --text-muted: #475569;
             --bg-light: #f8fafc;
             --white: #ffffff;
             --border-color: #e2e8f0;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { color: var(--text-main); background-color: var(--bg-light); line-height: 1.7; }
         header { background-color: var(--white); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
         .nav-container { max-width: 900px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.25rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
-        .nav-right a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; }
-        .container { max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem; }
-        .content-card { background: var(--white); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #0f172a; }
-        .last-updated { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
-        h2 { font-size: 1.25rem; margin: 1.75rem 0 0.75rem; color: var(--primary-color); }
-        p, ul { margin-bottom: 1rem; color: #334155; font-size: 0.95rem; }
-        ul { padding-left: 1.5rem; }
-        li { margin-bottom: 0.4rem; }
-        a { color: var(--secondary-color); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        footer { background: var(--white); border-top: 1px solid var(--border-color); padding: 2rem 1.5rem; text-align: center; font-size: 0.875rem; color: var(--text-muted); margin-top: 4rem; }
+        .lang-switch { display: inline-flex; background: #f1f5f9; padding: 0.25rem; border-radius: 8px; border: 1px solid var(--border-color); }
+        .lang-btn { border: none; background: transparent; padding: 0.35rem 0.75rem; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; color: #64748b; }
+        .lang-btn.active { background: var(--white); color: var(--primary-color); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .container { max-width: 900px; margin: 2.5rem auto; background: var(--white); padding: 3rem 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); }
+        h1 { font-size: 2rem; color: var(--primary-color); margin-bottom: 1.5rem; }
+        h2 { font-size: 1.25rem; color: #1e293b; margin-top: 2rem; margin-bottom: 0.75rem; }
+        p, li { margin-bottom: 1rem; color: var(--text-muted); }
+        ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+        .back-link { display: inline-block; margin-top: 2rem; color: var(--primary-color); text-decoration: none; font-weight: 600; }
+        .back-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <header>
         <div class="nav-container">
-            <a href="/" class="logo">HR Vision AI</a>
-            <div class="nav-right">
-                <a href="/">← 返回沙盒首頁</a>
+            <a href="/" class="logo" id="nav-logo">HR Vision AI</a>
+            <div class="lang-switch">
+                <button class="lang-btn active" id="btn-lang-zh" onclick="switchLanguage('zh')">繁中</button>
+                <button class="lang-btn" id="btn-lang-en" onclick="switchLanguage('en')">English</button>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="content-card">
-            <h1>隱私權政策 (Privacy Policy)</h1>
-            <div class="last-updated">最後更新日期：2026 年 8 月 31 日</div>
-
-            <p>歡迎造訪 <strong>HR Vision AI</strong>（以下簡稱「本網站」或「我們」）。我們非常重視您的個人隱私權與資料保護。本隱私權政策說明本網站如何收集、使用、處理及保護您的相關資訊，並說明您對個人資料所擁有的各項權利。</p>
-
-            <h2>1. 資料收集與處理機制</h2>
+        <h1 id="title">隱私權政策與 Cookie 規範</h1>
+        <div id="content">
+            <p><strong>生效日期：</strong>2026 年 3 月 14 日</p>
+            <p>HR Vision AI（以下簡稱「本站」）極度重視您的隱私權與數據安全。本隱私權政策說明我們如何收集、使用及保護您的相關資訊。</p>
+            
+            <h2>1. 資料收集與使用</h2>
+            <p>本站提供的 AI 戰略診斷沙盒採用客戶端（Client-Side）本地處理機制。您在沙盒中所輸入的組織挑戰與對話內容，皆是直接發送至 Google Gemini 官方 API 進行運算，本伺服器不會主動長期儲存您的機密商業資料。</p>
+            
+            <h2>2. Cookie 與 Google AdSense 廣告</h2>
+            <p>本網站使用 Cookie 來優化使用者瀏覽體驗並分析網站流量。此外，我們與第三方廣告供應商（如 Google AdSense）合作，這些供應商可能會使用 Cookie 根據您先前對本網站或其他網站的瀏覽記錄來投放廣告。</p>
             <ul>
-                <li><strong>本地端沙盒運作：</strong> 本網站核心的 HR 戰略沙盒採用端對端與安全代理架構。您在診斷框輸入的組織問題與挑戰描述，僅用於即時傳送至 AI 模型進行運算分析，本網站資料庫不會主動存儲或販售您的商業敏感提問記錄。</li>
-                <li><strong>本機儲存空間 (LocalStorage)：</strong> 為了計算您的 5 次免費體驗額度，本網站會在您的瀏覽器端使用 LocalStorage 記錄診斷使用次數。此資訊完全保存在您的本地裝置上，您可以隨時透過清除瀏覽器快取重設。</li>
-                <li><strong>自備 API Key 隱私安全：</strong> 當您切換至自備金鑰（BYOK 模式）時，您的金鑰僅保存在當前瀏覽器工作階段中，我們絕不會將您的個人金鑰記錄或備份至本站伺服器。</li>
+                <li>Google 使用 DART Cookie，可根據使用者造訪本網站及其他網際網路網站的記錄來向使用者放送廣告。</li>
+                <li>使用者可以透過造訪 Google 廣告和內容聯盟隱私權政策，選擇停用 DART Cookie 的使用。</li>
             </ul>
 
-            <h2>2. Cookie 與追蹤技術</h2>
-            <p>本網站可能使用 Cookie 及類似技術以改善使用者的瀏覽體驗、分析網站流量與確保系統穩定運作。Cookie 是儲存於您電腦或行動裝置上的小型文字檔案。您可以透過瀏覽器設定隨時拒絕或刪除 Cookie，但這可能會影響網站部分功能的正常運作。</p>
-
-            <h2>3. Google AdSense 與第三方廣告合作夥伴宣告</h2>
-            <p>本網站使用 Google AdSense 及其他第三方廣告合作夥伴來投放廣告：</p>
-            <ul>
-                <li>Google 作為第三方服務商，使用 Cookie（包括 DoubleClick Cookie）根據使用者過往造訪本網站或其他網站的記錄向使用者投放廣告。</li>
-                <li>Google 對廣告 Cookie 的使用使其及其合作夥伴能夠根據使用者造訪本網站和/或網際網路上其他網站的情況向使用者投放個人化廣告。</li>
-                <li><strong>如何停用個人化廣告：</strong> 您可以隨時前往 <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google 廣告設定</a> 停用個人化廣告投放。或者，您可以造訪 <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a> 停用第三方供應商針對興趣投放的 Cookie。</li>
-            </ul>
-
-            <h2>4. 第三方服務與資料傳輸</h2>
-            <p>本網站服務串接 Google Gemini API 進行自然語言運算。當您發起分析請求時，相關文字將傳送至 Google 雲端端點進行推論處理。其資料處理機制受 Google 隱私權政策與服務條款之規範。</p>
-
-            <h2>5. 政策修訂與聯絡方式</h2>
-            <p>本網站保留隨時修改本隱私權政策的權利，修訂後之條款將即時發布於本頁面並更新生效日期。若您對本隱私權政策有任何疑問或建議，歡迎透過以下方式與我們聯絡：</p>
-            <p>聯絡信箱：<a href="mailto:support@hrvision.ai">support@hrvision.ai</a></p>
+            <h2>3. 聯絡我們</h2>
+            <p>如果您對本隱私權政策有任何疑問，歡迎隨時透過電子郵件與我們聯繫：support@hrvision.ai</p>
         </div>
+        <a href="/" class="back-link" id="back-home">← 返回首頁</a>
     </div>
 
-    <footer>
-        <p>&copy; 2026 HR Vision AI. All rights reserved.</p>
-    </footer>
+    <script>
+        const i18n = {
+            zh: {
+                pageTitle: "隱私權政策與 Cookie 規範 - HR Vision AI",
+                title: "隱私權政策與 Cookie 規範",
+                backHome: "← 返回首頁",
+                content: `
+                    <p><strong>生效日期：</strong>2026 年 3 月 14 日</p>
+                    <p>HR Vision AI（以下簡稱「本站」）極度重視您的隱私權與數據安全。本隱私權政策說明我們如何收集、使用及保護您的相關資訊。</p>
+                    <h2>1. 資料收集與使用</h2>
+                    <p>本站提供的 AI 戰略診斷沙盒採用客戶端（Client-Side）本地處理機制。您在沙盒中所輸入的組織挑戰與對話內容，皆是直接發送至 Google Gemini 官方 API 進行運算，本伺服器不會主動長期儲存您的機密商業資料。</p>
+                    <h2>2. Cookie 與 Google AdSense 廣告</h2>
+                    <p>本網站使用 Cookie 來優化使用者瀏覽體驗並分析網站流量。此外，我們與第三方廣告供應商（如 Google AdSense）合作，這些供應商可能會使用 Cookie 根據您先前對本網站或其他網站的瀏覽記錄來投放廣告。</p>
+                    <ul>
+                        <li>Google 使用 DART Cookie，可根據使用者造訪本網站及其他網際網路網站的記錄來向使用者放送廣告。</li>
+                        <li>使用者可以透過造訪 Google 廣告和內容聯盟隱私權政策，選擇停用 DART Cookie 的使用。</li>
+                    </ul>
+                    <h2>3. 聯絡我們</h2>
+                    <p>如果您對本隱私權政策有任何疑問，歡迎隨時透過電子郵件與我們聯繫：support@hrvision.ai</p>
+                `
+            },
+            en: {
+                pageTitle: "Privacy Policy & Cookie Notice - HR Vision AI",
+                title: "Privacy Policy & Cookie Notice",
+                backHome: "← Back to Home",
+                content: `
+                    <p><strong>Effective Date:</strong> March 14, 2026</p>
+                    <p>HR Vision AI ("we", "our", or "us") respects your privacy and is committed to protecting your personal data.</p>
+                    <h2>1. Data Collection & Usage</h2>
+                    <p>Our AI diagnostic sandbox utilizes client-side processing. The challenges and prompts you enter are transmitted directly to Google Gemini APIs. Our servers do not permanently store your confidential business data.</p>
+                    <h2>2. Cookies & Google AdSense</h2>
+                    <p>We use cookies to improve user experience and analyze traffic. We also partner with third-party vendors such as Google AdSense, which may use cookies to serve ads based on prior visits to our website or other sites.</p>
+                    <ul>
+                        <li>Google's use of advertising cookies enables it and its partners to serve ads based on your visits to our sites and/or other sites on the Internet.</li>
+                        <li>Users may opt out of personalized advertising by visiting Google Ads Settings.</li>
+                    </ul>
+                    <h2>3. Contact Us</h2>
+                    <p>If you have any questions regarding this Privacy Policy, please contact us at: support@hrvision.ai</p>
+                `
+            }
+        };
+
+        function switchLanguage(lang) {
+            document.getElementById('btn-lang-zh').classList.toggle('active', lang === 'zh');
+            document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('page-title').innerText = i18n[lang].pageTitle;
+            document.getElementById('title').innerText = i18n[lang].title;
+            document.getElementById('content').innerHTML = i18n[lang].content;
+            document.getElementById('back-home').innerText = i18n[lang].backHome;
+        }
+    </script>
 </body>
 </html>
