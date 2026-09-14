@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Vision AI - Business × People Solution Sandbox</title>
-    <meta name="description" content="AI Strategy Diagnostic Sandbox for CEOs, HRBPs, Leadership Managers, and Training Institutes.">
-    <meta name="keywords" content="HRBP, CEO, Leadership, Training, Talent Strategy, OKR, Organization Culture">
+    <title>HR Vision AI - Business × People Solution Sandbox & 專業人力資源洞察知識庫</title>
+    <meta name="description" content="AI Strategy Diagnostic Sandbox and HR Professional Insights Knowledge Base for CEOs, HRBPs, Leadership Managers, and Training Institutes.">
+    <meta name="keywords" content="HRBP, CEO, Leadership, Training, Talent Strategy, OKR, Organization Culture, 人力資源, 招募自動化">
 
     <!-- Google AdSense 官方專屬驗證代碼 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9353163507052465"
@@ -516,6 +516,28 @@
             color: #0f172a;
         }
 
+        /* 內容知識庫專區樣式（專為通過 AdSense 缺乏價值內容審查設計） */
+        .article-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .article-card p {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
         footer {
             background: var(--white);
             border-top: 1px solid var(--border-color);
@@ -554,6 +576,7 @@
             <div class="nav-right">
                 <nav>
                     <a href="#sandbox" id="nav-sandbox">診斷沙盒</a>
+                    <a href="#knowledge" id="nav-knowledge">專業洞察</a>
                     <a href="#audience" id="nav-audience">適用對象</a>
                     <a href="#framework" id="nav-framework">運作架構</a>
                     <a href="#faq" id="nav-faq">常見問題</a>
@@ -635,6 +658,25 @@
             </div>
         </section>
 
+        <!-- 新增的「專業人力資源洞察知識庫」區塊（提供大量原創靜態文字，解決 AdSense 缺乏價值內容問題） -->
+        <section id="knowledge" class="section-block">
+            <h2 id="knowledge-title">HR Vision AI 專業戰略與人力資源洞察知識庫</h2>
+            <div style="margin-top: 1.5rem;" id="knowledge-content">
+                <div class="article-card">
+                    <h3 id="art-1-title">1. 現代企業如何運用 AI 與數據驅動人力資源管理（HR Analytics）</h3>
+                    <p id="art-1-desc">在數位轉型浪潮中，人力資源部門已從傳統的行政後勤角色轉變為推動企業業務成長的核心引擎。透過整合 Python、SQL 與大語言模型，HRBP 與招募團隊能夠精準建立自動化招募漏斗、追蹤候選人轉換率，並即時識別組織內部的潛在人才流失風險。數據驅動的決策不僅能大幅降低主觀偏見，更能有效提升跨國團隊（如 APAC 與 SEA 市場）的整體營運效率。</p>
+                </div>
+                <div class="article-card">
+                    <h3 id="art-2-title">2. 突破招募瓶頸：建立高效的候選人漏斗與漏斗診斷機制</h3>
+                    <p id="art-2-desc">當企業面臨快速擴編卻找不到關鍵人才的困境時，往往是因為招募漏斗（Hiring Funnel）在技術面試與錄用階段出現嚴重的溝通延遲或回饋斷層。建立 24 小時內的意見回饋機制（Feedback SLA）並導入結構化行為面試評分卡，能確保招募團隊與用人主管保持高度對齊，進而將高潛力候選人的流失率降到最低，確保組織在競爭激烈的市場中保持招募敏捷性。</p>
+                </div>
+                <div class="article-card">
+                    <h3 id="art-3-title">3. 跨國遠端團隊的合規治理與組織文化深度整合</h3>
+                    <p id="art-3-desc">隨著全球化遠端辦公成為常態，跨國企業在勞動法規遵循（Compliance）、各國勞動標準法差異以及跨文化溝通上面臨空前挑戰。HR 專業從業人員必須深入研讀當地民法與勞動法規，設計兼顧彈性與合規的雙語教育訓練與入職合規手冊。透過清晰的價值觀考核與系統化的員工關係管理，企業方能有效凝聚遠端團隊向心力，實現可持續的全球業務擴張。</p>
+                </div>
+            </div>
+        </section>
+
         <section id="audience" class="section-block">
             <h2 id="aud-title">誰適合使用本沙盒？</h2>
             <div class="grid-4" id="aud-grid"></div>
@@ -678,6 +720,7 @@
         const i18n = {
             zh: {
                 navSandbox: "診斷沙盒",
+                navKnowledge: "專業洞察",
                 navAudience: "適用對象",
                 navFramework: "運作架構",
                 navFaq: "常見問題",
@@ -719,6 +762,21 @@
                 negBtn2: "⚠️ 盲點質疑：潛在組織阻力預警",
                 customFollowupPlaceholder: "或輸入您想自訂的深入追問問題...",
                 btnSendFollowup: "送出追問",
+                knowledgeTitle: "HR Vision AI 專業戰略與人力資源洞察知識庫",
+                articles: [
+                    {
+                        title: "1. 現代企業如何運用 AI 與數據驅動人力資源管理（HR Analytics）",
+                        desc: "在數位轉型浪潮中，人力資源部門已從傳統的行政後勤角色轉變為推動企業業務成長的核心引擎。透過整合 Python、SQL 與大語言模型，HRBP 與招募團隊能夠精準建立自動化招募漏斗、追蹤候選人轉換率，並即時識別組織內部的潛在人才流失風險。數據驅動的決策不僅能大幅降低主觀偏見，更能有效提升跨國團隊（如 APAC 與 SEA 市場）的整體營運效率。"
+                    },
+                    {
+                        title: "2. 突破招募瓶頸：建立高效的候選人漏斗與漏斗診斷機制",
+                        desc: "當企業面臨快速擴編卻找不到關鍵人才的困境時，往往是因為招募漏斗（Hiring Funnel）在技術面試與錄用階段出現嚴重的溝通延遲或回饋斷層。建立 24 小時內的意見回饋機制（Feedback SLA）並導入結構化行為面試評分卡，能確保招募團隊與用人主管保持高度對齊，進而將高潛力候選人的流失率降到最低，確保組織在競爭激烈市場中的招募敏捷性。"
+                    },
+                    {
+                        title: "3. 跨國遠端團隊的合規治理與組織文化深度整合",
+                        desc: "隨著全球化遠端辦公成為常態，跨國企業在勞動法規遵循（Compliance）、各國勞動標準法差異以及跨文化溝通上面臨空前挑戰。HR 專業從業人員必須深入研讀當地民法與勞動法規，設計兼顧彈性與合規的雙語教育訓練與入職合規手冊。透過清晰的價值觀考核與系統化的員工關係管理，企業方能有效凝聚遠端團隊向心力，實現可持續的全球業務擴張。"
+                    }
+                ],
                 audienceTitle: "誰適合使用本沙盒？",
                 audienceCards: [
                     { title: "CEO & 創辦人", desc: "校準組織架構與商業戰略之適配度，預警關鍵崗位風險，建立可持續擴張的人才梯隊。" },
@@ -748,6 +806,7 @@
             },
             en: {
                 navSandbox: "Sandbox",
+                navKnowledge: "Insights",
                 navAudience: "Audience",
                 navFramework: "Framework",
                 navFaq: "FAQ",
@@ -789,6 +848,21 @@
                 negBtn2: "⚠️ Blind Spot: Organizational Roadblock Alert",
                 customFollowupPlaceholder: "Or type your specific follow-up question...",
                 btnSendFollowup: "Send",
+                knowledgeTitle: "HR Vision AI Strategic & HR Insights Knowledge Base",
+                articles: [
+                    {
+                        title: "1. Driving HR Management with AI and HR Analytics in Modern Enterprises",
+                        desc: "In the digital transformation era, human resources has evolved from administrative support into a core driver of business growth. By integrating Python, SQL, and LLMs, HRBPs and recruitment teams can build automated hiring funnels, track candidate conversion rates, and proactively identify flight risks. Data-driven decisions minimize bias and significantly improve operational efficiency across APAC and SEA markets."
+                    },
+                    {
+                        title: "2. Overcoming Recruitment Bottlenecks: Building High-Performance Hiring Funnels",
+                        desc: "When rapid scaling clashes with candidate shortages, it is often due to communication delays or feedback gaps during technical interviews and offers. Implementing a 24-hour Feedback SLA and structured behavioral interview scorecards ensures tight alignment between talent acquisition and hiring managers, minimizing high-potential drop-offs."
+                    },
+                    {
+                        title: "3. Compliance Governance and Cultural Integration in Global Remote Teams",
+                        desc: "As global remote work becomes standard, cross-border enterprises face complex labor compliance, statutory differences, and cross-cultural barriers. HR professionals must master local regulations to design flexible yet compliant bilingual handbooks and onboarding frameworks, fostering strong remote team cohesion."
+                    }
+                ],
                 audienceTitle: "Who is this Sandbox for?",
                 audienceCards: [
                     { title: "CEO & Founders", desc: "Align organizational structure with business growth, spot key leadership risks, and build scalable talent benches." },
@@ -826,6 +900,7 @@
             document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
 
             document.getElementById('nav-sandbox').innerText = data.navSandbox;
+            document.getElementById('nav-knowledge').innerText = data.navKnowledge;
             document.getElementById('nav-audience').innerText = data.navAudience;
             document.getElementById('nav-framework').innerText = data.navFramework;
             document.getElementById('nav-faq').innerText = data.navFaq;
@@ -870,6 +945,19 @@
             document.getElementById('btn-neg-2').innerText = data.negBtn2;
             document.getElementById('custom-followup-input').placeholder = data.customFollowupPlaceholder;
             document.getElementById('btn-send-followup').innerText = data.btnSendFollowup;
+
+            // 知識庫內容多語系動態切換
+            document.getElementById('knowledge-title').innerText = data.knowledgeTitle;
+            const knowledgeContent = document.getElementById('knowledge-content');
+            knowledgeContent.innerHTML = '';
+            data.articles.forEach(art => {
+                knowledgeContent.innerHTML += `
+                    <div class="article-card">
+                        <h3>${art.title}</h3>
+                        <p>${art.desc}</p>
+                    </div>
+                `;
+            });
 
             document.getElementById('aud-title').innerText = data.audienceTitle;
             const audGrid = document.getElementById('aud-grid');
