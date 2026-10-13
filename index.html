@@ -136,7 +136,6 @@
         .tag-btn { background: #fff; border: 1px solid var(--border-color); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.85rem; color: #334155; cursor: pointer; }
         .tag-btn:hover { background: #f1f5f9; }
 
-        /* 預設隱藏 API 欄位，直到次數用完才顯示 */
         .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 1px solid #fef3c7; padding: 1.5rem; border-radius: 12px; }
         .api-key-container h3 { color: #92400e; font-size: 1.05rem; margin-bottom: 0.5rem; }
         .api-key-container p { color: #78350f; font-size: 0.9rem; margin-bottom: 1rem; }
@@ -698,9 +697,8 @@
         async function startInitialDiagnosis() {
             const userApiKey = document.getElementById('user-api-key').value.trim();
 
-            // 檢查 10 次免費限制：若超限且未填寫 API Key，彈出提示並顯示 BYOK 區塊
             if (!userApiKey && freeUsageCount >= MAX_FREE_USES) {
-                alert('⚠️ 您的 10 次免費 AI 互動額度已用完！請在下方彈出的 BYOK 欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
+                alert('⚠️ 您的 10 次免費 AI 額度已用完！請在下方彈出的 BYOK 欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
                 document.getElementById('api-key-container').style.display = 'block';
                 document.getElementById('user-api-key').focus();
                 return;
@@ -793,7 +791,6 @@
             }
         }
 
-        /* 動態綁定 TOP 1 的三個實際步驟按鈕，確保送出 JD 與經歷時有反應 */
         async function handleStep1Action() {
             const inputVal = document.getElementById('challenge-input').value.trim() || "Cloud Service JD & Requirements";
             lastUserJD = inputVal;
@@ -806,6 +803,7 @@
             }, 400);
         }
 
+        // 核心修復：當執行完 Step 2 (Match Experience) 時，立即自動彈出 PDF 報告確認 Box
         async function handleStep2Action() {
             const inputVal = document.getElementById('custom-followup-input').value.trim() || document.getElementById('challenge-input').value.trim() || "Candidate past experience in engineering and technical execution.";
             lastUserExp = inputVal;
@@ -832,7 +830,7 @@
 
             if (targetStep === 2) {
                 promptText = `Based on the previous RACI analysis, strictly execute Step 2: 給予 2-3 題 Follow-up 引導式問題 (Provide 2-3 insightful follow-up guiding questions). Do NOT output steps 3 or 4. Plain text only, no Markdown.`;
-                guidanceMsg = "👉 [步驟 2 已完成] 請回答上方問題或點擊下方按鈕進入「步驟 3：請使用者提供不涉及商業機密的小範圍參考數據」。";
+                guidanceMsg = "👉 [步驟 2 已完成] 請回答上方問題或點擊下方按鈕進入勸導「步驟 3：請使用者提供不涉及商業機密的小範圍參考數據」。";
             } else if (targetStep === 3) {
                 promptText = `Strictly execute Step 3: 請使用者提供目前不涉及商業機密的小範圍參考數據，作為輸出方案的架構依據 (Request user to provide small-scale non-confidential reference data as architecture input). Do NOT output step 4 yet. Plain text only, no Markdown.`;
                 guidanceMsg = "👉 [步驟 3 已完成] 請提供您的參考數據或點擊下方按鈕進入「步驟 4：輸出最終解決方案」。";
@@ -985,7 +983,7 @@
         async function sendDiagnosisRequest(userApiKey, newPrompt) {
             if (!userApiKey) {
                 if (freeUsageCount >= MAX_FREE_USES) {
-                    alert('⚠️ 您的 10 次免費 AI 互動額度已用完！請在上方彈出的 BYOK 欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
+                    alert('⚠️ 您的 10 次免費 AI 額度已用完！請在上方彈出的 BYOK 欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
                     document.getElementById('api-key-container').style.display = 'block';
                     document.getElementById('user-api-key').focus();
                     throw new Error('Free quota exceeded');
