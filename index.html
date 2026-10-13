@@ -534,19 +534,19 @@
                 </div>
             </div>
 
+            <!-- 核心修正：將整塊 #result-panel 包覆在 #pdf-export-area 內，確保 html2pdf 能夠完整擷取對話與高質感 AI Scoring 報告卡片 -->
             <div id="result-box" class="result-panel">
                 <div id="pdf-export-area">
                     <div id="conversation-container" class="conversation-history"></div>
+                    <div id="pdf-approval-container"></div>
                 </div>
-
-                <div id="pdf-approval-container"></div>
 
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="followup-title" id="followup-title-text">⚡ Strict 3-Step Guided Workflow:</div>
                     <div class="followup-actions">
-                        <button class="btn-followup-jd" id="step1-btn" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 1: Please analyze the pasted Job Description (JD) below and generate an AI SCORING MATRIX with hard and soft skill criteria: [Paste your Cloud Service JD here]'))">📋 Step 1: Paste JD & Generate AI Scoring Matrix</button>
-                        <button class="btn-followup-pos" id="step2-btn" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 2: Here is my past experience, preferred programming languages, and completed projects: [Paste your experience, tech stack, and project history here]. Please match them against the AI Scoring Matrix with gap analysis.'))">💡 Step 2: Input Experience & Match Skills</button>
-                        <button class="btn-followup-pos" id="step3-btn" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 3: Please generate the final PDF evaluation report download instructions and structured layout, including overall score card, skill breakdown, strengths & risks, and customized interview questions.'))">📊 Step 3: Generate PDF Report</button>
+                        <button class="btn-followup-jd" id="step1-btn" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 1: Please analyze the pasted Job Description (JD) below and generate an AI SCORING MATRIX with hard and soft skill criteria.'))">📋 Step 1: Paste JD & Generate AI Scoring Matrix</button>
+                        <button class="btn-followup-pos" id="step2-btn" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 2: Here is my past experience, preferred programming languages, and completed projects. Please match them against the AI Scoring Matrix with gap analysis.'))">💡 Step 2: Input Experience & Match Skills</button>
+                        <button class="btn-followup-pos" id="step3-btn" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 3: Please generate the final professional evaluation report.'))">📊 Step 3: Generate PDF Report</button>
                     </div>
                     <div class="custom-followup-wrapper">
                         <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="Type your command or paste JD / experience..." />
