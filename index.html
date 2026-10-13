@@ -692,7 +692,6 @@
             document.getElementById('challenge-input').focus();
         }
 
-        // 核心修復：點擊標籤按鈕時自動填入並直接觸發隱私權同意與診斷執行
         function fillAndRunPrompt(text) {
             fillPrompt(text);
             requestPrivacyConsent(startInitialDiagnosis);
@@ -820,7 +819,7 @@
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        /* 智慧動態解析函式：結合使用者的真實 JD 與經歷輸入進行客製化分析渲染 */
+        /* 核心修復：確保 #pdf-export-area 直接包覆整張 AI Scoring 報告卡片，解決 PDF 下載空白問題 */
         function renderDynamicSmartReport() {
             const container = document.getElementById('pdf-approval-container');
             
@@ -955,9 +954,13 @@
             }
         }
 
-        /* 核心修復：使用 setTimeout 與精準容器 ID 確保 html2pdf 成功渲染 PDF 內容，決不空白 */
+        /* 核心修復：使用 setTimeout 與精準的 #pdf-export-area 容器，確保 html2pdf 成功渲染出非空白的 PDF 檔案 */
         function downloadPDFReport() {
             const element = document.getElementById('pdf-export-area');
+            if (!element) {
+                alert('Report element not found!');
+                return;
+            }
             const opt = {
                 margin:       5,
                 filename:     'AI_Scoring_Evaluation_Report.pdf',
@@ -973,7 +976,7 @@
                     console.error('PDF generation error:', err);
                     alert('Failed to generate PDF. Please try again.');
                 });
-            }, 300);
+            }, 500);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
