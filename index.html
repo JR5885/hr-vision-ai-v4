@@ -136,7 +136,8 @@
         .tag-btn { background: #fff; border: 1px solid var(--border-color); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.85rem; color: #334155; cursor: pointer; }
         .tag-btn:hover { background: #f1f5f9; }
 
-        .api-key-container { max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 1px solid #fef3c7; padding: 1.5rem; border-radius: 12px; }
+        /* 預設隱藏 API 欄位，直到次數用完才顯示 */
+        .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 1px solid #fef3c7; padding: 1.5rem; border-radius: 12px; }
         .api-key-container h3 { color: #92400e; font-size: 1.05rem; margin-bottom: 0.5rem; }
         .api-key-container p { color: #78350f; font-size: 0.9rem; margin-bottom: 1rem; }
         .api-input-group { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
@@ -461,10 +462,10 @@
                 </div>
             </div>
 
-            <!-- 內建 10 次免費限制與手動輸入 API Key 欄位 -->
+            <!-- 預設隱藏 API 欄位，直到 10 次免費額度用完才彈出提示與輸入框 -->
             <div id="api-key-container" class="api-key-container">
-                <h3 id="byok-title">🔑 Enable BYOK (Google Gemini API Key - 10 Free Uses)</h3>
-                <p id="byok-desc">You have <span id="remaining-count" style="font-weight: 700; color: #dc2626;">10</span> free uses remaining. Once exceeded, please paste your personal API Key below to continue.</p>
+                <h3 id="byok-title">🔑 Enable BYOK (Google Gemini API Key - Free Limit Reached)</h3>
+                <p id="byok-desc">Your 10 free AI interactions have been fully used. To continue utilizing advanced AI diagnosis and report generation, please paste your personal Google AI Studio API Key below:</p>
                 <div class="api-input-group">
                     <input type="password" id="user-api-key" placeholder="Paste your Google AI Studio API Key (AIzaSy...)">
                 </div>
@@ -483,7 +484,7 @@
                 <div id="pdf-approval-container"></div>
 
                 <div id="followup-box" class="followup-box" style="display: none;">
-                    <div class="followup-title" id="followup-title-text">⚡ Progressive Workflow Action:</div>
+                    <div class="followup-title" id="workflow-title-text">⚡ Progressive Workflow Action:</div>
                     <div class="followup-actions" id="dynamic-workflow-actions">
                         <!-- 動態根據是否為 TOP 1 來切換按鈕 -->
                     </div>
@@ -520,7 +521,7 @@
             </div>
             <div class="article-card">
                 <h3>Q2：免費用量與 API Key 機制是如何運作的？</h3>
-                <p>系統提供 10 次免費互動額度。當次數耗盡後，使用者需自行前往 Google AI Studio 申請並貼上個人 API Key 才能繼續使用。</p>
+                <p>系統提供 10 次免費互動額度。當次數耗盡後，介面會自動彈出 BYOK 欄位，使用者需自行前往 Google AI Studio 申請並貼上個人 API Key 才能繼續使用。</p>
             </div>
         </section>
     </div>
@@ -543,13 +544,6 @@
         let lastUserJD = "";
         let lastUserExp = "";
 
-        // 更新剩餘免費次數顯示
-        function updateRemainingCountUI() {
-            const remaining = Math.max(0, MAX_FREE_USES - freeUsageCount);
-            const countEl = document.getElementById('remaining-count');
-            if (countEl) countEl.innerText = remaining;
-        }
-
         const translations = {
             zh: {
                 navSandbox: "診斷沙盒",
@@ -563,8 +557,8 @@
                 inputPlaceholder: "選擇下方熱門話題或輸入 Cloud Service 招募挑戰...",
                 top3Title: "🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：",
                 standardTitle: "📌 點選下方 Cloud Service 職缺與標準 HR 專業策略標籤（4階段分批引導）：",
-                byokTitle: "🔑 啟用自備 Google Gemini API Key (10次免費額度)",
-                byokDesc: "您尚有 <span id='remaining-count' style='font-weight: 700; color: #dc2626;'>" + Math.max(0, MAX_FREE_USES - freeUsageCount) + "</span> 次免費使用額度。超過後請自行貼上個人 API Key 繼續使用。",
+                byokTitle: "🔑 啟用自備 Google Gemini API Key (免費額度已滿)",
+                byokDesc: "您的 10 次免費 AI 互動額度已用盡。若要繼續使用進階 AI 診斷與報告生成功能，請在下方輸入您的個人 Google AI Studio API Key：",
                 workflowTitle: "⚡ 分批引導互動操作：",
                 customInputPlaceholder: "輸入您的回覆或補充說明...",
                 sendBtn: "送出",
@@ -597,8 +591,8 @@
                 inputPlaceholder: "Select trending topics below or enter your Cloud Service HR challenge...",
                 top3Title: "🔥 2026-2027 TOP 3 Trending HR Topics:",
                 standardTitle: "📌 Click Cloud Service Roles & Standard HR Strategy Tags Below (4-Step Progressive Guide):",
-                byokTitle: "🔑 Enable BYOK (Google Gemini API Key - 10 Free Uses)",
-                byokDesc: "You have <span id='remaining-count' style='font-weight: 700; color: #dc2626;'>" + Math.max(0, MAX_FREE_USES - freeUsageCount) + "</span> free uses remaining. Once exceeded, please paste your personal API Key below to continue.",
+                byokTitle: "🔑 Enable BYOK (Google Gemini API Key - Free Limit Reached)",
+                byokDesc: "Your 10 free AI interactions have been fully used. To continue utilizing advanced AI diagnosis and report generation, please paste your personal Google AI Studio API Key below:",
                 workflowTitle: "⚡ Progressive Workflow Action:",
                 customInputPlaceholder: "Type your response or follow-up answer...",
                 sendBtn: "Send",
@@ -639,7 +633,7 @@
             document.getElementById('top3-title').innerText = t.top3Title;
             document.getElementById('standard-title').innerText = t.standardTitle;
             document.getElementById('byok-title').innerText = t.byokTitle;
-            document.getElementById('byok-desc').innerHTML = t.byokDesc;
+            document.getElementById('byok-desc').innerText = t.byokDesc;
             document.getElementById('workflow-title-text').innerText = t.workflowTitle;
             document.getElementById('custom-followup-input').placeholder = t.customInputPlaceholder;
             document.getElementById('btn-send-followup').innerText = t.sendBtn;
@@ -659,7 +653,6 @@
             document.getElementById('modal-cancel-btn').innerText = t.modalCancel;
             document.getElementById('modal-confirm-btn').innerText = t.modalConfirm;
             document.getElementById('privacy-tip').innerText = t.privacyTip;
-            updateRemainingCountUI();
         }
 
         function requestPrivacyConsent(actionCallback) {
@@ -705,9 +698,10 @@
         async function startInitialDiagnosis() {
             const userApiKey = document.getElementById('user-api-key').value.trim();
 
-            // 檢查 10 次免費限制
+            // 檢查 10 次免費限制：若超限且未填寫 API Key，彈出提示並顯示 BYOK 區塊
             if (!userApiKey && freeUsageCount >= MAX_FREE_USES) {
-                alert('⚠️ 您的 10 次免費 API 額度已用完！請在上方欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
+                alert('⚠️ 您的 10 次免費 AI 互動額度已用完！請在下方彈出的 BYOK 欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
+                document.getElementById('api-key-container').style.display = 'block';
                 document.getElementById('user-api-key').focus();
                 return;
             }
@@ -733,18 +727,18 @@
             document.getElementById('pdf-approval-container').innerHTML = '';
             document.getElementById('conversation-container').innerHTML = '';
 
-            const loadingMsg = isTop1Flow ? 
-                'AI Agent initialized strict 3-step workflow. Awaiting Step 1 execution...' : 
-                'AI Agent initialized strict 4-step progressive HR advisory. Generating Step 1 (RACI Matrix & Responsibilities)...';
-            
-            appendTurnUI(`[${target}] ${input}`, loadingMsg);
-
+            let loadingMsg = "";
             let initialPrompt = "";
+
             if (isTop1Flow) {
+                loadingMsg = 'AI Agent initialized strict 3-step workflow. Awaiting Step 1 execution...';
                 initialPrompt = `Act as a senior HR consultant for 【${target}】 and execute the strict 3-step workflow. Output ONLY Step 1 (Generate AI Scoring Matrix). Plain text only, no Markdown.`;
             } else {
-                initialPrompt = `Act as a senior HR consultant for 【${target}】.\n[CRITICAL RULE]: You must ONLY execute Step 1: RACI Matrix & Responsibilities. Do NOT output steps 2, 3, or 4.\nUser Topic: ${input}\nPlain text only, no Markdown.`;
+                loadingMsg = 'AI Agent initialized strict 4-step progressive HR advisory. Generating Step 1: RACI 分工及責任矩陣...';
+                initialPrompt = `Act as a senior HR consultant for 【${target}】.\n[CRITICAL RULE]: You must ONLY execute Step 1: RACI 分工及責任矩陣. Do NOT output steps 2, 3, or 4.\nUser Topic: ${input}\nPlain text only, no Markdown.`;
             }
+            
+            appendTurnUI(`[${target}] ${input}`, loadingMsg);
 
             try {
                 const report = await sendDiagnosisRequest(userApiKey, initialPrompt);
@@ -760,7 +754,7 @@
                 } else {
                     progressiveStep = 1; 
                     setTimeout(() => {
-                        appendTurnUI("System Guidance", "👉 [步驟 2] 點擊下方按鈕或輸入回覆，產出 2-3 題 Follow-up 引導式問題。");
+                        appendTurnUI("System Guidance", "👉 [步驟 1 已完成] 請點擊下方按鈕以進入「步驟 2：給予 2-3 題 Follow-up 引導式問題」。");
                     }, 400);
                 }
             } catch (err) {
@@ -774,14 +768,14 @@
             const actionsContainer = document.getElementById('dynamic-workflow-actions');
             if (isTop1Flow) {
                 actionsContainer.innerHTML = `
-                    <button class="btn-followup-jd" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 1: Please analyze the pasted Job Description (JD) below and generate an AI SCORING MATRIX.'))">📋 Step 1: Generate AI Scoring Matrix</button>
-                    <button class="btn-followup-pos" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 2: Here is my past experience. Please match against the AI Scoring Matrix.'))">💡 Step 2: Match Experience</button>
-                    <button class="btn-followup-pos" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 3: Please generate the final professional evaluation report.'))">📊 Step 3: Generate PDF Report</button>
+                    <button class="btn-followup-jd" onclick="requestPrivacyConsent(() => handleStep1Action())">📋 Step 1: Generate AI Scoring Matrix</button>
+                    <button class="btn-followup-pos" onclick="requestPrivacyConsent(() => handleStep2Action())">💡 Step 2: Match Experience</button>
+                    <button class="btn-followup-pos" onclick="requestPrivacyConsent(() => handleStep3Action())">📊 Step 3: Generate PDF Report</button>
                 `;
             } else {
                 if (progressiveStep === 1) {
                     actionsContainer.innerHTML = `
-                        <button class="btn-followup-jd" onclick="requestPrivacyConsent(() => triggerProgressiveStep(2))">👉 進入步驟 2：產出 2-3 題 Follow-up 引導問題</button>
+                        <button class="btn-followup-jd" onclick="requestPrivacyConsent(() => triggerProgressiveStep(2))">👉 進入步驟 2：給予 2-3 題 Follow-up 引導式問題</button>
                     `;
                 } else if (progressiveStep === 2) {
                     actionsContainer.innerHTML = `
@@ -799,6 +793,37 @@
             }
         }
 
+        /* 動態綁定 TOP 1 的三個實際步驟按鈕，確保送出 JD 與經歷時有反應 */
+        async function handleStep1Action() {
+            const inputVal = document.getElementById('challenge-input').value.trim() || "Cloud Service JD & Requirements";
+            lastUserJD = inputVal;
+            stepCompleted = 1;
+            appendTurnUI("Step 1: Generate AI Scoring Matrix", "Analyzing Job Description and generating Hard & Soft Skills Scoring Matrix...");
+            const res = await sendDiagnosisRequest(document.getElementById('user-api-key').value.trim(), `Step 1 Analysis based on JD: ${inputVal}. Output Hard & Soft Skills Scoring Matrix in plain text, no Markdown.`);
+            updateLatestAIResponse(cleanMarkdownFormatting(res));
+            setTimeout(() => {
+                appendTurnUI("System Guidance", "💡 Step 2: Please paste your past experience or type your background details below, then click 'Match Experience'.");
+            }, 400);
+        }
+
+        async function handleStep2Action() {
+            const inputVal = document.getElementById('custom-followup-input').value.trim() || document.getElementById('challenge-input').value.trim() || "Candidate past experience in engineering and technical execution.";
+            lastUserExp = inputVal;
+            stepCompleted = 2;
+            appendTurnUI("Step 2: Match Experience", "Matching candidate experience against the AI Scoring Matrix with gap analysis...");
+            const res = await sendDiagnosisRequest(document.getElementById('user-api-key').value.trim(), `Step 2 Gap Analysis based on experience: ${inputVal}. Output match analysis in plain text, no Markdown.`);
+            updateLatestAIResponse(cleanMarkdownFormatting(res));
+            setTimeout(() => {
+                showPdfApprovalBox();
+            }, 400);
+        }
+
+        async function handleStep3Action() {
+            stepCompleted = 3;
+            appendTurnUI("Step 3: Generate PDF Report", "Compiling final professional evaluation report...");
+            renderExactFormatReport();
+        }
+
         async function triggerProgressiveStep(targetStep) {
             progressiveStep = targetStep;
             const target = document.getElementById('sandbox-target').value;
@@ -806,14 +831,14 @@
             let guidanceMsg = "";
 
             if (targetStep === 2) {
-                promptText = `Based on the previous RACI analysis, strictly execute Step 2: Provide 2-3 insightful follow-up guiding questions for the HR/Management team. Do NOT output steps 3 or 4. Plain text only, no Markdown.`;
-                guidanceMsg = "👉 [步驟 3] 請使用者提供目前不涉及商業機密的小範圍參考數據作為架構依據。";
+                promptText = `Based on the previous RACI analysis, strictly execute Step 2: 給予 2-3 題 Follow-up 引導式問題 (Provide 2-3 insightful follow-up guiding questions). Do NOT output steps 3 or 4. Plain text only, no Markdown.`;
+                guidanceMsg = "👉 [步驟 2 已完成] 請回答上方問題或點擊下方按鈕進入「步驟 3：請使用者提供不涉及商業機密的小範圍參考數據」。";
             } else if (targetStep === 3) {
-                promptText = `Strictly execute Step 3: Request the user to provide small-scale reference data (without commercial secrets) to serve as architecture input. Do NOT output step 4 yet. Plain text only, no Markdown.`;
-                guidanceMsg = "👉 [步驟 4] 根據參考數據輸出最終完整解決方案。";
+                promptText = `Strictly execute Step 3: 請使用者提供目前不涉及商業機密的小範圍參考數據，作為輸出方案的架構依據 (Request user to provide small-scale non-confidential reference data as architecture input). Do NOT output step 4 yet. Plain text only, no Markdown.`;
+                guidanceMsg = "👉 [步驟 3 已完成] 請提供您的參考數據或點擊下方按鈕進入「步驟 4：輸出最終解決方案」。";
             } else if (targetStep === 4) {
-                promptText = `Strictly execute Step 4: Output the comprehensive and actionable HR strategy solution based on prior inputs. Plain text only, no Markdown.`;
-                guidanceMsg = "✅ 方案輸出完成。";
+                promptText = `Strictly execute Step 4: 輸出解決方案 (Output the final comprehensive solution based on prior inputs). Plain text only, no Markdown.`;
+                guidanceMsg = "✅ 4 階段分批引導方案已全部順利輸出！";
             }
 
             appendTurnUI(`Execute Step ${targetStep}`, `Generating Step ${targetStep} content...`);
@@ -831,69 +856,19 @@
             }
         }
 
-        async function triggerFollowUp(questionText) { await handleFollowUpExecution(questionText); }
         async function sendCustomFollowUp() {
             const inputEl = document.getElementById('custom-followup-input');
             const val = inputEl.value.trim();
             if(!val) return;
             inputEl.value = '';
             if (isTop1Flow) {
-                await handleFollowUpExecution(val);
+                lastUserExp = val;
+                appendTurnUI(val, "Processing candidate experience and matching against matrix...");
+                await handleStep2Action();
             } else {
-                appendTurnUI(val, "AI Agent is incorporating your feedback into the advisory workflow...");
-                const res = await sendDiagnosisRequest(document.getElementById('user-api-key').value.trim(), `User feedback: ${val}. Continue current progressive step with plain text only, no Markdown.`);
+                appendTurnUI(val, "AI Agent is incorporating your feedback into the progressive workflow...");
+                const res = await sendDiagnosisRequest(document.getElementById('user-api-key').value.trim(), `User feedback/data: ${val}. Continue current progressive step strictly one step at a time with plain text only, no Markdown.`);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
-            }
-        }
-
-        async function handleFollowUpExecution(questionText) {
-            const currentTurns = conversationHistory.filter(item => item.role === 'user').length;
-            if (currentTurns >= MAX_TURNS) {
-                alert('Reached max 20 turns limit. Please restart!');
-                return;
-            }
-
-            const userApiKey = document.getElementById('user-api-key').value.trim();
-            const target = document.getElementById('sandbox-target').value;
-            appendTurnUI(questionText, `AI Agent is processing Step instruction (Turn ${currentTurns}/${MAX_TURNS})...`);
-            
-            const isStep2 = questionText.includes('Step 2') || questionText.includes('第二步') || questionText.includes('experience');
-
-            if (stepCompleted === 1) {
-                lastUserJD = questionText;
-                stepCompleted = 2;
-            } else if (stepCompleted === 2 || isStep2 || currentTurns >= 1) {
-                lastUserExp = questionText;
-                stepCompleted = 3;
-            }
-
-            let prompt = `Act as an executive consultant for 【${target}】 enforcing a strict 3-step sequence.\nUser Command: ${questionText}\n\n[RULES]: Output plain text only, no Markdown.`;
-
-            try {
-                const res = await sendDiagnosisRequest(userApiKey, prompt);
-                let formattedRes = cleanMarkdownFormatting(res);
-
-                updateLatestAIResponse(formattedRes, false);
-
-                if (stepCompleted === 2 && !isStep2) {
-                    setTimeout(() => {
-                        appendTurnUI("System Guidance", "💡 Step 2: Input Experience & Match Skills");
-                    }, 400);
-                } else {
-                    stepCompleted = 3;
-                    showPdfApprovalBox();
-                }
-            } catch (err) {
-                let fallbackRes = `Analysis completed based on provided input.\n\nPlease proceed to the next step.`;
-                if (stepCompleted === 2) {
-                    setTimeout(() => {
-                        appendTurnUI("System Guidance", "💡 Step 2: Input Experience & Match Skills");
-                    }, 400);
-                } else {
-                    stepCompleted = 3;
-                    showPdfApprovalBox();
-                }
-                updateLatestAIResponse(fallbackRes, false);
             }
         }
 
@@ -1008,16 +983,15 @@
         }
 
         async function sendDiagnosisRequest(userApiKey, newPrompt) {
-            // 計算並檢查 10 次免費限制
             if (!userApiKey) {
                 if (freeUsageCount >= MAX_FREE_USES) {
-                    alert('⚠️ 您的 10 次免費 API 額度已用完！請在上方欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
+                    alert('⚠️ 您的 10 次免費 AI 互動額度已用完！請在上方彈出的 BYOK 欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
+                    document.getElementById('api-key-container').style.display = 'block';
                     document.getElementById('user-api-key').focus();
                     throw new Error('Free quota exceeded');
                 }
                 freeUsageCount++;
                 localStorage.setItem('hr_vision_free_count', freeUsageCount);
-                updateRemainingCountUI();
             }
 
             conversationHistory.push({ role: "user", parts: [{ text: newPrompt }] });
