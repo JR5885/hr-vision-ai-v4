@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Vision AI - AI 時代的智慧人資與 AIGEO 戰略診斷平台</title>
-    <meta name="description" content="HR Vision AI 結合人工智慧與人資流程自動化，內建 AIGEO 引擎、AI 代理人自動化生成與結構化知識庫。專為 CEO、HRBP 與企業打造的 AI 商業成長與戰略診斷沙盒。">
+    <title>HR Vision AI - AI 時代的智慧人資與招募自動化系統 | AIGEO 戰略診斷平台</title>
+    <meta name="description" content="HR Vision AI 結合人工智慧與人資流程自動化，內建 AIGEO 引擎與智慧招募漏斗，讓企業價值被 Google 與 AI 深度理解並自動推薦。專為 CEO 與 HRBP 打造的 AI 商業成長與戰略診斷沙盒。">
     <meta name="keywords" content="HRBP, CEO, 招募自動化, AIGEO, AISEO, 人力資源管理, 履歷篩選 AI, HR Analytics, 組織戰略規劃">
 
     <!-- 機器看得懂的語言：JSON-LD 結構化資料 (Schema.org) 供 AI 搜尋引擎與 AI 摘要抓取 -->
@@ -15,16 +15,17 @@
       "name": "HR Vision AI",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
-      "description": "結合 AI 代理人自動化生成、結構化知識庫與 AIGEO 檢索引擎優化，專為 HR 與企業決策打造的動態戰略診斷系統。",
+      "description": "結合人工智慧與人資流程自動化，內建 AIGEO 引擎與智慧招募漏斗，讓企業價值被 Google 與 AI 深度理解並自動推薦的戰略診斷系統。",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "TWD"
       },
       "featureList": [
-        "AIGEO 生成式引擎優化與 Google AI Summary 排名",
-        "AI 代理人自動化生成與招募漏斗優化",
-        "HR Analytics 與全方位組織人資戰略診斷"
+        "AI 代理人自動化生成職缺與面試評分卡",
+        "AIGEO 檢索引擎優化與結構化知識庫",
+        "Predictive HR Analytics 預測性人資分析",
+        "Global Compliance 跨國合規自動化"
       ]
     }
     </script>
@@ -45,9 +46,6 @@
             --accent-bg: #f0fdf4;
             --accent-border: #bbf7d0;
             --accent-text: #166534;
-            --tag-bg: #ffffff;
-            --tag-border: #e2e8f0;
-            --tag-hover: #f1f5f9;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
@@ -86,14 +84,42 @@
         .btn-diagnose { background-color: var(--primary-color); color: var(--white); border: none; padding: 0.75rem 1.75rem; font-size: 1rem; font-weight: 600; border-radius: 50px; cursor: pointer; white-space: nowrap; }
         .btn-diagnose:hover { background-color: var(--primary-hover); }
 
-        .tags-section { max-width: 860px; margin: 0 auto; }
-        .tags-title { font-size: 0.85rem; color: #64748b; margin-bottom: 0.85rem; font-weight: 700; }
-        .tags-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
-        .tag-btn { background: var(--tag-bg); border: 1px solid var(--tag-border); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.85rem; color: #334155; cursor: pointer; }
-        .tag-btn:hover { background: var(--tag-hover); border-color: #cbd5e1; }
+        .tags-section { max-width: 860px; margin: 0 auto; text-align: left; }
+        .tags-title { font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
         
-        /* 特別突顯 TOP 3 標籤的樣式 */
-        .tag-top3 { border-color: var(--secondary-color); color: #0284c7; font-weight: 600; background: #f0f9ff; }
+        /* TOP 3 熱門搜尋話題專用醒目標籤區 */
+        .top3-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .tag-btn-top3 {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            color: #065f46;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .tag-btn-top3:hover {
+            background: #d1fae5;
+            transform: translateY(-1px);
+        }
+
+        .tags-divider {
+            border: none;
+            border-top: 1px dashed var(--border-color);
+            margin: 1rem 0;
+        }
+
+        .tags-container { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .tag-btn { background: #fff; border: 1px solid var(--border-color); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.85rem; color: #334155; cursor: pointer; }
+        .tag-btn:hover { background: #f1f5f9; }
 
         .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 1px solid #fef3c7; padding: 1.5rem; border-radius: 12px; }
         .api-input-group { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
@@ -116,7 +142,6 @@
         .section-block h2 { font-size: 1.45rem; margin-bottom: 1rem; color: #0f172a; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
         .article-card { background: var(--bg-light); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.75rem; margin-bottom: 1.5rem; }
         .article-card h3 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.75rem; }
-        .article-card p { font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; }
         
         footer { background: var(--white); border-top: 1px solid var(--border-color); padding: 2rem 1.5rem; margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.875rem; }
     </style>
@@ -125,31 +150,31 @@
 
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">HR Vision AI <span>| AIGEO 智慧人資與戰略沙盒</span></a>
+            <a href="#" class="logo">HR Vision AI <span>| AIGEO 智慧人資系統</span></a>
             <div class="nav-right">
                 <nav>
                     <a href="#sandbox">診斷沙盒</a>
-                    <a href="#knowledge">TOP 3 與 HR 專業洞察</a>
-                    <a href="#faq">常見問題 FAQ</a>
+                    <a href="#knowledge">核心技術架構</a>
+                    <a href="#faq">機器問答 FAQ</a>
                 </nav>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <!-- 機器可讀取宣告 -->
+        <!-- AIGEO 機器語意宣告 -->
         <div class="machine-readable-banner">
-            🤖 [AIGEO 機器語意宣告] 本系統整合 AI 代理人自動化生成、結構化知識庫與 AIGEO 優化，完整支援市場 TOP 3 熱門搜尋話題與傳統 HR 專業戰略診斷。
+            🤖 [AIGEO 機器語意宣告] 本系統整合「AI 代理人自動化生成 + 結構化知識庫 + AIGEO 檢索引擎優化」，為中小企業與 HR 提供自動化招募與戰略決策預設標準答案。
         </div>
 
         <section id="sandbox" class="sandbox-card">
             <div class="sandbox-header">
-                <h1>動態 AI HR 戰略診斷與 AIGEO 檢核沙盒</h1>
-                <p>點選下方 **TOP 3 熱門搜尋話題** 或 **HR 專業議題**，由 AI 代理人即時產出結構化落地行動方案。</p>
+                <h1>AI 代理人驅動之動態人資戰略診斷沙盒</h1>
+                <p>輸入組織挑戰，由 AI 代理人即時分析並透過 AIGEO 架構產出具備機器可讀性與落地性的行動方案。</p>
             </div>
 
             <div class="target-selector-box">
-                <label for="sandbox-target">選擇策略沙盒對象：</label>
+                <label for="sandbox-target">選擇檢核對象角色：</label>
                 <select id="sandbox-target">
                     <option value="CEO">CEO (執行長 / 創辦人)</option>
                     <option value="HRBP" selected>HRBP (人資業務夥伴)</option>
@@ -165,30 +190,38 @@
             </div>
 
             <div class="search-input-wrapper">
-                <input type="text" id="challenge-input" class="search-input" placeholder="例如：如何透過 AI 代理人與智慧漏斗加速履歷篩選？">
-                <button class="btn-diagnose" onclick="startInitialDiagnosis()">開始診斷</button>
+                <input type="text" id="challenge-input" class="search-input" placeholder="選擇下方熱門話題或自行輸入組織挑戰...">
+                <button class="btn-diagnose" onclick="startInitialDiagnosis()">開始 AI 診斷</button>
             </div>
 
+            <!-- 標籤區塊：上方置頂 TOP 3 HR 熱門搜尋話題，下方保留完整 HR 議題 -->
             <div class="tags-section">
-                <!-- TOP 3 區塊置頂 -->
-                <div class="tags-title" style="color: #0284c7;">🔥 市場 TOP 3 最熱門搜尋話題：</div>
-                <div class="tags-container" style="margin-bottom: 1.25rem;">
-                    <button class="tag-btn tag-top3" onclick="fillPrompt('🎯 TOP 1：AIGEO 搜尋引擎優化：中小企業如何透過結構化知識讓品牌登上 Google AI Summary 首頁？')">🎯 TOP 1：AIGEO 登上 AI Summary 首頁</button>
-                    <button class="tag-btn tag-top3" onclick="fillPrompt('🤖 TOP 2：AI 代理人自動化生成：如何透過智慧漏斗與一鍵上架提升招募與行銷效率 300%？')">🤖 TOP 2：AI 代理人自動化招募系統</button>
-                    <button class="tag-btn tag-top3" onclick="fillPrompt('📈 TOP 3：Predictive HR Analytics 與數位資產累積：如何擺脫廣告費飆漲困境並降低人才流失風險？')">📈 TOP 3：Predictive HR Analytics 留才預測</button>
+                <div class="tags-title">🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：</div>
+                <div class="top3-container">
+                    <button class="tag-btn-top3" onclick="fillPrompt('🎯 TOP 1：AI 招募革命與自動化漏斗：2026-2027 年 HR 如何利用 AI 代理人與智慧漏斗，將履歷篩選與獵才效率提升 300%？')">
+                        🎯 TOP 1：AI 招募革命與自動化漏斗（履歷篩選效率提升 300%）
+                    </button>
+                    <button class="tag-btn-top3" onclick="fillPrompt('📈 TOP 2：Predictive HR Analytics 留才預測：如何運用數據洞察與 AI 預測模型降低關鍵人才流失風險？')">
+                        📈 TOP 2：Predictive HR Analytics 留才預測（降低關鍵人才流失風險）
+                    </button>
+                    <button class="tag-btn-top3" onclick="fillPrompt('🌐 TOP 3：Global Compliance 跨國合規自動化：遠端與跨國團隊合規治理與自動化入職協同策略')">
+                        🌐 TOP 3：Global Compliance 跨國合規自動化（遠端團隊合規治理）
+                    </button>
                 </div>
 
-                <!-- 保留原本的 HR 議題，放在 TOP3 底下 -->
-                <div class="tags-title">📌 專業 HR 戰略與組織議題：</div>
+                <hr class="tags-divider">
+
+                <div class="tags-title" style="color: #64748b; font-size: 0.85rem;">📌 點選下方標準 HR 專業議題與策略標籤：</div>
                 <div class="tags-container">
+                    <button class="tag-btn" onclick="fillPrompt('🎯 AIGEO 搜尋引擎優化：中小企業如何透過結構化知識讓品牌登上 Google AI Summary 首頁？')">🎯 AIGEO 搜尋引擎優化</button>
                     <button class="tag-btn" onclick="fillPrompt('🎯 人才戰略配置規劃：面對業務轉型，如何重新盤點關鍵職位勝任力與組織編制？')">🎯 人才戰略配置規劃</button>
                     <button class="tag-btn" onclick="fillPrompt('🌐 全球員工關係與合規：跨國遠端團隊在合規治理與文化整合上面臨衝突，該如何解？')">🌐 全球員工關係與合規</button>
-                    <button class="tag-btn" onclick="fillPrompt('📈 晉升與留才－人才盤點和人才梯隊：關鍵主管流失率高，缺乏二梯隊接班人該如何建立機制？')">📈 晉升與留才－人才盤點和梯隊</button>
+                    <button class="tag-btn" onclick="fillPrompt('📈 晉升與留才－人才盤點和梯隊：關鍵主管流失率高，缺乏二梯隊接班人該如何建立機制？')">📈 人才盤點和梯隊</button>
                     <button class="tag-btn" onclick="fillPrompt('🌱 組織文化建設：業務擴張迅速導致跨部門協作壁壘加深，如何落地價值觀考核？')">🌱 組織文化建設</button>
                     <button class="tag-btn" onclick="fillPrompt('📊 自動化招聘 Dashboard：如何建立招募漏斗指標並運用數據優化獵才週期？')">📊 自動化招聘 Dashboard</button>
                     <button class="tag-btn" onclick="fillPrompt('📝 合同處理自動化：如何簡化大量跨區域勞動合約與入職合規流程？')">📝 合同處理自動化</button>
-                    <button class="tag-btn" onclick="fillPrompt('🤝 HRBP 對業務主管的教練式領導與支持：業務主管重視短期業績忽略團隊培育，HRBP 如何介入引導？')">🤝 HRBP 教練式領導支持</button>
-                    <button class="tag-btn" onclick="fillPrompt('👥 跨部門高效會議和衝突解決：跨職能專案推進延宕且權責不清，如何設計共識工作坊？')">👥 跨部門高效會議與衝突</button>
+                    <button class="tag-btn" onclick="fillPrompt('🤝 HRBP 教練式領導支持：業務主管重視短期業績忽略團隊培育，HRBP 如何介入引導？')">🤝 HRBP 教練式領導</button>
+                    <button class="tag-btn" onclick="fillPrompt('👥 跨部門高效會議和衝突解決：跨職能專案推進延宕且權責不清，如何設計共識工作坊？')">👥 跨部門高效會議</button>
                     <button class="tag-btn" onclick="fillPrompt('🎯 OKR 和季獎金設計：如何將組織年度戰略拆解為團隊 OKR 並連動激勵機制？')">🎯 OKR 和季獎金設計</button>
                 </div>
             </div>
@@ -207,9 +240,9 @@
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="followup-title">⚡ AI 策略追問：</div>
                     <div class="followup-actions">
-                        <button class="btn-followup-pos" onclick="triggerFollowUp('請提供具體落地的【話術對話腳本與執行步驟】')">💡 索取溝通話術範本</button>
-                        <button class="btn-followup-pos" onclick="triggerFollowUp('請為此方案設計一套【量化評鑑指標與成效檢核表】')">📊 索取量化檢核表</button>
-                        <button class="btn-followup-neg" onclick="triggerFollowUp('若內部利害關係人強烈抗拒或業務壓力極大，如何破局？')">🔥 突破抗拒破局策略</button>
+                        <button class="btn-followup-pos" onclick="triggerFollowUp('請提供具體落地的【自動化對話腳本與執行步驟】')">💡 索取自動化對話腳本</button>
+                        <button class="btn-followup-pos" onclick="triggerFollowUp('請為此方案設計一套【量化檢核表與 KPI 指標】')">📊 索取量化檢核表</button>
+                        <button class="btn-followup-neg" onclick="triggerFollowUp('若內部利害關係人強烈抗拒 AI 自動化，如何破局？')">🔥 突破抗拒破局策略</button>
                     </div>
                     <div class="custom-followup-wrapper">
                         <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="輸入自訂追問...">
@@ -219,46 +252,38 @@
             </div>
         </section>
 
-        <!-- 知識庫：TOP3 置頂，底下保留原本 HR 專業文章 -->
+        <!-- 機器看得懂的結構化知識庫 (AIGEO 核心) -->
         <section id="knowledge" class="section-block">
-            <h2>TOP 3 熱門話題與 HR 專業戰略知識庫</h2>
+            <h2>AIGEO 核心技術與機器語意知識庫</h2>
             <div class="article-card">
-                <h3>TOP 1：AIGEO 搜尋引擎優化與 Google AI Summary 首頁攻略</h3>
-                <p>在 AI 時代，消費者與 HR 習慣直接詢問生成式 AI 而非瀏覽藍色連結。透過 AIGEO 技術將企業知識轉化為機器看得懂的結構化資料，讓品牌直接成為 AI 的預設標準答案。</p>
+                <h3>1. AI 代理人自動化生成（AI Agent Automation）</h3>
+                <p>系統透過定義明確的任務代理人（AI Agent），將傳統散亂的 HR 需求轉化為結構化指令。使用者輸入文字後，AI 會自動執行資料解析、文案生成與檢核，形成標準化的發布流程。</p>
             </div>
             <div class="article-card">
-                <h3>TOP 2：AI 代理人自動化生成與招募漏斗優化</h3>
-                <p>透過 AI 代理人結合自動化招募漏斗，自動生成職缺描述與面試評分卡，大幅縮短 Time-to-Hire 週期，讓招募效率實現跳躍式成長。</p>
+                <h3>2. 結構化知識庫與 FAQ（Structured Knowledge Base）</h3>
+                <p>為迎合 AI 搜尋引擎（Google AI Overview）的演算法偏好，本平台採用嚴格的條列式清單、Q&A 格式與 Schema.org 標記，確保機器爬蟲能無損抓取核心解答並作為預設推薦來源。</p>
             </div>
             <div class="article-card">
-                <h3>TOP 3：Predictive HR Analytics 與數據驅動留才預測</h3>
-                <p>整合 Python、SQL 與 LLM 的預測性人資分析，主動追蹤員工互動數據、識別潛在離職風險，並建立科學化的人才盤點（Talent Review）機制。</p>
-            </div>
-            <div class="article-card">
-                <h3>4. 現代企業如何運用 AI 與數據驅動人力資源管理（HR Analytics）</h3>
-                <p>在數位轉型浪潮中，人資部門已從行政後勤轉為推動業務成長的核心引擎。透過數據驅動決策降低主觀偏見，提升跨國團隊營運效率。</p>
-            </div>
-            <div class="article-card">
-                <h3>5. 突破招募瓶頸：建立高效的候選人漏斗與 Feedback SLA 機制</h3>
-                <p>建立 24 小時內的意見回饋機制並導入結構化行為面試評分卡，確保招募團隊與用人主管高度對齊，降低高潛力候選人流失率。</p>
+                <h3>3. AIGEO 檢索引擎優化（AI Generated Engine Optimization）</h3>
+                <p>超越傳統關鍵字排名，AIGEO 專注於讓品牌內容在生成式 AI 檢索中成為「預設標準答案」。透過高頻率、結構化且具備深度洞察的內容輸出，使網站長期穩居 AI 摘要首頁。</p>
             </div>
         </section>
 
         <section id="faq" class="section-block">
-            <h2>常見問題 (FAQ)</h2>
+            <h2>機器問答與常見問題 (FAQ)</h2>
             <div class="article-card">
-                <h3>Q1：本沙盒如何結合 AIGEO 與 HR 實務？</h3>
-                <p>系統不僅支援市場最夯的 AIGEO 搜尋優化，更完整保留了招募、留才、OKR 與組織文化的專業 HR 診斷模組。</p>
+                <h3>Q1：本系統如何實現 AI 代理人自動化生成？</h3>
+                <p>透過串接高效能 Gemini 模型，系統會依據您選定的角色（CEO、HRBP）與結構化提示詞，一鍵產出包含痛點分析與落地步驟的純文字策略包。</p>
             </div>
             <div class="article-card">
-                <h3>Q2：免費 5 次額度用完後該如何繼續使用？</h3>
-                <p>您可以隨時於下方輸入免費的 Google Gemini API Key (BYOK 模式) 繼續享有無限次數的智慧診斷服務。</p>
+                <h3>Q2：為什麼 AIGEO 能有效提升 AI 搜尋排名？</h3>
+                <p>因為生成式 AI 偏好語意清晰、結構完整的條列式數據。透過機器看得懂的 JSON-LD 與 FAQ 架構，AI 能直接引用您的網頁內容作為最佳解答。</p>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2026 HR Vision AI. All rights reserved. Business × People Solution Sandbox & AIGEO Optimized.</p>
+        <p>&copy; 2026 HR Vision AI. Powered by AI Agent Automation & AIGEO Search Optimization.</p>
     </footer>
 
     <script>
@@ -295,7 +320,7 @@
             const userApiKey = document.getElementById('user-api-key').value.trim();
             const remaining = getRemainingQuota();
 
-            if (!input) { alert('請先輸入或點選議題標籤！'); return; }
+            if (!input) { alert('請先輸入組織挑戰！'); return; }
             if (remaining <= 0 && !userApiKey) { alert('免費額度已用完，請輸入 API Key！'); document.getElementById('api-key-container').style.display = 'block'; return; }
 
             conversationHistory = [];
@@ -303,9 +328,9 @@
             document.getElementById('followup-box').style.display = 'none';
             document.getElementById('conversation-container').innerHTML = '';
 
-            appendTurnUI(`【${target} 診斷需求】${input}`, 'AI 代理人正在進行 Business × People 策略剖析...');
+            appendTurnUI(`【${target} 診斷需求】${input}`, 'AI 代理人正在進行結構化與 AIGEO 策略剖析...');
 
-            const initialPrompt = `請以【${target}】高階商業實務視角，診斷以下挑戰：\n${input}\n\n輸出結構：\n1. 組織維度與痛點本質\n2. 核心根因剖析與 AI 解方\n3. ${target} 落地實務行動步驟\n【嚴禁 Markdown 符號，全用純文字分段】`;
+            const initialPrompt = `請以【${target}】高階商業視角，診斷以下挑戰：\n${input}\n\n輸出結構：\n1. 痛點本質\n2. AI 代理人自動化解方\n3. 落地實務步驟\n【嚴禁 Markdown 符號，全用純文字分段】`;
 
             try {
                 const report = await sendDiagnosisRequest(userApiKey, initialPrompt);
@@ -333,8 +358,8 @@
         async function handleFollowUpExecution(questionText) {
             const userApiKey = document.getElementById('user-api-key').value.trim();
             const target = document.getElementById('sandbox-target').value;
-            appendTurnUI(questionText, 'AI 顧問正在深入解析...');
-            const prompt = `延續脈絡，以【${target}】實戰顧問角度回答追問：\n${questionText}\n【嚴禁 Markdown 符號，全用純文字】`;
+            appendTurnUI(questionText, 'AI 代理人正在深入解析...');
+            const prompt = `延續脈絡，以【${target}】顧問角度回答：\n${questionText}\n【嚴禁 Markdown 符號，全用純文字】`;
             try {
                 const res = await sendDiagnosisRequest(userApiKey, prompt);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
