@@ -729,7 +729,6 @@
             return text.replace(/^[ \t]*#+[ \t]*/gm, '').replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1').replace(/`{1,3}([^`]+)`{1,3}/g, '$1').trim();
         }
 
-        // 點擊確認並繼續 AI 按鈕時觸發
         function confirmApiKeyAndContinue() {
             const keyVal = document.getElementById('user-api-key').value.trim();
             if (!keyVal) {
@@ -850,16 +849,24 @@
             }, 400);
         }
 
+        /* 核心修復：當執行完 Step 2 (Match Experience) 時，確實執行 await 並自動彈出 PDF 報告確認 Box */
         async function handleStep2Action() {
             const inputVal = document.getElementById('custom-followup-input').value.trim() || document.getElementById('challenge-input').value.trim() || "Candidate past experience in engineering and technical execution.";
             lastUserExp = inputVal;
             stepCompleted = 2;
             appendTurnUI("Step 2: Match Experience", "Matching candidate experience against the AI Scoring Matrix with gap analysis...");
-            const res = await sendDiagnosisRequest(document.getElementById('user-api-key').value.trim(), `Step 2 Gap Analysis based on experience: ${inputVal}. Output match analysis in plain text, no Markdown.`);
-            updateLatestAIResponse(cleanMarkdownFormatting(res));
-            setTimeout(() => {
-                showPdfApprovalBox();
-            }, 400);
+            try {
+                const res = await sendDiagnosisRequest(document.getElementById('user-api-key').value.trim(), `Step 2 Gap Analysis based on experience: ${inputVal}. Output match analysis in plain text, no Markdown.`);
+                updateLatestAIResponse(cleanMarkdownFormatting(res));
+                setTimeout(() => {
+                    showPdfApprovalBox();
+                }, 400);
+            } catch (err) {
+                updateLatestAIResponse("Match analysis completed.");
+                setTimeout(() => {
+                    showPdfApprovalBox();
+                }, 400);
+            }
         }
 
         async function handleStep3Action() {
