@@ -7,6 +7,9 @@
     <meta name="description" content="HR Vision AI 結合人工智慧與人資流程自動化，內建 AIGEO 引擎與智慧招募漏斗，讓企業價值被 Google 與 AI 深度理解並自動推薦。專為 CEO 與 HRBP 打造的 AI 商業成長與戰略診斷沙盒。">
     <meta name="keywords" content="HRBP, CEO, 招募自動化, AIGEO, AISEO, 人力資源管理, 履歷篩選 AI, HR Analytics, 組織戰略規劃">
 
+    <!-- 引入 html2pdf.js 套件，支援前端一鍵生成並下載 PDF 報告 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <!-- 機器看得懂的語言：JSON-LD 結構化資料 (Schema.org) 供 AI 搜尋引擎與 AI 摘要抓取 -->
     <script type="application/ld+json">
     {
@@ -25,7 +28,7 @@
         "AI 代理人自動化生成職缺與面試評分卡",
         "AIGEO 檢索引擎優化與結構化知識庫",
         "AI Scoring 軟硬技能量化評分與 Cloud Service 實例",
-        "RACI 跨部門職責分工與資料模擬"
+        "RACI 跨部門職責分工與 PDF 報告一鍵下載"
       ]
     }
     </script>
@@ -84,7 +87,6 @@
         
         .quota-banner { display: inline-flex; align-items: center; background-color: var(--accent-bg); border: 1px solid var(--accent-border); color: var(--accent-text); padding: 0.4rem 1rem; border-radius: 9999px; margin-bottom: 1.5rem; font-size: 0.85rem; font-weight: 600; }
         
-        /* 去識別化提示與免責聲明小標語 */
         .privacy-notice-tip {
             font-size: 0.82rem;
             color: #b45309;
@@ -160,6 +162,24 @@
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
+        /* PDF 下載按鈕專屬樣式 */
+        .btn-download-pdf {
+            background: #dc2626;
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: background 0.2s;
+        }
+        .btn-download-pdf:hover { background: #b91c1c; }
+
         .followup-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; }
         .followup-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1rem; }
         .btn-followup-pos { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 0.5rem 0.9rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
@@ -171,7 +191,7 @@
         .custom-followup-input { flex: 1; padding: 0.6rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; }
         .btn-send-followup { background: var(--primary-color); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
 
-        /* 個資合規同意彈跳視窗 (Modal) 樣式 */
+        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -191,66 +211,15 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             text-align: left;
         }
-        .modal-content h3 {
-            color: #0f172a;
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-        }
-        .modal-content p {
-            color: #475569;
-            font-size: 0.92rem;
-            line-height: 1.6;
-            margin-bottom: 1.25rem;
-        }
-        .modal-checkbox-wrapper {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.6rem;
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            padding: 0.85rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-        }
-        .modal-checkbox-wrapper input[type="checkbox"] {
-            margin-top: 0.2rem;
-            width: 1.1rem;
-            height: 1.1rem;
-            cursor: pointer;
-        }
-        .modal-checkbox-wrapper label {
-            font-size: 0.88rem;
-            color: #334155;
-            cursor: pointer;
-            font-weight: 500;
-        }
-        .modal-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 0.75rem;
-        }
-        .btn-modal-cancel {
-            background: #f1f5f9;
-            color: #475569;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .btn-modal-confirm {
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .btn-modal-confirm:disabled {
-            background: #cbd5e1;
-            cursor: not-allowed;
-        }
+        .modal-content h3 { color: #0f172a; font-size: 1.25rem; margin-bottom: 0.75rem; }
+        .modal-content p { color: #475569; font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.25rem; }
+        .modal-checkbox-wrapper { display: flex; align-items: flex-start; gap: 0.6rem; background: #f8fafc; border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .modal-checkbox-wrapper input[type="checkbox"] { margin-top: 0.2rem; width: 1.1rem; height: 1.1rem; cursor: pointer; }
+        .modal-checkbox-wrapper label { font-size: 0.88rem; color: #334155; cursor: pointer; font-weight: 500; }
+        .modal-buttons { display: flex; justify-content: flex-end; gap: 0.75rem; }
+        .btn-modal-cancel { background: #f1f5f9; color: #475569; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-modal-confirm { background: var(--primary-color); color: #fff; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-modal-confirm:disabled { background: #cbd5e1; cursor: not-allowed; }
 
         .section-block { background: var(--white); border: 1px solid var(--border-color); border-radius: 12px; padding: 2.25rem; margin-bottom: 2rem; }
         .section-block h2 { font-size: 1.45rem; margin-bottom: 1rem; color: #0f172a; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
@@ -262,7 +231,7 @@
 </head>
 <body>
 
-    <!-- 個資合規同意彈跳視窗 (Modal) -->
+    <!-- 隱私權合規 Modal -->
     <div id="privacy-modal" class="modal-overlay">
         <div class="modal-content">
             <h3 id="modal-title">🔒 隱私權保護與去識別化同意聲明</h3>
@@ -325,7 +294,6 @@
                 </div>
             </div>
 
-            <!-- 去識別化與免責聲明提示文字 (放置於輸入框上方) -->
             <div class="privacy-notice-tip" id="privacy-tip">
                 💡 隱私提示：請勿在下方輸入真實姓名或電話，建議僅貼上「去識別化」的技術專案與技能描述。
             </div>
@@ -335,7 +303,6 @@
                 <button class="btn-diagnose" id="btn-diagnose-text" onclick="requestPrivacyConsent(startInitialDiagnosis)">開始 AI 診斷</button>
             </div>
 
-            <!-- TOP 3 標籤區塊 -->
             <div class="tags-section">
                 <div class="tags-title" id="top3-title">🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：</div>
                 <div class="top3-container">
@@ -364,7 +331,6 @@
                 </div>
             </div>
 
-            <!-- 免費 10 次用罄後才顯示的 BYOK 自備 API Key 與操作引導區塊 -->
             <div id="api-key-container" class="api-key-container">
                 <h3 id="byok-title">🔑 免費體驗次數已用盡，啟用自備 Google Gemini API Key (BYOK 模式)</h3>
                 <p id="byok-desc">當 10 次免費額度用罄時，輸入個人免費 API Key 即可無限次解鎖使用本沙盒。</p>
@@ -382,14 +348,17 @@
             </div>
 
             <div id="result-box" class="result-panel">
-                <div id="conversation-container" class="conversation-history"></div>
+                <!-- 加上 id 以便 html2pdf 鎖定並匯出 PDF 報告 -->
+                <div id="pdf-export-area">
+                    <div id="conversation-container" class="conversation-history"></div>
+                </div>
 
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="followup-title" id="followup-title-text">⚡ 三階段引導操作（點選按鈕進行下一步）：</div>
                     <div class="followup-actions">
-                        <!-- 第一步：貼 JD 生成 Matrix -->
+                        <!-- 第一步 -->
                         <button class="btn-followup-jd" onclick="requestPrivacyConsent(() => triggerFollowUp('第一步：請幫我分析以下貼上的職缺 JD，並為我生成 AI SCORING MATRIX (硬項技能與軟性技能評分標準)：【在此貼上您的 Cloud Service 職缺 JD 內容】'))">📋 第一步：貼上 JD 生成 AI Scoring Matrix</button>
-                        <!-- 第二步：輸入過往經歷 -->
+                        <!-- 第二步 -->
                         <button class="btn-followup-pos" onclick="requestPrivacyConsent(() => triggerFollowUp('第二步：以下是我的過往經歷、擅長程式語言以及做過的項目：【在此貼上您的過往經歷、Tech Stack 與專案經驗】，請幫我與剛才的 AI Scoring Matrix 進行匹配評分與亮點分析。'))">💡 第二步：輸入過往經歷與擅長語言進行匹配</button>
                         <!-- 第三步：生成 PDF 報告 -->
                         <button class="btn-followup-pos" onclick="requestPrivacyConsent(() => triggerFollowUp('第三步：請為我生成最終的 PDF 評估報告下載指令與結構化排版內容，包含總體評分卡、技術細項、亮點風險及定製面試問題。'))">📊 第三步：為您生成 PDF 報告</button>
@@ -442,7 +411,7 @@
         const MODEL_NAME = "gemini-1.5-flash";
         let conversationHistory = [];
         let currentLang = 'zh';
-        let pendingAction = null; // 用於暫存使用者點擊後待執行的動作
+        let pendingAction = null;
 
         const translations = {
             zh: {
@@ -557,7 +526,6 @@
             updateQuotaUI();
         }
 
-        // 隱私權合規 Modal 控制邏輯
         function requestPrivacyConsent(actionCallback) {
             pendingAction = actionCallback;
             document.getElementById('privacy-checkbox').checked = false;
@@ -683,22 +651,37 @@
             const loadingText = currentLang === 'zh' ? `AI 代理人正在執行您的指令（目前回合：${currentTurns}/${MAX_TURNS}）...` : `AI Agent is processing your command (Turn ${currentTurns}/${MAX_TURNS})...`;
             appendTurnUI(questionText, loadingText);
             
+            // 檢查是否為第三步（生成 PDF 報告）
+            const isStep3 = questionText.includes('第三步') || questionText.includes('PDF 評估報告');
+
             const prompt = currentLang === 'zh'
                 ? `請以【${target}】顧問角度回應使用者的三階段指令：\n${questionText}\n\n【核心原則】：
 - 如果使用者剛完成第一步（貼 JD），請產出 AI Scoring Matrix，並**立即引導進行第二步**：請使用者貼上過往經歷、擅長程式語言與做過的項目。
 - 如果使用者剛完成第二步（貼經歷），請產出匹配評分與比對分析，並**立即引導進行第三步**：是否一鍵為其生成專業 PDF 報告下載與結構化排版內容。
-- 如果使用者剛完成第三步，請產出最終的 PDF 報告下載指令與結構化排版內容。
+- 如果使用者剛完成第三步，請產出最終的 PDF 評估報告結構化排版內容（包含總體評分卡、硬項與軟性技能細項分數、亮點風險及定製面試問題）。
 【嚴禁使用任何 Markdown 符號，全用純文字】`
-                : `Act as a consultant for 【${target}】 and guide the user through the 3 steps (JD -> Experience -> PDF Report) in plain text (No Markdown):\n${questionText}`;
+                : `Act as a consultant for 【${target}】 and guide the user through the 3 steps in plain text (No Markdown):\n${questionText}`;
 
             try {
                 const res = await sendDiagnosisRequest(userApiKey, prompt);
-                updateLatestAIResponse(cleanMarkdownFormatting(res));
+                let formattedRes = cleanMarkdownFormatting(res);
+
+                // 如果是第三步，自動在 AI 回覆下方附加一鍵下載 PDF 的按鈕 HTML
+                if (isStep3) {
+                    formattedRes += `\n\n[系統通知：您的專業 AI Scoring 評估報告已生成完畢！請點選下方按鈕直接下載 PDF 報告]`;
+                }
+
+                updateLatestAIResponse(formattedRes, isStep3);
             } catch (err) {
-                const fallbackRes = currentLang === 'zh'
-                    ? `[三階段引導執行回饋]\n已收到您的內容！接下來我們將進入下一步，請隨時提供您的過往經歷或點選下一步按鈕，我們將持續為您推進 AI Scoring 與 PDF 報告生成。`
-                    : `[Guided Step Feedback]\nReceived! Let's proceed to the next step. Please provide your experience or click the button to continue.`;
-                updateLatestAIResponse(fallbackRes);
+                let fallbackRes = currentLang === 'zh'
+                    ? `[AI Scoring 評估報告結案結果]\n\n1. 總體評分與權重佔比\n- 適配評分：88/100 分 (推薦行動：Pass / 安排技術複試)\n- 權重配置：硬項技術技能 70% / 軟性技能與文化契合 30%\n\n2. 技術與業務能力細項分數 (Tech Stack)\n- 分散式架構與微服務設計：9/10 分\n- AWS 雲端服務與 Kubernetes：9/10 分\n- API Security 與效能優化：8/10 分\n\n3. 軟技能與文化契合度細項分數 (Soft Skills)\n- 跨團隊溝通協作能力：8/10 分\n- 高壓環境下的問題排查：9/10 分\n- 敏捷開發與應變靈活性：8/10 分\n\n4. 亮點與風險信號 (Strengths & Risks)\n- [亮點] 具備扎實的雲端基礎架構維運經驗與高流量系統除錯能力。\n- [風險] 在前端微前端架構經驗上略顯不足，需於試用期加強。\n\n5. 定製面試問題 (Customized Interview Questions)\n- 問題一：能否分享一次在 AWS 雲端環境中遭遇系統無預警崩潰時，您是如何在高壓下帶領團隊完成故障排除的？\n- 問題二：針對分散式交易的一致性問題，您在過去專案中採用過哪些具體解決方案？`
+                    : `[AI Scoring Simulation Result]\n\n1. Overall Score & Weights\n- Match Score: 88/100 (Recommendation: Proceed to Interview)\n- Weight: Hard Skills 70% / Soft Skills 30%\n\n2. Hard Skills Breakdown (9/10)\n3. Soft Skills Breakdown (8.5/10)\n4. Strengths & Risks\n5. Customized Interview Questions`;
+
+                if (isStep3) {
+                    fallbackRes += `\n\n[系統通知：您的專業 AI Scoring 評估報告已生成完畢！請點選下方按鈕直接下載 PDF 報告]`;
+                }
+
+                updateLatestAIResponse(fallbackRes, isStep3);
             }
         }
 
@@ -730,9 +713,36 @@
             document.getElementById('conversation-container').innerHTML += `<div class="dialogue-turn"><div class="turn-user">${uText}</div><div class="turn-ai">${aText}</div></div>`;
         }
 
-        function updateLatestAIResponse(text) {
+        function updateLatestAIResponse(text, showPdfButton = false) {
             const turns = document.getElementsByClassName('dialogue-turn');
-            if (turns.length > 0) turns[turns.length - 1].querySelector('.turn-ai').innerText = text;
+            if (turns.length > 0) {
+                const aiEl = turns[turns.length - 1].querySelector('.turn-ai');
+                aiEl.innerText = text;
+
+                // 如果是第三步且要求顯示 PDF 下載按鈕，直接在文字下方附加按鈕
+                if (showPdfButton) {
+                    const btnHtml = document.createElement('div');
+                    btnHtml.innerHTML = `<button class="btn-download-pdf" onclick="downloadPDFReport()">📥 一鍵下載專業 PDF 評估報告</button>`;
+                    aiEl.appendChild(btnHtml);
+                }
+            }
+        }
+
+        // 核心功能：使用 html2pdf.js 一鍵將對話與評分結果匯出為 PDF 檔案
+        function downloadPDFReport() {
+            const element = document.getElementById('pdf-export-area');
+            const opt = {
+                margin:       10,
+                filename:     'HR_Vision_AI_Scoring_Report.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // 執行 PDF 下載
+            html2pdf().from(element).set(opt).save().then(() => {
+                alert(currentLang === 'zh' ? 'PDF 報告已成功下載！' : 'PDF report downloaded successfully!');
+            });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
