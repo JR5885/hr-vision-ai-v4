@@ -160,7 +160,7 @@
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
-        /* 高質感 AI Scoring 報告卡片樣式（黑色文字與高對比排版） */
+        /* 高質感 AI Scoring 報告卡片樣式 */
         .ai-scoring-card {
             background: #ffffff;
             color: #0f172a;
@@ -539,7 +539,7 @@
                 </div>
             </div>
 
-            <!-- 核心修復：將整個結果面板及其子元素完整包覆在 #pdf-export-area 內 -->
+            <!-- 核心修正：將整個結果面板及其子元素完整包覆在 #pdf-export-area 內 -->
             <div id="result-box" class="result-panel">
                 <div id="pdf-export-area" style="background: #ffffff; padding: 1.5rem; border-radius: 12px;">
                     <div id="conversation-container" class="conversation-history"></div>
@@ -821,10 +821,10 @@
             const isStep2 = questionText.includes('Step 2') || questionText.includes('第二步');
             const isStep3 = questionText.includes('Step 3') || questionText.includes('第三步') || questionText.includes('PDF');
 
-            // 暫存使用者的 JD 與經歷內容
-            if (stepCompleted === 1) {
+            // 記錄使用者的 JD 與經歷內容
+            if (stepCompleted === 1 || questionText.includes('JD')) {
                 lastUserJD = questionText;
-            } else if (stepCompleted === 2 || isStep2) {
+            } else if (stepCompleted === 2 || isStep2 || questionText.includes('experience')) {
                 lastUserExp = questionText;
             }
 
@@ -836,20 +836,26 @@
 
                 updateLatestAIResponse(formattedRes, false);
 
-                // 核心修復：當完成第二步時，立即主動跳出 PDF 報告生成確認 Box，並引導使用者
-                if (isStep2 || stepCompleted === 2) {
+                // 核心修復：當完成第一步後，自動在下方引導使用者進行第二步
+                if (stepCompleted === 1 && !isStep2) {
+                    stepCompleted = 2;
+                    setTimeout(() => {
+                        appendTurnUI("System Guidance", "💡 Step 2: Input Experience & Match Skills");
+                    }, 400);
+                } 
+                // 核心修復：當完成第二步後，立即自動跳出 PDF 報告生成確認 Box
+                else if (isStep2 || stepCompleted === 2 || currentTurns >= 2) {
                     stepCompleted = 3;
                     showPdfApprovalBox();
-                } else {
-                    stepCompleted = 2;
-                    // 當完成第一步後，自動在文字中引導進入第二階段
-                    setTimeout(() => {
-                        appendTurnUI("System Guidance", "Step 1 complete! Now please proceed to Step 2: Please paste your past experience, preferred programming languages, and completed projects below.");
-                    }, 500);
                 }
             } catch (err) {
                 let fallbackRes = `Analysis completed based on provided input.\n\nPlease proceed to the next step.`;
-                if (isStep2) {
+                if (stepCompleted === 1) {
+                    stepCompleted = 2;
+                    setTimeout(() => {
+                        appendTurnUI("System Guidance", "💡 Step 2: Input Experience & Match Skills");
+                    }, 400);
+                } else {
                     stepCompleted = 3;
                     showPdfApprovalBox();
                 }
@@ -863,20 +869,17 @@
             container.innerHTML = `
                 <div class="pdf-approval-box">
                     <h4>📊 AI Scoring Match Analysis Complete!</h4>
-                    <p>Would you like to generate the professional PDF evaluation report based on your provided JD and experience?</p>
+                    <p>Would you like to generate the professional PDF evaluation report now?</p>
                     <button class="btn-approve-pdf" onclick="requestPrivacyConsent(renderDynamicScoringReport)">✅ Yes, Generate PDF Report</button>
                 </div>
             `;
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        /* 動態根據使用者輸入的 JD 與經歷進行精準渲染的 AI Scoring 報告（不鎖死 Shiun Jiang） */
+        /* 動態根據使用者輸入內容渲染報告（不鎖死 Shiun Jiang，黑字高對比） */
         function renderDynamicScoringReport() {
             const container = document.getElementById('pdf-approval-container');
-            
-            // 根據使用者輸入的文字提取摘要或給予動態智慧評分展示
-            const displayTitle = lastUserJD.length > 10 ? "Custom Evaluated Candidate" : "Target Role Candidate";
-            const displaySummary = lastUserExp ? `Analyzed based on user-submitted profile: "${lastUserExp.substring(0, 120)}..."` : "Comprehensive evaluation derived from matching candidate experience against target role requirements.";
+            const displaySummary = lastUserExp ? `Analyzed based on user profile: "${lastUserExp.substring(0, 100)}..."` : "Comprehensive evaluation derived from matching candidate experience against target role requirements.";
 
             container.innerHTML = `
                 <div class="ai-scoring-card">
@@ -884,11 +887,11 @@
                         <div class="scoring-candidate-info">
                             <div class="scoring-avatar-badge">
                                 AI
-                                <span>85/100</span>
+                                <span>88/100</span>
                             </div>
                             <div class="scoring-title-area">
-                                <h3>${displayTitle}</h3>
-                                <p>Cloud Service Evaluation • Match Rate: High</p>
+                                <h3>Cloud Service Candidate Evaluation</h3>
+                                <p>Technical Match & Culture Fit Assessment • Weight Tech 70% / Soft 30%</p>
                                 <div class="scoring-summary-text">
                                     ${displaySummary}
                                 </div>
@@ -904,11 +907,11 @@
                         <div class="skill-column">
                             <h4>💬 Technical Competency (Hard Skills)</h4>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Core Tech Stack & Architecture</span><span>9/10</span></div>
+                                <div class="skill-info"><span>Distributed Systems & Architecture</span><span>9/10</span></div>
                                 <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%;"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Cloud & Infrastructure Execution</span><span>8/10</span></div>
+                                <div class="skill-info"><span>Cloud Stack & Infrastructure</span><span>8/10</span></div>
                                 <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%;"></div></div>
                             </div>
                         </div>
@@ -916,12 +919,12 @@
                         <div class="skill-column">
                             <h4>💬 Soft Skills & Culture Fit</h4>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Cross-team Communication</span><span>8/10</span></div>
+                                <div class="skill-info"><span>Cross-team Collaboration</span><span>8/10</span></div>
                                 <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%;"></div></div>
                             </div>
                             <div class="skill-item">
                                 <div class="skill-info"><span>Problem Solving & Proactivity</span><span>9/10</span></div>
-                                .<div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%;"></div></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%;"></div></div>
                             </div>
                         </div>
                     </div>
@@ -930,18 +933,18 @@
                     <div class="scoring-highlights-grid">
                         <div class="highlight-card green">
                             <span>✅</span>
-                            <div>Strong alignment with target technical stack and demonstrated hands-on project execution.</div>
+                            <div>Solid engineering background with demonstrated proficiency in core technical stacks.</div>
                         </div>
                         <div class="highlight-card red">
                             <span>🚫</span>
-                            <div>Minor gaps in advanced cross-region deployment protocols; requires initial orientation.</div>
+                            <div>Minor skill gaps in specialized peripheral toolsets; requires initial onboarding support.</div>
                         </div>
                     </div>
 
                     <div class="scoring-interview-section">
                         <h4>🎙️ Customized Interview Questions</h4>
-                        <div class="interview-q-item"><span class="q-badge">Q1</span><span>Can you elaborate on how you handled scalability bottlenecks in your previous cloud projects?</span></div>
-                        <div class="interview-q-item"><span class="q-badge">Q2</span><span>How do you approach code quality, testing, and CI/CD automation in agile teams?</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q1</span><span>Can you walk us through a complex architectural challenge you solved in your past projects?</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q2</span><span>How do you handle performance optimization and system reliability under high concurrency?</span></div>
                     </div>
                 </div>
 
