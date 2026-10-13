@@ -136,11 +136,26 @@
         .tag-btn { background: #fff; border: 1px solid var(--border-color); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.85rem; color: #334155; cursor: pointer; }
         .tag-btn:hover { background: #f1f5f9; }
 
-        .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 1px solid #fef3c7; padding: 1.5rem; border-radius: 12px; }
-        .api-key-container h3 { color: #92400e; font-size: 1.05rem; margin-bottom: 0.5rem; }
+        .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 2px solid #f59e0b; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .api-key-container h3 { color: #92400e; font-size: 1.1rem; margin-bottom: 0.5rem; }
         .api-key-container p { color: #78350f; font-size: 0.9rem; margin-bottom: 1rem; }
-        .api-input-group { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .api-input-group { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
         .api-input-group input { flex: 1; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; }
+        .btn-confirm-apikey { background: #d97706; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+        .btn-confirm-apikey:hover { background: #b45309; }
+        
+        .safety-assurance-text {
+            font-size: 0.85rem;
+            color: #047857;
+            font-weight: 700;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            margin-top: 0.75rem;
+            display: inline-block;
+        }
+
         .tutorial-card {
             background: #ffffff;
             border: 1px dashed #d97706;
@@ -148,6 +163,7 @@
             border-radius: 8px;
             font-size: 0.875rem;
             color: #451a03;
+            margin-top: 0.75rem;
         }
         .tutorial-card ol { margin-left: 1.25rem; margin-top: 0.35rem; }
         .tutorial-card li { margin-bottom: 0.25rem; }
@@ -461,13 +477,15 @@
                 </div>
             </div>
 
-            <!-- 預設隱藏 API 欄位，直到 10 次免費額度用完才彈出提示與輸入框 -->
+            <!-- 預設隱藏的 BYOK 區塊，當額度滿 20 次時自動彈出並顯示確認鍵與安心提示 -->
             <div id="api-key-container" class="api-key-container">
-                <h3 id="byok-title">🔑 Enable BYOK (Google Gemini API Key - Free Limit Reached)</h3>
-                <p id="byok-desc">Your 10 free AI interactions have been fully used. To continue utilizing advanced AI diagnosis and report generation, please paste your personal Google AI Studio API Key below:</p>
+                <h3 id="byok-title">🔑 啟用自備 Google Gemini API Key (每小時免費額度已滿)</h3>
+                <p id="byok-desc">您在 1 小時內的 20 次免費 AI 互動額度已用盡。若要繼續使用進階 AI 診斷與報告生成功能，請在下方輸入您的個人 Google AI Studio API Key：</p>
                 <div class="api-input-group">
                     <input type="password" id="user-api-key" placeholder="Paste your Google AI Studio API Key (AIzaSy...)">
+                    <button class="btn-confirm-apikey" onclick="confirmApiKeyAndContinue()">確認並繼續 AI</button>
                 </div>
+                <div class="safety-assurance-text">使用者安心 可以免費無限次使用</div>
                 <div class="tutorial-card" id="tutorial-card">
                     <strong>⚡ 3-Second Guide to Get a Free Google API Key:</strong>
                     <ol>
@@ -520,7 +538,7 @@
             </div>
             <div class="article-card">
                 <h3>Q2：免費用量與 API Key 機制是如何運作的？</h3>
-                <p>系統提供 10 次免費互動額度。當次數耗盡後，介面會自動彈出 BYOK 欄位，使用者需自行前往 Google AI Studio 申請並貼上個人 API Key 才能繼續使用。</p>
+                <p>系統提供每小時 20 次免費互動額度。當額度用盡時，介面會自動彈出 BYOK 欄位與確認鍵，引導使用者貼上個人 API Key 繼續使用。</p>
             </div>
         </section>
     </div>
@@ -530,9 +548,26 @@
     </footer>
 
     <script>
-        const MAX_FREE_USES = 10;
-        let freeUsageCount = localStorage.getItem('hr_vision_free_count') ? parseInt(localStorage.getItem('hr_vision_free_count')) : 0;
-        
+        const MAX_FREE_USES_PER_HOUR = 20;
+        const ONE_HOUR_MS = 60 * 60 * 1000;
+
+        function checkAndUpdateFreeQuota() {
+            let usageData = JSON.parse(localStorage.getItem('hr_vision_usage_data')) || { count: 0, startTime: Date.now() };
+            const now = Date.now();
+
+            if (now - usageData.startTime > ONE_HOUR_MS) {
+                usageData = { count: 0, startTime: now };
+            }
+
+            return usageData;
+        }
+
+        function incrementFreeQuota() {
+            let usageData = checkAndUpdateFreeQuota();
+            usageData.count++;
+            localStorage.setItem('hr_vision_usage_data', JSON.stringify(usageData));
+        }
+
         const MODEL_NAME = "gemini-1.5-flash";
         let conversationHistory = [];
         let currentLang = 'en';
@@ -556,8 +591,8 @@
                 inputPlaceholder: "選擇下方熱門話題或輸入 Cloud Service 招募挑戰...",
                 top3Title: "🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：",
                 standardTitle: "📌 點選下方 Cloud Service 職缺與標準 HR 專業策略標籤（4階段分批引導）：",
-                byokTitle: "🔑 啟用自備 Google Gemini API Key (免費額度已滿)",
-                byokDesc: "您的 10 次免費 AI 互動額度已用盡。若要繼續使用進階 AI 診斷與報告生成功能，請在下方輸入您的個人 Google AI Studio API Key：",
+                byokTitle: "🔑 啟用自備 Google Gemini API Key (每小時免費額度已滿)",
+                byokDesc: "您在 1 小時內的 20 次免費 AI 互動額度已用盡。若要繼續使用進階 AI 診斷與報告生成功能，請在下方輸入您的個人 Google AI Studio API Key：",
                 workflowTitle: "⚡ 分批引導互動操作：",
                 customInputPlaceholder: "輸入您的回覆或補充說明...",
                 sendBtn: "送出",
@@ -591,7 +626,7 @@
                 top3Title: "🔥 2026-2027 TOP 3 Trending HR Topics:",
                 standardTitle: "📌 Click Cloud Service Roles & Standard HR Strategy Tags Below (4-Step Progressive Guide):",
                 byokTitle: "🔑 Enable BYOK (Google Gemini API Key - Free Limit Reached)",
-                byokDesc: "Your 10 free AI interactions have been fully used. To continue utilizing advanced AI diagnosis and report generation, please paste your personal Google AI Studio API Key below:",
+                byokDesc: "Your hourly free AI interaction limit (20 uses per hour) has been reached. To continue utilizing advanced AI diagnosis and report generation, please paste your personal Google AI Studio API Key below:",
                 workflowTitle: "⚡ Progressive Workflow Action:",
                 customInputPlaceholder: "Type your response or follow-up answer...",
                 sendBtn: "Send",
@@ -694,11 +729,23 @@
             return text.replace(/^[ \t]*#+[ \t]*/gm, '').replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1').replace(/`{1,3}([^`]+)`{1,3}/g, '$1').trim();
         }
 
+        // 點擊確認並繼續 AI 按鈕時觸發
+        function confirmApiKeyAndContinue() {
+            const keyVal = document.getElementById('user-api-key').value.trim();
+            if (!keyVal) {
+                alert('請先貼上您的 Google Gemini API Key 才能繼續！');
+                return;
+            }
+            document.getElementById('api-key-container').style.display = 'none';
+            alert('✅ API Key 已確認！您可以繼續進行 AI 診斷。');
+        }
+
         async function startInitialDiagnosis() {
             const userApiKey = document.getElementById('user-api-key').value.trim();
+            const usageData = checkAndUpdateFreeQuota();
 
-            if (!userApiKey && freeUsageCount >= MAX_FREE_USES) {
-                alert('⚠️ 您的 10 次免費 AI 額度已用完！請在下方彈出的 BYOK 欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
+            if (!userApiKey && usageData.count >= MAX_FREE_USES_PER_HOUR) {
+                alert('⚠️ 您的 1 小時免費 AI 額度（20次）已用完！請在下方彈出的 BYOK 欄位輸入 API Key 並點擊確認。');
                 document.getElementById('api-key-container').style.display = 'block';
                 document.getElementById('user-api-key').focus();
                 return;
@@ -803,7 +850,6 @@
             }, 400);
         }
 
-        // 核心修復：當執行完 Step 2 (Match Experience) 時，立即自動彈出 PDF 報告確認 Box
         async function handleStep2Action() {
             const inputVal = document.getElementById('custom-followup-input').value.trim() || document.getElementById('challenge-input').value.trim() || "Candidate past experience in engineering and technical execution.";
             lastUserExp = inputVal;
@@ -830,7 +876,7 @@
 
             if (targetStep === 2) {
                 promptText = `Based on the previous RACI analysis, strictly execute Step 2: 給予 2-3 題 Follow-up 引導式問題 (Provide 2-3 insightful follow-up guiding questions). Do NOT output steps 3 or 4. Plain text only, no Markdown.`;
-                guidanceMsg = "👉 [步驟 2 已完成] 請回答上方問題或點擊下方按鈕進入勸導「步驟 3：請使用者提供不涉及商業機密的小範圍參考數據」。";
+                guidanceMsg = "👉 [步驟 2 已完成] 請回答上方問題或點擊下方按鈕進入「步驟 3：請使用者提供不涉及商業機密的小範圍參考數據」。";
             } else if (targetStep === 3) {
                 promptText = `Strictly execute Step 3: 請使用者提供目前不涉及商業機密的小範圍參考數據，作為輸出方案的架構依據 (Request user to provide small-scale non-confidential reference data as architecture input). Do NOT output step 4 yet. Plain text only, no Markdown.`;
                 guidanceMsg = "👉 [步驟 3 已完成] 請提供您的參考數據或點擊下方按鈕進入「步驟 4：輸出最終解決方案」。";
@@ -981,15 +1027,17 @@
         }
 
         async function sendDiagnosisRequest(userApiKey, newPrompt) {
+            const usageData = checkAndUpdateFreeQuota();
+
+            if (!userApiKey && usageData.count >= MAX_FREE_USES_PER_HOUR) {
+                alert('⚠️ 您的 1 小時免費 AI 額度（20次）已用完！請在下方彈出的 BYOK 欄位輸入您的個人 Google Gemini API Key，並點擊「確認並繼續 AI」。');
+                document.getElementById('api-key-container').style.display = 'block';
+                document.getElementById('user-api-key').focus();
+                throw new Error('Free quota exceeded');
+            }
+
             if (!userApiKey) {
-                if (freeUsageCount >= MAX_FREE_USES) {
-                    alert('⚠️ 您的 10 次免費 AI 額度已用完！請在上方彈出的 BYOK 欄位輸入您的個人 Google Gemini API Key 才能繼續使用。');
-                    document.getElementById('api-key-container').style.display = 'block';
-                    document.getElementById('user-api-key').focus();
-                    throw new Error('Free quota exceeded');
-                }
-                freeUsageCount++;
-                localStorage.setItem('hr_vision_free_count', freeUsageCount);
+                incrementFreeQuota();
             }
 
             conversationHistory.push({ role: "user", parts: [{ text: newPrompt }] });
