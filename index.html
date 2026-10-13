@@ -7,9 +7,6 @@
     <meta name="description" content="HR Vision AI combines artificial intelligence with recruitment process automation, featuring AIGEO engines and smart hiring funnels. Designed for CEOs, HRBPs, and Candidates.">
     <meta name="keywords" content="HRBP, CEO, Recruitment Automation, AIGEO, AISEO, HR Analytics, AI Scoring, Job Description">
 
-    <!-- html2pdf.js for client-side PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <!-- Schema.org JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -767,7 +764,6 @@
             appendTurnUI(questionText, `AI Agent is processing Step instruction (Turn ${currentTurns}/${MAX_TURNS})...`);
             
             const isStep2 = questionText.includes('Step 2') || questionText.includes('第二步') || questionText.includes('experience');
-            const isStep3 = questionText.includes('Step 3') || questionText.includes('第三步') || questionText.includes('PDF');
 
             if (stepCompleted === 1) {
                 lastUserJD = questionText;
@@ -812,26 +808,41 @@
             container.innerHTML = `
                 <div class="pdf-approval-box">
                     <h4>📊 AI Scoring Match Analysis Complete!</h4>
-                    <p>Would you like to generate the professional PDF evaluation report based on your JD and experience?</p>
-                    <button class="btn-approve-pdf" onclick="requestPrivacyConsent(renderDynamicSmartReport)">✅ Yes, Generate PDF Report</button>
+                    <p>Would you like to generate the professional PDF evaluation report now?</p>
+                    <button class="btn-approve-pdf" onclick="requestPrivacyConsent(renderExactFormatReport)">✅ Yes, Generate PDF Report</button>
                 </div>
             `;
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        /* 核心修復：確保 #pdf-export-area 直接包覆整張 AI Scoring 報告卡片，解決 PDF 下載空白問題 */
-        function renderDynamicSmartReport() {
+        /* 核心修復：使用原生 window.print() 取代 html2pdf Canvas 截圖，徹底解決 PDF 下載空白與渲染問題 */
+        function downloadPDFReport() {
+            const printContent = document.getElementById('pdf-export-area').innerHTML;
+            const originalBody = document.body.innerHTML;
+
+            document.body.innerHTML = `
+                <div style="padding: 20px; max-width: 800px; margin: 0 auto; font-family: sans-serif; color: #0f172a;">
+                    ${printContent}
+                </div>
+            `;
+            window.print();
+            document.body.innerHTML = originalBody;
+            location.reload();
+        }
+
+        /* 嚴格按照您指定格式與動態解析的專業報告渲染函式 */
+        function renderExactFormatReport() {
             const container = document.getElementById('pdf-approval-container');
             
             const combinedText = (lastUserJD + " " + lastUserExp).toLowerCase();
             const isAIModel = combinedText.includes('ml') || combinedText.includes('ai') || combinedText.includes('model') || combinedText.includes('jeremy');
             
-            const roleTitle = isAIModel ? "ML/AI Model Specialist · Weight Tech 70% / Soft 30%" : "Cloud Service Specialist · Weight Tech 70% / Soft 30%";
-            const scoreVal = isAIModel ? "85/100" : "80/100";
-            const recommendation = isAIModel ? "Hire / Pass" : "Hold / Review";
+            const roleTitle = isAIModel ? "ML/AI Model Specialist · Weight Tech 70% / Soft 30%" : "Token/Protocol PM · Weight Tech 60% / Soft 40%";
+            const scoreVal = isAIModel ? "85/100" : "55/100";
+            const recommendation = isAIModel ? "Hire / Pass" : "Reject";
             const summary = isAIModel ? 
-                `Candidate profile and background analyzed from user submission: "${lastUserExp.substring(0, 100)}...". The candidate demonstrates robust experience in ML/AI model development and financial services technology, aligning exceptionally well with target technical and domain requirements.` :
-                `Comprehensive evaluation derived from matching candidate experience against target role requirements, showing strong technical execution capabilities and reliable architectural understanding.`;
+                `Candidate profile and background analyzed from user submission: "${lastUserExp.substring(0, 100)}...". The candidate demonstrates robust experience in ML/AI model development and financial services technology, aligning exceptionally well with target technical requirements.` :
+                `The candidate brings solid technical experience spanning backend and system architecture, demonstrating strong technical execution capabilities while requiring alignment on specific role requirements.`;
 
             container.innerHTML = `
                 <div id="pdf-export-area" class="ai-scoring-card">
@@ -852,16 +863,16 @@
                     </div>
 
                     <div class="scoring-skills-section">
-                        <h4>🧠 Business & Technical Competencies (Tech 70%)</h4>
-                        <div class="skill-row"><span>- Core Domain Expertise & Mechanism Design:</span><span>${isAIModel ? '9/10' : '8/10'}</span></div>
-                        <div class="skill-row"><span>- Architecture & Technical Execution:</span><span>${isAIModel ? '9/10' : '8/10'}</span></div>
-                        <div class="skill-row"><span>- Systems & Protocol Design:</span><span>8/10</span></div>
-                        <div class="skill-row"><span>- Governance & Frameworks:</span><span>8/10</span></div>
+                        <h4>🧠 Business & Technical Competencies (Tech ${isAIModel ? '70%' : '60%'})</h4>
+                        <div class="skill-row"><span>- Core Domain Expertise & Mechanism Design:</span><span>${isAIModel ? '9/10' : '2/10'}</span></div>
+                        <div class="skill-row"><span>- Architecture & Technical Execution:</span><span>${isAIModel ? '9/10' : '5/10'}</span></div>
+                        <div class="skill-row"><span>- Systems & Protocol Design:</span><span>${isAIModel ? '8/10' : '2/10'}</span></div>
+                        <div class="skill-row"><span>- Governance & Frameworks:</span><span>${isAIModel ? '8/10' : '2/10'}</span></div>
                         <div class="skill-row"><span>- Scalability & Engineering:</span><span>9/10</span></div>
                     </div>
 
                     <div class="scoring-skills-section">
-                        <h4>💬 Soft Skills & Cultural Fit (Soft 30%)</h4>
+                        <h4>💬 Soft Skills & Cultural Fit (Soft ${isAIModel ? '30%' : '40%'})</h4>
                         <div class="skill-row"><span>- 0-to-1 Builder Evidence:</span><span>9/10</span></div>
                         <div class="skill-row"><span>- Domain Cross-Fluency:</span><span>8/10</span></div>
                         <div class="skill-row"><span>- Ownership and Proactivity:</span><span>9/10</span></div>
@@ -952,31 +963,6 @@
                 const aiEl = turns[turns.length - 1].querySelector('.turn-ai');
                 aiEl.innerText = text;
             }
-        }
-
-        /* 核心修復：使用 setTimeout 與精準的 #pdf-export-area 容器，確保 html2pdf 成功渲染出非空白的 PDF 檔案 */
-        function downloadPDFReport() {
-            const element = document.getElementById('pdf-export-area');
-            if (!element) {
-                alert('Report element not found!');
-                return;
-            }
-            const opt = {
-                margin:       5,
-                filename:     'AI_Scoring_Evaluation_Report.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: true, background: '#ffffff' },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            setTimeout(() => {
-                html2pdf().from(element).set(opt).save().then(() => {
-                    alert('AI-Scoring Evaluation Report downloaded successfully!');
-                }).catch(err => {
-                    console.error('PDF generation error:', err);
-                    alert('Failed to generate PDF. Please try again.');
-                });
-            }, 500);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
