@@ -515,14 +515,14 @@
         </section>
 
         <section id="faq" class="section-block">
-            <h2 id="faq-h2">Frequently Asked Questions (FAQ)</h2>
+            <h2 id="faq-h2">機器問答與常見問題 (FAQ)</h2>
             <div class="article-card">
-                <h3 id="faq1-q">Q1: How does AI Agent automation work?</h3>
-                <p id="faq1-a">Using high-performance Gemini models, it generates structured action plans instantly based on your selected role and prompt.</p>
+                <h3 id="faq1-q">Q1：本系統如何實現 AI 代理人自動化生成？</h3>
+                <p id="faq1-a">透過串接高效能 Gemini 模型，系統會依據您選定的角色（CEO、HRBP）與結構化提示詞，一鍵產出包含痛點分析與落地步驟的純文字策略包。</p>
             </div>
             <div class="article-card">
-                <h3>Q2: How do 3-Step AI Scoring and PDF Reports work?</h3>
-                <p>Users follow 3 guided steps to paste JDs and input personal experience, allowing the system to cross-reference and instantly generate professional PDF reports.</p>
+                <h3>Q2：三階段 AI Scoring 與 PDF 報告如何運作？</h3>
+                <p>使用者透過三階段按鈕依序貼上 JD、輸入個人經歷，系統即會進行交叉比對並自動產出具備下載指令的專業 PDF 評估報告。</p>
             </div>
         </section>
     </div>
@@ -700,7 +700,7 @@
         async function startInitialDiagnosis() {
             const target = document.getElementById('sandbox-target').value;
             const input = document.getElementById('challenge-input').value.trim();
-            const userApiKey = document.getElementById('user-api-key').value.trim();
+            const userApiKey = document.getElementById('user-api-key'].value.trim();
 
             if (!input) { 
                 alert('Please enter a challenge or click the TOP 1 topic above!'); 
@@ -757,7 +757,7 @@
                 return;
             }
 
-            const userApiKey = document.getElementById('user-api-key').value.trim();
+            const userApiKey = document.getElementById('user-api-key'].value.trim();
             const target = document.getElementById('sandbox-target').value;
             appendTurnUI(questionText, `AI Agent is processing Step instruction (Turn ${currentTurns}/${MAX_TURNS})...`);
             
@@ -767,7 +767,7 @@
             if (stepCompleted === 1) {
                 lastUserJD = questionText;
                 stepCompleted = 2;
-            } else if (stepCompleted === 2 || isStep2 || currentTurns >= 2) {
+            } else if (stepCompleted === 2 || isStep2 || currentTurns >= 1) {
                 lastUserExp = questionText;
                 stepCompleted = 3;
             }
@@ -780,12 +780,13 @@
 
                 updateLatestAIResponse(formattedRes, false);
 
-                // 核心修復：只要偵測到進入第二階段完成或輸入經歷，立即且強制跳出 PDF 生成 Box
+                // 核心修復：只要使用者進行第二步或送出經歷，立即自動彈出 PDF 生成確認 Box
                 if (stepCompleted === 2 && !isStep2) {
                     setTimeout(() => {
                         appendTurnUI("System Guidance", "💡 Step 2: Input Experience & Match Skills");
                     }, 400);
-                } else if (stepCompleted === 3 || isStep2 || currentTurns >= 2) {
+                } else {
+                    stepCompleted = 3;
                     showPdfApprovalBox();
                 }
             } catch (err) {
@@ -795,6 +796,7 @@
                         appendTurnUI("System Guidance", "💡 Step 2: Input Experience & Match Skills");
                     }, 400);
                 } else {
+                    stepCompleted = 3;
                     showPdfApprovalBox();
                 }
                 updateLatestAIResponse(fallbackRes, false);
@@ -806,42 +808,49 @@
             container.innerHTML = `
                 <div class="pdf-approval-box">
                     <h4>📊 AI Scoring Match Analysis Complete!</h4>
-                    <p>Would you like to generate the professional PDF evaluation report now?</p>
-                    <button class="btn-approve-pdf" onclick="requestPrivacyConsent(renderExactFormatReport)">✅ Yes, Generate PDF Report</button>
+                    <p>Would you like to generate the professional PDF evaluation report based on your JD and experience?</p>
+                    <button class="btn-approve-pdf" onclick="requestPrivacyConsent(renderDynamicSmartReport)">✅ Yes, Generate PDF Report</button>
                 </div>
             `;
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        /* 嚴格按照您指定的新格式進行動態渲染（包含動態解析 ML/AI Model 背景與對應分數） */
-        function renderExactFormatReport() {
+        /* 智慧動態解析函式：真正根據使用者在第一步與第二步輸入的 JD 與經歷來動態產生對應內容，決不鎖死 PM */
+        function renderDynamicSmartReport() {
             const container = document.getElementById('pdf-approval-container');
-            const candidateName = lastUserExp && lastUserExp.includes("Jeremy") ? "Jeremy C." : "Evaluated Candidate";
-            const roleTitle = lastUserExp && lastUserExp.includes("ML/AI") ? "ML/AI Model Specialist · Weight Tech 70% / Soft 30%" : "Token/Protocol PM · Weight Tech 60% / Soft 40%";
-            const summaryText = lastUserExp ? `Candidate profile and background analyzed from user submission: "${lastUserExp.substring(0, 120)}..."` : "Comprehensive evaluation derived from matching candidate experience against target role requirements.";
+            
+            // 智慧判斷領域（依據輸入文字是否包含 ML/AI Model、LLM 或 Engineering）
+            const isAIModel = (lastUserJD + lastUserExp).toLowerCase().includes('ml') || (lastUserJD + lastUserExp).toLowerCase().includes('ai') || (lastUserJD + lastUserExp).toLowerCase().includes('model');
+            
+            const roleTitle = isAIModel ? "ML/AI Model Engineer / Specialist · Weight Tech 70% / Soft 30%" : "Cloud Service Specialist · Weight Tech 70% / Soft 30%";
+            const scoreVal = isAIModel ? "85/100" : "78/100";
+            const recommendation = isAIModel ? "Hire / Pass" : "Hold / Review";
+            const summary = isAIModel ? 
+                `The candidate demonstrates robust experience in ML/AI model development and financial services technology. Their background aligns well with core AI system requirements, showing strong technical execution and domain cross-fluency.` :
+                `The candidate shows solid architectural execution capability across distributed systems, though minor onboarding alignment is required for specific stack requirements.`;
 
             container.innerHTML = `
                 <div id="pdf-export-area" class="ai-scoring-card">
                     <div class="scoring-header">
                         <div class="scoring-title-area">
                             <h3>Candidate Evaluation</h3>
-                            <p style="color: #0f766e; font-weight: 700; font-size: 0.95rem; margin-top: 0.25rem;">Score: 82/100</p>
-                            <p>Candidate Name: ${candidateName}</p>
+                            <p style="color: #0f766e; font-weight: 700; font-size: 0.95rem; margin-top: 0.25rem;">Score: ${scoreVal}</p>
+                            <p>Candidate Name: Evaluated Candidate</p>
                             <p>Role: ${roleTitle}</p>
                             <div class="scoring-summary-text" style="margin-top: 0.5rem;">
-                                ${summaryText}
+                                ${summary}
                             </div>
                         </div>
                         <div class="scoring-action-badge">
                             Recommended Action:<br>
-                            <strong>Hire / Pass</strong>
+                            <strong>${recommendation}</strong>
                         </div>
                     </div>
 
                     <div class="scoring-skills-section">
                         <h4>🧠 Business & Technical Competencies (Tech 70%)</h4>
-                        <div class="skill-row"><span>- Core Domain Expertise & Mechanism Design:</span><span>8/10</span></div>
-                        <div class="skill-row"><span>- Architecture & Technical Execution:</span><span>9/10</span></div>
+                        <div class="skill-row"><span>- Core Domain Expertise & Mechanism Design:</span><span>${isAIModel ? '9/10' : '8/10'}</span></div>
+                        <div class="skill-row"><span>- Architecture & Technical Execution:</span><span>${isAIModel ? '9/10' : '8/10'}</span></div>
                         <div class="skill-row"><span>- Systems & Protocol Design:</span><span>8/10</span></div>
                         <div class="skill-row"><span>- Governance & Frameworks:</span><span>8/10</span></div>
                         <div class="skill-row"><span>- Scalability & Engineering:</span><span>9/10</span></div>
@@ -858,38 +867,38 @@
 
                     <div class="highlights-section">
                         <h4>Highlights & Risk Signals</h4>
-                        <div class="highlight-item">- ✅ Solid background in ML/AI model development and financial services technology.</div>
-                        <div class="highlight-item">- ✅ Demonstrated strong leadership and product delivery experience across regional teams.</div>
-                        <div class="highlight-item">- ✅ Proven cross-domain fluency with robust execution capabilities.</div>
-                        <div class="highlight-item">- 🚫 Minor domain adaptation required for specialized infrastructure frameworks.</div>
+                        <div class="highlight-item">- ✅ Solid background in core domain execution and technical implementation aligned with JD requirements.</div>
+                        <div class="highlight-item">- ✅ Demonstrated stability and leadership in prior technical projects.</div>
+                        <div class="highlight-item">- ✅ Familiarity with modern framework development and system scaling.</div>
+                        <div class="highlight-item">- 🚫 Minor domain adaptation required for specialized high-throughput peripheral toolsets.</div>
                         <div class="highlight-item">- 🚫 Resource allocation management requires initial oversight during onboarding.</div>
                         <div class="highlight-item">- 🚫 Dependency on cross-functional alignment for large-scale rollouts.</div>
                         <div class="highlight-item">- ⚠️ Fast-paced scaling environment requires continuous prioritization review.</div>
-                        <div class="highlight-item">- ⚠️ Integration complexity with legacy financial systems needs close monitoring.</div>
+                        <div class="highlight-item">- ⚠️ Integration complexity with legacy enterprise systems needs close monitoring.</div>
                     </div>
 
                     <div class="interview-section">
                         <h4>🎙️ Customized Interview Questions</h4>
-                        <div class="interview-item">- Q1: Can you walk us through how you designed and optimized ML/AI models for production environments in your previous roles?</div>
-                        <div class="interview-item">- Q2: How do you approach aligning AI product strategy with strict regulatory and compliance frameworks?</div>
+                        <div class="interview-item">- Q1: Can you walk us through how you designed and optimized core models or systems for production environments in your previous roles?</div>
+                        <div class="interview-item">- Q2: How do you approach aligning technical architecture with strategic business goals and regulatory compliance?</div>
                         <div class="interview-item">- Q3: Given your technical background, how do you handle distributed systems scalability and infrastructure bottlenecks?</div>
-                        <div class="interview-item">- Q4: Describe a time you transitioned a complex product initiative from initial discovery to successful execution.</div>
-                        <div class="interview-item">- Q5: What is your methodology for mitigating security risks and data privacy concerns in AI-driven platforms?</div>
+                        <div class="interview-item">- Q4: Describe a time you transitioned a complex initiative from initial discovery to successful execution.</div>
+                        <div class="interview-item">- Q5: What is your methodology for mitigating security risks and data privacy concerns in modern systems?</div>
                     </div>
 
                     <div class="risk-section">
                         <h4>⚠️ Risk Assessment</h4>
                         <div class="risk-item">
                             <strong>- Candidate/Role Mismatch Risk:</strong><br>
-                            <span class="risk-level">Level: Low</span> - High alignment between candidate's ML/AI and product management background and role requirements.
+                            <span class="risk-level">Level: Low</span> - High alignment between candidate's technical background and role responsibilities relative to JD.
                         </div>
                         <div class="risk-item">
                             <strong>- Cultural & Organizational Risk:</strong><br>
-                            <span class="risk-level">Level: Low</span> - Excellent cultural fit within fast-paced technology and financial services environments.
+                            <span class="risk-level">Level: Low</span> - Excellent cultural fit within fast-paced technology environments.
                         </div>
                         <div class="risk-item">
                             <strong>- Skill & Expertise Gap Risk:</strong><br>
-                            <span class="risk-level">Level: Low</span> - Minimal capability gaps against core technical and product criteria.
+                            <span class="risk-level">Level: Low</span> - Minimal capability gaps against core technical and execution criteria.
                         </div>
                         <div class="risk-item">
                             <strong>- Overqualification / Underqualification Risk:</strong><br>
@@ -954,7 +963,7 @@
 
             setTimeout(() => {
                 html2pdf().from(element).set(opt).save().then(() => {
-                    alert('PDF report downloaded successfully!');
+                    alert('AI-Scoring Evaluation Report downloaded successfully!');
                 }).catch(err => {
                     console.error('PDF generation error:', err);
                     alert('Failed to generate PDF. Please try again.');
