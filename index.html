@@ -160,7 +160,7 @@
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
-        /* 暗色 UI 報告卡片樣式 */
+        /* 完美對齊截圖的高質感暗色 UI 報告卡片樣式 */
         .ai-scoring-card {
             background: #111827;
             color: #f3f4f6;
@@ -184,10 +184,10 @@
             align-items: center;
         }
         .scoring-avatar-badge {
-            width: 50px; height: 50px;
+            width: 55px; height: 55px;
             background: #f97316;
             color: #fff;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             border-radius: 10px;
             display: flex;
@@ -201,17 +201,17 @@
             color: #ffedd5;
         }
         .scoring-title-area h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #fff;
             margin-bottom: 0.2rem;
         }
         .scoring-title-area p {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             color: #fbbf24;
             font-weight: 600;
         }
         .scoring-summary-text {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: #9ca3af;
             margin-top: 0.5rem;
             line-height: 1.5;
@@ -220,9 +220,9 @@
             background: #1f2937;
             color: #ef4444;
             border: 1px solid #7f1d1d;
-            padding: 0.35rem 0.8rem;
+            padding: 0.35rem 0.9rem;
             border-radius: 6px;
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             font-weight: 700;
             text-align: center;
         }
@@ -299,6 +299,7 @@
         }
         .highlight-card.green { border-left: 4px solid #10b981; color: #d1fae5; }
         .highlight-card.red { border-left: 4px solid #ef4444; color: #fee2e2; }
+        .highlight-card.yellow { border-left: 4px solid #f59e0b; color: #fef3c7; }
 
         .scoring-interview-section {
             background: #1f2937;
@@ -332,6 +333,33 @@
             font-weight: 700;
             white-space: nowrap;
         }
+
+        .risk-assessment-section {
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid #374151;
+            margin-bottom: 1rem;
+        }
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            color: #d1d5db;
+        }
+        .risk-table th {
+            text-align: left;
+            padding: 0.5rem;
+            border-bottom: 1px solid #374151;
+            color: #9ca3af;
+        }
+        .risk-table td {
+            padding: 0.6rem 0.5rem;
+            border-bottom: 1px solid #111827;
+        }
+        .risk-level-medium { color: #fbbf24; font-weight: 700; }
+        .risk-level-low { color: #10b981; font-weight: 700; }
+        .risk-level-high { color: #ef4444; font-weight: 700; }
 
         .btn-download-pdf {
             background: #dc2626;
@@ -534,9 +562,9 @@
                 </div>
             </div>
 
-            <!-- 核心修正：將整塊 #result-panel 包覆在 #pdf-export-area 內，確保 html2pdf 能夠完整擷取對話與高質感 AI Scoring 報告卡片 -->
+            <!-- 核心修復：將整個結果面板及其子元素完整包覆在 #pdf-export-area 內，確保 html2pdf 渲染時不會遺漏內容 -->
             <div id="result-box" class="result-panel">
-                <div id="pdf-export-area">
+                <div id="pdf-export-area" style="background: #111827; padding: 1.5rem; border-radius: 12px;">
                     <div id="conversation-container" class="conversation-history"></div>
                     <div id="pdf-approval-container"></div>
                 </div>
@@ -824,7 +852,7 @@
                     stepCompleted = 3;
                     showPdfApprovalBox();
                 } else if (isStep3) {
-                    showAsScoringCardReport();
+                    showAsDetailedScoringReport();
                 } else {
                     stepCompleted = 2;
                 }
@@ -853,13 +881,14 @@
         function approveAndGeneratePDF() {
             document.getElementById('pdf-approval-container').innerHTML = `
                 <div style="background: #f0fdf4; border: 1px solid #10b981; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: center; color: #065f46; font-weight: 600;">
-                    ✅ PDF Report Generation Approved! Rendering High-End UI Report...
+                    ✅ PDF Report Generation Approved! Rendering Detailed High-End Report...
                 </div>
             `;
-            showAsScoringCardReport();
+            showAsDetailedScoringReport();
         }
 
-        function showAsScoringCardReport() {
+        /* 完整還原截圖風格與詳細內容的 AI Scoring 報告卡片 */
+        function showAsDetailedScoringReport() {
             const container = document.getElementById('pdf-approval-container');
             container.innerHTML = `
                 <div class="ai-scoring-card">
@@ -867,78 +896,118 @@
                         <div class="scoring-candidate-info">
                             <div class="scoring-avatar-badge">
                                 C
-                                <span>88/100</span>
+                                <span>55/100</span>
                             </div>
                             <div class="scoring-title-area">
-                                <h3>Candidate Profile Evaluation</h3>
-                                <p>Cloud Service Specialist • Weight Tech 70% / Soft 30%</p>
+                                <h3>Shiun Jiang</h3>
+                                <p>Token/Protocol PM • Weight Tech 60% / Soft 40%</p>
                                 <div class="scoring-summary-text">
-                                    The candidate demonstrates exceptional technical alignment with core infrastructure requirements and solid architectural execution capability across distributed systems.
+                                    Shiun Jiang brings over a decade of solid software engineering experience spanning backend development, full-stack web/mobile applications, and game development at companies like XREX and AccelStor. However, the profile shows an execution-focused developer rather than a Token/Protocol PM, with no evidence of economic modeling, governance frameworks, or tokenomics design.
                                 </div>
                             </div>
                         </div>
                         <div class="scoring-action-badge">
-                            Pass
-                            <span>Recommendation</span>
+                            Reject
+                            <span>推荐行动</span>
                         </div>
                     </div>
 
                     <div class="scoring-skills-grid">
                         <div class="skill-column">
-                            <h4>💬 Technical Competency (Hard Skills)</h4>
+                            <h4>💬 业务 & 技术能力 (Hard Skills)</h4>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Distributed Architecture & Microservices</span><span>9/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%; background: #10b981;"></div></div>
+                                <div class="skill-info"><span>Tokenomics & Mechanism Design</span><span>2/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 20%; background: #ef4444;"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Cloud Infrastructure & Kubernetes</span><span>9/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%; background: #10b981;"></div></div>
+                                <div class="skill-info"><span>Smart Contract & Protocol Architecture</span><span>5/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 50%; background: #f97316;"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>API Security & Performance Optimization</span><span>8/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%; background: #3b82f6;"></div></div>
+                                <div class="skill-info"><span>Staking & Incentive Systems</span><span>2/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 20%; background: #ef4444;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Governance & Voting Frameworks</span><span>2/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 20%; background: #ef4444;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Systems Engineering & Scalability</span><span>8/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%; background: #10b981;"></div></div>
                             </div>
                         </div>
 
                         <div class="skill-column">
-                            <h4>💬 Soft Skills & Culture Fit</h4>
+                            <h4>💬 软技能 & 文化契合 (Soft Skills)</h4>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Cross-team Communication</span><span>8/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%; background: #fbbf24;"></div></div>
+                                <div class="skill-info"><span>0-to-1 Builder Evidence</span><span>6/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 60%; background: #fbbf24;"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>High-pressure Troubleshooting</span><span>9/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%; background: #10b981;"></div></div>
+                                <div class="skill-info"><span>TradFi x Web3 Cross-Fluency</span><span>3/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 30%; background: #ef4444;"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Agile Adaptability</span><span>8/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%; background: #fbbf24;"></div></div>
+                                <div class="skill-info"><span>Ownership and Proactivity</span><span>7/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 70%; background: #fbbf24;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>DC Culture Fit</span><span>5/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 50%; background: #f97316;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Communication and Influence</span><span>5/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 50%; background: #f97316;"></div></div>
                             </div>
                         </div>
                     </div>
 
-                    <h4 style="font-size: 0.9rem; margin-bottom: 0.75rem; color: #e5e7eb;">💡 Strengths & Risks</h4>
+                    <h4 style="font-size: 0.9rem; margin-bottom: 0.75rem; color: #e5e7eb;">💡 亮点 & 风险信号 (Strengths & Risks)</h4>
                     <div class="scoring-highlights-grid">
                         <div class="highlight-card green">
                             <span>✅</span>
-                            <div>Solid engineering background with deep expertise in cloud infrastructure and high-traffic debugging.</div>
+                            <div>Solid 10+ year engineering background with deep expertise in Golang, Java, and system infrastructure</div>
+                        </div>
+                        <div class="highlight-card green">
+                            <span>✅</span>
+                            <div>Demonstrated stability and longevity in prior technical roles (e.g., 7+ years at XREX)</div>
                         </div>
                         <div class="highlight-card red">
                             <span>🚫</span>
-                            <div>Minor gap in specific front-end micro-frontend tooling experience; requires onboarding review.</div>
+                            <div>Zero experience in tokenomics design, game theory, or decentralized governance</div>
+                        </div>
+                        <div class="highlight-card red">
+                            <span>🚫</span>
+                            <div>No product management background; profile is strictly that of a software/backend engineer</div>
+                        </div>
+                        <div class="highlight-card yellow" style="grid-column: span 2;">
+                            <span>⚠️</span>
+                            <div>Skill mismatch for a PM role; hiring this candidate would require a complete pivot from engineering to product leadership</div>
                         </div>
                     </div>
 
                     <div class="scoring-interview-section">
-                        <h4>🎙️ Customized Interview Questions</h4>
-                        <div class="interview-q-item">
-                            <span class="q-badge">Q1</span>
-                            <span>Can you walk us through a major cloud production outage you handled under extreme pressure?</span>
-                        </div>
-                        <div class="interview-q-item">
-                            <span class="q-badge">Q2</span>
-                            <span>How do you handle distributed transaction consistency in high-concurrency environments?</span>
-                        </div>
+                        <h4>🎙️ 定制面试问题 (Customized Interview Questions)</h4>
+                        <div class="interview-q-item"><span class="q-badge">Q1</span><span>Can you walk us through a complex token economic loop or staking mechanism you have personally designed or audited?</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q2</span><span>How would you approach designing a dual-token model that balances short-term liquidity incentives with long-term protocol sustainability?</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q3</span><span>Given your background in backend microservices, how do you handle decentralized oracle failures in high-throughput automated market makers?</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q4</span><span>Describe a time you transitioned from pure software engineering to owning product strategy and roadmap execution.</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q5</span><span>What is your methodology for mitigating governance attack vectors such as flash-loan voting or DAO quorum manipulation?</span></div>
+                    </div>
+
+                    <div class="risk-assessment-section">
+                        <h4>⚠️ 风险评估 (Risk Assessment)</h4>
+                        <table class="risk-table">
+                            <thead>
+                                <tr><th>Category</th><th>Description</th><th>Level</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Role Fit</td><td>Risk of candidate frustration due to a mismatch between their software engineering background and product/tokenomics responsibilities.</td><td class="risk-level-medium">Medium</td></tr>
+                                <tr><td>Culture</td><td>Standard cultural alignment within tech organizations, but unproven in Web3 incubation environments.</td><td class="risk-level-low">Low</td></tr>
+                                <tr><td>Technical Gap</td><td>Significant gap in tokenomics design, mechanism design, and protocol-level product management.</td><td class="risk-level-high">High</td></tr>
+                                <tr><td>Seniority</td><td>Candidate is not overqualified for a senior PM position given the lack of direct product leadership experience.</td><td class="risk-level-low">Low</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -985,19 +1054,25 @@
             }
         }
 
+        /* 核心修復：確保 html2pdf 正確鎖定 #pdf-export-area 進行高畫質 DOM 截圖渲染下載 */
         function downloadPDFReport() {
             const element = document.getElementById('pdf-export-area');
             const opt = {
-                margin:       10,
+                margin:       5,
                 filename:     'AI_Scoring_Evaluation_Report.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
+                html2canvas:  { scale: 2, useCORS: true, logging: true, background: '#111827' },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            html2pdf().from(element).set(opt).save().then(() => {
-                alert('PDF report downloaded successfully!');
-            });
+            setTimeout(() => {
+                html2pdf().from(element).set(opt).save().then(() => {
+                    alert('PDF report downloaded successfully!');
+                }).catch(err => {
+                    console.error('PDF generation error:', err);
+                    alert('Failed to generate PDF. Please try again.');
+                });
+            }, 300);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
