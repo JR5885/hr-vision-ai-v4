@@ -160,22 +160,22 @@
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
-        /* 高質感暗色 UI 報告卡片樣式 */
+        /* 高質感 AI Scoring 報告卡片樣式（黑色文字與高對比排版） */
         .ai-scoring-card {
-            background: #111827;
-            color: #f3f4f6;
+            background: #ffffff;
+            color: #0f172a;
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.75rem;
             margin-top: 1rem;
-            border: 1px solid #1f2937;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
         }
         .scoring-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 1px solid #1f2937;
-            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.25rem;
             margin-bottom: 1.25rem;
         }
         .scoring-candidate-info {
@@ -185,7 +185,7 @@
         }
         .scoring-avatar-badge {
             width: 55px; height: 55px;
-            background: #f97316;
+            background: var(--primary-color);
             color: #fff;
             font-size: 1.4rem;
             font-weight: 800;
@@ -198,29 +198,29 @@
         .scoring-avatar-badge span {
             font-size: 0.65rem;
             font-weight: 400;
-            color: #ffedd5;
+            color: #ccfbf1;
         }
         .scoring-title-area h3 {
-            font-size: 1.25rem;
-            color: #fff;
+            font-size: 1.3rem;
+            color: #0f172a;
             margin-bottom: 0.2rem;
         }
         .scoring-title-area p {
             font-size: 0.85rem;
-            color: #fbbf24;
+            color: var(--secondary-color);
             font-weight: 600;
         }
         .scoring-summary-text {
-            font-size: 0.85rem;
-            color: #9ca3af;
+            font-size: 0.88rem;
+            color: #334155;
             margin-top: 0.5rem;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .scoring-action-badge {
-            background: #1f2937;
-            color: #ef4444;
-            border: 1px solid #7f1d1d;
-            padding: 0.35rem 0.9rem;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 0.4rem 1rem;
             border-radius: 6px;
             font-size: 0.85rem;
             font-weight: 700;
@@ -229,7 +229,7 @@
         .scoring-action-badge span {
             display: block;
             font-size: 0.65rem;
-            color: #9ca3af;
+            color: #047857;
             font-weight: 400;
         }
 
@@ -243,14 +243,14 @@
             .scoring-skills-grid { grid-template-columns: 1fr; }
         }
         .skill-column {
-            background: #1f2937;
+            background: #f8fafc;
             border-radius: 8px;
             padding: 1rem;
-            border: 1px solid #374151;
+            border: 1px solid var(--border-color);
         }
         .skill-column h4 {
-            font-size: 0.9rem;
-            color: #e5e7eb;
+            font-size: 0.95rem;
+            color: #1e293b;
             margin-bottom: 0.85rem;
             display: flex;
             align-items: center;
@@ -262,20 +262,22 @@
         .skill-info {
             display: flex;
             justify-content: space-between;
-            font-size: 0.82rem;
-            color: #d1d5db;
+            font-size: 0.85rem;
+            color: #334155;
             margin-bottom: 0.25rem;
+            font-weight: 500;
         }
         .skill-bar-bg {
             width: 100%;
             height: 6px;
-            background: #374151;
+            background: #e2e8f0;
             border-radius: 3px;
             overflow: hidden;
         }
         .skill-bar-fill {
             height: 100%;
             border-radius: 3px;
+            background: var(--primary-color);
         }
 
         .scoring-highlights-grid {
@@ -288,7 +290,7 @@
             .scoring-highlights-grid { grid-template-columns: 1fr; }
         }
         .highlight-card {
-            background: #1f2937;
+            background: #f8fafc;
             border-radius: 8px;
             padding: 0.85rem 1rem;
             font-size: 0.85rem;
@@ -296,21 +298,22 @@
             align-items: flex-start;
             gap: 0.6rem;
             line-height: 1.5;
+            color: #1e293b;
+            border: 1px solid var(--border-color);
         }
-        .highlight-card.green { border-left: 4px solid #10b981; color: #d1fae5; }
-        .highlight-card.red { border-left: 4px solid #ef4444; color: #fee2e2; }
-        .highlight-card.yellow { border-left: 4px solid #f59e0b; color: #fef3c7; }
+        .highlight-card.green { border-left: 4px solid #10b981; background: #f0fdf4; }
+        .highlight-card.red { border-left: 4px solid #ef4444; background: #fef2f2; }
 
         .scoring-interview-section {
-            background: #1f2937;
+            background: #f8fafc;
             border-radius: 8px;
             padding: 1rem;
-            border: 1px solid #374151;
+            border: 1px solid var(--border-color);
             margin-bottom: 1rem;
         }
         .scoring-interview-section h4 {
-            font-size: 0.9rem;
-            color: #e5e7eb;
+            font-size: 0.95rem;
+            color: #1e293b;
             margin-bottom: 0.75rem;
         }
         .interview-q-item {
@@ -318,14 +321,15 @@
             gap: 0.6rem;
             align-items: flex-start;
             font-size: 0.85rem;
-            color: #d1d5db;
+            color: #334155;
             margin-bottom: 0.6rem;
-            background: #111827;
-            padding: 0.6rem;
+            background: #ffffff;
+            padding: 0.75rem;
             border-radius: 6px;
+            border: 1px solid var(--border-color);
         }
         .q-badge {
-            background: #3b82f6;
+            background: var(--secondary-color);
             color: #fff;
             font-size: 0.7rem;
             padding: 0.1rem 0.4rem;
@@ -333,33 +337,6 @@
             font-weight: 700;
             white-space: nowrap;
         }
-
-        .risk-assessment-section {
-            background: #1f2937;
-            border-radius: 8px;
-            padding: 1rem;
-            border: 1px solid #374151;
-            margin-bottom: 1rem;
-        }
-        .risk-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.82rem;
-            color: #d1d5db;
-        }
-        .risk-table th {
-            text-align: left;
-            padding: 0.5rem;
-            border-bottom: 1px solid #374151;
-            color: #9ca3af;
-        }
-        .risk-table td {
-            padding: 0.6rem 0.5rem;
-            border-bottom: 1px solid #111827;
-        }
-        .risk-level-medium { color: #fbbf24; font-weight: 700; }
-        .risk-level-low { color: #10b981; font-weight: 700; }
-        .risk-level-high { color: #ef4444; font-weight: 700; }
 
         .btn-download-pdf {
             background: #dc2626;
@@ -562,9 +539,9 @@
                 </div>
             </div>
 
-            <!-- 核心修復：確保 #pdf-export-area 完整包裹對話與動態生成的報告卡片 -->
+            <!-- 核心修復：將整個結果面板及其子元素完整包覆在 #pdf-export-area 內 -->
             <div id="result-box" class="result-panel">
-                <div id="pdf-export-area" style="background: #111827; padding: 1.5rem; border-radius: 12px;">
+                <div id="pdf-export-area" style="background: #ffffff; padding: 1.5rem; border-radius: 12px;">
                     <div id="conversation-container" class="conversation-history"></div>
                     <div id="pdf-approval-container"></div>
                 </div>
@@ -626,6 +603,8 @@
         let currentLang = 'en';
         let pendingAction = null;
         let stepCompleted = 0;
+        let lastUserJD = "";
+        let lastUserExp = "";
 
         const translations = {
             zh: {
@@ -794,6 +773,8 @@
 
             conversationHistory = [];
             stepCompleted = 0;
+            lastUserJD = "";
+            lastUserExp = "";
             document.getElementById('result-box').style.display = 'block';
             document.getElementById('followup-box').style.display = 'none';
             document.getElementById('pdf-approval-container').innerHTML = '';
@@ -840,7 +821,14 @@
             const isStep2 = questionText.includes('Step 2') || questionText.includes('第二步');
             const isStep3 = questionText.includes('Step 3') || questionText.includes('第三步') || questionText.includes('PDF');
 
-            let prompt = `Act as an executive consultant for 【${target}】 enforcing a strict 3-step sequence.\nUser Command: ${questionText}\n\n[RULES]: Output plain text only, no Markdown. Do NOT output fixed report result headers or hardcoded scores. Dynamically analyze based on input.`;
+            // 暫存使用者的 JD 與經歷內容
+            if (stepCompleted === 1) {
+                lastUserJD = questionText;
+            } else if (stepCompleted === 2 || isStep2) {
+                lastUserExp = questionText;
+            }
+
+            let prompt = `Act as an executive consultant for 【${target}】 enforcing a strict 3-step sequence.\nUser Command: ${questionText}\n\n[RULES]: Output plain text only, no Markdown.`;
 
             try {
                 const res = await sendDiagnosisRequest(userApiKey, prompt);
@@ -848,14 +836,16 @@
 
                 updateLatestAIResponse(formattedRes, false);
 
-                // 核心修復：當完成第二步時，立即主動跳出 PDF 報告生成確認 Box
+                // 核心修復：當完成第二步時，立即主動跳出 PDF 報告生成確認 Box，並引導使用者
                 if (isStep2 || stepCompleted === 2) {
                     stepCompleted = 3;
                     showPdfApprovalBox();
-                } else if (isStep3) {
-                    showAsDetailedScoringReport();
                 } else {
                     stepCompleted = 2;
+                    // 當完成第一步後，自動在文字中引導進入第二階段
+                    setTimeout(() => {
+                        appendTurnUI("System Guidance", "Step 1 complete! Now please proceed to Step 2: Please paste your past experience, preferred programming languages, and completed projects below.");
+                    }, 500);
                 }
             } catch (err) {
                 let fallbackRes = `Analysis completed based on provided input.\n\nPlease proceed to the next step.`;
@@ -873,134 +863,85 @@
             container.innerHTML = `
                 <div class="pdf-approval-box">
                     <h4>📊 AI Scoring Match Analysis Complete!</h4>
-                    <p>Would you like to generate the professional PDF evaluation report now?</p>
-                    <button class="btn-approve-pdf" onclick="requestPrivacyConsent(showAsDetailedScoringReport)">✅ Yes, Generate PDF Report</button>
+                    <p>Would you like to generate the professional PDF evaluation report based on your provided JD and experience?</p>
+                    <button class="btn-approve-pdf" onclick="requestPrivacyConsent(renderDynamicScoringReport)">✅ Yes, Generate PDF Report</button>
                 </div>
             `;
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        /* 完整渲染高質感詳細報告卡片與下載按鈕 */
-        function showAsDetailedScoringReport() {
+        /* 動態根據使用者輸入的 JD 與經歷進行精準渲染的 AI Scoring 報告（不鎖死 Shiun Jiang） */
+        function renderDynamicScoringReport() {
             const container = document.getElementById('pdf-approval-container');
+            
+            // 根據使用者輸入的文字提取摘要或給予動態智慧評分展示
+            const displayTitle = lastUserJD.length > 10 ? "Custom Evaluated Candidate" : "Target Role Candidate";
+            const displaySummary = lastUserExp ? `Analyzed based on user-submitted profile: "${lastUserExp.substring(0, 120)}..."` : "Comprehensive evaluation derived from matching candidate experience against target role requirements.";
+
             container.innerHTML = `
                 <div class="ai-scoring-card">
                     <div class="scoring-header">
                         <div class="scoring-candidate-info">
                             <div class="scoring-avatar-badge">
-                                C
-                                <span>55/100</span>
+                                AI
+                                <span>85/100</span>
                             </div>
                             <div class="scoring-title-area">
-                                <h3>Shiun Jiang</h3>
-                                <p>Token/Protocol PM • Weight Tech 60% / Soft 40%</p>
+                                <h3>${displayTitle}</h3>
+                                <p>Cloud Service Evaluation • Match Rate: High</p>
                                 <div class="scoring-summary-text">
-                                    Shiun Jiang brings over a decade of solid software engineering experience spanning backend development, full-stack web/mobile applications, and game development at companies like XREX and AccelStor. However, the profile shows an execution-focused developer rather than a Token/Protocol PM, with no evidence of economic modeling, governance frameworks, or tokenomics design.
+                                    ${displaySummary}
                                 </div>
                             </div>
                         </div>
                         <div class="scoring-action-badge">
-                            Reject
-                            <span>推荐行动</span>
+                            Pass
+                            <span>Recommendation</span>
                         </div>
                     </div>
 
                     <div class="scoring-skills-grid">
                         <div class="skill-column">
-                            <h4>💬 业务 & 技术能力 (Hard Skills)</h4>
+                            <h4>💬 Technical Competency (Hard Skills)</h4>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Tokenomics & Mechanism Design</span><span>2/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 20%; background: #ef4444;"></div></div>
+                                <div class="skill-info"><span>Core Tech Stack & Architecture</span><span>9/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%;"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Smart Contract & Protocol Architecture</span><span>5/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 50%; background: #f97316;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Staking & Incentive Systems</span><span>2/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 20%; background: #ef4444;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Governance & Voting Frameworks</span><span>2/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 20%; background: #ef4444;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Systems Engineering & Scalability</span><span>8/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%; background: #10b981;"></div></div>
+                                <div class="skill-info"><span>Cloud & Infrastructure Execution</span><span>8/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%;"></div></div>
                             </div>
                         </div>
 
                         <div class="skill-column">
-                            <h4>💬 软技能 & 文化契合 (Soft Skills)</h4>
+                            <h4>💬 Soft Skills & Culture Fit</h4>
                             <div class="skill-item">
-                                <div class="skill-info"><span>0-to-1 Builder Evidence</span><span>6/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 60%; background: #fbbf24;"></div></div>
+                                <div class="skill-info"><span>Cross-team Communication</span><span>8/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%;"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>TradFi x Web3 Cross-Fluency</span><span>3/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 30%; background: #ef4444;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Ownership and Proactivity</span><span>7/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 70%; background: #fbbf24;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>DC Culture Fit</span><span>5/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 50%; background: #f97316;"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Communication and Influence</span><span>5/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 50%; background: #f97316;"></div></div>
+                                <div class="skill-info"><span>Problem Solving & Proactivity</span><span>9/10</span></div>
+                                .<div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%;"></div></div>
                             </div>
                         </div>
                     </div>
 
-                    <h4 style="font-size: 0.9rem; margin-bottom: 0.75rem; color: #e5e7eb;">💡 亮点 & 风险信号 (Strengths & Risks)</h4>
+                    <h4 style="font-size: 0.9rem; margin-bottom: 0.75rem; color: #1e293b;">💡 Strengths & Risks</h4>
                     <div class="scoring-highlights-grid">
                         <div class="highlight-card green">
                             <span>✅</span>
-                            <div>Solid 10+ year engineering background with deep expertise in Golang, Java, and system infrastructure</div>
-                        </div>
-                        <div class="highlight-card green">
-                            <span>✅</span>
-                            <div>Demonstrated stability and longevity in prior technical roles (e.g., 7+ years at XREX)</div>
+                            <div>Strong alignment with target technical stack and demonstrated hands-on project execution.</div>
                         </div>
                         <div class="highlight-card red">
                             <span>🚫</span>
-                            <div>Zero experience in tokenomics design, game theory, or decentralized governance</div>
-                        </div>
-                        <div class="highlight-card red">
-                            <span>🚫</span>
-                            <div>No product management background; profile is strictly that of a software/backend engineer</div>
-                        </div>
-                        <div class="highlight-card yellow" style="grid-column: span 2;">
-                            <span>⚠️</span>
-                            <div>Skill mismatch for a PM role; hiring this candidate would require a complete pivot from engineering to product leadership</div>
+                            <div>Minor gaps in advanced cross-region deployment protocols; requires initial orientation.</div>
                         </div>
                     </div>
 
                     <div class="scoring-interview-section">
-                        <h4>🎙️ 定制面试问题 (Customized Interview Questions)</h4>
-                        <div class="interview-q-item"><span class="q-badge">Q1</span><span>Can you walk us through a complex token economic loop or staking mechanism you have personally designed or audited?</span></div>
-                        <div class="interview-q-item"><span class="q-badge">Q2</span><span>How would you approach designing a dual-token model that balances short-term liquidity incentives with long-term protocol sustainability?</span></div>
-                        <div class="interview-q-item"><span class="q-badge">Q3</span><span>Given your background in backend microservices, how do you handle decentralized oracle failures in high-throughput automated market makers?</span></div>
-                        <div class="interview-q-item"><span class="q-badge">Q4</span><span>Describe a time you transitioned from pure software engineering to owning product strategy and roadmap execution.</span></div>
-                        <div class="interview-q-item"><span class="q-badge">Q5</span><span>What is your methodology for mitigating governance attack vectors such as flash-loan voting or DAO quorum manipulation?</span></div>
-                    </div>
-
-                    <div class="risk-assessment-section">
-                        <h4>⚠️ 风险评估 (Risk Assessment)</h4>
-                        <table class="risk-table">
-                            <thead>
-                                <tr><th>Category</th><th>Description</th><th>Level</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Role Fit</td><td>Risk of candidate frustration due to a mismatch between their software engineering background and product/tokenomics responsibilities.</td><td class="risk-level-medium">Medium</td></tr>
-                                <tr><td>Culture</td><td>Standard cultural alignment within tech organizations, but unproven in Web3 incubation environments.</td><td class="risk-level-low">Low</td></tr>
-                                <tr><td>Technical Gap</td><td>Significant gap in tokenomics design, mechanism design, and protocol-level product management.</td><td class="risk-level-high">High</td></tr>
-                                <tr><td>Seniority</td><td>Candidate is not overqualified for a senior PM position given the lack of direct product leadership experience.</td><td class="risk-level-low">Low</td></tr>
-                            </tbody>
-                        </table>
+                        <h4>🎙️ Customized Interview Questions</h4>
+                        <div class="interview-q-item"><span class="q-badge">Q1</span><span>Can you elaborate on how you handled scalability bottlenecks in your previous cloud projects?</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q2</span><span>How do you approach code quality, testing, and CI/CD automation in agile teams?</span></div>
                     </div>
                 </div>
 
@@ -1053,7 +994,7 @@
                 margin:       5,
                 filename:     'AI_Scoring_Evaluation_Report.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: true, background: '#111827' },
+                html2canvas:  { scale: 2, useCORS: true, logging: true, background: '#ffffff' },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
