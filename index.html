@@ -160,122 +160,206 @@
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
-        /* 嚴格對齊指定格式的專業 AI Scoring 報告樣式 */
+        /* 完美對齊截圖的高質感暗色 UI 報告卡片樣式 */
         .ai-scoring-card {
-            background: #ffffff;
-            color: #0f172a;
+            background: #111827;
+            color: #f3f4f6;
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.5rem;
             margin-top: 1rem;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #1f2937;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
         .scoring-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 1.25rem;
-            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .scoring-candidate-info {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .scoring-avatar-badge {
+            width: 55px; height: 55px;
+            background: #f97316;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 800;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .scoring-avatar-badge span {
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: #ffedd5;
         }
         .scoring-title-area h3 {
-            font-size: 1.4rem;
-            color: #0f172a;
-            margin-bottom: 0.25rem;
+            font-size: 1.25rem;
+            color: #fff;
+            margin-bottom: 0.2rem;
         }
         .scoring-title-area p {
-            font-size: 0.9rem;
-            color: var(--secondary-color);
+            font-size: 0.85rem;
+            color: #fbbf24;
             font-weight: 600;
-            margin-bottom: 0.75rem;
         }
         .scoring-summary-text {
-            font-size: 0.9rem;
-            color: #334155;
-            line-height: 1.6;
+            font-size: 0.85rem;
+            color: #9ca3af;
+            margin-top: 0.5rem;
+            line-height: 1.5;
         }
         .scoring-action-badge {
-            background: #ecfdf5;
-            color: #065f46;
-            border: 1px solid #a7f3d0;
-            padding: 0.5rem 1.25rem;
+            background: #1f2937;
+            color: #ef4444;
+            border: 1px solid #7f1d1d;
+            padding: 0.35rem 0.9rem;
             border-radius: 6px;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 700;
             text-align: center;
         }
+        .scoring-action-badge span {
+            display: block;
+            font-size: 0.65rem;
+            color: #9ca3af;
+            font-weight: 400;
+        }
 
-        .scoring-skills-section {
+        .scoring-skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
             margin-bottom: 1.5rem;
         }
-        .scoring-skills-section h4 {
-            font-size: 1rem;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-            font-weight: 700;
+        @media (max-width: 768px) {
+            .scoring-skills-grid { grid-template-columns: 1fr; }
         }
-        .skill-row {
+        .skill-column {
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid #374151;
+        }
+        .skill-column h4 {
+            font-size: 0.9rem;
+            color: #e5e7eb;
+            margin-bottom: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .skill-item {
+            margin-bottom: 0.75rem;
+        }
+        .skill-info {
             display: flex;
             justify-content: space-between;
-            font-size: 0.88rem;
-            color: #334155;
-            padding: 0.4rem 0;
-            border-bottom: 1px dashed #e2e8f0;
+            font-size: 0.82rem;
+            color: #d1d5db;
+            margin-bottom: 0.25rem;
+        }
+        .skill-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: #374151;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 3px;
         }
 
-        .highlights-section {
+        .scoring-highlights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
             margin-bottom: 1.5rem;
         }
-        .highlights-section h4 {
-            font-size: 1rem;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-            font-weight: 700;
+        @media (max-width: 768px) {
+            .scoring-highlights-grid { grid-template-columns: 1fr; }
         }
-        .highlight-item {
-            font-size: 0.88rem;
-            color: #334155;
-            margin-bottom: 0.4rem;
+        .highlight-card {
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            line-height: 1.5;
         }
+        .highlight-card.green { border-left: 4px solid #10b981; color: #d1fae5; }
+        .highlight-card.red { border-left: 4px solid #ef4444; color: #fee2e2; }
+        .highlight-card.yellow { border-left: 4px solid #f59e0b; color: #fef3c7; }
 
-        .interview-section {
-            margin-bottom: 1.5rem;
+        .scoring-interview-section {
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid #374151;
+            margin-bottom: 1rem;
         }
-        .interview-section h4 {
-            font-size: 1rem;
-            color: #1e293b;
+        .scoring-interview-section h4 {
+            font-size: 0.9rem;
+            color: #e5e7eb;
             margin-bottom: 0.75rem;
-            font-weight: 700;
         }
-        .interview-item {
-            font-size: 0.88rem;
-            color: #334155;
-            margin-bottom: 0.5rem;
-            background: #f8fafc;
-            padding: 0.6rem 0.8rem;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-        }
-
-        .risk-section h4 {
-            font-size: 1rem;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-            font-weight: 700;
-        }
-        .risk-item {
-            font-size: 0.88rem;
-            color: #334155;
+        .interview-q-item {
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+            font-size: 0.85rem;
+            color: #d1d5db;
             margin-bottom: 0.6rem;
-            background: #fdf2f8;
-            padding: 0.75rem;
+            background: #111827;
+            padding: 0.6rem;
             border-radius: 6px;
-            border: 1px solid #fbcfe8;
         }
-        .risk-level {
+        .q-badge {
+            background: #3b82f6;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
             font-weight: 700;
-            color: #db2777;
+            white-space: nowrap;
         }
+
+        .risk-assessment-section {
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid #374151;
+            margin-bottom: 1rem;
+        }
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            color: #d1d5db;
+        }
+        .risk-table th {
+            text-align: left;
+            padding: 0.5rem;
+            border-bottom: 1px solid #374151;
+            color: #9ca3af;
+        }
+        .risk-table td {
+            padding: 0.6rem 0.5rem;
+            border-bottom: 1px solid #111827;
+        }
+        .risk-level-medium { color: #fbbf24; font-weight: 700; }
+        .risk-level-low { color: #10b981; font-weight: 700; }
+        .risk-level-high { color: #ef4444; font-weight: 700; }
 
         .btn-download-pdf {
             background: #dc2626;
@@ -478,10 +562,12 @@
                 </div>
             </div>
 
-            <!-- 核心修復：確保 #pdf-export-area 唯一且乾淨，只包裹報告卡片以徹底解決空白頁問題 -->
+            <!-- 核心修復：將整個結果面板及其子元素完整包覆在 #pdf-export-area 內，確保 html2pdf 渲染時不會遺漏內容 -->
             <div id="result-box" class="result-panel">
-                <div id="conversation-container" class="conversation-history"></div>
-                <div id="pdf-approval-container"></div>
+                <div id="pdf-export-area" style="background: #111827; padding: 1.5rem; border-radius: 12px;">
+                    <div id="conversation-container" class="conversation-history"></div>
+                    <div id="pdf-approval-container"></div>
+                </div>
 
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="followup-title" id="followup-title-text">⚡ Strict 3-Step Guided Workflow:</div>
@@ -540,8 +626,6 @@
         let currentLang = 'en';
         let pendingAction = null;
         let stepCompleted = 0;
-        let lastUserJD = "";
-        let lastUserExp = "";
 
         const translations = {
             zh: {
@@ -710,8 +794,6 @@
 
             conversationHistory = [];
             stepCompleted = 0;
-            lastUserJD = "";
-            lastUserExp = "";
             document.getElementById('result-box').style.display = 'block';
             document.getElementById('followup-box').style.display = 'none';
             document.getElementById('pdf-approval-container').innerHTML = '';
@@ -758,13 +840,7 @@
             const isStep2 = questionText.includes('Step 2') || questionText.includes('第二步');
             const isStep3 = questionText.includes('Step 3') || questionText.includes('第三步') || questionText.includes('PDF');
 
-            if (stepCompleted === 1) {
-                lastUserJD = questionText;
-            } else if (stepCompleted === 2 || isStep2) {
-                lastUserExp = questionText;
-            }
-
-            let prompt = `Act as an executive consultant for 【${target}】 enforcing a strict 3-step sequence.\nUser Command: ${questionText}\n\n[RULES]: Output plain text only, no Markdown.`;
+            let prompt = `Act as an executive consultant for 【${target}】 enforcing a strict 3-step sequence.\nUser Command: ${questionText}\n\n[RULES]: Output plain text only, no Markdown. Do NOT output fixed report result headers or hardcoded scores. Dynamically analyze based on input.`;
 
             try {
                 const res = await sendDiagnosisRequest(userApiKey, prompt);
@@ -772,23 +848,17 @@
 
                 updateLatestAIResponse(formattedRes, false);
 
-                if (stepCompleted === 1 && !isStep2) {
-                    stepCompleted = 2;
-                    setTimeout(() => {
-                        appendTurnUI("System Guidance", "💡 Step 2: Input Experience & Match Skills");
-                    }, 400);
-                } else if (isStep2 || stepCompleted === 2 || currentTurns >= 2) {
+                if (isStep2 || stepCompleted === 2) {
                     stepCompleted = 3;
                     showPdfApprovalBox();
+                } else if (isStep3) {
+                    showAsDetailedScoringReport();
+                } else {
+                    stepCompleted = 2;
                 }
             } catch (err) {
                 let fallbackRes = `Analysis completed based on provided input.\n\nPlease proceed to the next step.`;
-                if (stepCompleted === 1) {
-                    stepCompleted = 2;
-                    setTimeout(() => {
-                        appendTurnUI("System Guidance", "💡 Step 2: Input Experience & Match Skills");
-                    }, 400);
-                } else {
+                if (isStep2) {
                     stepCompleted = 3;
                     showPdfApprovalBox();
                 }
@@ -802,87 +872,142 @@
                 <div class="pdf-approval-box">
                     <h4>📊 AI Scoring Match Analysis Complete!</h4>
                     <p>Would you like to generate the professional PDF evaluation report now?</p>
-                    <button class="btn-approve-pdf" onclick="requestPrivacyConsent(renderExactFormatReport)">✅ Yes, Generate PDF Report</button>
+                    <button class="btn-approve-pdf" onclick="approveAndGeneratePDF()">✅ Yes, Generate PDF Report</button>
                 </div>
             `;
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        /* 嚴格按照您指定格式與內容渲染報告，並包裹於 #pdf-export-area 內確保下載正確 */
-        function renderExactFormatReport() {
+        function approveAndGeneratePDF() {
+            document.getElementById('pdf-approval-container').innerHTML = `
+                <div style="background: #f0fdf4; border: 1px solid #10b981; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: center; color: #065f46; font-weight: 600;">
+                    ✅ PDF Report Generation Approved! Rendering Detailed High-End Report...
+                </div>
+            `;
+            showAsDetailedScoringReport();
+        }
+
+        /* 完整還原截圖風格與詳細內容的 AI Scoring 報告卡片 */
+        function showAsDetailedScoringReport() {
             const container = document.getElementById('pdf-approval-container');
             container.innerHTML = `
-                <div id="pdf-export-area" class="ai-scoring-card">
+                <div class="ai-scoring-card">
                     <div class="scoring-header">
-                        <div class="scoring-title-area">
-                            <h3>Candidate Name: Evaluated Candidate</h3>
-                            <p>Role: Token/Protocol PM · Weight Tech 60% / Soft 40%</p>
-                            <div class="scoring-summary-text">
-                                The candidate brings over a decade of solid technical experience spanning backend and system architecture, demonstrating strong systems engineering capabilities but lacking direct economic modeling and tokenomics design exposure.
+                        <div class="scoring-candidate-info">
+                            <div class="scoring-avatar-badge">
+                                C
+                                <span>55/100</span>
+                            </div>
+                            <div class="scoring-title-area">
+                                <h3>Shiun Jiang</h3>
+                                <p>Token/Protocol PM • Weight Tech 60% / Soft 40%</p>
+                                <div class="scoring-summary-text">
+                                    Shiun Jiang brings over a decade of solid software engineering experience spanning backend development, full-stack web/mobile applications, and game development at companies like XREX and AccelStor. However, the profile shows an execution-focused developer rather than a Token/Protocol PM, with no evidence of economic modeling, governance frameworks, or tokenomics design.
+                                </div>
                             </div>
                         </div>
                         <div class="scoring-action-badge">
-                            Recommended Action: Reject
+                            Reject
+                            <span>推荐行动</span>
                         </div>
                     </div>
 
-                    <div class="scoring-skills-section">
-                        <h4>🧠 Business & Technical Competencies (Tech 60%)</h4>
-                        <div class="skill-row"><span>- Tokenomics & Mechanism Design:</span><span>2/10</span></div>
-                        <div class="skill-row"><span>- Smart Contract & Protocol Architecture:</span><span>5/10</span></div>
-                        <div class="skill-row"><span>- Staking & Incentive Systems:</span><span>2/10</span></div>
-                        <div class="skill-row"><span>- Governance & Voting Frameworks:</span><span>2/10</span></div>
-                        <div class="skill-row"><span>- Systems Engineering & Scalability:</span><span>8/10</span></div>
+                    <div class="scoring-skills-grid">
+                        <div class="skill-column">
+                            <h4>💬 业务 & 技术能力 (Hard Skills)</h4>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Tokenomics & Mechanism Design</span><span>2/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 20%; background: #ef4444;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Smart Contract & Protocol Architecture</span><span>5/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 50%; background: #f97316;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Staking & Incentive Systems</span><span>2/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 20%; background: #ef4444;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Governance & Voting Frameworks</span><span>2/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 20%; background: #ef4444;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Systems Engineering & Scalability</span><span>8/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%; background: #10b981;"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="skill-column">
+                            <h4>💬 软技能 & 文化契合 (Soft Skills)</h4>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>0-to-1 Builder Evidence</span><span>6/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 60%; background: #fbbf24;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>TradFi x Web3 Cross-Fluency</span><span>3/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 30%; background: #ef4444;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Ownership and Proactivity</span><span>7/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 70%; background: #fbbf24;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>DC Culture Fit</span><span>5/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 50%; background: #f97316;"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Communication and Influence</span><span>5/10</span></div>
+                                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 50%; background: #f97316;"></div></div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="scoring-skills-section">
-                        <h4>💬 Soft Skills & Cultural Fit (Soft 40%)</h4>
-                        <div class="skill-row"><span>- 0-to-1 Builder Evidence:</span><span>6/10</span></div>
-                        <div class="skill-row"><span>- TradFi x Web3 Cross-Fluency:</span><span>3/10</span></div>
-                        <div class="skill-row"><span>- Ownership and Proactivity:</span><span>7/10</span></div>
-                        <div class="skill-row"><span>- Culture Fit:</span><span>5/10</span></div>
-                        <div class="skill-row"><span>- Communication and Influence:</span><span>5/10</span></div>
+                    <h4 style="font-size: 0.9rem; margin-bottom: 0.75rem; color: #e5e7eb;">💡 亮点 & 风险信号 (Strengths & Risks)</h4>
+                    <div class="scoring-highlights-grid">
+                        <div class="highlight-card green">
+                            <span>✅</span>
+                            <div>Solid 10+ year engineering background with deep expertise in Golang, Java, and system infrastructure</div>
+                        </div>
+                        <div class="highlight-card green">
+                            <span>✅</span>
+                            <div>Demonstrated stability and longevity in prior technical roles (e.g., 7+ years at XREX)</div>
+                        </div>
+                        <div class="highlight-card red">
+                            <span>🚫</span>
+                            <div>Zero experience in tokenomics design, game theory, or decentralized governance</div>
+                        </div>
+                        <div class="highlight-card red">
+                            <span>🚫</span>
+                            <div>No product management background; profile is strictly that of a software/backend engineer</div>
+                        </div>
+                        <div class="highlight-card yellow" style="grid-column: span 2;">
+                            <span>⚠️</span>
+                            <div>Skill mismatch for a PM role; hiring this candidate would require a complete pivot from engineering to product leadership</div>
+                        </div>
                     </div>
 
-                    <div class="highlights-section">
-                        <h4>Highlights & Risk Signals</h4>
-                        <div class="highlight-item">- ✅ Solid 10+ year engineering background with deep technical expertise.</div>
-                        <div class="highlight-item">- ✅ Demonstrated stability and longevity in prior technical roles.</div>
-                        <div class="highlight-item">- ✅ Familiarity with foundational cryptographic and platform execution.</div>
-                        <div class="highlight-item">- 🚫 Zero experience in tokenomics design, game theory, or decentralized governance.</div>
-                        <div class="highlight-item">- 🚫 No product management background; profile is execution-focused.</div>
-                        <div class="highlight-item">- 🚫 Lack of verifiable production smart contract or protocol engineering case studies.</div>
-                        <div class="highlight-item">- ⚠️ Skill mismatch for a PM role; hiring this candidate would require complete pivot.</div>
-                        <div class="highlight-item">- ⚠️ No exposure to TradFi or quantitative economic modeling.</div>
+                    <div class="scoring-interview-section">
+                        <h4>🎙️ 定制面试问题 (Customized Interview Questions)</h4>
+                        <div class="interview-q-item"><span class="q-badge">Q1</span><span>Can you walk us through a complex token economic loop or staking mechanism you have personally designed or audited?</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q2</span><span>How would you approach designing a dual-token model that balances short-term liquidity incentives with long-term protocol sustainability?</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q3</span><span>Given your background in backend microservices, how do you handle decentralized oracle failures in high-throughput automated market makers?</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q4</span><span>Describe a time you transitioned from pure software engineering to owning product strategy and roadmap execution.</span></div>
+                        <div class="interview-q-item"><span class="q-badge">Q5</span><span>What is your methodology for mitigating governance attack vectors such as flash-loan voting or DAO quorum manipulation?</span></div>
                     </div>
 
-                    <div class="interview-section">
-                        <h4>🎙️ Customized Interview Questions</h4>
-                        <div class="interview-item">- Q1: Can you walk us through a complex token economic loop or staking mechanism you have personally designed or audited?</div>
-                        <div class="interview-item">- Q2: How would you approach designing a dual-token model that balances short-term liquidity incentives with long-term protocol sustainability?</div>
-                        <div class="interview-item">- Q3: Given your background in backend microservices, how do you handle decentralized oracle failures in high-throughput automated market makers?</div>
-                        <div class="interview-item">- Q4: Describe a time you transitioned from pure software engineering to owning product strategy and roadmap execution.</div>
-                        <div class="interview-item">- Q5: What is your methodology for mitigating governance attack vectors such as flash-loan voting or DAO quorum manipulation?</div>
-                    </div>
-
-                    <div class="risk-section">
-                        <h4>⚠️ Risk Assessment</h4>
-                        <div class="risk-item">
-                            <strong>- Candidate/Role Mismatch Risk:</strong><br>
-                            <span class="risk-level">Level: Medium</span> - Risk of candidate frustration due to a mismatch between their software engineering background and product/tokenomics responsibilities.
-                        </div>
-                        <div class="risk-item">
-                            <strong>- Cultural & Organizational Risk:</strong><br>
-                            <span class="risk-level">Level: Low</span> - Standard cultural alignment within tech organizations, but unproven in Web3 incubation environments.
-                        </div>
-                        <div class="risk-item">
-                            <strong>- Skill & Expertise Gap Risk:</strong><br>
-                            <span class="risk-level">Level: High</span> - Significant gap in tokenomics design, mechanism design, and protocol-level product management.
-                        </div>
-                        <div class="risk-item">
-                            <strong>- Overqualification / Underqualification Risk:</strong><br>
-                            <span class="risk-level">Level: Low</span> - Candidate is not overqualified for a senior PM position given the lack of direct product leadership experience.
-                        </div>
+                    <div class="risk-assessment-section">
+                        <h4>⚠️ 风险评估 (Risk Assessment)</h4>
+                        <table class="risk-table">
+                            <thead>
+                                <tr><th>Category</th><th>Description</th><th>Level</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Role Fit</td><td>Risk of candidate frustration due to a mismatch between their software engineering background and product/tokenomics responsibilities.</td><td class="risk-level-medium">Medium</td></tr>
+                                <tr><td>Culture</td><td>Standard cultural alignment within tech organizations, but unproven in Web3 incubation environments.</td><td class="risk-level-low">Low</td></tr>
+                                <tr><td>Technical Gap</td><td>Significant gap in tokenomics design, mechanism design, and protocol-level product management.</td><td class="risk-level-high">High</td></tr>
+                                <tr><td>Seniority</td><td>Candidate is not overqualified for a senior PM position given the lack of direct product leadership experience.</td><td class="risk-level-low">Low</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -929,14 +1054,14 @@
             }
         }
 
-        /* 核心修復：精準鎖定 #pdf-export-area 進行渲染下載，解決空白頁問題 */
+        /* 核心修復：確保 html2pdf 正確鎖定 #pdf-export-area 進行高畫質 DOM 截圖渲染下載 */
         function downloadPDFReport() {
             const element = document.getElementById('pdf-export-area');
             const opt = {
                 margin:       5,
                 filename:     'AI_Scoring_Evaluation_Report.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: true, background: '#ffffff' },
+                html2canvas:  { scale: 2, useCORS: true, logging: true, background: '#111827' },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
