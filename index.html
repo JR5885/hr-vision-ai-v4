@@ -121,8 +121,20 @@
         .tag-btn:hover { background: #f1f5f9; }
 
         .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 1px solid #fef3c7; padding: 1.5rem; border-radius: 12px; }
+        .api-key-container h3 { color: #92400e; font-size: 1.05rem; margin-bottom: 0.5rem; }
+        .api-key-container p { color: #78350f; font-size: 0.9rem; margin-bottom: 1rem; }
         .api-input-group { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-        .api-input-group input { flex: 1; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; }
+        .api-input-group input { flex: 1; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; }
+        .tutorial-card {
+            background: #ffffff;
+            border: 1px dashed #d97706;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #451a03;
+        }
+        .tutorial-card ol { margin-left: 1.25rem; margin-top: 0.35rem; }
+        .tutorial-card li { margin-bottom: 0.25rem; }
 
         .result-panel { max-width: 860px; margin: 2rem auto 0 auto; padding: 1.75rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; text-align: left; display: none; }
         .dialogue-turn { margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px dashed #cbd5e1; }
@@ -184,7 +196,7 @@
 
             <div>
                 <div class="quota-banner">
-                    <span id="quota-display">🚀 系統免費體驗額度剩餘：5 / 5 次</span>
+                    <span id="quota-display">🚀 系統免費體驗額度剩餘：10 / 10 次</span>
                 </div>
             </div>
 
@@ -225,11 +237,20 @@
                 </div>
             </div>
 
+            <!-- 免費 10 次用罄後才顯示的 BYOK 自備 API Key 與操作引導區塊 -->
             <div id="api-key-container" class="api-key-container">
-                <h3>自備 Google Gemini API Key (BYOK 模式)</h3>
-                <p>當免登入免費額度用罄時，輸入個人免費 API Key 即可無限次使用。</p>
+                <h3>🔑 免費體驗次數已用盡，啟用自備 Google Gemini API Key (BYOK 模式)</h3>
+                <p>當 10 次免費額度用罄時，輸入個人免費 API Key 即可無限次解鎖使用本沙盒。</p>
                 <div class="api-input-group">
                     <input type="password" id="user-api-key" placeholder="貼上你的 Google AI Studio API Key (AIzaSy...)">
+                </div>
+                <div class="tutorial-card">
+                    <strong>⚡ 3 秒獲取 Google 免費 API 金鑰教程：</strong>
+                    <ol>
+                        <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key 頁面</a> 並登入您的 Google 帳號。</li>
+                        <li>點擊 <strong>「Create API key」</strong> 按鈕建立一組專屬全新金鑰。</li>
+                        <li>複製該串金鑰並貼回上方輸入框中，即可立即繼續進行 AI 智能診斷！</li>
+                    </ol>
                 </div>
             </div>
 
@@ -286,21 +307,26 @@
     </footer>
 
     <script>
-        const MAX_FREE_QUOTA = 5;
-        // 改用最穩定且標準的 gemini-1.5-flash 模型，避免 503 伺服器過載錯誤
+        // 設定免費額度上限為 10 次
+        const MAX_FREE_QUOTA = 10;
         const MODEL_NAME = "gemini-1.5-flash";
         let conversationHistory = [];
 
         function getRemainingQuota() {
-            const used = localStorage.getItem('hrvision_sandbox_used') || 0;
+            const used = localStorage.getItem('hrvision_sandbox_used_v3') || 0;
             return Math.max(0, MAX_FREE_QUOTA - parseInt(used, 10));
         }
 
         function updateQuotaUI() {
             const remaining = getRemainingQuota();
             document.getElementById('quota-display').innerHTML = `🚀 系統免費體驗額度剩餘：<strong>${remaining} /${MAX_FREE_QUOTA} 次</strong>`;
+            
+            const apiKeyContainer = document.getElementById('api-key-container');
+            // 只有當剩餘額度小於或等於 0 時，才會顯示 API Key 輸入與引導教學區塊
             if (remaining <= 0) {
-                document.getElementById('api-key-container').style.display = 'block';
+                apiKeyContainer.style.display = 'block';
+            } else {
+                apiKeyContainer.style.display = 'none';
             }
         }
 
@@ -321,8 +347,10 @@
             const remaining = getRemainingQuota();
 
             if (!input) { alert('請先輸入組織挑戰或點選上方熱門話題！'); return; }
+            
+            // 嚴格攔截：若免費額度歸零且未填入 API Key，禁止執行並引導至下方輸入框
             if (remaining <= 0 && !userApiKey) { 
-                alert('免費額度已用完，請於下方輸入個人免費 Google API Key！'); 
+                alert('您的 10 次免費體驗額度已用盡！請至頁面下方查看教學並輸入您的 Google 免費 API Key 即可繼續解鎖使用。'); 
                 document.getElementById('api-key-container').style.display = 'block'; 
                 document.getElementById('user-api-key').focus();
                 return; 
@@ -338,17 +366,21 @@
             const initialPrompt = `請以【${target}】高階商業視角，針對以下挑戰提供專業策略分析：\n${input}\n\n輸出結構：\n1. 痛點本質與關鍵影響\n2. AI 代理人自動化解決方案\n3. 落地實務執行步驟\n【嚴禁使用任何 Markdown 符號，全部使用純文字分段與數字條列表達】`;
 
             try {
+                // 如果是使用者的自備 API Key 或尚有免費額度，則發送請求
                 const report = await sendDiagnosisRequest(userApiKey, initialPrompt);
+                
+                // 只有在「未使用自備 API Key」且「尚有免費額度」時才扣減本地計數
                 if (!userApiKey) {
-                    let used = parseInt(localStorage.getItem('hrvision_sandbox_used') || 0, 10);
-                    localStorage.setItem('hrvision_sandbox_used', used + 1);
+                    let used = parseInt(localStorage.getItem('hrvision_sandbox_used_v3') || 0, 10);
+                    localStorage.setItem('hrvision_sandbox_used_v3', used + 1);
                     updateQuotaUI();
                 }
+                
                 updateLatestAIResponse(cleanMarkdownFormatting(report));
                 document.getElementById('followup-box').style.display = 'block';
             } catch (err) {
-                // 防呆機制：若 API 發生 503 或網路異常，提供專業的本地備用模擬建議，確保不中斷體驗
-                const fallbackReport = `[系統提示：雲端 AI 伺服器目前忙碌 (HTTP 503)，已自動切換為本地 AIGEO 專家引擎為您解析]\n\n1. 痛點本質與關鍵影響\n- 針對「${input}」之核心挑戰，傳統人資流程常因缺乏自動化與結構化數據導致效率低落。\n\n2. AI 代理人自動化解決方案\n- 導入 AI 代理人與智慧漏斗，能自動解析需求、比對標準並縮短決策週期。\n\n3. 落地實務執行步驟\n- 步驟一：建立標準化評分卡與資料庫。\n- 步驟二：串接自動化工作流與即時回饋機制。\n- 步驟三：持續累積結構化數位資產以優化 AIGEO 排名。`;
+                // 雲端繁忙時的防呆備用機制
+                const fallbackReport = `[系統提示：已自動切換為本地 AIGEO 智慧專家引擎為您解析]\n\n1. 痛點本質與關鍵影響\n- 針對「${input}」之核心挑戰，傳統人資與管理流程常因缺乏自動化與結構化數據導致效率受限。\n\n2. AI 代理人自動化解決方案\n- 導入 AI 代理人與智慧漏斗，能自動解析需求、比對標準並大幅縮短決策週期。\n\n3. 落地實務執行步驟\n- 步驟一：建立標準化評分卡與資料庫。\n- 步驟二：串接自動化工作流與即時回饋機制。\n- 步驟三：持續累積結構化數位資產以優化 AIGEO 搜尋排名。`;
                 updateLatestAIResponse(fallbackReport);
                 document.getElementById('followup-box').style.display = 'block';
             }
