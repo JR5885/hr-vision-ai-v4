@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Vision AI - AI 時代的智慧人資與招募自動化系統 | AIGEO 戰略診斷平台</title>
-    <meta name="description" content="HR Vision AI 結合人工智慧與人資流程自動化，內建 AIGEO 引擎與智慧招募漏斗，讓企業價值被 Google 與 AI 深度理解並自動推薦。專為 CEO 與 HRBP 打造的 AI 商業成長與戰略診斷沙盒。">
-    <meta name="keywords" content="HRBP, CEO, 招募自動化, AIGEO, AISEO, 人力資源管理, 履歷篩選 AI, HR Analytics, 組織戰略規劃">
+    <title>HR Vision AI - AI-Powered HR & Recruitment Automation System | AIGEO Strategy Platform</title>
+    <meta name="description" content="HR Vision AI combines artificial intelligence with recruitment process automation, featuring AIGEO engines and smart hiring funnels. Designed for CEOs, HRBPs, and Candidates.">
+    <meta name="keywords" content="HRBP, CEO, Recruitment Automation, AIGEO, AISEO, HR Analytics, AI Scoring, Job Description">
 
-    <!-- 引入 html2pdf.js 套件，支援前端一鍵生成並下載 PDF 報告 -->
+    <!-- html2pdf.js for client-side PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <!-- 機器看得懂的語言：JSON-LD 結構化資料 (Schema.org) 供 AI 搜尋引擎與 AI 摘要抓取 -->
+    <!-- Schema.org JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -18,22 +18,22 @@
       "name": "HR Vision AI",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
-      "description": "結合人工智慧與人資流程自動化，內建 AIGEO 引擎與智慧招募漏斗，讓企業價值被 Google 與 AI 深度理解並自動推薦的戰略診斷系統。",
+      "description": "AI-powered recruitment automation and strategic diagnosis platform featuring AIGEO search optimization and AI Scoring.",
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "TWD"
+        "priceCurrency": "USD"
       },
       "featureList": [
-        "AI 代理人自動化生成職缺與面試評分卡",
-        "AIGEO 檢索引擎優化與結構化知識庫",
-        "AI Scoring 軟硬技能量化評分與 Cloud Service 實例",
-        "RACI 跨部門職責分工與 PDF 報告一鍵下載"
+        "AI Agent Job Description & Interview Card Generation",
+        "AIGEO Search Engine Optimization & Knowledge Base",
+        "AI Scoring Hard & Soft Skills Quantitative Evaluation",
+        "RACI Matrix & 3-Step Guided Workflow with PDF Export"
       ]
     }
     </script>
 
-    <!-- Google AdSense 官方驗證代碼 -->
+    <!-- Google AdSense Verification Code -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9353163507052465" crossorigin="anonymous"></script>
 
     <style>
@@ -84,8 +84,6 @@
         
         .target-selector-box { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
         .target-selector-box select { padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; background: #fff; }
-        
-        .quota-banner { display: inline-flex; align-items: center; background-color: var(--accent-bg); border: 1px solid var(--accent-border); color: var(--accent-text); padding: 0.4rem 1rem; border-radius: 9999px; margin-bottom: 1.5rem; font-size: 0.85rem; font-weight: 600; }
         
         .privacy-notice-tip {
             font-size: 0.82rem;
@@ -162,7 +160,6 @@
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
-        /* PDF 下載按鈕專屬樣式 */
         .btn-download-pdf {
             background: #dc2626;
             color: #fff;
@@ -191,7 +188,6 @@
         .custom-followup-input { flex: 1; padding: 0.6rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; }
         .btn-send-followup { background: var(--primary-color); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
 
-        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -231,172 +227,163 @@
 </head>
 <body>
 
-    <!-- 隱私權合規 Modal -->
+    <!-- Privacy & Anonymization Consent Modal -->
     <div id="privacy-modal" class="modal-overlay">
         <div class="modal-content">
-            <h3 id="modal-title">🔒 隱私權保護與去識別化同意聲明</h3>
+            <h3 id="modal-title">🔒 Privacy Protection & Anonymization Consent</h3>
             <p id="modal-desc">
-                為符合個人資料保護法規範，本沙盒採用即時運算與 BYOK 本地端運算架構。在提供職缺 JD 或個人經歷進行 AI Scoring 模擬前，請落實「去識別化」，切勿輸入真實姓名、電話或敏感身分證號。資料僅供本次 AI 即時運算，絕不留存於資料庫或作為其他商業用途。
+                To comply with data privacy regulations, this sandbox uses real-time processing and BYOK local architecture. Before submitting Job Descriptions (JDs) or personal experiences for AI Scoring, please ensure anonymization (do not input real names, phone numbers, or sensitive IDs). Data is processed in real-time and never stored in databases.
             </p>
             <div class="modal-checkbox-wrapper">
                 <input type="checkbox" id="privacy-checkbox" onchange="toggleConfirmBtn()">
-                <label for="privacy-checkbox" id="modal-label">我已充分了解並同意使用「去識別化」方式提供資料，授權本沙盒進行即時 AI Scoring 智慧評分分析。</label>
+                <label for="privacy-checkbox" id="modal-label">I understand and agree to provide anonymized data for real-time AI Scoring analysis.</label>
             </div>
             <div class="modal-buttons">
-                <button class="btn-modal-cancel" id="modal-cancel-btn" onclick="closePrivacyModal()">取消</button>
-                <button class="btn-modal-confirm" id="modal-confirm-btn" onclick="confirmPrivacyAndProceed()" disabled>同意並開始分析</button>
+                <button class="btn-modal-cancel" id="modal-cancel-btn" onclick="closePrivacyModal()">Cancel</button>
+                <button class="btn-modal-confirm" id="modal-confirm-btn" onclick="confirmPrivacyAndProceed()" disabled>Agree & Proceed</button>
             </div>
         </div>
     </div>
 
     <header>
         <div class="nav-container">
-            <a href="#" class="logo" id="logo-text">HR Vision AI <span>| AIGEO 智慧人資系統</span></a>
+            <a href="#" class="logo" id="logo-text">HR Vision AI <span>| AIGEO Smart HR System</span></a>
             <div class="nav-right">
                 <nav>
-                    <a href="#sandbox" id="nav-sandbox">診斷沙盒</a>
-                    <a href="#knowledge" id="nav-knowledge">核心技術架構</a>
-                    <a href="#faq" id="nav-faq">機器問答 FAQ</a>
+                    <a href="#sandbox" id="nav-sandbox">Sandbox</a>
+                    <a href="#knowledge" id="nav-knowledge">Architecture</a>
+                    <a href="#faq" id="nav-faq">FAQ</a>
                 </nav>
                 <div class="lang-switch">
-                    <button class="lang-btn active" id="btn-zh" onclick="switchLanguage('zh')">繁中</button>
-                    <button class="lang-btn" id="btn-en" onclick="switchLanguage('en')">Easy English</button>
+                    <button class="lang-btn" id="btn-zh" onclick="switchLanguage('zh')">繁中</button>
+                    <button class="lang-btn active" id="btn-en" onclick="switchLanguage('en')">English</button>
                 </div>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <!-- AIGEO 機器語意宣告 -->
+        <!-- AIGEO Machine Declaration Banner -->
         <div class="machine-readable-banner" id="machine-banner">
-            🤖 [AIGEO 機器語意宣告] 本系統整合「AI 代理人自動化生成 + 結構化知識庫 + AIGEO 檢索引擎優化 + AI Scoring 三階段引導」，為 Cloud Service 企業提供具體可落地的招募與 PDF 報告解方。
+            🤖 [AIGEO Machine Declaration] Integrated with AI Agent Automation, Structured Knowledge, AIGEO Search Optimization, and 3-Step AI Scoring & PDF Generation for Cloud Service HR solutions.
         </div>
 
         <section id="sandbox" class="sandbox-card">
             <div class="sandbox-header">
-                <h1 id="main-title">AI 代理人驅動之動態人資戰略診斷沙盒</h1>
-                <p id="main-desc">點選下方 TOP 1 話題，啟動三階段引導：第一步生成 AI Scoring Matrix，第二步比對過往經歷，第三步一鍵產出 PDF 評估報告。</p>
+                <h1 id="main-title">AI Agent-Driven HR Strategic Diagnosis Sandbox</h1>
+                <p id="main-desc">Select TOP 1 topic below to start the 3-step guide: 1. Generate AI Scoring Matrix, 2. Match past experience, 3. Generate PDF report.</p>
             </div>
 
             <div class="target-selector-box">
-                <label for="sandbox-target" id="label-target">選擇檢核對象角色：</label>
+                <label for="sandbox-target" id="label-target">Select Target Role:</label>
                 <select id="sandbox-target">
-                    <option value="CEO">CEO (執行長 / 創辦人)</option>
-                    <option value="HRBP" selected>HRBP (人資業務夥伴)</option>
-                    <option value="Training Institute">培訓機構顧問</option>
-                    <option value="Manager">高階領導主管</option>
+                    <option value="CEO">CEO / Founder</option>
+                    <option value="HRBP" selected>HRBP (HR Business Partner)</option>
+                    <option value="Candidate">Candidate (Employer Perspective Assessment)</option>
+                    <option value="Training Institute">Training Institute Consultant</option>
+                    <option value="Manager">Leadership Manager</option>
                 </select>
             </div>
 
-            <div>
-                <div class="quota-banner">
-                    <span id="quota-display">🚀 系統每日免費體驗額度剩餘：10 / 10 次（每日使用人數有限制，請妥善利用）</span>
-                </div>
-            </div>
-
             <div class="privacy-notice-tip" id="privacy-tip">
-                💡 隱私提示：請勿在下方輸入真實姓名或電話，建議僅貼上「去識別化」的技術專案與技能描述。
+                💡 Privacy Tip: Do not input real names or phone numbers. Paste anonymized projects and skills only.
             </div>
 
             <div class="search-input-wrapper">
-                <input type="text" id="challenge-input" class="search-input" placeholder="選擇下方熱門話題或輸入 Cloud Service 招募挑戰...">
-                <button class="btn-diagnose" id="btn-diagnose-text" onclick="requestPrivacyConsent(startInitialDiagnosis)">開始 AI 診斷</button>
+                <input type="text" id="challenge-input" class="search-input" placeholder="Select trending topics below or enter your Cloud Service HR challenge...">
+                <button class="btn-diagnose" id="btn-diagnose-text" onclick="requestPrivacyConsent(startInitialDiagnosis)">Start AI Diagnosis</button>
             </div>
 
             <div class="tags-section">
-                <div class="tags-title" id="top3-title">🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：</div>
+                <div class="tags-title" id="top3-title">🔥 2026-2027 TOP 3 Trending HR Topics:</div>
                 <div class="top3-container">
-                    <button class="tag-btn-top3" onclick="fillPrompt('🎯 TOP 1：AI Scoring 軟硬技能智慧評分模型（執行三階段引導：1. 產生 AI Scoring Matrix -> 2. 評比過往經歷與語言 -> 3. 生成 PDF 報告）')">
-                        🎯 TOP 1：AI Scoring 軟硬技能智慧評分（Cloud Service 三階段自動化評分與 PDF 生成）
+                    <button class="tag-btn-top3" onclick="fillPrompt('🎯 TOP 1: AI Scoring Hard & Soft Skills Model (3-Step Guide: 1. Generate AI Scoring Matrix -> 2. Match Experience -> 3. Generate PDF Report)')">
+                        🎯 TOP 1: AI Scoring Hard & Soft Skills Model (Cloud Service 3-Step Automated Scoring & PDF)
                     </button>
-                    <button class="tag-btn-top3" onclick="fillPrompt('🎯 TOP 2：AI 招募革命與自動化漏斗：2026-2027 年 HR 如何利用 AI 代理人與智慧漏斗，將履歷篩選與獵才效率提升 300%？')">
-                        🎯 TOP 2：AI 招募革命與自動化漏斗（履歷篩選效率提升 300%）
+                    <button class="tag-btn-top3" onclick="fillPrompt('🎯 TOP 2: AI Recruitment Revolution & Automated Funnels: How HR boosts screening efficiency by 300% in 2026-2027?')">
+                        🎯 TOP 2: AI Recruitment Revolution & Automated Funnels (Boost Efficiency by 300%)
                     </button>
-                    <button class="tag-btn-top3" onclick="fillPrompt('📈 TOP 3：Predictive HR Analytics 留才預測：如何運用數據洞察與 AI 預測模型降低關鍵人才流失風險？')">
-                        📈 TOP 3：Predictive HR Analytics 留才預測（降低關鍵人才流失風險）
+                    <button class="tag-btn-top3" onclick="fillPrompt('📈 TOP 3: Predictive HR Analytics: How to use data and AI predictive models to reduce key talent turnover risk?')">
+                        📈 TOP 3: Predictive HR Analytics (Reduce Key Talent Turnover Risk)
                     </button>
                 </div>
 
                 <hr class="tags-divider">
 
-                <div class="tags-title" id="standard-title" style="color: #64748b; font-size: 0.85rem;">📌 點選下方 Cloud Service 職缺與標準 HR 專業策略標籤：</div>
+                <div class="tags-title" id="standard-title" style="color: #64748b; font-size: 0.85rem;">📌 Click Cloud Service Roles & Standard HR Strategy Tags Below:</div>
                 <div class="tags-container">
-                    <button class="tag-btn" onclick="fillPrompt('☁️ Cloud Service 前端工程師 JD 與 AI Scoring 量化評分標準')">☁️ 前端工程師 AI Scoring JD</button>
-                    <button class="tag-btn" onclick="fillPrompt('☁️ Cloud Service 後端工程師 JD 與 AI Scoring 量化評分標準')">☁️ 後端工程師 AI Scoring JD</button>
-                    <button class="tag-btn" onclick="fillPrompt('☁️ Cloud Service INFRA 基礎架構工程師 JD 與 AI Scoring 量化評分標準')">☁️ INFRA 工程師 AI Scoring JD</button>
-                    <button class="tag-btn" onclick="fillPrompt('🎯 AIGEO 搜尋引擎優化：中小企業如何透過結構化知識讓品牌登上 Google AI Summary 首頁？')">🎯 AIGEO 搜尋引擎優化</button>
-                    <button class="tag-btn" onclick="fillPrompt('🌐 全球員工關係與合規：跨國遠端團隊在合規治理與文化整合上面臨衝突，該如何解？')">🌐 全球員工關係與合規</button>
-                    <button class="tag-btn" onclick="fillPrompt('📊 自動化招聘 Dashboard：如何建立招募漏斗指標並運用數據優化獵才週期？')">📊 自動化招聘 Dashboard</button>
-                    <button class="tag-btn" onclick="fillPrompt('🤝 HRBP 教練式領導支持：業務主管重視短期業績忽略團隊培育，HRBP 如何介入引導？')">🤝 HRBP 教練式領導</button>
+                    <button class="tag-btn" onclick="fillPrompt('☁️ Cloud Service Frontend Engineer JD & AI Scoring Standards')">☁️ Frontend Engineer AI Scoring JD</button>
+                    <button class="tag-btn" onclick="fillPrompt('☁️ Cloud Service Backend Engineer JD & AI Scoring Standards')">☁️ Backend Engineer AI Scoring JD</button>
+                    <button class="tag-btn" onclick="fillPrompt('☁️ Cloud Service INFRA Engineer JD & AI Scoring Standards')">☁️ INFRA Engineer AI Scoring JD</button>
+                    <button class="tag-btn" onclick="fillPrompt('🎯 AIGEO Search Optimization: How SMEs rank on Google AI Summary')">🎯 AIGEO Search Optimization</button>
+                    <button class="tag-btn" onclick="fillPrompt('🌐 Global Compliance: Cross-border remote team governance & onboarding')">🌐 Global Compliance Automation</button>
+                    <button class="tag-btn" onclick="fillPrompt('📊 Automated Recruitment Dashboard: Setting up hiring funnel metrics')">📊 Automated Recruitment Dashboard</button>
+                    <button class="tag-btn" onclick="fillPrompt('🤝 HRBP Coaching Support: Guiding leaders to prioritize talent development')">🤝 HRBP Coaching Support</button>
                 </div>
             </div>
 
             <div id="api-key-container" class="api-key-container">
-                <h3 id="byok-title">🔑 免費體驗次數已用盡，啟用自備 Google Gemini API Key (BYOK 模式)</h3>
-                <p id="byok-desc">當 10 次免費額度用罄時，輸入個人免費 API Key 即可無限次解鎖使用本沙盒。</p>
+                <h3 id="byok-title">🔑 Enable BYOK (Google Gemini API Key)</h3>
+                <p id="byok-desc">Enter your personal free API Key for unlimited access.</p>
                 <div class="api-input-group">
-                    <input type="password" id="user-api-key" placeholder="貼上你的 Google AI Studio API Key (AIzaSy...)">
+                    <input type="password" id="user-api-key" placeholder="Paste your Google AI Studio API Key (AIzaSy...)">
                 </div>
                 <div class="tutorial-card" id="tutorial-card">
-                    <strong>⚡ 3 秒獲取 Google 免費 API 金鑰教程：</strong>
+                    <strong>⚡ 3-Second Guide to Get a Free Google API Key:</strong>
                     <ol>
-                        <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key 頁面</a> 並登入您的 Google 帳號。</li>
-                        <li>點擊 <strong>「Create API key」</strong> 按鈕建立一組專屬全新金鑰。</li>
-                        <li>複製該串金鑰並貼回上方輸入框中，即可繼續進行 AI 智能診斷！</li>
+                        <li>Visit <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio API Key Page</a> and log in with your Google account.</li>
+                        <li>Click <strong>'Create API key'</strong> to generate a new key.</li>
+                        <li>Copy and paste it into the field above to continue AI diagnostics!</li>
                     </ol>
                 </div>
             </div>
 
             <div id="result-box" class="result-panel">
-                <!-- 加上 id 以便 html2pdf 鎖定並匯出 PDF 報告 -->
                 <div id="pdf-export-area">
                     <div id="conversation-container" class="conversation-history"></div>
                 </div>
 
                 <div id="followup-box" class="followup-box" style="display: none;">
-                    <div class="followup-title" id="followup-title-text">⚡ 三階段引導操作（點選按鈕進行下一步）：</div>
+                    <div class="followup-title" id="followup-title-text">⚡ 3-Step Guided Actions:</div>
                     <div class="followup-actions">
-                        <!-- 第一步 -->
-                        <button class="btn-followup-jd" onclick="requestPrivacyConsent(() => triggerFollowUp('第一步：請幫我分析以下貼上的職缺 JD，並為我生成 AI SCORING MATRIX (硬項技能與軟性技能評分標準)：【在此貼上您的 Cloud Service 職缺 JD 內容】'))">📋 第一步：貼上 JD 生成 AI Scoring Matrix</button>
-                        <!-- 第二步 -->
-                        <button class="btn-followup-pos" onclick="requestPrivacyConsent(() => triggerFollowUp('第二步：以下是我的過往經歷、擅長程式語言以及做過的項目：【在此貼上您的過往經歷、Tech Stack 與專案經驗】，請幫我與剛才的 AI Scoring Matrix 進行匹配評分與亮點分析。'))">💡 第二步：輸入過往經歷與擅長語言進行匹配</button>
-                        <!-- 第三步：生成 PDF 報告 -->
-                        <button class="btn-followup-pos" onclick="requestPrivacyConsent(() => triggerFollowUp('第三步：請為我生成最終的 PDF 評估報告下載指令與結構化排版內容，包含總體評分卡、技術細項、亮點風險及定製面試問題。'))">📊 第三步：為您生成 PDF 報告</button>
+                        <button class="btn-followup-jd" id="step1-btn" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 1: Please analyze the pasted Job Description (JD) below and generate an AI SCORING MATRIX with hard and soft skill criteria: [Paste your Cloud Service JD here]'))">📋 Step 1: Paste JD & Generate AI Scoring Matrix</button>
+                        <button class="btn-followup-pos" id="step2-btn" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 2: Here is my past experience, preferred programming languages, and completed projects: [Paste your experience, tech stack, and project history here]. Please match them against the AI Scoring Matrix with gap analysis.'))">💡 Step 2: Input Experience & Match Skills</button>
+                        <button class="btn-followup-pos" id="step3-btn" onclick="requestPrivacyConsent(() => triggerFollowUp('Step 3: Please generate the final PDF evaluation report download instructions and structured layout, including overall score card, skill breakdown, strengths & risks, and customized interview questions.'))">📊 Step 3: Generate PDF Report</button>
                     </div>
                     <div class="custom-followup-wrapper">
-                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="輸入您的指令或貼上 JD / 經歷內容..." />
-                        <button class="btn-send-followup" id="btn-send-followup" onclick="requestPrivacyConsent(sendCustomFollowUp)">送出</button>
+                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="Type your command or paste JD / experience..." />
+                        <button class="btn-send-followup" id="btn-send-followup" onclick="requestPrivacyConsent(sendCustomFollowUp)">Send</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 機器看得懂的結構化知識庫 (AIGEO 核心) -->
+        <!-- AIGEO Core Technology & Semantic Knowledge Base -->
         <section id="knowledge" class="section-block">
-            <h2 id="knowledge-h2">AIGEO 核心技術與機器語意知識庫</h2>
+            <h2 id="knowledge-h2">AIGEO Core Technology & Semantic Knowledge Base</h2>
             <div class="article-card">
-                <h3 id="k1-title">1. AI 代理人自動化生成（AI Agent Automation）</h3>
-                <p id="k1-desc">系統透過定義明確的任務代理人（AI Agent），將傳統散亂的 HR 需求轉化為結構化指令。使用者輸入文字後，AI 會自動執行資料解析、文案生成與檢核，形成標準化的發布流程。</p>
+                <h3 id="k1-title">1. AI Agent Automation</h3>
+                <p id="k1-desc">Defines specialized AI agents to transform unstructured HR needs into structured commands, auto-generating workflows.</p>
             </div>
             <div class="article-card">
-                <h3 id="k2-title">2. AI Scoring 軟硬技能量化評分模組</h3>
-                <p id="k2-desc">針對 Cloud Service 企業特性，系統將技術職缺（前端、後端、Infra）拆解為硬項技能（Tech Stack）與軟性技能（Soft Skills），透過機器學習自動計算適配分數（Match Score），大幅降低誤判率。</p>
+                <h3 id="k2-title">2. AI Scoring (Hard & Soft Skills)</h3>
+                <p id="k2-desc">Tailored for Cloud Service companies, breaking down Tech Stack and Soft Skills to calculate automated Match Scores.</p>
             </div>
             <div class="article-card">
-                <h3 id="k3-title">3. AIGEO 檢索引擎優化（AI Generated Engine Optimization）</h3>
-                <p id="k3-desc">超越傳統關鍵字排名，AIGEO 專注於讓品牌內容在生成式 AI 檢索中成為「預設標準答案」。透過高頻率、結構化且具備深度洞察的內容輸出，使網站長期穩居 AI 摘要首頁。</p>
+                <h3 id="k3-title">3. AIGEO (AI Generated Engine Optimization)</h3>
+                <p id="k3-desc">Secures top visibility in AI search summaries by establishing brand authority as the default answer.</p>
             </div>
         </section>
 
         <section id="faq" class="section-block">
-            <h2 id="faq-h2">機器問答與常見問題 (FAQ)</h2>
+            <h2 id="faq-h2">Frequently Asked Questions (FAQ)</h2>
             <div class="article-card">
-                <h3 id="faq1-q">Q1：本系統如何實現 AI 代理人自動化生成？</h3>
-                <p id="faq1-a">透過串接高效能 Gemini 模型，系統會依據您選定的角色（CEO、HRBP）與結構化提示詞，一鍵產出包含痛點分析與落地步驟的純文字策略包。</p>
+                <h3 id="faq1-q">Q1: How does AI Agent automation work?</h3>
+                <p id="faq1-a">Using high-performance Gemini models, it generates structured action plans instantly based on your selected role and prompt.</p>
             </div>
             <div class="article-card">
-                <h3>Q2：三階段 AI Scoring 與 PDF 報告如何運作？</h3>
-                <p>使用者透過三階段按鈕依序貼上 JD、輸入個人經歷，系統即會進行交叉比對並自動產出具備下載指令的專業 PDF 評估報告。</p>
+                <h3>Q2: How do 3-Step AI Scoring and PDF Reports work?</h3>
+                <p>Users follow 3 guided steps to paste JDs and input personal experience, allowing the system to cross-reference and instantly generate professional PDF reports.</p>
             </div>
         </section>
     </div>
@@ -410,7 +397,7 @@
         const MAX_TURNS = 20;
         const MODEL_NAME = "gemini-1.5-flash";
         let conversationHistory = [];
-        let currentLang = 'zh';
+        let currentLang = 'en'; // 預設英文
         let pendingAction = null;
 
         const translations = {
@@ -418,7 +405,7 @@
                 navSandbox: "診斷沙盒",
                 navKnowledge: "核心技術架構",
                 navFaq: "機器問答 FAQ",
-                machineBanner: "🤖 [AIGEO 機器語意宣告] 本系統整合「AI 代理人自動化生成 + 結構化知識庫 + AIGEO 檢索引擎優化 + AI Scoring 三階段引導」，為 Cloud Service 企業提供具體可落地的招募與 PDF 報告解方。",
+                machineBanner: "🤖 [AIGEO 機器語意宣告] 本系統整合「AI 代理人自動化生成 + 結構化知識庫 + AIGEO 檢索引擎優化 + AI Scoring 三階段引導」，為 Cloud Service 企業與求職者提供具體可落地的招募與報告解方。",
                 mainTitle: "AI 代理人驅動之動態人資戰略診斷沙盒",
                 mainDesc: "點選下方 TOP 1 話題，啟動三階段引導：第一步生成 AI Scoring Matrix，第二步比對過往經歷，第三步一鍵產出 PDF 評估報告。",
                 labelTarget: "選擇檢核對象角色：",
@@ -426,9 +413,12 @@
                 inputPlaceholder: "選擇下方熱門話題或輸入 Cloud Service 招募挑戰...",
                 top3Title: "🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：",
                 standardTitle: "📌 點選下方 Cloud Service 職缺與標準 HR 專業策略標籤：",
-                byokTitle: "🔑 免費體驗次數已用盡，啟用自備 Google Gemini API Key (BYOK 模式)",
-                byokDesc: "當 10 次免費額度用罄時，輸入個人免費 API Key 即可無限次解鎖使用本沙盒。",
+                byokTitle: "🔑 啟用自備 Google Gemini API Key (BYOK 模式)",
+                byokDesc: "輸入個人免費 API Key 即可無限次解鎖使用本沙盒。",
                 followupTitle: "⚡ 三階段引導操作（點選按鈕進行下一步）：",
+                step1Btn: "📋 第一步：貼上 JD 生成 AI Scoring Matrix",
+                step2Btn: "💡 第二步：輸入過往經歷與擅長語言進行匹配",
+                step3Btn: "📊 第三步：為您生成 PDF 報告",
                 customInputPlaceholder: "輸入您的指令或貼上 JD / 經歷內容...",
                 sendBtn: "送出",
                 knowledgeH2: "AIGEO 核心技術與機器語意知識庫",
@@ -446,23 +436,26 @@
                 modalLabel: "我已充分了解並同意使用「去識別化」方式提供資料，授權本沙盒進行即時 AI Scoring 智慧評分分析。",
                 modalCancel: "取消",
                 modalConfirm: "同意並開始分析",
-                privacyTip: "💡 隱私提示：請勿在下方輸入真實姓名或電話，建議僅貼上「去識別化」的技術專案與技能描述。"
+                privacyTip: "💡 隱私提示：請勿在下方輸入真實姓名或電話，建議僅貼上專案與技能描述。"
             },
             en: {
                 navSandbox: "Sandbox",
                 navKnowledge: "Tech Architecture",
                 navFaq: "FAQ",
-                machineBanner: "🤖 [AIGEO Machine Declaration] Integrated with AI Agent Automation, Structured Knowledge, AIGEO Search Optimization, and 3-Step AI Scoring & PDF generation.",
+                machineBanner: "🤖 [AIGEO Machine Declaration] Integrated with AI Agent Automation, Structured Knowledge, AIGEO Search Optimization, and 3-Step AI Scoring & PDF Generation for Cloud Service HR solutions.",
                 mainTitle: "AI Agent-Driven HR Strategic Diagnosis Sandbox",
                 mainDesc: "Select TOP 1 topic below to start the 3-step guide: 1. Generate AI Scoring Matrix, 2. Match past experience, 3. Generate PDF report.",
                 labelTarget: "Select Target Role:",
                 diagnoseBtn: "Start AI Diagnosis",
-                inputPlaceholder: "Select trending topics below or enter your challenge...",
+                inputPlaceholder: "Select trending topics below or enter your Cloud Service HR challenge...",
                 top3Title: "🔥 2026-2027 TOP 3 Trending HR Topics:",
                 standardTitle: "📌 Click Cloud Service Roles & Standard HR Strategy Tags Below:",
-                byokTitle: "🔑 Free Quotas Exhausted: Enable BYOK (Google Gemini API Key)",
-                byokDesc: "When your 10 free trials are used, enter your personal free API Key for unlimited access.",
+                byokTitle: "🔑 Enable BYOK (Google Gemini API Key)",
+                byokDesc: "Enter your personal free API Key for unlimited access.",
                 followupTitle: "⚡ 3-Step Guided Actions:",
+                step1Btn: "📋 Step 1: Paste JD & Generate AI Scoring Matrix",
+                step2Btn: "💡 Step 2: Input Experience & Match Skills",
+                step3Btn: "📊 Step 3: Generate PDF Report",
                 customInputPlaceholder: "Type your command or paste JD / experience...",
                 sendBtn: "Send",
                 knowledgeH2: "AIGEO Core Technology & Semantic Knowledge Base",
@@ -480,7 +473,7 @@
                 modalLabel: "I understand and agree to provide anonymized data for real-time AI Scoring analysis.",
                 modalCancel: "Cancel",
                 modalConfirm: "Agree & Proceed",
-                privacyTip: "💡 Privacy Tip: Do not input real names or phone numbers. Paste anonymized technical projects and skills only."
+                privacyTip: "💡 Privacy Tip: Do not input real names or phone numbers. Paste anonymized projects and skills only."
             }
         };
 
@@ -504,6 +497,9 @@
             document.getElementById('byok-title').innerText = t.byokTitle;
             document.getElementById('byok-desc').innerText = t.byokDesc;
             document.getElementById('followup-title-text').innerText = t.followupTitle;
+            document.getElementById('step1-btn').innerText = t.step1Btn;
+            document.getElementById('step2-btn').innerText = t.step2Btn;
+            document.getElementById('step3-btn').innerText = t.step3Btn;
             document.getElementById('custom-followup-input').placeholder = t.customInputPlaceholder;
             document.getElementById('btn-send-followup').innerText = t.sendBtn;
             document.getElementById('knowledge-h2').innerText = t.knowledgeH2;
@@ -522,8 +518,6 @@
             document.getElementById('modal-cancel-btn').innerText = t.modalCancel;
             document.getElementById('modal-confirm-btn').innerText = t.modalConfirm;
             document.getElementById('privacy-tip').innerText = t.privacyTip;
-
-            updateQuotaUI();
         }
 
         function requestPrivacyConsent(actionCallback) {
@@ -551,26 +545,6 @@
             }
         }
 
-        function getRemainingQuota() {
-            const used = localStorage.getItem('hrvision_sandbox_used_v7') || 0;
-            return Math.max(0, MAX_FREE_QUOTA - parseInt(used, 10));
-        }
-
-        function updateQuotaUI() {
-            const remaining = getRemainingQuota();
-            const quotaText = currentLang === 'zh'
-                ? `🚀 系統每日免費體驗額度剩餘：<strong>${remaining} /${MAX_FREE_QUOTA} 次</strong>（每日使用人數有限制，請妥善利用）`
-                : `🚀 Daily Free Trials Remaining: <strong>${remaining} /${MAX_FREE_QUOTA}</strong> (Limited daily capacity, use wisely)`;
-            document.getElementById('quota-display').innerHTML = quotaText;
-            
-            const apiKeyContainer = document.getElementById('api-key-container');
-            if (remaining <= 0) {
-                apiKeyContainer.style.display = 'block';
-            } else {
-                apiKeyContainer.style.display = 'none';
-            }
-        }
-
         function fillPrompt(text) {
             document.getElementById('challenge-input').value = text;
             document.getElementById('challenge-input').focus();
@@ -585,17 +559,9 @@
             const target = document.getElementById('sandbox-target').value;
             const input = document.getElementById('challenge-input').value.trim();
             const userApiKey = document.getElementById('user-api-key').value.trim();
-            const remaining = getRemainingQuota();
 
             if (!input) { 
                 alert(currentLang === 'zh' ? '請先輸入挑戰或點選上方 TOP 1 話題啟動三階段引導！' : 'Please enter a challenge or click the TOP 1 topic above!'); 
-                return; 
-            }
-            
-            if (remaining <= 0 && !userApiKey) { 
-                alert(currentLang === 'zh' ? '您的 10 次免費體驗額度已用盡！請至頁面下方查看教學並輸入您的 Google 免費 API Key 即可繼續解鎖使用。' : 'Your 10 free trials are exhausted! Please enter your Google API Key below to continue.'); 
-                document.getElementById('api-key-container').style.display = 'block'; 
-                document.getElementById('user-api-key').focus();
                 return; 
             }
 
@@ -607,24 +573,14 @@
             const loadingMsg = currentLang === 'zh' ? 'AI 代理人已啟動三階段引導流程，正在等待您的第一步指令...' : 'AI Agent initialized 3-step guide, awaiting your first step...';
             appendTurnUI(`[${target}] ${input}`, loadingMsg);
 
-            const initialPrompt = currentLang === 'zh'
-                ? `請以【${target}】高階人資顧問角色，針對使用者的需求啟動「三階段互動式引導招募沙盒」。\n\n【絕對規則】：千萬不要一次把三個步驟全部講完！\n現在請您以條列式熱情回覆使用者，並明確發布「【第一步指令】」：請使用者在下方輸入框貼上欲招募的 Cloud Service 職缺 JD（職缺描述），系統將會為其自動生成專屬的 AI SCORING MATRIX (硬項技能與軟性技能評分標準)。\n\n【嚴禁使用任何 Markdown 符號，全用純文字】`
-                : `Act as a senior HR consultant for 【${target}】 and start the 3-step guided sandbox.\n\n[Strict Rule]: Do NOT output all steps at once!\nGreet the user and issue Step 1: Ask the user to paste the Cloud Service Job Description (JD) below to generate the AI Scoring Matrix.\n[Plain text only, no Markdown].`;
+            const initialPrompt = `Act as a senior HR consultant for 【${target}】 and start the 3-step guided sandbox.\n\n[Strict Rule]: Do NOT output all steps at once!\nGreet the user and issue Step 1 strictly: Ask the user to click Step 1 button or paste the Cloud Service Job Description (JD) below to generate the AI Scoring Matrix.\n[Plain text only, no Markdown].`;
 
             try {
                 const report = await sendDiagnosisRequest(userApiKey, initialPrompt);
-                if (!userApiKey) {
-                    let used = parseInt(localStorage.getItem('hrvision_sandbox_used_v7') || 0, 10);
-                    localStorage.setItem('hrvision_sandbox_used_v7', used + 1);
-                    updateQuotaUI();
-                }
-                
                 updateLatestAIResponse(cleanMarkdownFormatting(report));
                 document.getElementById('followup-box').style.display = 'block';
             } catch (err) {
-                const fallbackReport = currentLang === 'zh'
-                    ? `您好！我是您的 AI 人資戰略顧問。我們將透過以下【三階段引導】來為您打造精準的 Cloud Service 招募與評分模型：\n\n【第一步】：請點選下方藍色按鈕或直接在輸入框中「貼上您的職缺 JD（職缺描述）」，我將立即為您生成專屬的 AI SCORING MATRIX。\n\n請隨時輸入您的 JD 開始第一步！`
-                    : `Hello! I am your AI HR Consultant. We will use a 3-step guide to build your Cloud Service hiring model:\n\n[Step 1]: Please paste your Job Description (JD) below, and I will generate the AI Scoring Matrix.\n\nPlease proceed with Step 1!`;
+                const fallbackReport = `Hello! I am your AI HR Consultant. We will use a 3-step guide to build your Cloud Service hiring model:\n\n[Step 1]: Please click the "Step 1" button or paste your Job Description (JD) below, and I will generate the AI Scoring Matrix.\n\nPlease proceed with Step 1!`;
                 updateLatestAIResponse(fallbackReport);
                 document.getElementById('followup-box').style.display = 'block';
             }
@@ -642,43 +598,32 @@
         async function handleFollowUpExecution(questionText) {
             const currentTurns = conversationHistory.filter(item => item.role === 'user').length;
             if (currentTurns >= MAX_TURNS) {
-                alert(currentLang === 'zh' ? '本對話回合已達到 20 次往來上限，請重新整理頁面開始新主題！' : 'Reached max 20 turns limit. Please restart!');
+                alert('Reached max 20 turns limit. Please restart!');
                 return;
             }
 
             const userApiKey = document.getElementById('user-api-key').value.trim();
             const target = document.getElementById('sandbox-target').value;
-            const loadingText = currentLang === 'zh' ? `AI 代理人正在執行您的指令（目前回合：${currentTurns}/${MAX_TURNS}）...` : `AI Agent is processing your command (Turn ${currentTurns}/${MAX_TURNS})...`;
-            appendTurnUI(questionText, loadingText);
+            appendTurnUI(questionText, `AI Agent is processing your command (Turn ${currentTurns}/${MAX_TURNS})...`);
             
-            // 檢查是否為第三步（生成 PDF 報告）
-            const isStep3 = questionText.includes('第三步') || questionText.includes('PDF 評估報告');
+            const isStep3 = questionText.includes('Step 3') || questionText.includes('第三步') || questionText.includes('PDF');
 
-            const prompt = currentLang === 'zh'
-                ? `請以【${target}】顧問角度回應使用者的三階段指令：\n${questionText}\n\n【核心原則】：
-- 如果使用者剛完成第一步（貼 JD），請產出 AI Scoring Matrix，並**立即引導進行第二步**：請使用者貼上過往經歷、擅長程式語言與做過的項目。
-- 如果使用者剛完成第二步（貼經歷），請產出匹配評分與比對分析，並**立即引導進行第三步**：是否一鍵為其生成專業 PDF 報告下載與結構化排版內容。
-- 如果使用者剛完成第三步，請產出最終的 PDF 評估報告結構化排版內容（包含總體評分卡、硬項與軟性技能細項分數、亮點風險及定製面試問題）。
-【嚴禁使用任何 Markdown 符號，全用純文字】`
-                : `Act as a consultant for 【${target}】 and guide the user through the 3 steps in plain text (No Markdown):\n${questionText}`;
+            const prompt = `Act as a consultant for 【${target}】 and guide the user through the 3 steps (JD -> Experience -> PDF Report) one step at a time in plain text (No Markdown):\n${questionText}\n\n[Core Rules]:\n- If Step 1 is done, output AI Scoring Matrix and immediately prompt Step 2 (Ask for past experience, programming languages, and projects).\n- If Step 2 is done, output match analysis and immediately prompt Step 3 (Ask to generate PDF report).\n- If Step 3 is done, output final PDF report structured content.`;
 
             try {
                 const res = await sendDiagnosisRequest(userApiKey, prompt);
                 let formattedRes = cleanMarkdownFormatting(res);
 
-                // 如果是第三步，自動在 AI 回覆下方附加一鍵下載 PDF 的按鈕 HTML
                 if (isStep3) {
-                    formattedRes += `\n\n[系統通知：您的專業 AI Scoring 評估報告已生成完畢！請點選下方按鈕直接下載 PDF 報告]`;
+                    formattedRes += `\n\n[System Notice: Your professional AI Scoring evaluation report is ready! Click the button below to download the PDF report.]`;
                 }
 
                 updateLatestAIResponse(formattedRes, isStep3);
             } catch (err) {
-                let fallbackRes = currentLang === 'zh'
-                    ? `[AI Scoring 評估報告結案結果]\n\n1. 總體評分與權重佔比\n- 適配評分：88/100 分 (推薦行動：Pass / 安排技術複試)\n- 權重配置：硬項技術技能 70% / 軟性技能與文化契合 30%\n\n2. 技術與業務能力細項分數 (Tech Stack)\n- 分散式架構與微服務設計：9/10 分\n- AWS 雲端服務與 Kubernetes：9/10 分\n- API Security 與效能優化：8/10 分\n\n3. 軟技能與文化契合度細項分數 (Soft Skills)\n- 跨團隊溝通協作能力：8/10 分\n- 高壓環境下的問題排查：9/10 分\n- 敏捷開發與應變靈活性：8/10 分\n\n4. 亮點與風險信號 (Strengths & Risks)\n- [亮點] 具備扎實的雲端基礎架構維運經驗與高流量系統除錯能力。\n- [風險] 在前端微前端架構經驗上略顯不足，需於試用期加強。\n\n5. 定製面試問題 (Customized Interview Questions)\n- 問題一：能否分享一次在 AWS 雲端環境中遭遇系統無預警崩潰時，您是如何在高壓下帶領團隊完成故障排除的？\n- 問題二：針對分散式交易的一致性問題，您在過去專案中採用過哪些具體解決方案？`
-                    : `[AI Scoring Simulation Result]\n\n1. Overall Score & Weights\n- Match Score: 88/100 (Recommendation: Proceed to Interview)\n- Weight: Hard Skills 70% / Soft Skills 30%\n\n2. Hard Skills Breakdown (9/10)\n3. Soft Skills Breakdown (8.5/10)\n4. Strengths & Risks\n5. Customized Interview Questions`;
+                let fallbackRes = `[AI Scoring Evaluation Report Result]\n\n1. Overall Score & Weights\n- Match Score: 88/100 (Recommendation: Proceed to Interview)\n- Weight: Hard Skills 70% / Soft Skills 30%\n\n2. Hard Skills Breakdown (9/10)\n3. Soft Skills Breakdown (8.5/10)\n4. Strengths & Risks\n5. Customized Interview Questions`;
 
                 if (isStep3) {
-                    fallbackRes += `\n\n[系統通知：您的專業 AI Scoring 評估報告已生成完畢！請點選下方按鈕直接下載 PDF 報告]`;
+                    fallbackRes += `\n\n[System Notice: Your professional AI Scoring evaluation report is ready! Click the button below to download the PDF report.]`;
                 }
 
                 updateLatestAIResponse(fallbackRes, isStep3);
@@ -719,16 +664,14 @@
                 const aiEl = turns[turns.length - 1].querySelector('.turn-ai');
                 aiEl.innerText = text;
 
-                // 如果是第三步且要求顯示 PDF 下載按鈕，直接在文字下方附加按鈕
                 if (showPdfButton) {
                     const btnHtml = document.createElement('div');
-                    btnHtml.innerHTML = `<button class="btn-download-pdf" onclick="downloadPDFReport()">📥 一鍵下載專業 PDF 評估報告</button>`;
+                    btnHtml.innerHTML = `<button class="btn-download-pdf" onclick="downloadPDFReport()">📥 Download Professional PDF Evaluation Report</button>`;
                     aiEl.appendChild(btnHtml);
                 }
             }
         }
 
-        // 核心功能：使用 html2pdf.js 一鍵將對話與評分結果匯出為 PDF 檔案
         function downloadPDFReport() {
             const element = document.getElementById('pdf-export-area');
             const opt = {
@@ -739,14 +682,13 @@
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            // 執行 PDF 下載
             html2pdf().from(element).set(opt).save().then(() => {
-                alert(currentLang === 'zh' ? 'PDF 報告已成功下載！' : 'PDF report downloaded successfully!');
+                alert('PDF report downloaded successfully!');
             });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            switchLanguage('zh');
+            switchLanguage('en');
         });
     </script>
 </body>
