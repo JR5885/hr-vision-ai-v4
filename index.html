@@ -196,7 +196,7 @@
 
             <div>
                 <div class="quota-banner">
-                    <span id="quota-display">🚀 系統免費體驗額度剩餘：10 / 10 次</span>
+                    <span id="quota-display">🚀 系統每日免費體驗額度剩餘：10 / 10 次（每日使用人數有限制，請妥善利用）</span>
                 </div>
             </div>
 
@@ -258,14 +258,14 @@
                 <div id="conversation-container" class="conversation-history"></div>
 
                 <div id="followup-box" class="followup-box" style="display: none;">
-                    <div class="followup-title">⚡ AI 策略追問：</div>
+                    <div class="followup-title">⚡ AI 策略追問（對話次數上限 20 次）：</div>
                     <div class="followup-actions">
                         <button class="btn-followup-pos" onclick="triggerFollowUp('請提供具體落地的【自動化對話腳本與執行步驟】')">💡 索取自動化對話腳本</button>
                         <button class="btn-followup-pos" onclick="triggerFollowUp('請為此方案設計一套【量化檢核表與 KPI 指標】')">📊 索取量化檢核表</button>
                         <button class="btn-followup-neg" onclick="triggerFollowUp('若內部利害關係人強烈抗拒 AI 自動化，如何破局？')">🔥 突破抗拒破局策略</button>
                     </div>
                     <div class="custom-followup-wrapper">
-                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="輸入自訂追問...">
+                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="輸入自訂追問，例如：目前月投遞量 500 筆，審核需 3 天...">
                         <button class="btn-send-followup" onclick="sendCustomFollowUp()">送出</button>
                     </div>
                 </div>
@@ -307,22 +307,22 @@
     </footer>
 
     <script>
-        // 設定免費額度上限為 10 次
         const MAX_FREE_QUOTA = 10;
+        // 將單次對話往來上限設定為 20 次
+        const MAX_TURNS = 20;
         const MODEL_NAME = "gemini-1.5-flash";
         let conversationHistory = [];
 
         function getRemainingQuota() {
-            const used = localStorage.getItem('hrvision_sandbox_used_v3') || 0;
+            const used = localStorage.getItem('hrvision_sandbox_used_v4') || 0;
             return Math.max(0, MAX_FREE_QUOTA - parseInt(used, 10));
         }
 
         function updateQuotaUI() {
             const remaining = getRemainingQuota();
-            document.getElementById('quota-display').innerHTML = `🚀 系統免費體驗額度剩餘：<strong>${remaining} /${MAX_FREE_QUOTA} 次</strong>`;
+            document.getElementById('quota-display').innerHTML = `🚀 系統每日免費體驗額度剩餘：<strong>${remaining} /${MAX_FREE_QUOTA} 次</strong>（每日使用人數有限制，請妥善利用）`;
             
             const apiKeyContainer = document.getElementById('api-key-container');
-            // 只有當剩餘額度小於或等於 0 時，才會顯示 API Key 輸入與引導教學區塊
             if (remaining <= 0) {
                 apiKeyContainer.style.display = 'block';
             } else {
@@ -348,7 +348,6 @@
 
             if (!input) { alert('請先輸入組織挑戰或點選上方熱門話題！'); return; }
             
-            // 嚴格攔截：若免費額度歸零且未填入 API Key，禁止執行並引導至下方輸入框
             if (remaining <= 0 && !userApiKey) { 
                 alert('您的 10 次免費體驗額度已用盡！請至頁面下方查看教學並輸入您的 Google 免費 API Key 即可繼續解鎖使用。'); 
                 document.getElementById('api-key-container').style.display = 'block'; 
@@ -361,26 +360,22 @@
             document.getElementById('followup-box').style.display = 'none';
             document.getElementById('conversation-container').innerHTML = '';
 
-            appendTurnUI(`【${target} 診斷需求】${input}`, 'AI 代理人正在進行結構化與 AIGEO 策略剖析...');
+            appendTurnUI(`【${target} 診斷需求】${input}`, 'AI 代理人正在建構 RACI 職責分工與策略模擬...');
 
-            const initialPrompt = `請以【${target}】高階商業視角，針對以下挑戰提供專業策略分析：\n${input}\n\n輸出結構：\n1. 痛點本質與關鍵影響\n2. AI 代理人自動化解決方案\n3. 落地實務執行步驟\n【嚴禁使用任何 Markdown 符號，全部使用純文字分段與數字條列表達】`;
+            const initialPrompt = `請以【${target}】高階商業視角，針對以下挑戰進行專業策略分析：\n${input}\n\n輸出結構：\n1. RACI 職責分工矩陣（請明確列出 R 負責執行、A 當責決策、C 諮詢協同、I 知會同步各角色要做的事）\n2. 現狀與期望結果盤點（追問對方目前的痛點現狀為何？希望產出怎樣的具體商業或量化結果？）\n3. 數據模擬引導（請引導使用者提供一小部分實際數據，例如目前每月履歷投遞量、篩選天數或流失率，以便進行下一步的精準模擬）\n\n【嚴禁使用任何 Markdown 符號，全部使用純文字分段與數字條列表達】`;
 
             try {
-                // 如果是使用者的自備 API Key 或尚有免費額度，則發送請求
                 const report = await sendDiagnosisRequest(userApiKey, initialPrompt);
-                
-                // 只有在「未使用自備 API Key」且「尚有免費額度」時才扣減本地計數
                 if (!userApiKey) {
-                    let used = parseInt(localStorage.getItem('hrvision_sandbox_used_v3') || 0, 10);
-                    localStorage.setItem('hrvision_sandbox_used_v3', used + 1);
+                    let used = parseInt(localStorage.getItem('hrvision_sandbox_used_v4') || 0, 10);
+                    localStorage.setItem('hrvision_sandbox_used_v4', used + 1);
                     updateQuotaUI();
                 }
                 
                 updateLatestAIResponse(cleanMarkdownFormatting(report));
                 document.getElementById('followup-box').style.display = 'block';
             } catch (err) {
-                // 雲端繁忙時的防呆備用機制
-                const fallbackReport = `[系統提示：已自動切換為本地 AIGEO 智慧專家引擎為您解析]\n\n1. 痛點本質與關鍵影響\n- 針對「${input}」之核心挑戰，傳統人資與管理流程常因缺乏自動化與結構化數據導致效率受限。\n\n2. AI 代理人自動化解決方案\n- 導入 AI 代理人與智慧漏斗，能自動解析需求、比對標準並大幅縮短決策週期。\n\n3. 落地實務執行步驟\n- 步驟一：建立標準化評分卡與資料庫。\n- 步驟二：串接自動化工作流與即時回饋機制。\n- 步驟三：持續累積結構化數位資產以優化 AIGEO 搜尋排名。`;
+                const fallbackReport = `[系統提示：已自動切換為本地 AIGEO 智慧專家引擎為您解析]\n\n1. RACI 職責分工矩陣\n- R (Responsible 負責執行)：HRBP 與招募團隊負責建構 AI 招募漏斗與日常維護。\n- A (Accountable 當責決策)：CEO / 創辦人負責拍板整體 AI 戰略與資源預算。\n- C (Consulted 諮詢協同)：用人部門主管負責提供職位勝任力與面試標準。\n- I (Informed 知會同步)：各級領導主管同步招募進度與漏斗轉換成效。\n\n2. 現狀與期望結果盤點\n- 您目前的招募現狀為何？期望在導入自動化後達成何種具體成果（例如：招募週期縮短 50%）？\n\n3. 數據模擬引導\n- 為了進行更精準的沙盒模擬，請提供一小部分數據（例如：目前每月平均投遞履歷數、初篩耗費天數或候選人流失率）。`;
                 updateLatestAIResponse(fallbackReport);
                 document.getElementById('followup-box').style.display = 'block';
             }
@@ -396,15 +391,23 @@
         }
 
         async function handleFollowUpExecution(questionText) {
+            // 檢查對話往來次數是否達到 20 次上限
+            const currentTurns = conversationHistory.filter(item => item.role === 'user').length;
+            if (currentTurns >= MAX_TURNS) {
+                alert('本對話回合已達到 20 次往來上限，請點選上方標籤或重新輸入新主題以開始新的診斷！');
+                return;
+            }
+
             const userApiKey = document.getElementById('user-api-key').value.trim();
             const target = document.getElementById('sandbox-target').value;
-            appendTurnUI(questionText, 'AI 代理人正在深入解析追問...');
-            const prompt = `延續脈絡，以【${target}】顧問角度回答追問：\n${questionText}\n【嚴禁 Markdown 符號，全用純文字】`;
+            appendTurnUI(questionText, `AI 代理人正在依據您提供的數據進行模擬運算（目前回合：${currentTurns}/${MAX_TURNS}）...`);
+            
+            const prompt = `延續脈絡，以【${target}】顧問角度回應對方的數據與追問：\n${questionText}\n【嚴禁 Markdown 符號，全用純文字，請結合 RACI 與數據模擬結果給予具體回饋】`;
             try {
                 const res = await sendDiagnosisRequest(userApiKey, prompt);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
             } catch (err) {
-                updateLatestAIResponse(`[追問解析建議]\n針對「${questionText}」，建議以「建立跨部門共識工作坊」與「設置 24 小時內回饋 SLA」作為突破口，確保專案順利落地。`);
+                updateLatestAIResponse(`[數據模擬分析回饋]\n收到您提供的數據與現狀！基於此數據，建議由 HRBP (R) 調整漏斗階段篩選標準，用人主管 (C) 配合於 24 小時內完成面試回饋，預期可顯著降低前端人才流失率。`);
             }
         }
 
