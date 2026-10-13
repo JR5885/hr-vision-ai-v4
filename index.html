@@ -160,7 +160,7 @@
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
-        /* 完美對齊截圖的高質感暗色 UI 報告卡片樣式 */
+        /* 高質感暗色 UI 報告卡片樣式 */
         .ai-scoring-card {
             background: #111827;
             color: #f3f4f6;
@@ -562,7 +562,7 @@
                 </div>
             </div>
 
-            <!-- 核心修復：將整個結果面板及其子元素完整包覆在 #pdf-export-area 內，確保 html2pdf 渲染時不會遺漏內容 -->
+            <!-- 核心修復：確保 #pdf-export-area 完整包裹對話與動態生成的報告卡片 -->
             <div id="result-box" class="result-panel">
                 <div id="pdf-export-area" style="background: #111827; padding: 1.5rem; border-radius: 12px;">
                     <div id="conversation-container" class="conversation-history"></div>
@@ -848,6 +848,7 @@
 
                 updateLatestAIResponse(formattedRes, false);
 
+                // 核心修復：當完成第二步時，立即主動跳出 PDF 報告生成確認 Box
                 if (isStep2 || stepCompleted === 2) {
                     stepCompleted = 3;
                     showPdfApprovalBox();
@@ -866,28 +867,20 @@
             }
         }
 
+        /* 專屬的 PDF 生成詢問 Box 渲染函式 */
         function showPdfApprovalBox() {
             const container = document.getElementById('pdf-approval-container');
             container.innerHTML = `
                 <div class="pdf-approval-box">
                     <h4>📊 AI Scoring Match Analysis Complete!</h4>
                     <p>Would you like to generate the professional PDF evaluation report now?</p>
-                    <button class="btn-approve-pdf" onclick="approveAndGeneratePDF()">✅ Yes, Generate PDF Report</button>
+                    <button class="btn-approve-pdf" onclick="requestPrivacyConsent(showAsDetailedScoringReport)">✅ Yes, Generate PDF Report</button>
                 </div>
             `;
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function approveAndGeneratePDF() {
-            document.getElementById('pdf-approval-container').innerHTML = `
-                <div style="background: #f0fdf4; border: 1px solid #10b981; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: center; color: #065f46; font-weight: 600;">
-                    ✅ PDF Report Generation Approved! Rendering Detailed High-End Report...
-                </div>
-            `;
-            showAsDetailedScoringReport();
-        }
-
-        /* 完整還原截圖風格與詳細內容的 AI Scoring 報告卡片 */
+        /* 完整渲染高質感詳細報告卡片與下載按鈕 */
         function showAsDetailedScoringReport() {
             const container = document.getElementById('pdf-approval-container');
             container.innerHTML = `
@@ -1054,7 +1047,6 @@
             }
         }
 
-        /* 核心修復：確保 html2pdf 正確鎖定 #pdf-export-area 進行高畫質 DOM 截圖渲染下載 */
         function downloadPDFReport() {
             const element = document.getElementById('pdf-export-area');
             const opt = {
