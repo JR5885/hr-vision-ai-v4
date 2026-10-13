@@ -160,7 +160,7 @@
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
-        /* 嚴格對齊指定格式的專業 AI Scoring 報告樣式 */
+        /* 嚴格對齊最新指定格式的專業 AI Scoring 報告樣式 (黑字、清晰排版) */
         .ai-scoring-card {
             background: #ffffff;
             color: #0f172a;
@@ -727,7 +727,6 @@
                 updateLatestAIResponse(cleanMarkdownFormatting(report));
                 document.getElementById('followup-box').style.display = 'block';
                 
-                // 核心修復：確保完成第一步後，穩定印出 Step 2 引導提示
                 setTimeout(() => {
                     appendTurnUI("System Guidance", "💡 Step 2: Input Experience & Match Skills");
                 }, 400);
@@ -815,11 +814,11 @@
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        /* 嚴格使用您提供的最新標準化評分格式渲染報告 */
+        /* 嚴格按照您提供的最新標準化格式渲染報告 */
         function renderExactFormatReport() {
             const container = document.getElementById('pdf-approval-container');
             const candidateName = lastUserExp ? "Evaluated Candidate" : "Target Role Candidate";
-            const summaryText = lastUserExp ? `Candidate profile analyzed from user submission: "${lastUserExp.substring(0, 100)}..."` : "Comprehensive evaluation derived from matching candidate experience against target role requirements.";
+            const summaryText = lastUserExp ? `Candidate profile and background analyzed from user submission: "${lastUserExp.substring(0, 100)}..."` : "Comprehensive evaluation derived from matching candidate experience against target role requirements.";
 
             container.innerHTML = `
                 <div id="pdf-export-area" class="ai-scoring-card">
