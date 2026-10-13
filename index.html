@@ -151,6 +151,11 @@
         .followup-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1rem; }
         .btn-followup-pos { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 0.5rem 0.9rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
         .btn-followup-neg { background: #fff1f2; border: 1px solid #fecdd3; color: #9f1239; padding: 0.5rem 0.9rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
+        
+        /* 新增：一鍵貼上 JD 生成 AI Scoring 的專屬按鈕樣式 */
+        .btn-followup-jd { background: #eff6ff; border: 1px solid #93c5fd; color: #1d4ed8; padding: 0.5rem 0.9rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
+        .btn-followup-jd:hover { background: #dbeafe; transform: translateY(-1px); }
+
         .custom-followup-wrapper { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
         .custom-followup-input { flex: 1; padding: 0.6rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; }
         .btn-send-followup { background: var(--primary-color); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
@@ -174,7 +179,6 @@
                     <a href="#knowledge" id="nav-knowledge">核心技術架構</a>
                     <a href="#faq" id="nav-faq">機器問答 FAQ</a>
                 </nav>
-                <!-- 語言轉換 Tab：一鍵切換繁體中文 / Easy English -->
                 <div class="lang-switch">
                     <button class="lang-btn active" id="btn-zh" onclick="switchLanguage('zh')">繁中</button>
                     <button class="lang-btn" id="btn-en" onclick="switchLanguage('en')">Easy English</button>
@@ -268,12 +272,14 @@
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="followup-title" id="followup-title-text">⚡ AI 策略追問（對話次數上限 20 次）：</div>
                     <div class="followup-actions">
+                        <!-- 新增一鍵貼上 JD 並生成 AI Scoring 格式的按鈕 -->
+                        <button class="btn-followup-jd" onclick="triggerFollowUp('請幫我將以下職缺 JD 轉換為 AI Scoring 評分格式：【在此貼上您的職缺 JD 內容或職稱說明】，請產出：1. 總體評分板面與權重佔比（Tech vs Soft），2. 技術/業務能力細項分數 (X/10)，3. 軟技能與文化契合度細項分數 (X/10)，4. 候選人亮點與風險信號，5. 定製面試問題。')">📋 一鍵貼上 JD 生成 AI Scoring 格式</button>
                         <button class="btn-followup-pos" onclick="triggerFollowUp('請提供具體落地的【自動化對話腳本與執行步驟】')">💡 索取自動化對話腳本</button>
                         <button class="btn-followup-pos" onclick="triggerFollowUp('請為此方案設計一套【量化檢核表與 KPI 指標】')">📊 索取量化檢核表</button>
                         <button class="btn-followup-neg" onclick="triggerFollowUp('若內部利害關係人強烈抗拒 AI 自動化，如何破局？')">🔥 突破抗拒破局策略</button>
                     </div>
                     <div class="custom-followup-wrapper">
-                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="輸入自訂追問，例如：目前月投遞量 500 筆，審核需 3 天...">
+                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="輸入自訂追問，例如：貼上您的 JD 或目前每月投遞量 500 筆...">
                         <button class="btn-send-followup" id="btn-send-followup" onclick="sendCustomFollowUp()">送出</button>
                     </div>
                 </div>
@@ -293,7 +299,7 @@
             </div>
             <div class="article-card">
                 <h3 id="k3-title">3. AIGEO 檢索引擎優化（AI Generated Engine Optimization）</h3>
-                <p id="k3-desc">超越傳統關鍵字排名，AIGEO 專注於讓品牌內容在生成式 AI 檢索中成為「預設標準答案」。透過高頻率、結構化且具備深度洞察的內容輸出，使網站長期穩居 AI 摘要首頁。</p>
+                <p id="k3-desc">超越傳統關鍵字排名，AIGEO 專注於讓品牌內容在生成式 AI 檢索中成為「預設標準答案」。透過高頻率, 結構化且具備深度洞察的內容輸出，使網站長期穩居 AI 摘要首頁。</p>
             </div>
         </section>
 
@@ -319,9 +325,8 @@
         const MAX_TURNS = 20;
         const MODEL_NAME = "gemini-1.5-flash";
         let conversationHistory = [];
-        let currentLang = 'zh'; // 預設繁體中文
+        let currentLang = 'zh';
 
-        // 雙語字典（支援繁中與 Easy English）
         const translations = {
             zh: {
                 navSandbox: "診斷沙盒",
@@ -338,7 +343,7 @@
                 byokTitle: "🔑 免費體驗次數已用盡，啟用自備 Google Gemini API Key (BYOK 模式)",
                 byokDesc: "當 10 次免費額度用罄時，輸入個人免費 API Key 即可無限次解鎖使用本沙盒。",
                 followupTitle: "⚡ AI 策略追問（對話次數上限 20 次）：",
-                customInputPlaceholder: "輸入自訂追問，例如：目前月投遞量 500 筆，審核需 3 天...",
+                customInputPlaceholder: "輸入自訂追問，例如：貼上您的 JD 或目前每月投遞量 500 筆...",
                 sendBtn: "送出",
                 knowledgeH2: "AIGEO 核心技術與機器語意知識庫",
                 k1Title: "1. AI 代理人自動化生成（AI Agent Automation）",
@@ -366,7 +371,7 @@
                 byokTitle: "🔑 Free Quotas Exhausted: Enable BYOK (Google Gemini API Key)",
                 byokDesc: "When your 10 free trials are used, enter your personal free API Key for unlimited access.",
                 followupTitle: "⚡ AI Follow-up Strategy (Max 20 turns):",
-                customInputPlaceholder: "Type custom follow-up, e.g., 500 monthly resumes, 3 days screening...",
+                customInputPlaceholder: "Type custom follow-up, e.g., paste your JD or 500 monthly resumes...",
                 sendBtn: "Send",
                 knowledgeH2: "AIGEO Core Technology & Semantic Knowledge Base",
                 k1Title: "1. AI Agent Automation",
@@ -514,20 +519,20 @@
 
             const userApiKey = document.getElementById('user-api-key').value.trim();
             const target = document.getElementById('sandbox-target').value;
-            const loadingText = currentLang === 'zh' ? `AI 代理人正在依據您提供的數據進行 Cloud Service 模擬運算（目前回合：${currentTurns}/${MAX_TURNS}）...` : `AI Agent is simulating Cloud Service metrics (Turn ${currentTurns}/${MAX_TURNS})...`;
+            const loadingText = currentLang === 'zh' ? `AI 代理人正在依據您提供的 JD 或數據進行 AI Scoring 格式化評分（目前回合：${currentTurns}/${MAX_TURNS}）...` : `AI Agent is scoring the JD (Turn ${currentTurns}/${MAX_TURNS})...`;
             appendTurnUI(questionText, loadingText);
             
             const prompt = currentLang === 'zh'
-                ? `請以【${target}】顧問角度回應對方的數據與追問：\n${questionText}\n【嚴禁 Markdown 符號，全用純文字，請結合 RACI、AI Scoring 與數據模擬結果給予具體條列式回饋】`
-                : `Act as an executive consultant for 【${target}】 and reply in plain text combining RACI, AI Scoring, and simulation feedback:\n${questionText}`;
+                ? `請以【${target}】高階商業與技術招募主管角度，針對使用者提供的 JD 或追問進行分析：\n${questionText}\n\n【嚴禁使用任何 Markdown 符號，全用純文字】，請嚴格依照下列格式產出 AI Scoring 評分板面：\n- 總體評分與權重佔比（例如：候選人評分卡 / Weight Tech vs Soft）\n- 技術與業務能力細項分數 (X/10 分條列)\n- 軟技能與文化契合度細項分數 (X/10 分條列)\n- 亮點與風險信號 (Strengths & Risks 條列)\n- 定製面試問題 (Customized Interview Questions)`
+                : `Act as a senior technical recruiter for 【${target}】 and evaluate the provided JD/data in plain text (No Markdown):\n${questionText}\nOutput in AI Scoring Card format: Overall Score/Weights, Hard Skills Breakdown (X/10), Soft Skills Breakdown (X/10), Strengths & Risks, and Customized Interview Questions.`;
 
             try {
                 const res = await sendDiagnosisRequest(userApiKey, prompt);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
             } catch (err) {
                 const fallbackRes = currentLang === 'zh'
-                    ? `[Cloud Service 模擬分析回饋]\n收到您提供的數據與現狀！基於此數據，建議由 HRBP (R) 設定 AI Scoring 門檻（硬項大於 85 分、軟性大於 80 分），並由 Tech Lead (C) 於 24 小時內完成技術複試，預期可大幅提升錄用精準度。`
-                    : `[Simulation Feedback]\nData received! We recommend HRBP (R) set AI Scoring thresholds (Hard > 85, Soft > 80) and Tech Lead (C) complete technical interviews within 24 hours to boost hiring accuracy.`;
+                    ? `[AI Scoring 評分板面模擬結果]\n\n1. 總體評分與權重佔比\n- 適配評分：85/100 分 (推薦行動：Pass / 安排複試)\n- 權重配置：硬項技術技能 70% / 軟性技能與文化契合 30%\n\n2. 技術與業務能力細項分數 (Tech Stack)\n- 分散式架構與微服務設計：8/10 分\n- AWS 雲端服務與 Kubernetes：9/10 分\n- API Security 與效能優化：7/10 分\n\n3. 軟技能與文化契合度細項分數 (Soft Skills)\n- 跨團隊溝通協作能力：8/10 分\n- 高壓環境下的問題排查：9/10 分\n- 敏捷開發與應變靈活性：7/10 分\n\n4. 亮點與風險信號 (Strengths & Risks)\n- [亮點] 具備扎實的雲端基礎架構維運經驗與高流量系統除錯能力。\n- [風險] 在前端微前端架構經驗上略顯不足，需於試用期加強。\n\n5. 定製面試問題 (Customized Interview Questions)\n- 問題一：能否分享一次在 AWS 雲端環境中遭遇系統無預警崩潰時，您是如何在高壓下帶領團隊完成故障排除的？\n- 問題二：針對分散式交易的一致性問題，您在過去專案中採用過哪些具體解決方案？`
+                    : `[AI Scoring Simulation Result]\n\n1. Overall Score & Weights\n- Match Score: 85/100 (Recommendation: Proceed to Interview)\n- Weight: Hard Skills 70% / Soft Skills 30%\n\n2. Hard Skills Breakdown\n- Microservices Architecture: 8/10\n- AWS & Kubernetes: 9/10\n- API Security & Optimization: 7/10\n\n3. Soft Skills Breakdown\n- Cross-team Communication: 8/10\n- High-pressure Troubleshooting: 9/10\n- Agile Adaptability: 7/10\n\n4. Strengths & Risks\n- [Strength] Solid cloud infrastructure and high-traffic debugging experience.\n- [Risk] Limited micro-frontend exposure; requires onboarding support.\n\n5. Customized Interview Questions\n- Q1: Walk us through a major AWS production outage you handled under extreme pressure.\n- Q2: How do you handle distributed transaction consistency in Go/Node.js?`;
                 updateLatestAIResponse(fallbackRes);
             }
         }
