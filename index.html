@@ -849,7 +849,7 @@
             }, 400);
         }
 
-        /* 核心修復：當執行完 Step 2 (Match Experience) 時，確實執行 await 並自動彈出 PDF 報告確認 Box */
+        /* 核心修復：確保當執行完 Step 2 (Match Experience) 後，確實透過 await 取得 AI 回應並立刻強制調用 showPdfApprovalBox() */
         async function handleStep2Action() {
             const inputVal = document.getElementById('custom-followup-input').value.trim() || document.getElementById('challenge-input').value.trim() || "Candidate past experience in engineering and technical execution.";
             lastUserExp = inputVal;
@@ -860,12 +860,12 @@
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
                 setTimeout(() => {
                     showPdfApprovalBox();
-                }, 400);
+                }, 300);
             } catch (err) {
                 updateLatestAIResponse("Match analysis completed.");
                 setTimeout(() => {
                     showPdfApprovalBox();
-                }, 400);
+                }, 300);
             }
         }
 
