@@ -498,7 +498,7 @@
                 <div id="conversation-container" class="conversation-history"></div>
                 <div id="pdf-approval-container"></div>
 
-                <!-- 徹底移除所有按鈕，改由純文字對話與輸入框進行自然交談推進 -->
+                <!-- 徹底改為自然的對話輸入框與發送按鈕，絕不顯示任何步驟提示字眼 -->
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="custom-followup-wrapper" style="margin-top: 0;">
                         <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="請在此輸入您的回覆、補充資料或接續提問..." />
@@ -569,7 +569,7 @@
         let pendingAction = null;
         let stepCompleted = 0;
         let isTop1Flow = false; 
-        let progressiveStage = 1; // 記錄隱含的 4 階段進度 (1: RACI, 2: Follow-up, 3: 參考數據, 4: 解決方案)
+        let progressiveStage = 1; // 隱含 4 階段進度
         let lastUserJD = "";
         let lastUserExp = "";
 
@@ -596,7 +596,7 @@
                 k2Title: "2. AI Scoring 軟硬技能量化評分模組",
                 k2Desc: "針對 Cloud Service 企業特性，系統將技術職缺（前端、後端、Infra）拆解為硬項技能（Tech Stack）與軟性技能（Soft Skills），透過機器學習自動計算適配分數（Match Score），大幅降低誤判率。",
                 k3Title: "3. AIGEO 檢索引擎優化（AI Generated Engine Optimization）",
-                k3Desc: "超越傳統關鍵字排名，AIGEO 專注於讓品牌內容在生成式 AI 檢索中成為「預設標準答案」。透過高頻率, 結構化且具備深度洞察的內容輸出，使網站長期穩居 AI 摘要首頁。",
+                k3Desc: "超越傳統關鍵字排名，AIGEO 專注於讓品牌內容在生成式 AI 檢索中成為「預設標準答案」。透過高頻率、結構化且具備深度洞察的內容輸出，使網站長期穩居 AI 摘要首頁。",
                 faqH2: "機器問答與常見問題 (FAQ)",
                 faq1Q: "Q1：本系統如何實現 AI 代理人自動化生成？",
                 faq1A: "透過串接高效能 Gemini 模型，系統會依據您選定的角色（CEO、HRBP）與結構化提示詞，一鍵產出包含痛點分析與落地步驟的純文字策略包。",
@@ -752,7 +752,7 @@
 
             conversationHistory = [];
             stepCompleted = 0;
-            progressiveStage = 1; // 從階段 1 (RACI) 開始
+            progressiveStage = 1;
             lastUserJD = "";
             lastUserExp = "";
             
@@ -787,9 +787,9 @@
                         appendTurnUI("系統引導", "💡 第一階段已完成：請貼上職缺 JD 或輸入相關背景以進行後續矩陣匹配。");
                     }, 400);
                 } else {
-                    progressiveStage = 2; // 進入下一階段
+                    progressiveStage = 2; 
                     setTimeout(() => {
-                        appendTurnUI("顧問建議", "上述為初步的 RACI 權責分工建議。為了更貼近貴公司的實際運作，請告訴我您目前遇到最大的痛點或考量點是什麼？（您可以直接在下方輸入回覆）");
+                        appendTurnUI("AI 顧問", "上述為初步的 RACI 權責分工建議。為了更貼近貴公司的實際運作，請告訴我您目前遇到最大的痛點或考量點是什麼？");
                     }, 400);
                 }
             } catch (err) {
@@ -798,44 +798,6 @@
             }
         }
 
-        async function handleStep1Action() {
-            const inputVal = document.getElementById('challenge-input').value.trim() || "Cloud Service JD & Requirements";
-            lastUserJD = inputVal;
-            stepCompleted = 1;
-            appendTurnUI("執行分析：生成 AI Scoring Matrix", "正在分析 Job Description 並建立硬實力與軟實力評分矩陣...");
-            const res = await sendDiagnosisRequest(document.getElementById('user-api-key'].value.trim(), `Step 1 Analysis based on JD: ${inputVal}. Output Hard & Soft Skills Scoring Matrix in plain text, no Markdown.`);
-            updateLatestAIResponse(cleanMarkdownFormatting(res));
-            setTimeout(() => {
-                appendTurnUI("系統引導", "💡 Scoring Matrix 已完成。請貼上候選人過往經歷或背景說明，然後點擊「步驟二：比對過往經歷」。");
-            }, 400);
-        }
-
-        async function handleStep2Action() {
-            const inputVal = document.getElementById('custom-followup-input').value.trim() || document.getElementById('challenge-input'].value.trim() || "Candidate past experience in engineering and technical execution.";
-            lastUserExp = inputVal;
-            stepCompleted = 2;
-            appendTurnUI("執行比對：過往經歷 Gap Analysis", "正在將候選人經歷與 AI Scoring Matrix 進行差異比對...");
-            try {
-                const res = await sendDiagnosisRequest(document.getElementById('user-api-key'].value.trim(), `Step 2 Gap Analysis based on experience: ${inputVal}. Output match analysis in plain text, no Markdown.`);
-                updateLatestAIResponse(cleanMarkdownFormatting(res));
-                setTimeout(() => {
-                    showPdfApprovalBox();
-                }, 300);
-            } catch (err) {
-                updateLatestAIResponse("經歷比對分析已完成。");
-                setTimeout(() => {
-                    showPdfApprovalBox();
-                }, 300);
-            }
-        }
-
-        async function handleStep3Action() {
-            stepCompleted = 3;
-            appendTurnUI("生成報告：專業評估報告", "正在編譯最終專業評估報告...");
-            renderExactFormatReport();
-        }
-
-        // 依據隱含的 4 階段架構，透過對話自動推進並引導使用者
         async function sendCustomFollowUp() {
             const inputEl = document.getElementById('custom-followup-input');
             const val = inputEl.value.trim();
@@ -845,7 +807,12 @@
             if (isTop1Flow) {
                 lastUserExp = val;
                 appendTurnUI(val, "正在處理候選人經歷並進行矩陣適配...");
-                await handleStep2Action();
+                // 模擬 TOP 1 的下一步
+                const res = await sendDiagnosisRequest(document.getElementById('user-api-key'].value.trim(), `Step 2 Gap Analysis based on experience: ${val}. Output match analysis in plain text, no Markdown.`);
+                updateLatestAIResponse(cleanMarkdownFormatting(res));
+                setTimeout(() => {
+                    showPdfApprovalBox();
+                }, 300);
                 return;
             }
 
@@ -855,17 +822,14 @@
             let nextGuidance = "";
 
             if (progressiveStage === 2) {
-                // 階段 2 結束，進入階段 3：請求小範圍參考數據
                 progressiveStage = 3;
                 promptText = `Based on user feedback: "${val}", strictly execute Stage 3: 請使用者提供目前不涉及商業機密的小範圍參考數據，作為輸出方案的架構依據。Do NOT mention any step numbers, phases, or internal instructions. Plain text only, no Markdown.`;
                 nextGuidance = "👉 請提供目前不涉及商業機密的小範圍參考數據（例如目前的招募週期、漏斗轉換率或團隊規模等），以作為後續完整解決方案的架構依據。";
             } else if (progressiveStage === 3) {
-                // 階段 3 結束，進入階段 4：輸出最終解決方案
                 progressiveStage = 4;
                 promptText = `Based on reference data: "${val}", strictly execute Stage 4: 輸出解決方案 (Output the final comprehensive and actionable HR strategy solution). Do NOT mention any step numbers, phases, or internal instructions. Plain text only, no Markdown.`;
                 nextGuidance = "✅ 完整的戰略解決方案已全部產出完畢！您可以檢視上方內容，或重新點選其他標籤進行新的診斷。";
             } else {
-                // 已經完成全部階段後的自由對話
                 promptText = `User query: "${val}". Provide professional HR advisory response without mentioning any step numbers. Plain text only, no Markdown.`;
                 nextGuidance = "💡 隨時歡迎提出更多人資戰略或招募優化的相關問題。";
             }
@@ -874,7 +838,7 @@
                 const res = await sendDiagnosisRequest(document.getElementById('user-api-key'].value.trim(), promptText);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
                 setTimeout(() => {
-                    appendTurnUI("顧問建議", nextGuidance);
+                    appendTurnUI("AI 顧問", nextGuidance);
                 }, 400);
             } catch (err) {
                 updateLatestAIResponse("戰略內容生成完畢。");
