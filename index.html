@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Vision AI - API 真實觸發檢測與人資戰略沙盒</title>
+    <title>HR Vision AI - 純淨 OAuth Bearer 觸發與人資戰略沙盒</title>
     <style>
         :root {
             --primary-color: #0f766e;
@@ -25,7 +25,6 @@
 
         .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
 
-        /* API 診斷控制台樣式 */
         .diagnostic-panel {
             background: #1e293b;
             color: #f8fafc;
@@ -35,13 +34,13 @@
             font-size: 0.9rem;
         }
         .diagnostic-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.75rem; }
-        .diagnostic-header h3 { color: #38bdf8; font-size: 1.05rem; display: flex; align-items: center; gap: 0.5rem; }
+        .diagnostic-header h3 { color: #38bdf8; font-size: 1.05rem; }
         .diagnostic-controls { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
-        .diagnostic-controls select, .diagnostic-controls input {
+        .diagnostic-controls select {
             padding: 0.4rem 0.75rem; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 0.85rem;
         }
-        .btn-test-api { background: #0284c7; color: #fff; border: none; padding: 0.45rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
-        .btn-test-api:hover { background: #0369a1; }
+        .btn-test-api { background: #10b981; color: #fff; border: none; padding: 0.45rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
+        .btn-test-api:hover { background: #059669; }
         .api-log-box { background: #0f172a; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid #334155; font-family: monospace; font-size: 0.85rem; color: #cbd5e1; white-space: pre-wrap; }
 
         .sandbox-card { background: var(--white); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem 2rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); margin-bottom: 3rem; text-align: center; }
@@ -99,7 +98,7 @@
 
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">HR Vision AI <span>| API 真實觸發檢測版</span></a>
+            <a href="#" class="logo">HR Vision AI <span>| 純淨 OAuth Bearer 驗證版</span></a>
             <div id="usage-counter-badge" style="font-size: 0.85rem; font-weight: 600; color: #0f766e; background: #ccfbf1; padding: 0.35rem 0.8rem; border-radius: 50px;">
                 免費互動剩餘：20 / 20 次
             </div>
@@ -110,24 +109,24 @@
         <!-- 實況 API 觸發檢測儀 -->
         <div class="diagnostic-panel">
             <div class="diagnostic-header">
-                <h3>🔍 模型與憑證真實觸發檢測儀</h3>
+                <h3>🔍 純淨 OAuth2 Bearer 觸發檢測儀 (已拔除 x-goog-api-key 干擾)</h3>
                 <div class="diagnostic-controls">
-                    <label>選擇測試模型：</label>
+                    <label>選擇模型：</label>
                     <select id="model-selector">
-                        <option value="gemini-3.6-flash" selected>gemini-3.6-flash (測試您指定的代號)</option>
-                        <option value="gemini-2.5-flash">gemini-2.5-flash (現行官方標準代號)</option>
-                        <option value="gemini-1.5-flash">gemini-1.5-flash (穩定版官方代號)</option>
+                        <option value="gemini-2.5-flash" selected>gemini-2.5-flash (官方現行標準)</option>
+                        <option value="gemini-1.5-flash">gemini-1.5-flash (穩定版)</option>
+                        <option value="gemini-3.6-flash">gemini-3.6-flash (測試代號)</option>
                     </select>
-                    <button class="btn-test-api" onclick="runLiveApiDiagnostics()">⚡ 立即測試真實 API 觸發</button>
+                    <button class="btn-test-api" onclick="runLiveApiDiagnostics()">⚡ 立即測試純淨 Bearer 觸發</button>
                 </div>
             </div>
-            <div id="api-log-output" class="api-log-box">尚未執行檢測。點擊上方「立即測試真實 API 觸發」按鈕，將直接向 Google 伺服器發送請求並回報真實 HTTP 狀態碼。</div>
+            <div id="api-log-output" class="api-log-box">已移除會導致 401 "API keys are not supported" 的標頭衝突。請點擊右上角綠色按鈕重新測試！</div>
         </div>
 
         <section class="sandbox-card">
             <div class="sandbox-header">
                 <h1>AI 代理人驅動之動態人資戰略診斷沙盒</h1>
-                <p>優先嘗試觸發真實 API；若遇模型代號不存在或憑證阻擋，將自動無縫切換至智慧備援引擎，確保展示 100% 順暢。</p>
+                <p>採用純淨 OAuth2 Bearer 驗證對接您的 AQ. 權杖，並內建 20 次免費額度控制與智慧備援。</p>
             </div>
 
             <div class="target-selector-box">
@@ -161,12 +160,12 @@
                 </div>
             </div>
 
-            <!-- 20次額度滿時彈出的自備金鑰區塊 -->
+            <!-- 20次額度滿時彈出的自備憑證區塊 -->
             <div id="api-key-container" class="api-key-container">
-                <h3>🔑 免費 20 次互動額度已滿！請輸入自備金鑰繼續無限使用</h3>
-                <p style="font-size: 0.9rem; color: #78350f;">請在下方貼上您的授權金鑰以解除次數限制：</p>
+                <h3>🔑 免費 20 次互動額度已滿！請輸入您的 AQ. 存取權杖繼續無限使用</h3>
+                <p style="font-size: 0.9rem; color: #78350f;">請在下方貼上您的 OAuth2 Bearer Token (AQ. 開頭) 以解除次數限制：</p>
                 <div class="api-input-group">
-                    <input type="password" id="user-api-key" placeholder="貼上您的 API Key 或授權憑證...">
+                    <input type="password" id="user-api-key" placeholder="貼上您的 AQ. 權杖...">
                     <button class="btn-confirm-apikey" onclick="confirmApiKeyAndContinue()">確認並解鎖無限使用</button>
                 </div>
             </div>
@@ -191,14 +190,14 @@
         let isTop1Flow = false;
 
         function getUsageCount() {
-            let usage = JSON.parse(localStorage.getItem('hr_vision_usage_v2')) || { count: 0 };
+            let usage = JSON.parse(localStorage.getItem('hr_vision_usage_v3')) || { count: 0 };
             return usage.count;
         }
 
         function incrementUsageCount() {
-            let usage = JSON.parse(localStorage.getItem('hr_vision_usage_v2')) || { count: 0 };
+            let usage = JSON.parse(localStorage.getItem('hr_vision_usage_v3')) || { count: 0 };
             usage.count++;
-            localStorage.setItem('hr_vision_usage_v2', JSON.stringify(usage));
+            localStorage.setItem('hr_vision_usage_v3', JSON.stringify(usage));
             updateUsageBadge();
         }
 
@@ -206,35 +205,40 @@
             const userKey = document.getElementById('user-api-key').value.trim();
             const badge = document.getElementById('usage-counter-badge');
             if (userKey) {
-                badge.innerText = "⚡ 已啟用自備金鑰 (無限次使用)";
+                badge.innerText = "⚡ 已啟用自備憑證 (無限次使用)";
             } else {
                 const remaining = Math.max(0, MAX_FREE_USES - getUsageCount());
                 badge.innerText = `免費互動剩餘：${remaining} / ${MAX_FREE_USES} 次`;
             }
         }
 
-        // 真實 API 觸發檢測函式
+        // 建立純淨的 Header（針對 AQ. 權杖只發送 Authorization: Bearer，絕不混用 x-goog-api-key）
+        function buildPureHeaders(token) {
+            const headers = { 'Content-Type': 'application/json' };
+            if (token.startsWith('AQ.')) {
+                headers['Authorization'] = `Bearer ${token}`;
+            } else {
+                headers['x-goog-api-key'] = token;
+            }
+            return headers;
+        }
+
         async function runLiveApiDiagnostics() {
             const logBox = document.getElementById('api-log-output');
             const selectedModel = document.getElementById('model-selector').value;
             const userKey = document.getElementById('user-api-key').value.trim();
             const keyToTest = userKey || DEFAULT_SYSTEM_KEY;
 
-            logBox.innerText = `[檢測中...] 正在向 Google 伺服器發送請求...\n目標模型：${selectedModel}\n使用憑證：${keyToTest.substring(0, 12)}...`;
+            logBox.innerText = `[檢測中...] 正在以純淨 Authorization: Bearer 模式向 Google 發送請求...\n目標模型：${selectedModel}`;
 
             const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent`;
 
             try {
-                // 同時嘗試 Bearer 與 x-goog-api-key 標頭
                 const response = await fetch(url, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${keyToTest}`,
-                        'x-goog-api-key': keyToTest
-                    },
+                    headers: buildPureHeaders(keyToTest),
                     body: JSON.stringify({
-                        contents: [{ role: "user", parts: [{ text: "Say OK" }] }]
+                        contents: [{ role: "user", parts: [{ text: "請回覆：連線成功" }] }]
                     })
                 });
 
@@ -242,12 +246,12 @@
 
                 if (response.ok) {
                     const reply = rawData.candidates[0].content.parts[0].text;
-                    logBox.innerText = `✅ [觸發成功！HTTP ${response.status}]\n模型 ${selectedModel} 已成功回應：${reply}`;
+                    logBox.innerText = `✅ [真實 API 觸發成功！HTTP ${response.status}]\n模型 (${selectedModel}) 真實回應：${reply}`;
                 } else {
-                    logBox.innerText = `❌ [伺服器拒絕觸發 - HTTP 狀態碼: ${response.status}]\nGoogle 官方回傳錯誤訊息：${JSON.stringify(rawData.error?.message || rawData)}\n\n💡 診斷說明：\n1. 若狀態碼為 404，代表 Google 官方伺服器並不存在「${selectedModel}」這個模型名稱。\n2. 若狀態碼為 400/401/403，代表「AQ.」憑證無法在純前端無後端環境下直接驗證。\n(別擔心！下方沙盒已自動啟用智慧備援引擎，您點擊診斷依然能 100% 順暢運作！)`;
+                    logBox.innerText = `❌ [HTTP 狀態碼: ${response.status}]\nGoogle 官方回傳訊息：${JSON.stringify(rawData.error?.message || rawData)}\n\n💡 診斷分析：\n現在已排除標頭衝突！若回傳狀態碼為 401 (Invalid Credentials)，代表這組 AQ. 短期存取權杖已經過期（OAuth Token 通常有效期限為 1 小時），請重新生成一組最新的 AQ. 權杖貼入即可；若為 403，代表該雲端專案尚未啟用 Generative Language API。`;
                 }
             } catch (err) {
-                logBox.innerText = `⚠️ [網路或 CORS 阻擋] 無法連線至端點：${err.message}\n(下方沙盒將自動使用智慧備援引擎確保正常運作)`;
+                logBox.innerText = `⚠️ [網路連線阻擋]：${err.message}`;
             }
         }
 
@@ -258,10 +262,10 @@
 
         function confirmApiKeyAndContinue() {
             const keyVal = document.getElementById('user-api-key').value.trim();
-            if (!keyVal) { alert('請輸入金鑰！'); return; }
+            if (!keyVal) { alert('請輸入您的 AQ. 權杖！'); return; }
             document.getElementById('api-key-container').style.display = 'none';
             updateUsageBadge();
-            alert('✅ 金鑰已綁定！您現在可以無限次使用。');
+            alert('✅ 憑證已更新！您現在可以無限次使用。');
         }
 
         async function tryRealApiOrFallback(promptText, fallbackText) {
@@ -273,11 +277,7 @@
             try {
                 const response = await fetch(url, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${keyToUse}`,
-                        'x-goog-api-key': keyToUse
-                    },
+                    headers: buildPureHeaders(keyToUse),
                     body: JSON.stringify({
                         contents: [{ role: "user", parts: [{ text: promptText }] }]
                     })
@@ -285,13 +285,12 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    return `[⚡ 真實 API (${selectedModel}) 回應]\n` + data.candidates[0].content.parts[0].text;
+                    return `[⚡ 真實 API (${selectedModel}) 即時生成]\n` + data.candidates[0].content.parts[0].text;
                 }
             } catch (e) {
-                // 忽略錯誤，進入下方備援
+                // 進入智慧備援
             }
 
-            // 當真實 API 未觸發成功時，等待 600ms 提供流暢備援回應
             await new Promise(r => setTimeout(r, 600));
             return fallbackText;
         }
@@ -301,7 +300,7 @@
             if (!userKey && getUsageCount() >= MAX_FREE_USES) {
                 document.getElementById('api-key-container').style.display = 'block';
                 document.getElementById('api-key-container').scrollIntoView({ behavior: 'smooth' });
-                alert('⚠️ 您的 20 次免費互動額度已用盡！請在下方提示框輸入您的金鑰以繼續無限使用。');
+                alert('⚠️ 您的 20 次免費互動額度已用盡！請在下方提示框輸入您的 AQ. 權杖以繼續無限使用。');
                 return;
             }
 
@@ -340,7 +339,7 @@
             if (!userKey && getUsageCount() >= MAX_FREE_USES) {
                 document.getElementById('api-key-container').style.display = 'block';
                 document.getElementById('api-key-container').scrollIntoView({ behavior: 'smooth' });
-                alert('⚠️ 您的 20 次免費互動額度已用盡！請輸入金鑰繼續無限使用。');
+                alert('⚠️ 您的 20 次免費互動額度已用盡！請輸入權杖繼續無限使用。');
                 return;
             }
 
