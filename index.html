@@ -457,7 +457,7 @@
 
                 <hr class="tags-divider">
 
-                <div class="tags-title" id="standard-title" style="color: #64748b; font-size: 0.85rem;">📌 Click Cloud Service Roles & Standard HR Strategy Tags Below:</div>
+                <div class="tags-title" id="standard-title">📌 Click Cloud Service Roles & Standard HR Strategy Tags Below:</div>
                 <div class="tags-container">
                     <button class="tag-btn" onclick="triggerTagClick('☁️ Cloud Service Frontend Engineer JD & AI Scoring Standards')">☁️ Frontend Engineer AI Scoring JD</button>
                     <button class="tag-btn" onclick="triggerTagClick('☁️ Cloud Service Backend Engineer JD & AI Scoring Standards')">☁️ Backend Engineer AI Scoring JD</button>
@@ -525,8 +525,8 @@
                 <p id="faq1-a">透過串接高效能 Gemini 模型，系統會依據您選定的角色（CEO、HRBP）與結構化提示詞，一鍵產出包含痛點分析與落地步驟的純文字策略包。</p>
             </div>
             <div class="article-card">
-                <h3>Q2：漸進式戰略引導是如何運作的？</h3>
-                <p>系統透過隱含的 4 階段專業框架（權責規畫 -> 提問引導 -> 數據對接 -> 解決方案），在背景自動為您生成最符合當下階段的對話內容。</p>
+                <h3 id="faq2-q">Q2：漸進式戰略引導是如何運作的？</h3>
+                <p id="faq2-a">系統透過隱含的 4 階段專業框架（權責規畫 -> 提問引導 -> 數據對接 -> 解決方案），在背景自動為您生成最符合當下階段的對話內容。</p>
             </div>
         </section>
     </div>
@@ -593,6 +593,8 @@
                 faqH2: "機器問答與常見問題 (FAQ)",
                 faq1Q: "Q1：本系統如何實現 AI 代理人自動化生成？",
                 faq1A: "透過串接高效能 Gemini 模型，系統會依據您選定的角色（CEO、HRBP）與結構化提示詞，一鍵產出包含痛點分析與落地步驟的純文字策略包。",
+                faq2Q: "Q2：漸進式戰略引導是如何運作的？",
+                faq2A: "系統透過隱含的 4 階段專業框架（權責規畫 -> 提問引導 -> 數據對接 -> 解決方案），在背景自動為您生成最符合當下階段的對話內容。",
                 modalTitle: "🔒 隱私權保護與去識別化同意聲明",
                 modalDesc: "為符合個人資料保護法規範，本沙盒採用即時運算與 BYOK 本地端運算架構。在提供職缺 JD 或個人經歷進行 AI Scoring 模擬前，請落實「去識別化」，切勿輸入真實姓名、電話或敏感身分證號。資料僅供本次 AI 即時運算，絕不留存於資料庫或作為其他商業用途。",
                 modalLabel: "我已充分了解並同意使用「去識別化」方式提供資料，授權本沙盒進行即時 AI Scoring 智慧評分分析。",
@@ -602,7 +604,7 @@
             },
             en: {
                 navSandbox: "Sandbox",
-                navKnowledge: "Tech Architecture",
+                navKnowledge: "Architecture",
                 navFaq: "FAQ",
                 machineBanner: "🤖 [AIGEO Machine Declaration] Integrated with AI Agent Automation, Structured Knowledge, AIGEO Search Optimization, and Progressive Advisory Workflow.",
                 mainTitle: "AI Agent-Driven HR Strategic Diagnosis Sandbox",
@@ -626,6 +628,8 @@
                 faqH2: "Frequently Asked Questions (FAQ)",
                 faq1Q: "Q1: How does AI Agent automation work?",
                 faq1A: "Using high-performance Gemini models, it generates structured action plans instantly based on your selected role and prompt.",
+                faq2Q: "Q2: How does progressive strategic guidance work?",
+                faq2A: "The system automatically guides you through a 4-stage professional framework in the background to generate context-aware conversational responses.",
                 modalTitle: "🔒 Privacy Protection & Anonymization Consent",
                 modalDesc: "To comply with data privacy regulations, please ensure 'anonymization' (do not input real names, phone numbers, or sensitive IDs). Data is processed in real-time and never stored.",
                 modalLabel: "I understand and agree to provide anonymized data for real-time AI Scoring analysis.",
@@ -666,6 +670,8 @@
             document.getElementById('faq-h2').innerText = t.faqH2;
             document.getElementById('faq1-q').innerText = t.faq1Q;
             document.getElementById('faq1-a').innerText = t.faq1A;
+            document.getElementById('faq2-q').innerText = t.faq2Q;
+            document.getElementById('faq2-a').innerText = t.faq2A;
             document.getElementById('modal-title').innerText = t.modalTitle;
             document.getElementById('modal-desc').innerText = t.modalDesc;
             document.getElementById('modal-label').innerText = t.modalLabel;
@@ -700,11 +706,11 @@
         }
 
         function fillPrompt(text) {
-            document.getElementById('challenge-input').value = text;
-            document.getElementById('challenge-input').focus();
+            const inputEl = document.getElementById('challenge-input');
+            inputEl.value = text;
+            inputEl.focus();
         }
 
-        /* 核心修復：獨立的標籤點擊觸發函式，點擊時自動填入並啟動隱私同意與 AI 診斷 */
         function triggerTagClick(text) {
             fillPrompt(text);
             requestPrivacyConsent(startInitialDiagnosis);
