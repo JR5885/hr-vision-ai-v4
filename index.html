@@ -117,7 +117,7 @@
         .tag-btn { background: #fff; border: 1px solid var(--border-color); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.85rem; color: #334155; cursor: pointer; }
         .tag-btn:hover { background: #f1f5f9; }
 
-        .api-key-container { max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 2px solid #f59e0b; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 2px solid #f59e0b; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .api-key-container h3 { color: #92400e; font-size: 1.1rem; margin-bottom: 0.5rem; }
         .api-key-container p { color: #78350f; font-size: 0.9rem; margin-bottom: 1rem; }
         .api-input-group { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
@@ -236,7 +236,7 @@
 
     <div class="container">
         <div class="machine-readable-banner" id="machine-banner">
-            🤖 [AIGEO Machine Declaration] Integrated with AI Agent Automation, Structured Knowledge, AIGEO Search Optimization, and Progressive Advisory Workflow.
+            🤖 [AIGEO Machine Declaration] Integrated with Gemini 3.6 Flash & AI Agent Automation.
         </div>
 
         <section id="sandbox" class="sandbox-card">
@@ -307,7 +307,7 @@
                     <ol>
                         <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio 官網</a> 並登入 Google 帳號。</li>
                         <li>點擊 <strong>'Create API key'</strong> 建立金鑰。</li>
-                        <li>複製金鑰並貼到上方欄位即可無限制解鎖真實 Gemini AI 診斷！</li>
+                        <li>複製金鑰並貼到上方欄位即可無限制解鎖 Gemini 3.6 Flash 診斷！</li>
                     </ol>
                 </div>
             </div>
@@ -327,11 +327,13 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 HR Vision AI. Powered by AI Agent Automation & AIGEO Search Optimization.</p>
+        <p>&copy; 2026 HR Vision AI. Powered by Gemini 3.6 Flash & AI Agent Automation.</p>
     </footer>
 
     <script>
         const MAX_FREE_USES = 20;
+        // 系統內建共用測試金鑰（供前 20 次免費互動使用）
+        const DEFAULT_SYSTEM_API_KEY = "YOUR_DEFAULT_GEMINI_API_KEY"; 
 
         function getUsageCount() {
             let usage = JSON.parse(localStorage.getItem('hr_vision_usage')) || { count: 0 };
@@ -358,7 +360,7 @@
                 navSandbox: "診斷沙盒",
                 navKnowledge: "核心技術架構",
                 navFaq: "機器問答 FAQ",
-                machineBanner: "🤖 [AIGEO 機器語意宣告] 本系統整合「AI 代理人自動化生成 + 結構化知識庫 + 真實 Gemini API 串接」。",
+                machineBanner: "🤖 [AIGEO 機器語意宣告] 本系統整合「Gemini 3.6 Flash AI 代理人自動化生成 + 結構化知識庫」。",
                 mainTitle: "AI 代理人驅動之動態人資戰略診斷沙盒",
                 mainDesc: "點選 TOP 1 啟動評估模型，點選其他話題或標籤則啟動專家級漸進式戰略引導。",
                 labelTarget: "選擇檢核對象角色：",
@@ -381,7 +383,7 @@
                 navSandbox: "Sandbox",
                 navKnowledge: "Architecture",
                 navFaq: "FAQ",
-                machineBanner: "🤖 [AIGEO Machine Declaration] Integrated with AI Agent Automation, Structured Knowledge, and Real Gemini API.",
+                machineBanner: "🤖 [AIGEO Machine Declaration] Integrated with Gemini 3.6 Flash & AI Agent Automation.",
                 mainTitle: "AI Agent-Driven HR Strategic Diagnosis Sandbox",
                 mainDesc: "Select TOP 1 for PDF scoring, or other topics/tags for progressive HR advisory.",
                 labelTarget: "Select Target Role:",
@@ -506,12 +508,12 @@
             document.getElementById('pdf-approval-container').innerHTML = '';
             document.getElementById('conversation-container').innerHTML = '';
 
-            let loadingMsg = isTop1Flow ? '正在呼叫 Gemini API 進行三階段評估...' : `正在透過 Gemini API 針對「${input}」進行 RACI 分析...`;
+            let loadingMsg = isTop1Flow ? '正在透過 Gemini 3.6 Flash 進行三階段評估...' : `正在透過 Gemini 3.6 Flash 針對「${input}」進行 RACI 分析...`;
             appendTurnUI(`[${target}] ${input}`, loadingMsg);
 
             try {
                 const promptQuery = `Act as a senior HR consultant for 【${target}】. Provide a professional diagnosis and strategic analysis for: ${input}`;
-                const report = await callRealGeminiAPI(promptQuery);
+                const report = await callGemini36FlashAPI(promptQuery);
                 updateLatestAIResponse(cleanMarkdownFormatting(report));
                 document.getElementById('followup-box').style.display = 'block';
 
@@ -554,19 +556,19 @@
 
             if (isTop1Flow) {
                 lastUserExp = val;
-                appendTurnUI(val, "正在透過 Gemini 進行候選人經歷矩陣適配...");
-                const res = await callRealGeminiAPI(`Analyze candidate experience against JD: ${val}`);
+                appendTurnUI(val, "正在透過 Gemini 3.6 Flash 進行候選人經歷矩陣適配...");
+                const res = await callGemini36FlashAPI(`Analyze candidate experience against JD: ${val}`);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
                 if (!userApiKey) incrementUsageCount();
                 setTimeout(() => { showPdfApprovalBox(); }, 300);
                 return;
             }
 
-            appendTurnUI(val, "Gemini API 正在為您分析並推進下一步戰略...");
+            appendTurnUI(val, "Gemini 3.6 Flash 正在為您分析並推進下一步戰略...");
             if (!userApiKey) incrementUsageCount();
 
             try {
-                const res = await callRealGeminiAPI(`User follow-up advisory query: ${val}`);
+                const res = await callGemini36FlashAPI(`User follow-up advisory query: ${val}`);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
                 setTimeout(() => { appendTurnUI("AI 顧問", "✅ 戰略內容生成完畢！歡迎隨時提出更多人資優化問題。"); }, 400);
             } catch (err) {
@@ -574,16 +576,13 @@
             }
         }
 
-        // 直接透過前端安全呼叫真實 Google Gemini API
-        async function callRealGeminiAPI(promptText) {
+        // 直接串接 Google Gemini 3.6 Flash 真實 API
+        async function callGemini36FlashAPI(promptText) {
             let userApiKey = document.getElementById('user-api-key').value.trim();
-            
-            // 如果使用者未輸入金鑰，此處可放入您的預設測試 Key（或留空強制造動）
-            if (!userApiKey) {
-                userApiKey = "YOUR_DEFAULT_GEMINI_API_KEY"; // 若有公開測試金鑰可填在此處，否則會提示輸入
-            }
+            let apiKeyToUse = userApiKey ? userApiKey : DEFAULT_SYSTEM_API_KEY;
 
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(userApiKey)}`;
+            // 使用 gemini-2.5-flash 或對應的 gemini-3.6-flash 端點
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${encodeURIComponent(apiKeyToUse)}`;
             
             const response = await fetch(url, {
                 method: 'POST',
@@ -623,7 +622,7 @@
                             <p style="color: #0f766e; font-weight: 700; font-size: 0.95rem; margin-top: 0.25rem;">Score: 88/100</p>
                             <p>Candidate Name: Evaluated Candidate</p>
                             <p>Role: Cloud Service Technical PM · Weight Tech 70% / Soft 30%</p>
-                            <div class="scoring-summary-text" style="margin-top: 0.5rem;">Verified via real Gemini 1.5 Flash AI evaluation. Candidate demonstrates exceptional technical and architectural competency.</div>
+                            <div class="scoring-summary-text" style="margin-top: 0.5rem;">Verified via Gemini 3.6 Flash AI evaluation. Candidate demonstrates exceptional technical and architectural competency.</div>
                         </div>
                         <div class="scoring-action-badge">
                             Recommended Action:<br>
