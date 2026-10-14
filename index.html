@@ -109,13 +109,8 @@
         .btn-download-pdf { background: #dc2626; color: #fff; border: none; padding: 0.65rem 1.4rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.4rem; }
         .btn-download-pdf:hover { background: #b91c1c; }
 
-        .pdf-approval-box { background: #fdf2f8; border: 2px solid #f472b6; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; text-align: center; }
-        .pdf-approval-box h4 { color: #be185d; font-size: 1.05rem; margin-bottom: 0.5rem; }
-        .pdf-approval-box p { color: #831843; font-size: 0.9rem; margin-bottom: 1rem; }
-        .btn-approve-pdf { background: #db2777; color: #fff; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
-
         .followup-box { background: #fff; border: 2px solid #0f766e; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; }
-        .followup-prompt-label { font-size: 0.9rem; font-weight: 700; color: #0f766e; margin-bottom: 0.6rem; display: block; }
+        .followup-prompt-label { font-size: 0.95rem; font-weight: 700; color: #0f766e; margin-bottom: 0.6rem; display: block; }
         .custom-followup-wrapper { display: flex; gap: 0.5rem; }
         .custom-followup-input { flex: 1; padding: 0.7rem 0.9rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; }
         .btn-send-followup { background: var(--primary-color); color: #fff; border: none; padding: 0.7rem 1.4rem; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; }
@@ -200,8 +195,8 @@
             <div class="tags-section">
                 <div class="tags-title" id="top3-title">🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：</div>
                 <div class="top3-container">
-                    <button class="tag-btn-top3" onclick="triggerTagClick('🎯 TOP 1: AI Scoring 軟硬實力評估模型 (三階段引導：1. 建立評分基準 -> 2. 輸入職缺 JD -> 3. 輸入經歷產出 PDF 報告)')">
-                        🎯 TOP 1: AI Scoring Hard & Soft Skills Model (三階段引導：職缺 JD 解析 ➔ 經歷匹配 ➔ 產出 PDF 報告)
+                    <button class="tag-btn-top3" onclick="triggerTagClick('🎯 TOP 1: AI Scoring 軟硬實力評估模型 (三階段引導：1. 建立評分基準 -> 2. 輸入職缺 JD -> 3. 輸入工作經歷和程式語言產出 PDF 報告)')">
+                        🎯 TOP 1: AI Scoring Hard & Soft Skills Model (三階段引導：職缺 JD 解析 ➔ 工作經歷和程式語言匹配 ➔ 產出 PDF 報告)
                     </button>
                     <button class="tag-btn-top3" onclick="triggerTagClick('🎯 TOP 2: AI 招募自動化漏斗：如何提升 300% 履歷篩選效率？')">
                         🎯 TOP 2: AI Recruitment Revolution & Automated Funnels (提升 300% 招募篩選效率)
@@ -270,8 +265,7 @@
         let hasShownQuotaAlert = false;
 
         // 流程狀態管理：
-        // isTop1Flow = true 時：top1Stage 1 (已點選話題，等待輸入 JD) -> 2 (已輸入 JD，等待輸入經歷) -> 3 (已輸入經歷，產出報告)
-        // isTop1Flow = false 時：一般漸進式顧問引導 (不進入三階段 PDF 評分)
+        // isTop1Flow = true 時：top1Stage 1 (已點選話題，等待輸入 JD) -> 2 (已輸入 JD，等待輸入工作經歷和程式語言) -> 3 (已輸入工作經歷和程式語言，產出報告)
         let isTop1Flow = false;
         let top1Stage = 0;
         let savedJDText = "";
@@ -279,14 +273,14 @@
         let calculatedScore = 91;
 
         function getUsageCount() {
-            let usage = JSON.parse(localStorage.getItem('hr_vision_quota_v5')) || { count: 0 };
+            let usage = JSON.parse(localStorage.getItem('hr_vision_quota_v6')) || { count: 0 };
             return usage.count;
         }
 
         function incrementUsageCount() {
-            let usage = JSON.parse(localStorage.getItem('hr_vision_quota_v5')) || { count: 0 };
+            let usage = JSON.parse(localStorage.getItem('hr_vision_quota_v6')) || { count: 0 };
             usage.count++;
-            localStorage.setItem('hr_vision_quota_v5', JSON.stringify(usage));
+            localStorage.setItem('hr_vision_quota_v6', JSON.stringify(usage));
             updateUsageBadge();
         }
 
@@ -373,7 +367,6 @@
                 return;
             }
 
-            // 若已經勾選過一次隱私同意，直接執行，不再跳出 Modal！
             if (hasConsentedPrivacy) {
                 actionCallback();
                 return;
@@ -436,9 +429,9 @@
             }
             bar.style.display = 'block';
             if (top1Stage === 1) {
-                bar.innerText = "📍 【TOP 1 三階段評分進度】第 1 階段：建立評分基準 (已完成) ➔ 👉 第 2 階段：請在下方貼上職缺說明 (JD) ➔ 第 3 階段：貼上候選人經歷產出報告";
+                bar.innerText = "📍 【TOP 1 三階段評分進度】第 1 階段：建立評分基準 (完成) ➔ 👉 第 2 階段：請在下方貼上職缺說明 (JD) ➔ 第 3 階段：貼上工作經歷和程式語言";
             } else if (top1Stage === 2) {
-                bar.innerText = "📍 【TOP 1 三階段評分進度】第 1 階段：評分基準 (已完成) ➔ 第 2 階段：JD 職能解析 (已完成) ➔ 👉 第 3 階段：請在下方貼上「候選人經歷」以計算分數並產出報告";
+                bar.innerText = "📍 【TOP 1 三階段評分進度】第 1 階段：評分基準 (完成) ➔ 第 2 階段：職缺 JD 解析 (完成) ➔ 👉 第 3 階段引導：請在下方貼上工作經歷和程式語言";
             } else if (top1Stage === 3) {
                 bar.innerText = "✅ 【TOP 1 三階段評分進度】全部 3 階段皆已完成！請於下方查看或下載您的專屬 PDF 評估報告。";
             }
@@ -542,7 +535,6 @@
             isTop1Flow = input.includes('TOP 1') || input.includes('AI Scoring');
 
             document.getElementById('result-box').style.display = 'block';
-            document.getElementById('followup-box').style.display = 'none';
             document.getElementById('pdf-approval-container').innerHTML = '';
             document.getElementById('conversation-container').innerHTML = '';
 
@@ -555,40 +547,46 @@
                 savedExpText = "";
                 updateStepIndicator();
 
+                // 立即設定好第 2 階段的輸入框標籤（不等 AI 回應完才變）
+                configureFollowupInput(
+                    "👉 【第 2 階段引導】請在下方貼上「職缺工作說明 (JD)」或徵才條件：",
+                    "例如：AI 模型訓練工程師，需具備 Python、PyTorch、LLM 微調經驗..."
+                );
+
                 appendTurnUI(`[${target}] 啟動 TOP 1：AI Scoring 三階段職缺與經歷評分`, "正在為您建立簡單好讀的「第一階段：軟硬實力評分基準」...");
 
                 const sysPrompt = "你是一位資深且說話簡單好懂的 HR 顧問。請務必使用「繁體中文」、「簡單的日常商務用詞」與「1. 2. 3. 條列式語法」回答。禁止使用艱澀術語或長篇大論，每一點不超過兩句話。";
                 const usrPrompt = `使用者角色為【${target}】，目前啟動了「AI Scoring 三階段評估」的第 1 階段。請用簡單條列式列出：
 1. 硬實力評分重點（佔 70%，列舉 3 個簡單指標）
 2. 軟實力評分重點（佔 30%，列舉 2 個簡單指標）
-3. 最後請用一句話明確引導使用者：「👉 下一步（第 2 階段）：請在下方輸入框貼上您的『職缺工作說明 (JD)』或需要的職位條件！」`;
+3. 最後請用一句話明確引導使用者：「👉 【第 2 階段引導】請在下方貼上『職缺工作說明 (JD)』或徵才條件！」`;
 
                 const fallbackStage1 = 
 `【第 1 階段：建立 AI 軟硬實力評分基準】
 
 1. 硬實力評分重點（佔總分 70%）：
-   • 專業技術與工具：是否具備該職缺要求的核心技能與系統操作經驗。
-   • 專案交付實績：過去是否獨立完成過類似規模的專案並有具體數字成果。
+   • 專業技術與程式語言：是否具備職缺要求的核心開發語言、工具與架構經驗。
+   • 專案交付實績：過去是否獨立完成過類似規模的專案並有具體成果。
    • 問題解決能力：面對流程卡關或技術問題時，能否快速排除。
 
 2. 軟實力評分重點（佔總分 30%）：
-   • 跨部門溝通：能否用簡單清楚的話，與不同部門同事順暢合作。
+   • 跨部門溝通：能否用簡單清楚的話，與產品及研究團隊順暢合作。
    • 主動當責態度：遇到任務變動時，能否主動回報進度並扛起責任。
 
-👉 下一步（第 2 階段）：請在下方輸入框貼上您的「職缺工作說明 (JD)」或想找的人才條件！`;
+👉 【第 2 階段引導】請在下方貼上「職缺工作說明 (JD)」或徵才條件！`;
 
                 const reply = await callSimpleBulletAI(sysPrompt, usrPrompt, fallbackStage1);
                 updateLatestAIResponse(reply);
-
-                configureFollowupInput(
-                    "👉 【第 2 階段引導】請在下方貼上「職缺工作說明 (JD)」或徵才條件：",
-                    "例如：我們要找一位資深專案經理，需具備 3 年以上雲端專案經驗、熟悉 Jira 與跨部門溝通..."
-                );
 
             } else {
                 // ========== 其他話題：一般漸進式顧問引導（簡單條列式，不含三階段 PDF） ==========
                 top1Stage = 0;
                 updateStepIndicator();
+
+                configureFollowupInput(
+                    "💬 【顧問漸進引導】請告訴我您目前最卡關的地方，或想深入了解哪一個步驟：",
+                    "例如：我們目前面試官標準不一致，該怎麼訂出簡單的評分表？"
+                );
 
                 appendTurnUI(`[${target}] ${input}`, "正在為您整理簡單清晰的條列式重點與行動建議...");
 
@@ -620,11 +618,6 @@
 
                 const reply = await callSimpleBulletAI(sysPrompt, usrPrompt, fallbackGeneral);
                 updateLatestAIResponse(reply);
-
-                configureFollowupInput(
-                    "💬 【顧問漸進引導】請告訴我您目前最卡關的地方，或想深入了解哪一個步驟：",
-                    "例如：我們目前面試官標準不一致，該怎麼訂出簡單的評分表？"
-                );
             }
         }
 
@@ -640,92 +633,91 @@
 
             if (isTop1Flow) {
                 if (top1Stage === 1) {
-                    // ========== TOP 1 第 2 階段：已收到 JD，引導輸入候選人經歷 ==========
+                    // ========== TOP 1 第 2 階段：已收到 JD，立即切換下方標籤為「第 3 階段引導 請在下方貼上工作經歷和程式語言」 ==========
                     savedJDText = val;
                     top1Stage = 2;
                     updateStepIndicator();
+
+                    // 【關鍵修正】在等待 AI 解析 JD 的瞬間，立刻把下方標題改為您指定的「第 3 階段引導 請在下方貼上工作經歷和程式語言」
+                    configureFollowupInput(
+                        "👉 【第 3 階段引導】請在下方貼上工作經歷和程式語言：",
+                        "例如：Jeremy C. | ML/AI Model Engineer | 熟悉 Python, PyTorch, 曾負責金融服務業大型模型訓練..."
+                    );
 
                     appendTurnUI(`📄 [已輸入職缺 JD] ${val}`, "正在解析您的職缺 JD 重點，並準備進入候選人經歷匹配...");
 
                     const sysPrompt = "你是一位說話簡單好懂的 HR 顧問。請使用「繁體中文」與「簡單條列式（1. 2. 3.）」回答，用詞務必白話清晰。";
                     const usrPrompt = `使用者已輸入職缺 JD：「${savedJDText}」。
 請用簡單條列式整理出：
-1. 從這份 JD 抓出的 3 個「硬實力必備條件」（佔 70%）
+1. 從這份 JD 抓出的 3 個「硬實力與程式語言必備條件」（佔 70%）
 2. 從這份 JD 抓出的 2 個「軟實力溝通特質」（佔 30%）
-3. 結尾請用一句話明確引導使用者：「👉 下一步（最後第 3 階段）：現在請在下方輸入框貼上『候選人的工作經歷或專案表現』，我將立刻為您計算匹配分數並產出評估報告！」`;
+3. 結尾請用一句話明確引導使用者：「👉 【第 3 階段引導】請在下方貼上工作經歷和程式語言，我將立刻為您計算匹配分數並產出評估報告！」`;
 
                     const fallbackStage2 = 
 `【第 2 階段：職缺 JD 關鍵條件解析完成】
 根據您提供的職缺內容（「${savedJDText.substring(0, 35)}...」），系統已鎖定以下評分標準：
 
-1. 職缺必備硬實力（佔 70%）：
-   • 核心實務經驗：具備該領域直接相關的專案執行或系統管理經驗（30%）。
-   • 工具與流程掌控：熟悉職缺提到的軟硬體工具、報表或作業規範（25%）。
-   • 獨立解決問題：能直接上手處理日常營運與突發狀況（15%）。
+1. 職缺必備硬實力與程式語言（佔 70%）：
+   • 核心程式與框架：熟悉職缺要求的開發語言與工具（如 Python、PyTorch、Linux / Git 等）（30%）。
+   • 模型與架構實務：具備相關演算法、資料管線建置或效能調校經驗（25%）。
+   • 獨立解決問題：能直接上手處理系統開發與效能最佳化（15%）。
 
 2. 職缺必備軟實力（佔 30%）：
-   • 跨團隊溝通協調：能清楚對接內外部人員並推動事情前進（15%）。
-   • 穩定度與配合度：工作態度積極、責任感強（15%）。
+   • 跨團隊溝通協調：能與產品及研究團隊合作，將技術轉化為實際產品（15%）。
+   • 遠端自律與當責：具備良好的自我管理與專案推進能力（15%）。
 
-👉 下一步（最後第 3 階段）：現在請在下方輸入框貼上「候選人的工作經歷或履歷摘要」，我將立即幫您比對算分並產出最終報告！`;
+👉 【第 3 階段引導】請在下方貼上工作經歷和程式語言，我將立即幫您比對算分並產出最終報告！`;
 
                     const reply = await callSimpleBulletAI(sysPrompt, usrPrompt, fallbackStage2);
                     updateLatestAIResponse(reply);
-
-                    configureFollowupInput(
-                        "👉 【第 3 階段引導】請在下方貼上「候選人的工作經歷或專案實績」（去識別化）：",
-                        "例如：候選人曾任職 3 年 PM，管理過 30 人團隊、導入自動化報表讓效率提升 40%..."
-                    );
                     return;
 
                 } else if (top1Stage >= 2) {
-                    // ========== TOP 1 第 3 階段：已收到經歷，比對 JD 算分並直接產出報告 ==========
+                    // ========== TOP 1 第 3 階段：已收到工作經歷和程式語言，比對 JD 算分並直接產出報告 ==========
                     savedExpText = val;
                     top1Stage = 3;
                     updateStepIndicator();
 
-                    appendTurnUI(`👤 [已輸入候選人經歷] ${val}`, "正在比對「職缺 JD」與「候選人經歷」，計算量化匹配得分...");
+                    configureFollowupInput(
+                        "🔄 若想測試另一位候選人，請直接在下方貼上新的「工作經歷和程式語言」即可重新算分：",
+                        "貼上另一位候選人的工作經歷和程式語言..."
+                    );
 
-                    const sysPrompt = "你是一位說話簡單好懂的 HR 顧問。請使用「繁體中文」與「簡單條列式」進行 JD 與候選人經歷比對，用詞務必簡單清楚。";
+                    appendTurnUI(`👤 [已輸入工作經歷和程式語言] ${val}`, "正在比對「職缺 JD」與「候選人工作經歷和程式語言」，計算量化匹配得分...");
+
+                    const sysPrompt = "你是一位說話簡單好懂的 HR 顧問。請使用「繁體中文」與「簡單條列式」進行 JD 與候選人工作經歷和程式語言比對，用詞務必簡單清楚。";
                     const usrPrompt = `請比對以下資料並給出簡單條列式評分：
 【職缺 JD】：${savedJDText}
-【候選人經歷】：${savedExpText}
+【候選人工作經歷和程式語言】：${savedExpText}
 
 請簡單條列輸出：
-1. 硬實力匹配表現（滿分 70 分拿幾分？為什麼？用一句簡單的話說明）
+1. 硬實力與程式語言匹配表現（滿分 70 分拿幾分？為什麼？用一句簡單的話說明）
 2. 軟實力匹配表現（滿分 30 分拿幾分？為什麼？用一句簡單的話說明）
 3. 綜合總分（滿分 100 分）與面試建議（強烈推薦面試 / 建議複試 / 暫不考慮）
 4. 建議面試時可以追問他的 2 個簡單問題。`;
 
                     const fallbackStage3 = 
-`【第 3 階段：職缺 JD vs. 候選人經歷 匹配評分結果】
+`【第 3 階段：職缺 JD vs. 候選人工作經歷和程式語言 匹配評分結果】
 
-1. 硬實力匹配得分：64 / 70 分
-   • 符合度高：候選人過去的實務經歷（「${savedExpText.substring(0, 30)}...」）與職缺要求的核心技能高度吻合，能快速上手。
+1. 硬實力與程式語言匹配得分：64 / 70 分
+   • 符合度高：候選人的技術背景與工作經歷（「${savedExpText.substring(0, 35)}...」）與職缺要求的程式語言及模型經驗高度吻合。
 
 2. 軟實力匹配得分：27 / 30 分
-   • 溝通與執行力佳：經歷中展現良好的專案推動與團隊協調經驗，符合部門合作需求。
+   • 溝通與執行力佳：經歷中展現良好的跨領域實務與專案落地經驗，符合團隊合作需求。
 
 3. 綜合總分與建議：91 / 100 分（評級：強烈推薦安排面試）
 
 4. 建議面試時追問的 2 個重點問題：
-   • 問題一：請分享一個過去在執行相關專案時，遇到最卡關的事情，最後是怎麼解決的？
-   • 問題二：如果進入我們團隊，前 30 天會如何熟悉現有流程並做出第一個小成果？`;
+   • 問題一：請分享一個過去在訓練模型或開發專案時，遇到最卡關的效能問題，最後是怎麼解決的？
+   • 問題二：如果進入我們遠端團隊，前 30 天會如何熟悉現有 Pipeline 並做出第一個成果？`;
 
                     const reply = await callSimpleBulletAI(sysPrompt, usrPrompt, fallbackStage3);
                     updateLatestAIResponse(reply);
 
-                    // 嘗試從回覆中抓取總分，若無則預設 91 分
                     const scoreMatch = reply.match(/(\d{2})\s*\/\s*100/);
                     calculatedScore = scoreMatch ? scoreMatch[1] : 91;
 
-                    // 直接在下方顯示報告與列印卡片（不再跳出多餘的二次確認彈窗）
                     renderExactFormatReport();
-
-                    configureFollowupInput(
-                        "🔄 若想測試另一位候選人，請直接貼上新的「候選人經歷」即可重新算分：",
-                        "貼上另一位候選人的經歷，或輸入其他問題..."
-                    );
                     return;
                 }
             }
@@ -756,8 +748,8 @@
 
         function renderExactFormatReport() {
             const target = document.getElementById('sandbox-target').value;
-            const jdSnippet = savedJDText ? savedJDText.substring(0, 60) + (savedJDText.length > 60 ? '...' : '') : '依標準雲端與專案管理職能設定';
-            const expSnippet = savedExpText ? savedExpText.substring(0, 60) + (savedExpText.length > 60 ? '...' : '') : '依候選人提供之實務專案經歷評估';
+            const jdSnippet = savedJDText ? savedJDText.substring(0, 65) + (savedJDText.length > 65 ? '...' : '') : '依標準雲端與專案管理職能設定';
+            const expSnippet = savedExpText ? savedExpText.substring(0, 65) + (savedExpText.length > 65 ? '...' : '') : '依候選人提供之工作經歷和程式語言評估';
 
             const container = document.getElementById('pdf-approval-container');
             container.innerHTML = `
@@ -766,10 +758,10 @@
                         <div class="scoring-title-area">
                             <h3>📊 AI Scoring 候選人量化評估報告 (PDF Report)</h3>
                             <p style="color: #0f766e; font-weight: 800; font-size: 1.15rem; margin-top: 0.35rem;">綜合匹配總分：${calculatedScore} / 100 分</p>
-                            <p>檢核視角：${target} · 權重配置：硬實力 70% / 軟實力 30%</p>
+                            <p>檢核視角：${target} · 權重配置：硬實力與程式語言 70% / 軟實力 30%</p>
                             <div class="scoring-summary-text" style="margin-top: 0.5rem;">
                                 • <strong>比對職缺 (JD) 摘要：</strong>${jdSnippet}<br>
-                                • <strong>候選人經歷摘要：</strong>${expSnippet}
+                                • <strong>工作經歷和程式語言摘要：</strong>${expSnippet}
                             </div>
                         </div>
                         <div class="scoring-action-badge">
@@ -779,7 +771,7 @@
                     </div>
                     <div class="scoring-skills-section">
                         <h4>🧠 軟硬實力分項評核 (Competencies Breakdown)</h4>
-                        <div class="skill-row"><span>1. 職缺核心硬實力與專業工具契合度 (權重 70%)</span><span><strong>64 / 70 分 (表現優異)</strong></span></div>
+                        <div class="skill-row"><span>1. 職缺核心硬實力與程式語言契合度 (權重 70%)</span><span><strong>64 / 70 分 (表現優異)</strong></span></div>
                         <div class="skill-row"><span>2. 跨部門溝通、團隊協作與當責軟實力 (權重 30%)</span><span><strong>27 / 30 分 (高度契合)</strong></span></div>
                         <div class="skill-row"><span>3. 預期入職上手速度與留任穩定度預估</span><span><strong>9.0 / 10 分 (低風險)</strong></span></div>
                     </div>
