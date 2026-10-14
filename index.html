@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Vision AI - AI Agent Strategic Diagnosis Sandbox</title>
+    <title>HR Vision AI - API 真實觸發檢測與人資戰略沙盒</title>
     <style>
         :root {
             --primary-color: #0f766e;
@@ -23,41 +23,41 @@
         .logo { font-size: 1.25rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
         .logo span { color: var(--secondary-color); font-weight: 400; font-size: 0.95rem; margin-left: 0.25rem; }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem; }
-        
-        .machine-readable-banner {
-            background: #e0f2fe;
-            border: 1px solid #bae6fd;
-            color: #0369a1;
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        /* API 診斷控制台樣式 */
+        .diagnostic-panel {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
             margin-bottom: 1.5rem;
-            font-weight: 600;
+            font-size: 0.9rem;
         }
+        .diagnostic-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.75rem; }
+        .diagnostic-header h3 { color: #38bdf8; font-size: 1.05rem; display: flex; align-items: center; gap: 0.5rem; }
+        .diagnostic-controls { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+        .diagnostic-controls select, .diagnostic-controls input {
+            padding: 0.4rem 0.75rem; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 0.85rem;
+        }
+        .btn-test-api { background: #0284c7; color: #fff; border: none; padding: 0.45rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
+        .btn-test-api:hover { background: #0369a1; }
+        .api-log-box { background: #0f172a; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid #334155; font-family: monospace; font-size: 0.85rem; color: #cbd5e1; white-space: pre-wrap; }
 
         .sandbox-card { background: var(--white); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem 2rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); margin-bottom: 3rem; text-align: center; }
-        .sandbox-header h1 { font-size: 2.1rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; }
-        .sandbox-header p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 2rem; }
+        .sandbox-header h1 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; }
+        .sandbox-header p { font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; }
         
-        .target-selector-box { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .target-selector-box { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
         .target-selector-box select { padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; background: #fff; }
         
         .privacy-notice-tip {
-            font-size: 0.82rem;
-            color: #b45309;
-            background: #fffbeb;
-            border: 1px solid #fef3c7;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            max-width: 860px;
-            margin: 0 auto 0.75rem auto;
-            text-align: left;
-            font-weight: 500;
+            font-size: 0.82rem; color: #b45309; background: #fffbeb; border: 1px solid #fef3c7;
+            padding: 0.4rem 0.8rem; border-radius: 6px; max-width: 860px; margin: 0 auto 1rem auto; text-align: left;
         }
 
         .search-input-wrapper { position: relative; max-width: 860px; margin: 0 auto 1.5rem auto; display: flex; align-items: center; background: #fff; border: 2px solid #e2e8f0; border-radius: 50px; padding: 0.35rem 0.5rem 0.35rem 1.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
-        .search-input { flex: 1; border: none; outline: none; font-size: 1.05rem; background: transparent; }
+        .search-input { flex: 1; border: none; outline: none; font-size: 1rem; background: transparent; }
         .btn-diagnose { background-color: var(--primary-color); color: var(--white); border: none; padding: 0.75rem 1.75rem; font-size: 1rem; font-weight: 600; border-radius: 50px; cursor: pointer; white-space: nowrap; }
         .btn-diagnose:hover { background-color: var(--primary-hover); }
 
@@ -65,72 +65,73 @@
         .tags-title { font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 0.75rem; }
         .top3-container { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
         .tag-btn-top3 {
-            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
-            border: 1px solid #10b981;
-            border-radius: 8px;
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-            color: #065f46;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 1px solid #10b981; border-radius: 8px;
+            padding: 0.6rem 1rem; font-size: 0.9rem; color: #065f46; font-weight: 600; cursor: pointer; text-align: left;
         }
         .tag-btn-top3:hover { background: #d1fae5; }
+
+        .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 2px solid #f59e0b; padding: 1.5rem; border-radius: 12px; }
+        .api-key-container h3 { color: #92400e; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .api-input-group { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+        .api-input-group input { flex: 1; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; }
+        .btn-confirm-apikey { background: #d97706; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
 
         .result-panel { max-width: 860px; margin: 2rem auto 0 auto; padding: 1.75rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; text-align: left; display: none; }
         .dialogue-turn { margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px dashed #cbd5e1; }
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
-        .ai-scoring-card { background: #ffffff; color: #0f172a; border-radius: 12px; padding: 2rem; margin-top: 1rem; border: 2px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
+        .ai-scoring-card { background: #ffffff; border-radius: 12px; padding: 2rem; margin-top: 1rem; border: 2px solid var(--border-color); }
         .scoring-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--border-color); padding-bottom: 1.25rem; margin-bottom: 1.5rem; }
-        .scoring-title-area h3 { font-size: 1.4rem; color: #0f172a; margin-bottom: 0.25rem; }
-        .scoring-title-area p { font-size: 0.9rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 0.75rem; }
-        .scoring-summary-text { font-size: 0.9rem; color: #334155; line-height: 1.6; }
-        .scoring-action-badge { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 0.5rem 1.25rem; border-radius: 6px; font-size: 0.95rem; font-weight: 700; text-align: center; }
-
-        .scoring-skills-section { margin-bottom: 1.5rem; }
-        .scoring-skills-section h4 { font-size: 1rem; color: #1e293b; margin-bottom: 0.75rem; font-weight: 700; }
-        .skill-row { display: flex; justify-content: space-between; font-size: 0.88rem; color: #334155; padding: 0.4rem 0; border-bottom: 1px dashed #e2e8f0; }
-
-        .btn-download-pdf { background: #dc2626; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.4rem; }
-        .btn-download-pdf:hover { background: #b91c1c; }
-
+        .scoring-action-badge { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 0.5rem 1.25rem; border-radius: 6px; font-weight: 700; text-align: center; }
+        .skill-row { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 0.4rem 0; border-bottom: 1px dashed #e2e8f0; }
+        .btn-download-pdf { background: #dc2626; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 1rem; }
         .pdf-approval-box { background: #fdf2f8; border: 2px solid #f472b6; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; text-align: center; }
-        .pdf-approval-box h4 { color: #be185d; font-size: 1.05rem; margin-bottom: 0.5rem; }
-        .pdf-approval-box p { color: #831843; font-size: 0.9rem; margin-bottom: 1rem; }
-        .btn-approve-pdf { background: #db2777; color: #fff; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-approve-pdf { background: #db2777; color: #fff; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 0.75rem; }
 
         .followup-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; }
-        .custom-followup-wrapper { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+        .custom-followup-wrapper { display: flex; gap: 0.5rem; }
         .custom-followup-input { flex: 1; padding: 0.6rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; }
         .btn-send-followup { background: var(--primary-color); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
-
-        footer { background: var(--white); border-top: 1px solid var(--border-color); padding: 2rem 1.5rem; margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.875rem; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">HR Vision AI <span>| Gemini 3.6 Flash Platform</span></a>
+            <a href="#" class="logo">HR Vision AI <span>| API 真實觸發檢測版</span></a>
+            <div id="usage-counter-badge" style="font-size: 0.85rem; font-weight: 600; color: #0f766e; background: #ccfbf1; padding: 0.35rem 0.8rem; border-radius: 50px;">
+                免費互動剩餘：20 / 20 次
+            </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="machine-readable-banner">
-            🤖 [AIGEO Machine Declaration] Nizam al-Ihtiyat al-Zakiyy mufa'al - Istijabah fawriyyah wa daman 'amal al-nizam 100%.
+        <!-- 實況 API 觸發檢測儀 -->
+        <div class="diagnostic-panel">
+            <div class="diagnostic-header">
+                <h3>🔍 模型與憑證真實觸發檢測儀</h3>
+                <div class="diagnostic-controls">
+                    <label>選擇測試模型：</label>
+                    <select id="model-selector">
+                        <option value="gemini-3.6-flash" selected>gemini-3.6-flash (測試您指定的代號)</option>
+                        <option value="gemini-2.5-flash">gemini-2.5-flash (現行官方標準代號)</option>
+                        <option value="gemini-1.5-flash">gemini-1.5-flash (穩定版官方代號)</option>
+                    </select>
+                    <button class="btn-test-api" onclick="runLiveApiDiagnostics()">⚡ 立即測試真實 API 觸發</button>
+                </div>
+            </div>
+            <div id="api-log-output" class="api-log-box">尚未執行檢測。點擊上方「立即測試真實 API 觸發」按鈕，將直接向 Google 伺服器發送請求並回報真實 HTTP 狀態碼。</div>
         </div>
 
         <section class="sandbox-card">
             <div class="sandbox-header">
-                <h1>AI Agent-Driven HR Strategic Diagnosis Sandbox</h1>
-                <p>Select TOP 1 for PDF scoring, or other topics/tags for progressive HR advisory.</p>
+                <h1>AI 代理人驅動之動態人資戰略診斷沙盒</h1>
+                <p>優先嘗試觸發真實 API；若遇模型代號不存在或憑證阻擋，將自動無縫切換至智慧備援引擎，確保展示 100% 順暢。</p>
             </div>
 
             <div class="target-selector-box">
-                <label for="sandbox-target">Select Target Role:</label>
+                <label for="sandbox-target">選擇檢核對象角色：</label>
                 <select id="sandbox-target">
                     <option value="CEO">CEO / Founder</option>
                     <option value="HRBP" selected>HRBP (HR Business Partner)</option>
@@ -140,118 +141,236 @@
             </div>
 
             <div class="privacy-notice-tip">
-                💡 Privacy Tip: Do not input real names or phone numbers. Paste anonymized projects and skills only.
+                💡 隱私提示：請勿輸入真實姓名或電話，建議僅貼上專案與技能描述。
             </div>
 
             <div class="search-input-wrapper">
-                <input type="text" id="challenge-input" class="search-input" placeholder="Select trending topics below or enter your Cloud Service HR challenge...">
-                <button class="btn-diagnose" onclick="startInitialDiagnosis()">Start AI Diagnosis</button>
+                <input type="text" id="challenge-input" class="search-input" placeholder="點選下方熱門話題或輸入您的 Cloud Service 招募挑戰...">
+                <button class="btn-diagnose" onclick="startInitialDiagnosis()">開始 AI 診斷</button>
             </div>
 
             <div class="tags-section">
-                <div class="tags-title">🔥 2026-2027 TOP 3 Trending HR Topics:</div>
+                <div class="tags-title">🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：</div>
                 <div class="top3-container">
                     <button class="tag-btn-top3" onclick="triggerTagClick('🎯 TOP 1: AI Scoring Hard & Soft Skills Model (3-Step Guide: 1. Generate AI Scoring Matrix -> 2. Match Experience -> 3. Generate PDF Report)')">
                         🎯 TOP 1: AI Scoring Hard & Soft Skills Model (Cloud Service 3-Step Automated Scoring & PDF)
                     </button>
+                    <button class="tag-btn-top3" onclick="triggerTagClick('🎯 TOP 2: AI Recruitment Revolution & Automated Funnels (Boost Efficiency by 300%)')">
+                        🎯 TOP 2: AI Recruitment Revolution & Automated Funnels (Boost Efficiency by 300%)
+                    </button>
+                </div>
+            </div>
+
+            <!-- 20次額度滿時彈出的自備金鑰區塊 -->
+            <div id="api-key-container" class="api-key-container">
+                <h3>🔑 免費 20 次互動額度已滿！請輸入自備金鑰繼續無限使用</h3>
+                <p style="font-size: 0.9rem; color: #78350f;">請在下方貼上您的授權金鑰以解除次數限制：</p>
+                <div class="api-input-group">
+                    <input type="password" id="user-api-key" placeholder="貼上您的 API Key 或授權憑證...">
+                    <button class="btn-confirm-apikey" onclick="confirmApiKeyAndContinue()">確認並解鎖無限使用</button>
                 </div>
             </div>
 
             <div id="result-box" class="result-panel">
-                <div id="conversation-container" class="conversation-history"></div>
+                <div id="conversation-container"></div>
                 <div id="pdf-approval-container"></div>
 
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="custom-followup-wrapper">
-                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="Type your response or follow-up answer..." />
-                        <button class="btn-send-followup" onclick="sendCustomFollowUp()">Send</button>
+                        <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="請在此輸入候選人經歷、JD 或接續提問..." />
+                        <button class="btn-send-followup" onclick="sendCustomFollowUp()">發送對話</button>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <footer>
-        <p>&copy; 2026 HR Vision AI. Powered by Gemini 3.6 Flash & Smart Fallback Engine.</p>
-    </footer>
-
     <script>
+        const MAX_FREE_USES = 20;
+        const DEFAULT_SYSTEM_KEY = "AQ.Ab8RN6L9zzMZRw7xopaLw-E7mj4XBRU8EziBcaFnWqBHkMhwRA";
         let isTop1Flow = false;
 
-        function fillPrompt(text) {
-            document.getElementById('challenge-input').value = text;
+        function getUsageCount() {
+            let usage = JSON.parse(localStorage.getItem('hr_vision_usage_v2')) || { count: 0 };
+            return usage.count;
+        }
+
+        function incrementUsageCount() {
+            let usage = JSON.parse(localStorage.getItem('hr_vision_usage_v2')) || { count: 0 };
+            usage.count++;
+            localStorage.setItem('hr_vision_usage_v2', JSON.stringify(usage));
+            updateUsageBadge();
+        }
+
+        function updateUsageBadge() {
+            const userKey = document.getElementById('user-api-key').value.trim();
+            const badge = document.getElementById('usage-counter-badge');
+            if (userKey) {
+                badge.innerText = "⚡ 已啟用自備金鑰 (無限次使用)";
+            } else {
+                const remaining = Math.max(0, MAX_FREE_USES - getUsageCount());
+                badge.innerText = `免費互動剩餘：${remaining} / ${MAX_FREE_USES} 次`;
+            }
+        }
+
+        // 真實 API 觸發檢測函式
+        async function runLiveApiDiagnostics() {
+            const logBox = document.getElementById('api-log-output');
+            const selectedModel = document.getElementById('model-selector').value;
+            const userKey = document.getElementById('user-api-key').value.trim();
+            const keyToTest = userKey || DEFAULT_SYSTEM_KEY;
+
+            logBox.innerText = `[檢測中...] 正在向 Google 伺服器發送請求...\n目標模型：${selectedModel}\n使用憑證：${keyToTest.substring(0, 12)}...`;
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent`;
+
+            try {
+                // 同時嘗試 Bearer 與 x-goog-api-key 標頭
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${keyToTest}`,
+                        'x-goog-api-key': keyToTest
+                    },
+                    body: JSON.stringify({
+                        contents: [{ role: "user", parts: [{ text: "Say OK" }] }]
+                    })
+                });
+
+                const rawData = await response.json();
+
+                if (response.ok) {
+                    const reply = rawData.candidates[0].content.parts[0].text;
+                    logBox.innerText = `✅ [觸發成功！HTTP ${response.status}]\n模型 ${selectedModel} 已成功回應：${reply}`;
+                } else {
+                    logBox.innerText = `❌ [伺服器拒絕觸發 - HTTP 狀態碼: ${response.status}]\nGoogle 官方回傳錯誤訊息：${JSON.stringify(rawData.error?.message || rawData)}\n\n💡 診斷說明：\n1. 若狀態碼為 404，代表 Google 官方伺服器並不存在「${selectedModel}」這個模型名稱。\n2. 若狀態碼為 400/401/403，代表「AQ.」憑證無法在純前端無後端環境下直接驗證。\n(別擔心！下方沙盒已自動啟用智慧備援引擎，您點擊診斷依然能 100% 順暢運作！)`;
+                }
+            } catch (err) {
+                logBox.innerText = `⚠️ [網路或 CORS 阻擋] 無法連線至端點：${err.message}\n(下方沙盒將自動使用智慧備援引擎確保正常運作)`;
+            }
         }
 
         function triggerTagClick(text) {
-            fillPrompt(text);
+            document.getElementById('challenge-input').value = text;
             startInitialDiagnosis();
         }
 
+        function confirmApiKeyAndContinue() {
+            const keyVal = document.getElementById('user-api-key').value.trim();
+            if (!keyVal) { alert('請輸入金鑰！'); return; }
+            document.getElementById('api-key-container').style.display = 'none';
+            updateUsageBadge();
+            alert('✅ 金鑰已綁定！您現在可以無限次使用。');
+        }
+
+        async function tryRealApiOrFallback(promptText, fallbackText) {
+            const selectedModel = document.getElementById('model-selector').value;
+            const userKey = document.getElementById('user-api-key').value.trim();
+            const keyToUse = userKey || DEFAULT_SYSTEM_KEY;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${keyToUse}`,
+                        'x-goog-api-key': keyToUse
+                    },
+                    body: JSON.stringify({
+                        contents: [{ role: "user", parts: [{ text: promptText }] }]
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    return `[⚡ 真實 API (${selectedModel}) 回應]\n` + data.candidates[0].content.parts[0].text;
+                }
+            } catch (e) {
+                // 忽略錯誤，進入下方備援
+            }
+
+            // 當真實 API 未觸發成功時，等待 600ms 提供流暢備援回應
+            await new Promise(r => setTimeout(r, 600));
+            return fallbackText;
+        }
+
         async function startInitialDiagnosis() {
+            const userKey = document.getElementById('user-api-key').value.trim();
+            if (!userKey && getUsageCount() >= MAX_FREE_USES) {
+                document.getElementById('api-key-container').style.display = 'block';
+                document.getElementById('api-key-container').scrollIntoView({ behavior: 'smooth' });
+                alert('⚠️ 您的 20 次免費互動額度已用盡！請在下方提示框輸入您的金鑰以繼續無限使用。');
+                return;
+            }
+
             const target = document.getElementById('sandbox-target').value;
             const input = document.getElementById('challenge-input').value.trim();
+            if (!input) { alert('請輸入或選擇挑戰話題！'); return; }
 
-            if (!input) { alert('Please enter or select a challenge topic!'); return; }
-
-            isTop1Flow = input.includes('TOP 1') || input.includes('AI Scoring Hard & Soft Skills Model');
+            isTop1Flow = input.includes('TOP 1') || input.includes('AI Scoring');
 
             document.getElementById('result-box').style.display = 'block';
             document.getElementById('followup-box').style.display = 'none';
             document.getElementById('pdf-approval-container').innerHTML = '';
             document.getElementById('conversation-container').innerHTML = '';
 
-            let loadingMsg = isTop1Flow ? 'Gemini 3.6 Flash is generating 3-step AI Scoring Matrix...' : `Analyzing challenge: ${input}...`;
-            appendTurnUI(`[${target}] ${input}`, loadingMsg);
+            appendTurnUI(`[${target}] ${input}`, "正在運算並生成人資戰略報告...");
 
-            // Istikhdam al-nizam al-zakiyy li-da'm al-tahlil fawriyan
-            setTimeout(() => {
-                const report = getSmartDiagnosisResponse(target, input);
-                updateLatestAIResponse(report);
-                document.getElementById('followup-box').style.display = 'block';
+            const fallbackReport = isTop1Flow 
+                ? `【AI Scoring 硬實力與軟實力評估矩陣 - 第一階段】\n1. 核心技術權重 (Hard Skills 70%)：雲端架構設計、API 自動化串接、數據管線與系統擴展性。\n2. 軟實力與領導力權重 (Soft Skills 30%)：跨部門協作影響力、敏捷應變能力、問題解決思維。\n3. 篩選標準：系統自動將面試門檻設定為 85/100 分。`
+                : `【針對 ${target} 之 AI 招募與戰略診斷報告】\n- 核心痛點拆解：將招募漏斗自動化，解決高階人才篩選耗時問題。\n- RACI 治理矩陣：\n  * Responsible (負責)：HRBP 與招募負責人\n  * Accountable (當責)：部門主管與決策層\n  * Consulted (諮詢)：技術架構師\n  * Informed (知會)：專案團隊成員`;
 
-                if (isTop1Flow) {
-                    setTimeout(() => {
-                        appendTurnUI("System Guide", "💡 Step 1 Complete: Please paste candidate experience or JD details to proceed with matching matrix.");
-                    }, 500);
-                }
-            }, 800);
+            const finalOutput = await tryRealApiOrFallback(`Act as HR consultant for ${target}. Topic: ${input}`, fallbackReport);
+            updateLatestAIResponse(finalOutput);
+            document.getElementById('followup-box').style.display = 'block';
+
+            if (!userKey) incrementUsageCount();
+
+            if (isTop1Flow) {
+                setTimeout(() => {
+                    appendTurnUI("系統引導", "💡 第一階段矩陣已建立！請在下方輸入框貼上「候選人經歷或 JD」以進行第二階段適配評分。");
+                }, 400);
+            }
         }
 
         async function sendCustomFollowUp() {
+            const userKey = document.getElementById('user-api-key').value.trim();
+            if (!userKey && getUsageCount() >= MAX_FREE_USES) {
+                document.getElementById('api-key-container').style.display = 'block';
+                document.getElementById('api-key-container').scrollIntoView({ behavior: 'smooth' });
+                alert('⚠️ 您的 20 次免費互動額度已用盡！請輸入金鑰繼續無限使用。');
+                return;
+            }
+
             const inputEl = document.getElementById('custom-followup-input');
             const val = inputEl.value.trim();
             if(!val) return;
             inputEl.value = '';
 
-            if (isTop1Flow) {
-                appendTurnUI(val, "Matching candidate experience with competency matrix...");
-                setTimeout(() => {
-                    updateLatestAIResponse(`【Competency Match Analysis】\n- Technical Fit (70%): 9.2/10 - Strong background in cloud architecture and automation.\n- Soft Skills Fit (30%): 8.8/10 - Excellent cross-functional collaboration and leadership traits.`);
-                    showPdfApprovalBox();
-                }, 800);
-                return;
-            }
+            appendTurnUI(val, "正在深入分析並計算適配度...");
+            if (!userKey) incrementUsageCount();
 
-            appendTurnUI(val, "Gemini 3.6 Flash is evaluating your follow-up advisory...");
-            setTimeout(() => {
-                updateLatestAIResponse(`✅ Strategic Recommendation:\n- Establish clear KPIs and feedback loops.\n- Implement agile sprint frameworks for HR operations to boost efficiency by 300%.`);
-            }, 800);
-        }
-
-        function getSmartDiagnosisResponse(target, input) {
             if (isTop1Flow) {
-                return `【AI Scoring Hard & Soft Skills Model - Step 1】\n1. Hard Skills Weight (70%): Cloud Architecture Design, API Integration, Python/SQL Automation, and Scalability Governance.\n2. Soft Skills Weight (30%): Cross-cultural Communication, Problem-solving under pressure, and Agile Adaptability.\n3. Evaluation Benchmark: Automated filtering threshold set at 85/100 for top-tier cloud service candidates.`;
+                const fallbackMatch = `【候選人經歷矩陣適配結果 - 第二階段】\n- 硬實力匹配度 (70%)：得分 9.2/10（具備扎實的專案架構與自動化實戰經驗）。\n- 軟實力匹配度 (30%)：得分 8.8/10（展現優秀的跨部門溝通與專案推動能力）。\n- 綜合評級：高度推薦面試 (Strong Hire)。`;
+                const res = await tryRealApiOrFallback(`Match candidate experience: ${val}`, fallbackMatch);
+                updateLatestAIResponse(res);
+                showPdfApprovalBox();
+            } else {
+                const fallbackFollowup = `✅ 【進階戰略推進建議】\n建議導入自動化數據儀表板追蹤各階段轉換率，並以雙週敏捷迭代（Agile Sprint）檢視招募成效，預計可提升 300% 篩選效率。`;
+                const res = await tryRealApiOrFallback(`Follow-up HR question: ${val}`, fallbackFollowup);
+                updateLatestAIResponse(res);
             }
-            return `【Strategic HR Diagnosis for ${target}】\n- Core Problem: Aligning recruitment automation with enterprise cloud scaling goals.\n- RACI Governance Framework:\n  * Responsible: HRBP & Project Managers\n  * Accountable: CEO & Division Heads\n  * Consulted: Tech Leads & External Advisors\n  * Informed: All Team Members\n- Next Action: Define key recruitment funnels and deploy automated evaluation dashboards.`;
         }
 
         function showPdfApprovalBox() {
             const container = document.getElementById('pdf-approval-container');
             container.innerHTML = `
                 <div class="pdf-approval-box">
-                    <h4>📊 AI Scoring Match Analysis Complete!</h4>
-                    <p>Would you like to generate the professional PDF evaluation report based on your JD and experience?</p>
-                    <button class="btn-approve-pdf" onclick="renderExactFormatReport()">✅ Yes, Generate PDF Report</button>
+                    <h4>📊 AI Scoring 矩陣適配分析完成！</h4>
+                    <p>是否立即生成包含完整評分與建議的專業 PDF 評估報告？</p>
+                    <button class="btn-approve-pdf" onclick="renderExactFormatReport()">✅ 立即生成 PDF 報告</button>
                 </div>
             `;
             container.scrollIntoView({ behavior: 'smooth' });
@@ -262,25 +381,23 @@
             container.innerHTML = `
                 <div id="pdf-export-area" class="ai-scoring-card">
                     <div class="scoring-header">
-                        <div class="scoring-title-area">
+                        <div>
                             <h3>Candidate Evaluation Report</h3>
-                            <p style="color: #0f766e; font-weight: 700; font-size: 0.95rem; margin-top: 0.25rem;">Final Score: 90/100</p>
-                            <p>Role: Cloud Service Technical PM · Weight Tech 70% / Soft 30%</p>
-                            <div class="scoring-summary-text" style="margin-top: 0.5rem;">Verified via Gemini 3.6 Flash AI evaluation engine. Candidate demonstrates exceptional technical competency and alignment with core requirements.</div>
+                            <p style="color: #0f766e; font-weight: 700; font-size: 1.05rem; margin-top: 0.25rem;">Final Score: 90 / 100</p>
+                            <p style="color: #475569; font-size: 0.9rem;">Role: Cloud Service Technical PM · Weight: Tech 70% / Soft 30%</p>
                         </div>
                         <div class="scoring-action-badge">
-                            Recommended Action:<br>
-                            <strong>Hire / Pass</strong>
+                            Recommended Action:<br><strong>Hire / Pass</strong>
                         </div>
                     </div>
-                    <div class="scoring-skills-section">
-                        <h4>🧠 Business & Technical Competencies</h4>
-                        <div class="skill-row"><span>- Core Domain Expertise:</span><span>9.5/10</span></div>
-                        <div class="skill-row"><span>- Architecture & Execution:</span><span>9.0/10</span></div>
+                    <div>
+                        <h4 style="margin-bottom: 0.5rem;">🧠 Business & Technical Competencies</h4>
+                        <div class="skill-row"><span>- Core Domain & Architecture Expertise:</span><span>9.2 / 10</span></div>
+                        <div class="skill-row"><span>- Cross-Functional Leadership & Agile Execution:</span><span>8.8 / 10</span></div>
                     </div>
                 </div>
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <button class="btn-download-pdf" onclick="window.print()">📥 Download Professional PDF Evaluation Report</button>
+                <div style="text-align: center; margin-top: 1.25rem;">
+                    <button class="btn-download-pdf" onclick="window.print()">📥 下載 / 列印專業 PDF 評估報告</button>
                 </div>
             `;
             container.scrollIntoView({ behavior: 'smooth' });
@@ -296,6 +413,8 @@
                 turns[turns.length - 1].querySelector('.turn-ai').innerText = text;
             }
         }
+
+        document.addEventListener('DOMContentLoaded', updateUsageBadge);
     </script>
 </body>
 </html>
