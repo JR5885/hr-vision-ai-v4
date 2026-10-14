@@ -113,18 +113,6 @@
             display: inline-block;
         }
 
-        .tutorial-card {
-            background: #ffffff;
-            border: 1px dashed #d97706;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            color: #451a03;
-            margin-top: 0.75rem;
-        }
-        .tutorial-card ol { margin-left: 1.25rem; margin-top: 0.35rem; }
-        .tutorial-card li { margin-bottom: 0.25rem; }
-
         .result-panel { max-width: 860px; margin: 2rem auto 0 auto; padding: 1.75rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; text-align: left; display: none; }
         .dialogue-turn { margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px dashed #cbd5e1; }
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
@@ -277,14 +265,6 @@
                     <button class="btn-confirm-apikey" onclick="confirmApiKeyAndContinue()">確認並繼續 AI</button>
                 </div>
                 <div class="safety-assurance-text">安全防護：您的 Key 僅存於瀏覽器本地記憶體，直接對接 Google 官方 API</div>
-                <div class="tutorial-card" id="tutorial-card">
-                    <strong>⚡ 3秒免費取得 Google API Key 教學：</strong>
-                    <ol>
-                        <li>前往 <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600;">Google AI Studio 官網</a> 並登入 Google 帳號。</li>
-                        <li>點擊 <strong>'Create API key'</strong> 建立金鑰。</li>
-                        <li>複製金鑰並貼到上方欄位即可無限制解鎖 Gemini 3.6 Flash AI 診斷！</li>
-                    </ol>
-                </div>
             </div>
 
             <div id="result-box" class="result-panel">
@@ -307,7 +287,7 @@
 
     <script>
         const MAX_FREE_USES = 20;
-        // 內建您的 AQ. 開頭專案憑證（供前 20 次免費互動使用）
+        // 內建您的 AQ. 開頭新格式專案憑證（供前 20 次免費互動使用）
         const DEFAULT_SYSTEM_API_KEY = "AQ.Ab8RN6IXj4BUh78q25H2oEugGbb59H5hHTJvcAJ0_VOGe-L2tQ";
 
         function getUsageCount() {
@@ -488,7 +468,7 @@
 
             try {
                 const promptQuery = `Act as a senior HR consultant for 【${target}】. Provide a professional diagnosis and strategic analysis for: ${input}`;
-                const report = await callGeminiFlashAPI(promptQuery);
+                const report = await callGemini36FlashAPI(promptQuery);
                 updateLatestAIResponse(cleanMarkdownFormatting(report));
                 document.getElementById('followup-box').style.display = 'block';
 
@@ -533,7 +513,7 @@
             if (isTop1Flow) {
                 lastUserExp = val;
                 appendTurnUI(val, "正在透過 Gemini 3.6 Flash 進行候選人經歷矩陣適配...");
-                const res = await callGeminiFlashAPI(`Analyze candidate experience against JD: ${val}`);
+                const res = await callGemini36FlashAPI(`Analyze candidate experience against JD: ${val}`);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
                 if (!userApiKey) incrementUsageCount();
                 setTimeout(() => { showPdfApprovalBox(); }, 300);
@@ -544,7 +524,7 @@
             if (!userApiKey) incrementUsageCount();
 
             try {
-                const res = await callGeminiFlashAPI(`User follow-up advisory query: ${val}`);
+                const res = await callGemini36FlashAPI(`User follow-up advisory query: ${val}`);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
                 setTimeout(() => { appendTurnUI("AI 顧問", "✅ 戰略內容生成完畢！歡迎隨時提出更多人資優化問題。"); }, 400);
             } catch (err) {
@@ -554,8 +534,8 @@
             }
         }
 
-        // 串接真實 Google Gemini 3.6 Flash API（支援 Bearer Token 與標準 API Key 雙軌）
-        async function callGeminiFlashAPI(promptText) {
+        // 直接串接 Gemini 3.6 Flash API（完美支援 AQ. 開頭新格式憑證與標準 API Key）
+        async function callGemini36FlashAPI(promptText) {
             let userApiKey = document.getElementById('user-api-key').value.trim();
             let keyToUse = userApiKey ? userApiKey : DEFAULT_SYSTEM_API_KEY;
 
