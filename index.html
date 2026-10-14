@@ -444,14 +444,13 @@
             <div class="tags-section">
                 <div class="tags-title" id="top3-title">🔥 2026-2027 TOP 3 Trending HR Topics:</div>
                 <div class="top3-container">
-                    <!-- 核心修復：確實將 TOP 1~3 與下方所有標籤綁定 fillAndRunPrompt -->
-                    <button class="tag-btn-top3" onclick="fillAndRunPrompt('🎯 TOP 1: AI Scoring Hard & Soft Skills Model (3-Step Guide: 1. Generate AI Scoring Matrix -> 2. Match Experience -> 3. Generate PDF Report)')">
+                    <button class="tag-btn-top3" onclick="triggerTagClick('🎯 TOP 1: AI Scoring Hard & Soft Skills Model (3-Step Guide: 1. Generate AI Scoring Matrix -> 2. Match Experience -> 3. Generate PDF Report)')">
                         🎯 TOP 1: AI Scoring Hard & Soft Skills Model (Cloud Service 3-Step Automated Scoring & PDF)
                     </button>
-                    <button class="tag-btn-top3" onclick="fillAndRunPrompt('🎯 TOP 2: AI Recruitment Revolution & Automated Funnels: How HR boosts screening efficiency by 300% in 2026-2027?')">
+                    <button class="tag-btn-top3" onclick="triggerTagClick('🎯 TOP 2: AI Recruitment Revolution & Automated Funnels: How HR boosts screening efficiency by 300% in 2026-2027?')">
                         🎯 TOP 2: AI Recruitment Revolution & Automated Funnels (Boost Efficiency by 300%)
                     </button>
-                    <button class="tag-btn-top3" onclick="fillAndRunPrompt('📈 TOP 3: Predictive HR Analytics: How to use data and AI predictive models to reduce key talent turnover risk?')">
+                    <button class="tag-btn-top3" onclick="triggerTagClick('📈 TOP 3: Predictive HR Analytics: How to use data and AI predictive models to reduce key talent turnover risk?')">
                         📈 TOP 3: Predictive HR Analytics (Reduce Key Talent Turnover Risk)
                     </button>
                 </div>
@@ -460,13 +459,13 @@
 
                 <div class="tags-title" id="standard-title" style="color: #64748b; font-size: 0.85rem;">📌 Click Cloud Service Roles & Standard HR Strategy Tags Below:</div>
                 <div class="tags-container">
-                    <button class="tag-btn" onclick="fillAndRunPrompt('☁️ Cloud Service Frontend Engineer JD & AI Scoring Standards')">☁️ Frontend Engineer AI Scoring JD</button>
-                    <button class="tag-btn" onclick="fillAndRunPrompt('☁️ Cloud Service Backend Engineer JD & AI Scoring Standards')">☁️ Backend Engineer AI Scoring JD</button>
-                    <button class="tag-btn" onclick="fillAndRunPrompt('☁️ Cloud Service INFRA Engineer JD & AI Scoring Standards')">☁️ INFRA Engineer AI Scoring JD</button>
-                    <button class="tag-btn" onclick="fillAndRunPrompt('🎯 AIGEO Search Optimization: How SMEs rank on Google AI Summary')">🎯 AIGEO Search Optimization</button>
-                    <button class="tag-btn" onclick="fillAndRunPrompt('🌐 Global Compliance: Cross-border remote team governance & onboarding')">🌐 Global Compliance Automation</button>
-                    <button class="tag-btn" onclick="fillAndRunPrompt('📊 Automated Recruitment Dashboard: Setting up hiring funnel metrics')">📊 Automated Recruitment Dashboard</button>
-                    <button class="tag-btn" onclick="fillAndRunPrompt('🤝 HRBP Coaching Support: Guiding leaders to prioritize talent development')">🤝 HRBP Coaching Support</button>
+                    <button class="tag-btn" onclick="triggerTagClick('☁️ Cloud Service Frontend Engineer JD & AI Scoring Standards')">☁️ Frontend Engineer AI Scoring JD</button>
+                    <button class="tag-btn" onclick="triggerTagClick('☁️ Cloud Service Backend Engineer JD & AI Scoring Standards')">☁️ Backend Engineer AI Scoring JD</button>
+                    <button class="tag-btn" onclick="triggerTagClick('☁️ Cloud Service INFRA Engineer JD & AI Scoring Standards')">☁️ INFRA Engineer AI Scoring JD</button>
+                    <button class="tag-btn" onclick="triggerTagClick('🎯 AIGEO Search Optimization: How SMEs rank on Google AI Summary')">🎯 AIGEO Search Optimization</button>
+                    <button class="tag-btn" onclick="triggerTagClick('🌐 Global Compliance: Cross-border remote team governance & onboarding')">🌐 Global Compliance Automation</button>
+                    <button class="tag-btn" onclick="triggerTagClick('📊 Automated Recruitment Dashboard: Setting up hiring funnel metrics')">📊 Automated Recruitment Dashboard</button>
+                    <button class="tag-btn" onclick="triggerTagClick('🤝 HRBP Coaching Support: Guiding leaders to prioritize talent development')">🤝 HRBP Coaching Support</button>
                 </div>
             </div>
 
@@ -705,7 +704,8 @@
             document.getElementById('challenge-input').focus();
         }
 
-        function fillAndRunPrompt(text) {
+        /* 核心修復：獨立的標籤點擊觸發函式，點擊時自動填入並啟動隱私同意與 AI 診斷 */
+        function triggerTagClick(text) {
             fillPrompt(text);
             requestPrivacyConsent(startInitialDiagnosis);
         }
