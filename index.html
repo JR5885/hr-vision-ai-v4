@@ -78,13 +78,6 @@
         }
         .tag-btn-top3:hover { background: #d1fae5; }
 
-        .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 2px solid #f59e0b; padding: 1.5rem; border-radius: 12px; }
-        .api-key-container h3 { color: #92400e; font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .api-key-container p { color: #78350f; font-size: 0.9rem; margin-bottom: 1rem; }
-        .api-input-group { display: flex; gap: 0.5rem; }
-        .api-input-group input { flex: 1; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; }
-        .btn-confirm-apikey { background: #d97706; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
-
         .result-panel { max-width: 860px; margin: 2rem auto 0 auto; padding: 1.75rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; text-align: left; display: none; }
         .dialogue-turn { margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px dashed #cbd5e1; }
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
@@ -108,7 +101,7 @@
 
     <div class="container">
         <div class="machine-readable-banner">
-            🤖 [AIGEO 機器語意宣告] 已完美適配最新 AQ. Auth Key 格式與 x-goog-api-key 標頭呼叫。
+            🤖 [AIGEO 機器語意宣告] 已全面常駐您的最新 AQ. 金鑰，實現點擊即無限次流暢運行。
         </div>
 
         <section class="sandbox-card">
@@ -145,16 +138,6 @@
                 </div>
             </div>
 
-            <!-- BYOK 區塊（20次免費額度滿時自動顯示） -->
-            <div id="api-key-container" class="api-key-container">
-                <h3>🔑 啟用自備 Gemini 金鑰 (免費互動次數已滿)</h3>
-                <p>您已達 20 次免費互動上限。若要繼續使用，請輸入您的 AQ. 金鑰：</p>
-                <div class="api-input-group">
-                    <input type="password" id="user-api-key" placeholder="請輸入 AQ. 開頭的金鑰">
-                    <button class="btn-confirm-apikey" onclick="confirmApiKeyAndContinue()">確認並繼續</button>
-                </div>
-            </div>
-
             <div id="result-box" class="result-panel">
                 <div id="conversation-container" class="conversation-history"></div>
 
@@ -169,24 +152,12 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 HR Vision AI. Powered by Gemini Flash API & AQ. Auth Key Header Support.</p>
+        <p>&copy; 2026 HR Vision AI. Powered by Gemini Flash API & AQ. Key Integration.</p>
     </footer>
 
     <script>
-        const MAX_FREE_USES = 20;
-        // 內建您的 AQ. 開頭 Auth Key（供前 20 次免費互動使用）
-        const DEFAULT_SYSTEM_API_KEY = "AQ.Ab8RN6IxstfMe7v8Q7cIOS-o5O4QSIRH-P01DsKJMTWO9E_eFQ";
-
-        function getUsageCount() {
-            let usage = JSON.parse(localStorage.getItem('hr_vision_usage')) || { count: 0 };
-            return usage.count;
-        }
-
-        function incrementUsageCount() {
-            let usage = JSON.parse(localStorage.getItem('hr_vision_usage')) || { count: 0 };
-            usage.count++;
-            localStorage.setItem('hr_vision_usage', JSON.stringify(usage));
-        }
+        // 直接常駐您提供的最新 AQ. 金鑰，免除次數限制與手動輸入框
+        const SYSTEM_API_KEY = "AQ.Ab8RN6L9zzMZRw7xopaLw-E7mj4XBRU8EziBcaFnWqBHkMhwRA";
 
         function fillPrompt(text) {
             document.getElementById('challenge-input').value = text;
@@ -197,27 +168,7 @@
             startInitialDiagnosis();
         }
 
-        function confirmApiKeyAndContinue() {
-            const keyVal = document.getElementById('user-api-key').value.trim();
-            if (!keyVal) {
-                alert('請先輸入有效的金鑰！');
-                return;
-            }
-            document.getElementById('api-key-container').style.display = 'none';
-            alert('✅ 金鑰已確認！');
-        }
-
         async function startInitialDiagnosis() {
-            const usage = getUsageCount();
-            const userApiKey = document.getElementById('user-api-key').value.trim();
-
-            if (!userApiKey && usage >= MAX_FREE_USES) {
-                document.getElementById('api-key-container').style.display = 'block';
-                document.getElementById('api-key-container').scrollIntoView({ behavior: 'smooth' });
-                alert('⚠️ 20 次免費互動額度已用盡，請輸入您的 Gemini 金鑰繼續使用！');
-                return;
-            }
-
             const target = document.getElementById('sandbox-target').value;
             const input = document.getElementById('challenge-input').value.trim();
 
@@ -234,13 +185,8 @@
                 const report = await callGeminiAPI(promptQuery);
                 updateLatestAIResponse(report);
                 document.getElementById('followup-box').style.display = 'block';
-
-                if (!userApiKey) {
-                    incrementUsageCount();
-                }
             } catch (err) {
-                updateLatestAIResponse("⚠️ API 連線發生錯誤。請確認該金鑰有效，或在下方輸入自備金鑰。");
-                document.getElementById('api-key-container').style.display = 'block';
+                updateLatestAIResponse("⚠️ API 連線發生錯誤。請確認網路狀態或稍後再試。");
             }
         }
 
@@ -256,22 +202,18 @@
                 const res = await callGeminiAPI(`User follow-up advisory query: ${val}`);
                 updateLatestAIResponse(res);
             } catch (err) {
-                updateLatestAIResponse("⚠️ API 請求失敗，請確認網路連線或金鑰權限。");
+                updateLatestAIResponse("⚠️ API 請求失敗，請確認網路連線。");
             }
         }
 
-        // 使用官方針對 AQ. Auth Key 設計的 x-goog-api-key 標頭發送請求
         async function callGeminiAPI(promptText) {
-            let userApiKey = document.getElementById('user-api-key').value.trim();
-            let keyToUse = userApiKey ? userApiKey : DEFAULT_SYSTEM_API_KEY;
-
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`;
             
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-goog-api-key': keyToUse
+                    'x-goog-api-key': SYSTEM_API_KEY
                 },
                 body: JSON.stringify({
                     contents: [{ role: "user", parts: [{ text: promptText }] }]
