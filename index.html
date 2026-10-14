@@ -287,8 +287,8 @@
 
     <script>
         const MAX_FREE_USES = 20;
-        // 內建您的 AQ. 開頭新格式專案憑證（供前 20 次免費互動使用）
-        const DEFAULT_SYSTEM_API_KEY = "AQ.Ab8RN6IXj4BUh78q25H2oEugGbb59H5hHTJvcAJ0_VOGe-L2tQ";
+        // 內建您剛才提供的最新 AQ. 專案憑證（供前 20 次免費互動使用）
+        const DEFAULT_SYSTEM_API_KEY = "AQ.Ab8RN6IxstfMe7v8Q7cIOS-o5O4QSIRH-P01DsKJMTWO9E_eFQ";
 
         function getUsageCount() {
             let usage = JSON.parse(localStorage.getItem('hr_vision_usage')) || { count: 0 };
@@ -534,7 +534,7 @@
             }
         }
 
-        // 直接串接 Gemini 3.6 Flash API（完美支援 AQ. 開頭新格式憑證與標準 API Key）
+        // 直接串接 Gemini 3.6 Flash API（支援 Bearer Token 授權與標準 API Key 雙軌）
         async function callGemini36FlashAPI(promptText) {
             let userApiKey = document.getElementById('user-api-key').value.trim();
             let keyToUse = userApiKey ? userApiKey : DEFAULT_SYSTEM_API_KEY;
