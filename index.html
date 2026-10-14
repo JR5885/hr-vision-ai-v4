@@ -444,6 +444,7 @@
             <div class="tags-section">
                 <div class="tags-title" id="top3-title">🔥 2026-2027 TOP 3 Trending HR Topics:</div>
                 <div class="top3-container">
+                    <!-- 核心修復：確實將 TOP 1~3 與下方所有標籤綁定 fillAndRunPrompt -->
                     <button class="tag-btn-top3" onclick="fillAndRunPrompt('🎯 TOP 1: AI Scoring Hard & Soft Skills Model (3-Step Guide: 1. Generate AI Scoring Matrix -> 2. Match Experience -> 3. Generate PDF Report)')">
                         🎯 TOP 1: AI Scoring Hard & Soft Skills Model (Cloud Service 3-Step Automated Scoring & PDF)
                     </button>
@@ -704,7 +705,6 @@
             document.getElementById('challenge-input').focus();
         }
 
-        /* 核心修復：確實將標籤點擊與 requestPrivacyConsent、startInitialDiagnosis 連動 */
         function fillAndRunPrompt(text) {
             fillPrompt(text);
             requestPrivacyConsent(startInitialDiagnosis);
@@ -801,7 +801,7 @@
             if (isTop1Flow) {
                 lastUserExp = val;
                 appendTurnUI(val, "正在處理候選人經歷並進行矩陣適配...");
-                const res = await sendDiagnosisRequest(document.getElementById('user-api-key').value.trim(), `Step 2 Gap Analysis based on experience: ${val}. Output match analysis in plain text, no Markdown.`);
+                const res = await sendDiagnosisRequest(document.getElementById('user-api-key'].value.trim(), `Step 2 Gap Analysis based on experience: ${val}. Output match analysis in plain text, no Markdown.`);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
                 setTimeout(() => {
                     showPdfApprovalBox();
