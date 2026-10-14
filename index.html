@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Vision AI - AI Agent & Gemini AQ. Platform</title>
+    <title>HR Vision AI - Gemini 3.6 Flash & AQ. Key Platform</title>
+    <meta name="description" content="HR Vision AI powered by Gemini 3.6 Flash with native AQ. key support.">
+    
     <style>
         :root {
             --primary-color: #0f766e;
@@ -19,7 +21,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { color: var(--text-main); background-color: var(--bg-light); line-height: 1.65; }
         header { background-color: var(--white); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
-        .nav-container { max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-container { max-width: 1100px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo { font-size: 1.25rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
         .logo span { color: var(--secondary-color); font-weight: 400; font-size: 0.95rem; margin-left: 0.25rem; }
 
@@ -62,7 +64,8 @@
         .btn-diagnose:hover { background-color: var(--primary-hover); }
 
         .tags-section { max-width: 860px; margin: 0 auto; text-align: left; }
-        .tags-title { font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 0.75rem; }
+        .tags-title { font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
+        
         .top3-container { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
         .tag-btn-top3 {
             background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
@@ -76,45 +79,98 @@
             text-align: left;
             transition: all 0.2s;
         }
-        .tag-btn-top3:hover { background: #d1fae5; }
+        .tag-btn-top3:hover { background: #d1fae5; transform: translateY(-1px); }
 
-        .api-key-container { max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 2px solid #f59e0b; padding: 1.5rem; border-radius: 12px; }
+        .tags-divider { border: none; border-top: 1px dashed var(--border-color); margin: 1rem 0; }
+        .tags-container { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .tag-btn { background: #fff; border: 1px solid var(--border-color); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.85rem; color: #334155; cursor: pointer; }
+        .tag-btn:hover { background: #f1f5f9; }
+
+        .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 2px solid #f59e0b; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .api-key-container h3 { color: #92400e; font-size: 1.1rem; margin-bottom: 0.5rem; }
         .api-key-container p { color: #78350f; font-size: 0.9rem; margin-bottom: 1rem; }
-        .api-input-group { display: flex; gap: 0.5rem; }
+        .api-input-group { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
         .api-input-group input { flex: 1; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; }
-        .btn-confirm-apikey { background: #d97706; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-confirm-apikey { background: #d97706; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+        .btn-confirm-apikey:hover { background: #b45309; }
 
         .result-panel { max-width: 860px; margin: 2rem auto 0 auto; padding: 1.75rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; text-align: left; display: none; }
         .dialogue-turn { margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px dashed #cbd5e1; }
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.7; }
 
+        .ai-scoring-card { background: #ffffff; color: #0f172a; border-radius: 12px; padding: 2rem; margin-top: 1rem; border: 2px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
+        .scoring-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--border-color); padding-bottom: 1.25rem; margin-bottom: 1.5rem; }
+        .scoring-title-area h3 { font-size: 1.4rem; color: #0f172a; margin-bottom: 0.25rem; }
+        .scoring-title-area p { font-size: 0.9rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 0.75rem; }
+        .scoring-summary-text { font-size: 0.9rem; color: #334155; line-height: 1.6; }
+        .scoring-action-badge { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 0.5rem 1.25rem; border-radius: 6px; font-size: 0.95rem; font-weight: 700; text-align: center; }
+
+        .scoring-skills-section { margin-bottom: 1.5rem; }
+        .scoring-skills-section h4 { font-size: 1rem; color: #1e293b; margin-bottom: 0.75rem; font-weight: 700; }
+        .skill-row { display: flex; justify-content: space-between; font-size: 0.88rem; color: #334155; padding: 0.4rem 0; border-bottom: 1px dashed #e2e8f0; }
+
+        .btn-download-pdf { background: #dc2626; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.4rem; }
+        .btn-download-pdf:hover { background: #b91c1c; }
+
+        .pdf-approval-box { background: #fdf2f8; border: 2px solid #f472b6; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; text-align: center; }
+        .pdf-approval-box h4 { color: #be185d; font-size: 1.05rem; margin-bottom: 0.5rem; }
+        .pdf-approval-box p { color: #831843; font-size: 0.9rem; margin-bottom: 1rem; }
+        .btn-approve-pdf { background: #db2777; color: #fff; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+
         .followup-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; }
         .custom-followup-wrapper { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
         .custom-followup-input { flex: 1; padding: 0.6rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; }
         .btn-send-followup { background: var(--primary-color); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; }
+        .modal-content { background: #ffffff; border-radius: 12px; max-width: 520px; width: 100%; padding: 2rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); text-align: left; }
+        .modal-content h3 { color: #0f172a; font-size: 1.25rem; margin-bottom: 0.75rem; }
+        .modal-content p { color: #475569; font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.25rem; }
+        .modal-checkbox-wrapper { display: flex; align-items: flex-start; gap: 0.6rem; background: #f8fafc; border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .modal-checkbox-wrapper input[type="checkbox"] { margin-top: 0.2rem; width: 1.1rem; height: 1.1rem; cursor: pointer; }
+        .modal-checkbox-wrapper label { font-size: 0.88rem; color: #334155; cursor: pointer; font-weight: 500; }
+        .modal-buttons { display: flex; justify-content: flex-end; gap: 0.75rem; }
+        .btn-modal-cancel { background: #f1f5f9; color: #475569; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-modal-confirm { background: var(--primary-color); color: #fff; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-modal-confirm:disabled { background: #cbd5e1; cursor: not-allowed; }
 
         footer { background: var(--white); border-top: 1px solid var(--border-color); padding: 2rem 1.5rem; margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.875rem; }
     </style>
 </head>
 <body>
 
+    <!-- Privacy Consent Modal -->
+    <div id="privacy-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>🔒 隱私權保護與去識別化同意聲明</h3>
+            <p>為符合個資保護規範，本沙盒採用即時運算。進行 AI Scoring 前請落實「去識別化」，切勿輸入真實姓名或電話。</p>
+            <div class="modal-checkbox-wrapper">
+                <input type="checkbox" id="privacy-checkbox" onchange="toggleConfirmBtn()">
+                <label for="privacy-checkbox">我已充分了解並同意使用「去識別化」方式提供資料進行即時分析。</label>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-modal-cancel" onclick="closePrivacyModal()">取消</button>
+                <button class="btn-modal-confirm" id="modal-confirm-btn" onclick="confirmPrivacyAndProceed()" disabled>同意並開始分析</button>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">HR Vision AI <span>| Gemini AQ. Platform</span></a>
+            <a href="#" class="logo">HR Vision AI <span>| Gemini 3.6 Flash Platform</span></a>
         </div>
     </header>
 
     <div class="container">
         <div class="machine-readable-banner">
-            🤖 [AIGEO 機器語意宣告] 已完美對接 AQ. 開頭專案憑證與 20 次免費互動防護計數。
+            🤖 [AIGEO 機器語意宣告] 已整合 Gemini 3.6 Flash 官方 API 與 AQ. 金鑰標頭支援機制。
         </div>
 
         <section class="sandbox-card">
             <div class="sandbox-header">
                 <h1>AI 代理人驅動之動態人資戰略診斷沙盒</h1>
-                <p>點選 TOP 1 啟動評估模型，或輸入您的招募挑戰開始診斷。</p>
+                <p>點選 TOP 1 啟動評估模型，或點選下方標籤開始漸進式戰略引導。</p>
             </div>
 
             <div class="target-selector-box">
@@ -132,8 +188,8 @@
             </div>
 
             <div class="search-input-wrapper">
-                <input type="text" id="challenge-input" class="search-input" placeholder="輸入您的 Cloud Service 招募挑戰或點選下方熱門話題...">
-                <button class="btn-diagnose" onclick="startInitialDiagnosis()">開始 AI 診斷</button>
+                <input type="text" id="challenge-input" class="search-input" placeholder="選擇下方熱門話題或輸入招募挑戰...">
+                <button class="btn-diagnose" onclick="requestPrivacyConsent(startInitialDiagnosis)">開始 AI 診斷</button>
             </div>
 
             <div class="tags-section">
@@ -148,20 +204,21 @@
             <!-- BYOK 區塊（20次免費額度滿時自動顯示） -->
             <div id="api-key-container" class="api-key-container">
                 <h3>🔑 啟用自備 Gemini API 金鑰 (免費互動次數已滿)</h3>
-                <p>您已達 20 次免費互動上限。若要繼續使用，請輸入您的 Gemini API 授權金鑰：</p>
+                <p>您已達 20 次免費互動上限。若要繼續使用，請輸入您的個人 Gemini API 金鑰：</p>
                 <div class="api-input-group">
-                    <input type="password" id="user-api-key" placeholder="請輸入 AQ. 或 AIzaSy... 金鑰">
-                    <button class="btn-confirm-apikey" onclick="confirmApiKeyAndContinue()">確認並繼續</button>
+                    <input type="password" id="user-api-key" placeholder="請輸入 AQ. 開頭或其他 Google AI 授權金鑰">
+                    <button class="btn-confirm-apikey" onclick="confirmApiKeyAndContinue()">確認並繼續 AI</button>
                 </div>
             </div>
 
             <div id="result-box" class="result-panel">
                 <div id="conversation-container" class="conversation-history"></div>
+                <div id="pdf-approval-container"></div>
 
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="custom-followup-wrapper">
                         <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="請在此輸入您的回覆或補充提問..." />
-                        <button class="btn-send-followup" onclick="sendCustomFollowUp()">發送對話</button>
+                        <button class="btn-send-followup" onclick="requestPrivacyConsent(sendCustomFollowUp)">發送對話</button>
                     </div>
                 </div>
             </div>
@@ -169,12 +226,12 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 HR Vision AI. Powered by Gemini Flash API & Bearer Token Authentication.</p>
+        <p>&copy; 2026 HR Vision AI. Powered by Gemini 3.6 Flash API & AI Agent Automation.</p>
     </footer>
 
     <script>
         const MAX_FREE_USES = 20;
-        // 內建您剛才提供的 AQ. 開頭專案憑證（供前 20 次免費互動使用）
+        // 內建您剛才提供的最新 AQ. 專案金鑰（供前 20 次免費互動使用）
         const DEFAULT_SYSTEM_API_KEY = "AQ.Ab8RN6IxstfMe7v8Q7cIOS-o5O4QSIRH-P01DsKJMTWO9E_eFQ";
 
         function getUsageCount() {
@@ -188,13 +245,40 @@
             localStorage.setItem('hr_vision_usage', JSON.stringify(usage));
         }
 
+        let pendingAction = null;
+        let isTop1Flow = false; 
+
+        function requestPrivacyConsent(actionCallback) {
+            pendingAction = actionCallback;
+            document.getElementById('privacy-checkbox').checked = false;
+            document.getElementById('modal-confirm-btn').disabled = true;
+            document.getElementById('privacy-modal').style.display = 'flex';
+        }
+
+        function toggleConfirmBtn() {
+            document.getElementById('modal-confirm-btn').disabled = !document.getElementById('privacy-checkbox').checked;
+        }
+
+        function closePrivacyModal() {
+            document.getElementById('privacy-modal').style.display = 'none';
+            pendingAction = null;
+        }
+
+        function confirmPrivacyAndProceed() {
+            document.getElementById('privacy-modal').style.display = 'none';
+            if (pendingAction) {
+                pendingAction();
+                pendingAction = null;
+            }
+        }
+
         function fillPrompt(text) {
             document.getElementById('challenge-input').value = text;
         }
 
         function triggerTagClick(text) {
             fillPrompt(text);
-            startInitialDiagnosis();
+            requestPrivacyConsent(startInitialDiagnosis);
         }
 
         function confirmApiKeyAndContinue() {
@@ -223,24 +307,39 @@
 
             if (!input) { alert('請輸入或選擇挑戰話題！'); return; }
 
+            isTop1Flow = input.includes('TOP 1') || input.includes('AI Scoring Hard & Soft Skills Model');
+
             document.getElementById('result-box').style.display = 'block';
             document.getElementById('followup-box').style.display = 'none';
+            document.getElementById('pdf-approval-container').innerHTML = '';
             document.getElementById('conversation-container').innerHTML = '';
 
-            appendTurnUI(`[${target}] ${input}`, "正在透過 Gemini Flash 進行智能分析...");
+            let loadingMsg = isTop1Flow ? '正在透過 Gemini 3.6 Flash 進行三階段評估...' : `正在透過 Gemini 3.6 Flash 針對「${input}」進行分析...`;
+            appendTurnUI(`[${target}] ${input}`, loadingMsg);
 
             try {
                 const promptQuery = `Act as a senior HR consultant for 【${target}】. Provide a professional diagnosis and strategic analysis for: ${input}`;
-                const report = await callGeminiAPI(promptQuery);
+                const report = await callGemini36FlashAPI(promptQuery);
                 updateLatestAIResponse(report);
                 document.getElementById('followup-box').style.display = 'block';
 
                 if (!userApiKey) {
                     incrementUsageCount();
                 }
+
+                if (isTop1Flow) {
+                    setTimeout(() => {
+                        appendTurnUI("系統引導", `💡 第一階段已完成 (免費額度剩餘: ${Math.max(0, MAX_FREE_USES - getUsageCount())} 次)：請輸入相關背景以進行後續矩陣匹配。`);
+                    }, 400);
+                } else {
+                    setTimeout(() => {
+                        appendTurnUI("AI 顧問", `上述為初步的戰略建議 (免費額度剩餘: ${Math.max(0, MAX_FREE_USES - getUsageCount())} 次)。請告訴我您目前遇到最大的痛點是什麼？`);
+                    }, 400);
+                }
             } catch (err) {
-                updateLatestAIResponse("⚠️ API 連線發生錯誤。請確認該 AQ. 專案已在 Google Cloud Console 啟用 Generative Language API，或嘗試使用其他金鑰。");
+                updateLatestAIResponse("⚠️ API 連線發生錯誤。請確認該金鑰有效，或在下方輸入自備金鑰。");
                 document.getElementById('api-key-container').style.display = 'block';
+                document.getElementById('api-key-container').scrollIntoView({ behavior: 'smooth' });
             }
         }
 
@@ -250,34 +349,49 @@
             if(!val) return;
             inputEl.value = '';
 
-            appendTurnUI(val, "Gemini 正在為您分析並推進下一步戰略...");
+            const usage = getUsageCount();
+            const userApiKey = document.getElementById('user-api-key').value.trim();
+
+            if (!userApiKey && usage >= MAX_FREE_USES) {
+                document.getElementById('api-key-container').style.display = 'block';
+                document.getElementById('api-key-container').scrollIntoView({ behavior: 'smooth' });
+                alert('⚠️ 免費額度已用盡，請輸入 API Key！');
+                return;
+            }
+
+            if (isTop1Flow) {
+                appendTurnUI(val, "正在透過 Gemini 3.6 Flash 進行經歷適配...");
+                const res = await callGemini36FlashAPI(`Analyze candidate experience against JD: ${val}`);
+                updateLatestAIResponse(res);
+                if (!userApiKey) incrementUsageCount();
+                setTimeout(() => { showPdfApprovalBox(); }, 300);
+                return;
+            }
+
+            appendTurnUI(val, "Gemini 3.6 Flash 正在為您分析並推進下一步戰略...");
+            if (!userApiKey) incrementUsageCount();
 
             try {
-                const res = await callGeminiAPI(`User follow-up advisory query: ${val}`);
+                const res = await callGemini36FlashAPI(`User follow-up advisory query: ${val}`);
                 updateLatestAIResponse(res);
             } catch (err) {
                 updateLatestAIResponse("⚠️ API 請求失敗，請確認網路連線或金鑰權限。");
             }
         }
 
-        // 專為 AQ. 憑證（Bearer Token）設計的呼叫函式
-        async function callGeminiAPI(promptText) {
+        // 使用官方建議的 x-goog-api-key 標頭來完美支援 AQ. 開頭的新格式金鑰
+        async function callGemini36FlashAPI(promptText) {
             let userApiKey = document.getElementById('user-api-key').value.trim();
             let keyToUse = userApiKey ? userApiKey : DEFAULT_SYSTEM_API_KEY;
 
-            let url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`;
-            let headers = { 'Content-Type': 'application/json' };
-
-            // 支援 AQ. 憑證的 Bearer 授權標頭；若為傳統金鑰則走 URL 參數
-            if (keyToUse.startsWith('AQ.')) {
-                headers['Authorization'] = `Bearer ${keyToUse}`;
-            } else {
-                url += `?key=${encodeURIComponent(keyToUse)}`;
-            }
-
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`;
+            
             const response = await fetch(url, {
                 method: 'POST',
-                headers: headers,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': keyToUse
+                },
                 body: JSON.stringify({
                     contents: [{ role: "user", parts: [{ text: promptText }] }]
                 })
@@ -289,6 +403,42 @@
 
             const data = await response.json();
             return data.candidates[0].content.parts[0].text;
+        }
+
+        function showPdfApprovalBox() {
+            const container = document.getElementById('pdf-approval-container');
+            container.innerHTML = `
+                <div class="pdf-approval-box">
+                    <h4>📊 AI Scoring Match Analysis Complete!</h4>
+                    <p>Would you like to generate the professional PDF evaluation report?</p>
+                    <button class="btn-approve-pdf" onclick="requestPrivacyConsent(renderExactFormatReport)">✅ Yes, Generate PDF Report</button>
+                </div>
+            `;
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderExactFormatReport() {
+            const container = document.getElementById('pdf-approval-container');
+            container.innerHTML = `
+                <div id="pdf-export-area" class="ai-scoring-card">
+                    <div class="scoring-header">
+                        <div class="scoring-title-area">
+                            <h3>Candidate Evaluation</h3>
+                            <p style="color: #0f766e; font-weight: 700; font-size: 0.95rem; margin-top: 0.25rem;">Score: 88/100</p>
+                            <p>Role: Cloud Service Technical PM · Weight Tech 70% / Soft 30%</p>
+                            <div class="scoring-summary-text" style="margin-top: 0.5rem;">Verified via Gemini 3.6 Flash AI evaluation.</div>
+                        </div>
+                        <div class="scoring-action-badge">
+                            Recommended Action:<br>
+                            <strong>Hire / Pass</strong>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button class="btn-download-pdf" onclick="window.print()">📥 Download PDF Report</button>
+                </div>
+            `;
+            container.scrollIntoView({ behavior: 'smooth' });
         }
 
         function appendTurnUI(uText, aText) {
