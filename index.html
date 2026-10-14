@@ -331,12 +331,6 @@
         .btn-approve-pdf:hover { background: #be185d; }
 
         .followup-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; }
-        .followup-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1rem; }
-        .btn-followup-pos { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 0.5rem 0.9rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
-        .btn-followup-neg { background: #fff1f2; border: 1px solid #fecdd3; color: #9f1239; padding: 0.5rem 0.9rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
-        .btn-followup-jd { background: #eff6ff; border: 1px solid #93c5fd; color: #1d4ed8; padding: 0.5rem 0.9rem; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
-        .btn-followup-jd:hover { background: #dbeafe; transform: translateY(-1px); }
-
         .custom-followup-wrapper { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
         .custom-followup-input { flex: 1; padding: 0.6rem 0.85rem; border: 1px solid #cbd5e1; border-radius: 6px; }
         .btn-send-followup { background: var(--primary-color); color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
@@ -498,7 +492,6 @@
                 <div id="conversation-container" class="conversation-history"></div>
                 <div id="pdf-approval-container"></div>
 
-                <!-- 徹底改為自然的對話輸入框與發送按鈕，絕不顯示任何步驟提示字眼 -->
                 <div id="followup-box" class="followup-box" style="display: none;">
                     <div class="custom-followup-wrapper" style="margin-top: 0;">
                         <input type="text" id="custom-followup-input" class="custom-followup-input" placeholder="請在此輸入您的回覆、補充資料或接續提問..." />
@@ -569,7 +562,7 @@
         let pendingAction = null;
         let stepCompleted = 0;
         let isTop1Flow = false; 
-        let progressiveStage = 1; // 隱含 4 階段進度
+        let progressiveStage = 1; 
         let lastUserJD = "";
         let lastUserExp = "";
 
@@ -711,6 +704,7 @@
             document.getElementById('challenge-input').focus();
         }
 
+        /* 核心修復：確實將標籤點擊與 requestPrivacyConsent、startInitialDiagnosis 連動 */
         function fillAndRunPrompt(text) {
             fillPrompt(text);
             requestPrivacyConsent(startInitialDiagnosis);
@@ -807,8 +801,7 @@
             if (isTop1Flow) {
                 lastUserExp = val;
                 appendTurnUI(val, "正在處理候選人經歷並進行矩陣適配...");
-                // 模擬 TOP 1 的下一步
-                const res = await sendDiagnosisRequest(document.getElementById('user-api-key'].value.trim(), `Step 2 Gap Analysis based on experience: ${val}. Output match analysis in plain text, no Markdown.`);
+                const res = await sendDiagnosisRequest(document.getElementById('user-api-key').value.trim(), `Step 2 Gap Analysis based on experience: ${val}. Output match analysis in plain text, no Markdown.`);
                 updateLatestAIResponse(cleanMarkdownFormatting(res));
                 setTimeout(() => {
                     showPdfApprovalBox();
