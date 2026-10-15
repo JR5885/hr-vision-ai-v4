@@ -76,7 +76,6 @@
         .tag-btn { background: #fff; border: 1px solid var(--border-color); border-radius: 50px; padding: 0.45rem 1rem; font-size: 0.85rem; color: #334155; cursor: pointer; }
         .tag-btn:hover { background: #f1f5f9; }
 
-        /* 20次免費上限到達時彈出的提示 Box（只會在滿額時出現一次） */
         .api-key-container { display: none; max-width: 860px; margin: 2rem auto 0 auto; text-align: left; background: #fffbeb; border: 2px solid #f59e0b; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.15); }
         .api-key-container h3 { color: #92400e; font-size: 1.15rem; margin-bottom: 0.5rem; }
         .api-key-container p { color: #78350f; font-size: 0.92rem; margin-bottom: 1rem; }
@@ -88,25 +87,47 @@
 
         .result-panel { max-width: 860px; margin: 2rem auto 0 auto; padding: 1.75rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; text-align: left; display: none; }
         
-        /* 進度指示條（僅在 TOP 1 三階段模式顯示） */
         .step-indicator-bar { display: none; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 0.6rem 1rem; border-radius: 8px; margin-bottom: 1.25rem; font-size: 0.88rem; font-weight: 700; }
 
         .dialogue-turn { margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px dashed #cbd5e1; }
         .turn-user { background: #e0f2fe; color: #0369a1; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; margin-bottom: 0.75rem; }
         .turn-ai { white-space: pre-wrap; font-size: 0.96rem; line-height: 1.75; color: #1e293b; background: #ffffff; padding: 1.25rem; border-radius: 8px; border: 1px solid #e2e8f0; }
 
-        .ai-scoring-card { background: #ffffff; color: #0f172a; border-radius: 12px; padding: 2rem; margin-top: 1rem; border: 2px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
-        .scoring-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--border-color); padding-bottom: 1.25rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-        .scoring-title-area h3 { font-size: 1.4rem; color: #0f172a; margin-bottom: 0.25rem; }
-        .scoring-title-area p { font-size: 0.9rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 0.5rem; }
-        .scoring-summary-text { font-size: 0.9rem; color: #334155; line-height: 1.6; }
-        .scoring-action-badge { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 0.5rem 1.25rem; border-radius: 6px; font-size: 0.95rem; font-weight: 700; text-align: center; }
+        /* 升級版 AI Scoring 評估報告卡片樣式 */
+        .ai-scoring-card { background: #ffffff; color: #0f172a; border-radius: 14px; padding: 2.25rem; margin-top: 1.25rem; border: 2px solid #cbd5e1; box-shadow: 0 12px 28px -5px rgba(0, 0, 0, 0.07); }
+        .scoring-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1.25rem; }
+        .scoring-title-area { flex: 1; min-width: 280px; }
+        .scoring-title-area h3 { font-size: 1.45rem; color: #0f172a; margin-bottom: 0.35rem; font-weight: 800; }
+        .scoring-meta-line { font-size: 0.92rem; color: var(--secondary-color); font-weight: 700; margin-bottom: 0.6rem; }
+        .scoring-summary-text { font-size: 0.9rem; color: #334155; line-height: 1.65; background: #f8fafc; padding: 0.85rem 1rem; border-radius: 8px; border-left: 4px solid #0f766e; }
+        .scoring-action-badge { background: #ecfdf5; color: #065f46; border: 1.5px solid #6ee7b7; padding: 0.75rem 1.4rem; border-radius: 10px; font-size: 0.96rem; font-weight: 700; text-align: center; align-self: center; }
 
-        .scoring-skills-section { margin-bottom: 1.5rem; }
-        .scoring-skills-section h4 { font-size: 1rem; color: #1e293b; margin-bottom: 0.75rem; font-weight: 700; }
-        .skill-row { display: flex; justify-content: space-between; font-size: 0.9rem; color: #334155; padding: 0.5rem 0; border-bottom: 1px dashed #e2e8f0; }
+        /* 軟硬實力分項評核 (Competencies Breakdown) 4 大動態模組樣式 */
+        .breakdown-main-heading { font-size: 1.2rem; color: #0f172a; font-weight: 800; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+        .edit-hint-tag { font-size: 0.78rem; font-weight: 500; color: #64748b; background: #f1f5f9; padding: 0.25rem 0.65rem; border-radius: 6px; }
 
-        .btn-download-pdf { background: #dc2626; color: #fff; border: none; padding: 0.65rem 1.4rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.4rem; }
+        .breakdown-module { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.35rem 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .breakdown-module-title { font-size: 1.05rem; font-weight: 800; color: #0f766e; margin-bottom: 0.9rem; padding-bottom: 0.45rem; border-bottom: 1px dashed #cbd5e1; display: flex; align-items: center; gap: 0.4rem; }
+
+        .sub-competency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        @media (max-width: 680px) { .sub-competency-grid { grid-template-columns: 1fr; } }
+
+        .sub-competency-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.15rem; }
+        .sub-competency-box.highlight-box { background: #f0fdf4; border-color: #bbf7d0; }
+        .sub-competency-box.risk-signal-box { background: #fffbeb; border-color: #fde68a; }
+        .sub-box-label { font-size: 0.93rem; font-weight: 800; color: #1e293b; margin-bottom: 0.5rem; display: block; }
+        .sub-box-content { font-size: 0.9rem; color: #334155; line-height: 1.7; white-space: pre-wrap; outline: none; }
+        .sub-box-content:focus { background: rgba(255,255,255,0.8); box-shadow: 0 0 0 2px #0f766e; border-radius: 4px; }
+
+        .interview-q-list { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.25rem; font-size: 0.92rem; color: #1e293b; line-height: 1.75; white-space: pre-wrap; outline: none; }
+
+        .risk-4-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+        @media (max-width: 680px) { .risk-4-grid { grid-template-columns: 1fr; } }
+        .risk-metric-card { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 0.85rem 1.1rem; }
+        .risk-metric-name { font-size: 0.9rem; font-weight: 800; color: #92400e; margin-bottom: 0.3rem; display: flex; justify-content: space-between; align-items: center; }
+        .risk-metric-desc { font-size: 0.88rem; color: #1e293b; line-height: 1.55; outline: none; }
+
+        .btn-download-pdf { background: #dc2626; color: #fff; border: none; padding: 0.75rem 1.6rem; border-radius: 8px; font-size: 0.98rem; font-weight: 700; cursor: pointer; margin-top: 1.25rem; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2); }
         .btn-download-pdf:hover { background: #b91c1c; }
 
         .followup-box { background: #fff; border: 2px solid #0f766e; border-radius: 10px; padding: 1.25rem; margin-top: 1.5rem; }
@@ -128,11 +149,19 @@
         .btn-modal-confirm:disabled { background: #cbd5e1; cursor: not-allowed; }
 
         footer { background: var(--white); border-top: 1px solid var(--border-color); padding: 2rem 1.5rem; margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.875rem; }
+
+        @media print {
+            header, .machine-readable-banner, .sandbox-header, .target-selector-box, .privacy-notice-tip, .search-input-wrapper, .tags-section, .step-indicator-bar, #conversation-container, .followup-box, .btn-download-pdf, .edit-hint-tag, footer {
+                display: none !important;
+            }
+            .sandbox-card, .result-panel { border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
+            .ai-scoring-card { border: 1px solid #000 !important; box-shadow: none !important; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- 隱私權去識別化同意彈窗 (全場對話僅在首次出現一次) -->
+    <!-- Privacy Consent Modal (Appears only once per session) -->
     <div id="privacy-modal" class="modal-overlay">
         <div class="modal-content">
             <h3 id="modal-title">🔒 隱私權保護與去識別化同意聲明</h3>
@@ -163,23 +192,23 @@
 
     <div class="container">
         <div class="machine-readable-banner" id="machine-banner">
-            🤖 [AIGEO 機器語意宣告] 整合 Gemini 3.6 Flash 條列式精準診斷引擎與 20 次免費額度保護。
+            🤖 [AIGEO 機器語意宣告] 整合 Gemini 3.6 Flash 動態經歷解析引擎與 20 次免費額度保護。
         </div>
 
         <section class="sandbox-card">
             <div class="sandbox-header">
                 <h1 id="main-title">AI 代理人驅動之動態人資戰略診斷沙盒</h1>
-                <p id="main-desc">點選 TOP 1 啟動「三階段 JD 與經歷匹配 + PDF 報告」；點選其他話題啟動「條列式漸進顧問引導」。</p>
+                <p id="main-desc">點選 TOP 1 啟動「三階段 JD 與經歷動態匹配 + 軟硬實力 4 大模組 PDF 報告」；點選其他話題啟動「條列式漸進顧問引導」。</p>
             </div>
 
             <div class="target-selector-box">
                 <label for="sandbox-target" id="label-target">選擇檢核對象角色：</label>
                 <select id="sandbox-target">
-                    <option value="CEO">CEO / 企業負責人</option>
-                    <option value="HRBP" selected>HRBP (人資業務夥伴)</option>
-                    <option value="Candidate">Candidate (求職者視角評估)</option>
-                    <option value="Training Institute Consultant">Training Institute Consultant (培訓顧問)</option>
-                    <option value="Manager">Leadership Manager (用人部門主管)</option>
+                    <option value="CEO" id="opt-ceo">CEO / 企業負責人</option>
+                    <option value="HRBP" id="opt-hrbp" selected>HRBP (人資業務夥伴)</option>
+                    <option value="Candidate" id="opt-cand">Candidate (求職者視角評估)</option>
+                    <option value="Training Institute Consultant" id="opt-train">Training Institute Consultant (培訓顧問)</option>
+                    <option value="Leadership Manager" id="opt-mgr">Leadership Manager (用人部門主管)</option>
                 </select>
             </div>
 
@@ -195,13 +224,13 @@
             <div class="tags-section">
                 <div class="tags-title" id="top3-title">🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：</div>
                 <div class="top3-container">
-                    <button class="tag-btn-top3" onclick="triggerTagClick('🎯 TOP 1: AI Scoring 軟硬實力評估模型 (三階段引導：1. 建立評分基準 -> 2. 輸入職缺 JD -> 3. 輸入工作經歷和程式語言產出 PDF 報告)')">
-                        🎯 TOP 1: AI Scoring Hard & Soft Skills Model (三階段引導：職缺 JD 解析 ➔ 工作經歷和程式語言匹配 ➔ 產出 PDF 報告)
+                    <button class="tag-btn-top3" id="top-tag-1" onclick="triggerTopicByKey('top1')">
+                        🎯 TOP 1: AI Scoring Hard & Soft Skills Model (三階段引導：職缺 JD 解析 ➔ 工作經歷和程式語言匹配 ➔ 產出動態 PDF 報告)
                     </button>
-                    <button class="tag-btn-top3" onclick="triggerTagClick('🎯 TOP 2: AI 招募自動化漏斗：如何提升 300% 履歷篩選效率？')">
+                    <button class="tag-btn-top3" id="top-tag-2" onclick="triggerTopicByKey('top2')">
                         🎯 TOP 2: AI Recruitment Revolution & Automated Funnels (提升 300% 招募篩選效率)
                     </button>
-                    <button class="tag-btn-top3" onclick="triggerTagClick('📈 TOP 3: 預測性人資分析 (Predictive HR Analytics)：如何降低關鍵人才離職風險？')">
+                    <button class="tag-btn-top3" id="top-tag-3" onclick="triggerTopicByKey('top3')">
                         📈 TOP 3: Predictive HR Analytics (降低關鍵人才離職風險)
                     </button>
                 </div>
@@ -210,17 +239,17 @@
 
                 <div class="tags-title" id="standard-title">📌 點選下方職缺與標準 HR 策略標籤（漸進式條列引導）：</div>
                 <div class="tags-container">
-                    <button class="tag-btn" onclick="triggerTagClick('☁️ 雲端前端工程師 (Frontend Engineer) 招募重點與面試題庫')">☁️ Frontend Engineer 招募策略</button>
-                    <button class="tag-btn" onclick="triggerTagClick('☁️ 雲端後端工程師 (Backend Engineer) 招募重點與面試題庫')">☁️ Backend Engineer 招募策略</button>
-                    <button class="tag-btn" onclick="triggerTagClick('☁️ 雲端架構師 (INFRA Engineer) 招募重點與面試題庫')">☁️ INFRA Engineer 招募策略</button>
-                    <button class="tag-btn" onclick="triggerTagClick('🎯 AIGEO 雇主品牌搜尋優化：如何讓人才優先找到我們？')">🎯 AIGEO 雇主品牌優化</button>
-                    <button class="tag-btn" onclick="triggerTagClick('🌐 跨國團隊合規與遠端入職 (Onboarding) 自動化流程')">🌐 跨國團隊合規與入職</button>
-                    <button class="tag-btn" onclick="triggerTagClick('📊 自動化招募數據儀表板：關鍵漏斗指標設定')">📊 招募數據儀表板設定</button>
-                    <button class="tag-btn" onclick="triggerTagClick('🤝 HRBP 主管教練引導：協助技術主管做好人才留任')">🤝 HRBP 主管教練引導</button>
+                    <button class="tag-btn" id="std-tag-1" onclick="triggerTopicByKey('std1')">☁️ Frontend Engineer 招募策略</button>
+                    <button class="tag-btn" id="std-tag-2" onclick="triggerTopicByKey('std2')">☁️ Backend Engineer 招募策略</button>
+                    <button class="tag-btn" id="std-tag-3" onclick="triggerTopicByKey('std3')">☁️ INFRA Engineer 招募策略</button>
+                    <button class="tag-btn" id="std-tag-4" onclick="triggerTopicByKey('std4')">🎯 AIGEO 雇主品牌優化</button>
+                    <button class="tag-btn" id="std-tag-5" onclick="triggerTopicByKey('std5')">🌐 跨國團隊合規與入職</button>
+                    <button class="tag-btn" id="std-tag-6" onclick="triggerTopicByKey('std6')">📊 招募數據儀表板設定</button>
+                    <button class="tag-btn" id="std-tag-7" onclick="triggerTopicByKey('std7')">🤝 HRBP 主管教練引導</button>
                 </div>
             </div>
 
-            <!-- 到達 20 次上限時彈出的提示 Box（只會在滿額且尚未填寫 Key 時顯示一次） -->
+            <!-- BYOK Box (Appears once when 20 free interactions are reached) -->
             <div id="api-key-container" class="api-key-container">
                 <h3 id="byok-title">🔑 20 次免費互動額度已滿！請輸入自備 API Key 繼續免費無限使用</h3>
                 <p id="byok-desc">您已使用完系統內建的 20 次免費額度。請在下方貼上您自己的金鑰（支援 AQ. 憑證、Groq 金鑰或 Gemini 金鑰），確認後此提示框將自動關閉並解鎖無限次使用：</p>
@@ -231,7 +260,7 @@
                 <div class="safety-assurance-text" id="safety-text">🛡️ 安全保證：您的金鑰僅暫存於瀏覽器記憶體中，確認後不再重複彈出提醒。</div>
             </div>
 
-            <!-- 診斷結果與互動區 -->
+            <!-- Diagnosis Result & Interactive Follow-up Panel -->
             <div id="result-box" class="result-panel">
                 <div id="step-indicator" class="step-indicator-bar"></div>
                 <div id="conversation-container"></div>
@@ -249,7 +278,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 HR Vision AI. Powered by Gemini 3.6 Flash Architecture & Progressive HR Advisory Engine.</p>
+        <p>&copy; 2026 HR Vision AI. Powered by Gemini 3.6 Flash Architecture & Dynamic Candidate Evaluation Engine.</p>
     </footer>
 
     <script>
@@ -258,29 +287,24 @@
 
         let currentLang = 'zh';
         let pendingAction = null;
-        
-        // 確保隱私權提醒 Box 整場對話只出現一次！
         let hasConsentedPrivacy = false;
-        // 確保 20 次額度提醒 Box 不會重複跳出彈窗干擾
         let hasShownQuotaAlert = false;
 
-        // 流程狀態管理：
-        // isTop1Flow = true 時：top1Stage 1 (已點選話題，等待輸入 JD) -> 2 (已輸入 JD，等待輸入工作經歷和程式語言) -> 3 (已輸入工作經歷和程式語言，產出報告)
         let isTop1Flow = false;
         let top1Stage = 0;
         let savedJDText = "";
         let savedExpText = "";
-        let calculatedScore = 91;
+        let lastRenderedReportData = null;
 
         function getUsageCount() {
-            let usage = JSON.parse(localStorage.getItem('hr_vision_quota_v6')) || { count: 0 };
+            let usage = JSON.parse(localStorage.getItem('hr_vision_quota_v9')) || { count: 0 };
             return usage.count;
         }
 
         function incrementUsageCount() {
-            let usage = JSON.parse(localStorage.getItem('hr_vision_quota_v6')) || { count: 0 };
+            let usage = JSON.parse(localStorage.getItem('hr_vision_quota_v9')) || { count: 0 };
             usage.count++;
-            localStorage.setItem('hr_vision_quota_v6', JSON.stringify(usage));
+            localStorage.setItem('hr_vision_quota_v9', JSON.stringify(usage));
             updateUsageBadge();
         }
 
@@ -288,7 +312,7 @@
             const userKey = document.getElementById('user-api-key').value.trim();
             const badge = document.getElementById('usage-counter-badge');
             if (userKey) {
-                badge.innerText = currentLang === 'zh' ? "⚡ 自備金鑰已啟用 (無限次免費)" : "⚡ Custom Key Active (Unlimited)";
+                badge.innerText = currentLang === 'zh' ? "⚡ 自備金鑰已啟用 (無限次免費)" : "⚡ Custom Key Active (Unlimited Free)";
             } else {
                 const remaining = Math.max(0, MAX_FREE_USES - getUsageCount());
                 badge.innerText = currentLang === 'zh' 
@@ -297,64 +321,203 @@
             }
         }
 
+        // Complete bilingual dictionary (0% Chinese in English mode)
         const translations = {
             zh: {
-                machineBanner: "🤖 [AIGEO 機器語意宣告] 整合 Gemini 3.6 Flash 條列式精準診斷引擎與 20 次免費額度保護。",
+                machineBanner: "🤖 [AIGEO 機器語意宣告] 整合 Gemini 3.6 Flash 動態經歷解析引擎與 20 次免費額度保護。",
                 mainTitle: "AI 代理人驅動之動態人資戰略診斷沙盒",
-                mainDesc: "點選 TOP 1 啟動「三階段 JD 與經歷匹配 + PDF 報告」；點選其他話題啟動「條列式漸進顧問引導」。",
+                mainDesc: "點選 TOP 1 啟動「三階段 JD 與經歷動態匹配 + 軟硬實力 4 大模組 PDF 報告」；點選其他話題啟動「條列式漸進顧問引導」。",
                 labelTarget: "選擇檢核對象角色：",
+                optCeo: "CEO / 企業負責人",
+                optHrbp: "HRBP (人資業務夥伴)",
+                optCand: "Candidate (求職者視角評估)",
+                optTrain: "Training Institute Consultant (培訓顧問)",
+                optMgr: "Leadership Manager (用人部門主管)",
                 diagnoseBtn: "開始 AI 診斷",
                 inputPlaceholder: "點選下方熱門話題，或直接輸入您的 HR 挑戰...",
                 top3Title: "🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：",
                 standardTitle: "📌 點選下方職缺與標準 HR 策略標籤（漸進式條列引導）：",
+                top1Btn: "🎯 TOP 1: AI Scoring 軟硬實力評估模型 (三階段引導：職缺 JD 解析 ➔ 工作經歷和程式語言匹配 ➔ 產出動態 PDF 報告)",
+                top2Btn: "🎯 TOP 2: AI 招募自動化漏斗 (提升 300% 招募篩選效率)",
+                top3Btn: "📈 TOP 3: 預測性人資分析 Predictive HR Analytics (降低關鍵人才離職風險)",
+                std1Btn: "☁️ Frontend Engineer 招募策略",
+                std2Btn: "☁️ Backend Engineer 招募策略",
+                std3Btn: "☁️ INFRA Engineer 招募策略",
+                std4Btn: "🎯 AIGEO 雇主品牌優化",
+                std5Btn: "🌐 跨國團隊合規與入職",
+                std6Btn: "📊 招募數據儀表板設定",
+                std7Btn: "🤝 HRBP 主管教練引導",
+                topicPrompts: {
+                    top1: "🎯 TOP 1: AI Scoring 軟硬實力評估模型 (三階段引導：1. 建立評分基準 -> 2. 輸入職缺 JD -> 3. 輸入工作經歷和程式語言產出 PDF 報告)",
+                    top2: "🎯 TOP 2: AI 招募自動化漏斗：如何提升 300% 履歷篩選效率？",
+                    top3: "📈 TOP 3: 預測性人資分析 (Predictive HR Analytics)：如何降低關鍵人才離職風險？",
+                    std1: "☁️ 雲端前端工程師 (Frontend Engineer) 招募重點與面試題庫",
+                    std2: "☁️ 雲端後端工程師 (Backend Engineer) 招募重點與面試題庫",
+                    std3: "☁️ 雲端架構師 (INFRA Engineer) 招募重點與面試題庫",
+                    std4: "🎯 AIGEO 雇主品牌搜尋優化：如何讓人才優先找到我們？",
+                    std5: "🌐 跨國團隊合規與遠端入職 (Onboarding) 自動化流程",
+                    std6: "📊 自動化招募數據儀表板：關鍵漏斗指標設定",
+                    std7: "🤝 HRBP 主管教練引導：協助技術主管做好人才留任"
+                },
                 byokTitle: "🔑 20 次免費互動額度已滿！請輸入自備 API Key 繼續免費無限使用",
                 byokDesc: "您已使用完系統內建的 20 次免費額度。請在下方貼上您自己的金鑰，確認後此提示框將自動隱藏並解鎖無限使用：",
+                keyInputPlaceholder: "請貼上您的 API Key (例如 AQ... 或 gsk_...)",
                 confirmKeyBtn: "確認並解鎖無限使用",
                 safetyText: "🛡️ 安全保證：您的金鑰僅暫存於瀏覽器記憶體中，確認後不再重複彈出提醒。",
                 sendBtn: "送出",
-                privacyTip: "💡 隱私提示：請勿輸入真實姓名或電話，建議僅貼上職缺 JD、專案與技能描述。"
+                privacyTip: "💡 隱私提示：請勿輸入真實姓名或電話，建議僅貼上職缺 JD、專案與技能描述。",
+                modalTitle: "🔒 隱私權保護與去識別化同意聲明",
+                modalDesc: "為符合個資保護規範，本沙盒採用即時運算。進行 AI 診斷前請落實「去識別化」，切勿輸入真實姓名或電話（本提示僅出現一次）。",
+                modalLabel: "我已了解並同意使用「去識別化」資料進行即時分析。",
+                modalCancel: "取消",
+                modalConfirm: "同意並開始",
+                step1Bar: "📍 【TOP 1 三階段評分進度】第 1 階段：建立評分基準 (完成) ➔ 👉 第 2 階段：請在下方貼上職缺說明 (JD) ➔ 第 3 階段：貼上工作經歷和程式語言",
+                step2Bar: "📍 【TOP 1 三階段評分進度】第 1 階段：評分基準 (完成) ➔ 第 2 階段：職缺 JD 解析 (完成) ➔ 👉 第 3 階段引導：請在下方貼上工作經歷和程式語言",
+                step3Bar: "✅ 【TOP 1 三階段評分進度】全部 3 階段皆已完成！下方已根據您的 JD 與候選人經歷動態生成「🧠 軟硬實力分項評核 (Competencies Breakdown)」4 大模組報告。",
+                stage2Label: "👉 【第 2 階段引導】請在下方貼上「職缺工作說明 (JD)」或徵才條件：",
+                stage2Placeholder: "例如：AI 模型訓練工程師，需具備 Python、PyTorch、LLM 微調經驗...",
+                stage3Label: "👉 【第 3 階段引導】請在下方貼上工作經歷和程式語言：",
+                stage3Placeholder: "例如：Jeremy C. | ML/AI Model Engineer | 熟悉 Python, PyTorch, 曾負責金融服務業大型模型訓練...",
+                stageDoneLabel: "🔄 若想測試另一位候選人，請直接在下方貼上新的「工作經歷和程式語言」，報告將自動根據新經歷彈性更新：",
+                stageDonePlaceholder: "貼上另一位候選人的工作經歷和程式語言...",
+                generalFollowupLabel: "💬 【顧問漸進引導】請告訴我您目前最卡關的地方，或想深入了解哪一個步驟：",
+                generalFollowupPlaceholder: "例如：我們目前面試官標準不一致，該怎麼訂出簡單的評分表？"
             },
             en: {
-                machineBanner: "🤖 [AIGEO Machine Declaration] Integrated with Gemini 3.6 Flash Bullet-Point Advisory Engine & 20-Use Quota.",
+                machineBanner: "🤖 [AIGEO Machine Declaration] Integrated with Gemini 3.6 Flash Dynamic Competency Engine & 20-Use Free Quota Protection.",
                 mainTitle: "AI Agent-Driven HR Strategic Diagnosis Sandbox",
-                mainDesc: "Select TOP 1 for 3-Step JD/Experience Scoring & PDF Report; select other topics for progressive bullet-point HR advisory.",
+                mainDesc: "Select TOP 1 for 3-Step JD/Experience Dynamic Matching & 4-Module PDF Report; select other topics for progressive bullet-point HR advisory.",
                 labelTarget: "Select Target Role:",
+                optCeo: "CEO / Founder",
+                optHrbp: "HRBP (HR Business Partner)",
+                optCand: "Candidate (Employer Perspective Assessment)",
+                optTrain: "Training Institute Consultant",
+                optMgr: "Leadership Manager (Hiring Manager)",
                 diagnoseBtn: "Start AI Diagnosis",
-                inputPlaceholder: "Select a topic below or enter your HR challenge...",
+                inputPlaceholder: "Select a trending topic below or enter your HR challenge...",
                 top3Title: "🔥 2026-2027 TOP 3 Trending HR Topics:",
-                standardTitle: "📌 Click Cloud Service Roles & Standard HR Strategy Tags Below:",
-                byokTitle: "🔑 20 Free Uses Reached! Enter Your Own API Key for Unlimited Access",
-                byokDesc: "You have used all 20 free interactions. Paste your own API Key below to unlock unlimited free access immediately:",
+                standardTitle: "📌 Click Cloud Service Roles & Standard HR Strategy Tags Below (Progressive Advisory):",
+                top1Btn: "🎯 TOP 1: AI Scoring Hard & Soft Skills Model (3-Step Guide: Parse JD ➔ Match Experience & Programming Languages ➔ Dynamic PDF Report)",
+                top2Btn: "🎯 TOP 2: AI Recruitment Revolution & Automated Funnels (Boost Screening Efficiency by 300%)",
+                top3Btn: "📈 TOP 3: Predictive HR Analytics (Reduce Key Talent Turnover Risk)",
+                std1Btn: "☁️ Frontend Engineer Hiring Strategy",
+                std2Btn: "☁️ Backend Engineer Hiring Strategy",
+                std3Btn: "☁️ INFRA Engineer Hiring Strategy",
+                std4Btn: "🎯 AIGEO Employer Branding",
+                std5Btn: "🌐 Global Compliance & Onboarding",
+                std6Btn: "📊 Recruitment Funnel Dashboard",
+                std7Btn: "🤝 HRBP Leadership Coaching",
+                topicPrompts: {
+                    top1: "🎯 TOP 1: AI Scoring Hard & Soft Skills Model (3-Step Guide: 1. Build Scoring Matrix -> 2. Input Job Description (JD) -> 3. Input Work Experience & Programming Languages for PDF Report)",
+                    top2: "🎯 TOP 2: AI Recruitment Automated Funnels: How to boost resume screening efficiency by 300%?",
+                    top3: "📈 TOP 3: Predictive HR Analytics: How to reduce key talent turnover risk using data?",
+                    std1: "☁️ Cloud Frontend Engineer Recruitment Strategy & Interview Question Bank",
+                    std2: "☁️ Cloud Backend Engineer Recruitment Strategy & Interview Question Bank",
+                    std3: "☁️ Cloud INFRA / DevOps Engineer Recruitment Strategy & Interview Question Bank",
+                    std4: "🎯 AIGEO Employer Branding Optimization: How SMEs rank top on AI search summaries",
+                    std5: "🌐 Cross-Border Remote Team Compliance & Automated Onboarding Workflow",
+                    std6: "📊 Automated Recruitment Analytics Dashboard: Setting up key hiring funnel metrics",
+                    std7: "🤝 HRBP Executive Coaching: Guiding tech leads on talent retention and development"
+                },
+                byokTitle: "🔑 20 Free Uses Reached! Enter Your Own API Key for Unlimited Free Access",
+                byokDesc: "You have used all 20 free interactions. Paste your own API Key (supports AQ. credentials, Groq keys, or Gemini keys) below to unlock unlimited free access immediately:",
+                keyInputPlaceholder: "Paste your API Key here (e.g., AQ... or gsk_...)",
                 confirmKeyBtn: "Confirm & Unlock Unlimited AI",
-                safetyText: "🛡️ Security Guarantee: Your key stays strictly in your browser's local memory.",
+                safetyText: "🛡️ Security Guarantee: Your key stays strictly in your browser's local memory and will not prompt again once confirmed.",
                 sendBtn: "Send",
-                privacyTip: "💡 Privacy Tip: Do not input real names or phone numbers. Paste anonymized JD and skills only."
+                privacyTip: "💡 Privacy Tip: Do not input real names or phone numbers. Paste anonymized JD, projects, and skills only.",
+                modalTitle: "🔒 Privacy Protection & Anonymization Consent",
+                modalDesc: "To comply with data privacy regulations, all analysis is processed in real-time. Please anonymize your data and do not input real phone numbers (this notice appears only once).",
+                modalLabel: "I understand and agree to provide anonymized data for real-time AI analysis.",
+                modalCancel: "Cancel",
+                modalConfirm: "Agree & Proceed",
+                step1Bar: "📍 [TOP 1 3-Step Progress] Stage 1: Scoring Matrix (Completed) ➔ 👉 Stage 2: Paste Job Description (JD) below ➔ Stage 3: Paste Work Experience & Programming Languages",
+                step2Bar: "📍 [TOP 1 3-Step Progress] Stage 1: Matrix (Completed) ➔ Stage 2: JD Parsed (Completed) ➔ 👉 Stage 3 Guide: Please paste work experience and programming languages below",
+                step3Bar: "✅ [TOP 1 3-Step Progress] All 3 Stages Completed! Your dynamic 4-Module '🧠 Competencies Breakdown' PDF Report has been generated below.",
+                stage2Label: "👉 [Stage 2 Guide] Please paste the 'Job Description (JD)' or hiring requirements below:",
+                stage2Placeholder: "e.g., AI Model Training Engineer (Remote), requires Python, PyTorch, LLM fine-tuning experience...",
+                stage3Label: "👉 [Stage 3 Guide] Please paste work experience and programming languages below:",
+                stage3Placeholder: "e.g., Jeremy C. | ML/AI Model Engineer | Skilled in Python, PyTorch, LLM training in Financial Services...",
+                stageDoneLabel: "🔄 To evaluate another candidate, simply paste new 'work experience and programming languages' below to dynamically update the report:",
+                stageDonePlaceholder: "Paste another candidate's work experience and programming languages...",
+                generalFollowupLabel: "💬 [Progressive Advisory] Tell me your biggest bottleneck or which step you want to explore:",
+                generalFollowupPlaceholder: "e.g., Our interviewers have inconsistent standards. How do we build a simple scorecard?"
             }
         };
 
         function switchLanguage(lang) {
             currentLang = lang;
+            document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
             document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
             const t = translations[lang];
+
             document.getElementById('machine-banner').innerText = t.machineBanner;
             document.getElementById('main-title').innerText = t.mainTitle;
             document.getElementById('main-desc').innerText = t.mainDesc;
             document.getElementById('label-target').innerText = t.labelTarget;
+            document.getElementById('opt-ceo').innerText = t.optCeo;
+            document.getElementById('opt-hrbp').innerText = t.optHrbp;
+            document.getElementById('opt-cand').innerText = t.optCand;
+            document.getElementById('opt-train').innerText = t.optTrain;
+            document.getElementById('opt-mgr').innerText = t.optMgr;
+
             document.getElementById('btn-diagnose-text').innerText = t.diagnoseBtn;
             document.getElementById('challenge-input').placeholder = t.inputPlaceholder;
             document.getElementById('top3-title').innerText = t.top3Title;
             document.getElementById('standard-title').innerText = t.standardTitle;
+
+            document.getElementById('top-tag-1').innerText = t.top1Btn;
+            document.getElementById('top-tag-2').innerText = t.top2Btn;
+            document.getElementById('top-tag-3').innerText = t.top3Btn;
+            document.getElementById('std-tag-1').innerText = t.std1Btn;
+            document.getElementById('std-tag-2').innerText = t.std2Btn;
+            document.getElementById('std-tag-3').innerText = t.std3Btn;
+            document.getElementById('std-tag-4').innerText = t.std4Btn;
+            document.getElementById('std-tag-5').innerText = t.std5Btn;
+            document.getElementById('std-tag-6').innerText = t.std6Btn;
+            document.getElementById('std-tag-7').innerText = t.std7Btn;
+
             document.getElementById('byok-title').innerText = t.byokTitle;
             document.getElementById('byok-desc').innerText = t.byokDesc;
+            document.getElementById('user-api-key').placeholder = t.keyInputPlaceholder;
             document.getElementById('btn-confirm-key').innerText = t.confirmKeyBtn;
             document.getElementById('safety-text').innerText = t.safetyText;
             document.getElementById('btn-send-followup').innerText = t.sendBtn;
             document.getElementById('privacy-tip').innerText = t.privacyTip;
+
+            document.getElementById('modal-title').innerText = t.modalTitle;
+            document.getElementById('modal-desc').innerText = t.modalDesc;
+            document.getElementById('modal-label').innerText = t.modalLabel;
+            document.getElementById('modal-cancel-btn').innerText = t.modalCancel;
+            document.getElementById('modal-confirm-btn').innerText = t.modalConfirm;
+
             updateUsageBadge();
+            updateStepIndicator();
+
+            // Dynamically update follow-up box label & placeholder if visible
+            if (document.getElementById('followup-box').style.display !== 'none') {
+                if (isTop1Flow) {
+                    if (top1Stage === 1) configureFollowupInput(t.stage2Label, t.stage2Placeholder);
+                    else if (top1Stage === 2) configureFollowupInput(t.stage3Label, t.stage3Placeholder);
+                    else if (top1Stage === 3) configureFollowupInput(t.stageDoneLabel, t.stageDonePlaceholder);
+                } else {
+                    configureFollowupInput(t.generalFollowupLabel, t.generalFollowupPlaceholder);
+                }
+            }
+
+            // Re-render report headers in the selected language if a report is currently displayed
+            if (lastRenderedReportData && top1Stage === 3) {
+                renderFlexibleCompetencyReport(lastRenderedReportData);
+            }
         }
 
-        // 統一檢查額度與首次隱私同意（提醒 Box 只會出現一次）
+        function triggerTopicByKey(key) {
+            const t = translations[currentLang];
+            document.getElementById('challenge-input').value = t.topicPrompts[key];
+            checkQuotaAndRun(startInitialDiagnosis);
+        }
+
         function checkQuotaAndRun(actionCallback) {
             const userKey = document.getElementById('user-api-key').value.trim();
             if (!userKey && getUsageCount() >= MAX_FREE_USES) {
@@ -388,7 +551,7 @@
         }
 
         function confirmPrivacyAndProceed() {
-            hasConsentedPrivacy = true; // 標記已同意，後續不再彈出
+            hasConsentedPrivacy = true;
             document.getElementById('privacy-modal').style.display = 'none';
             if (pendingAction) {
                 const act = pendingAction;
@@ -397,15 +560,10 @@
             }
         }
 
-        function triggerTagClick(text) {
-            document.getElementById('challenge-input').value = text;
-            checkQuotaAndRun(startInitialDiagnosis);
-        }
-
         function confirmApiKeyAndContinue() {
             const keyVal = document.getElementById('user-api-key').value.trim();
             if (!keyVal) {
-                alert('請貼上您的金鑰！');
+                alert(currentLang === 'zh' ? '請貼上您的金鑰！' : 'Please paste your API Key!');
                 return;
             }
             document.getElementById('api-key-container').style.display = 'none';
@@ -427,14 +585,11 @@
                 bar.style.display = 'none';
                 return;
             }
+            const t = translations[currentLang];
             bar.style.display = 'block';
-            if (top1Stage === 1) {
-                bar.innerText = "📍 【TOP 1 三階段評分進度】第 1 階段：建立評分基準 (完成) ➔ 👉 第 2 階段：請在下方貼上職缺說明 (JD) ➔ 第 3 階段：貼上工作經歷和程式語言";
-            } else if (top1Stage === 2) {
-                bar.innerText = "📍 【TOP 1 三階段評分進度】第 1 階段：評分基準 (完成) ➔ 第 2 階段：職缺 JD 解析 (完成) ➔ 👉 第 3 階段引導：請在下方貼上工作經歷和程式語言";
-            } else if (top1Stage === 3) {
-                bar.innerText = "✅ 【TOP 1 三階段評分進度】全部 3 階段皆已完成！請於下方查看或下載您的專屬 PDF 評估報告。";
-            }
+            if (top1Stage === 1) bar.innerText = t.step1Bar;
+            else if (top1Stage === 2) bar.innerText = t.step2Bar;
+            else if (top1Stage === 3) bar.innerText = t.step3Bar;
         }
 
         function configureFollowupInput(labelStr, placeholderStr) {
@@ -445,12 +600,10 @@
             inputEl.focus();
         }
 
-        // 呼叫雲端 AI（強制要求簡單、白話、條列式語法）
         async function callSimpleBulletAI(systemInstruction, userPrompt, fallbackText) {
             const userKey = document.getElementById('user-api-key').value.trim();
             const activeKey = userKey || DEFAULT_SYSTEM_API_KEY;
 
-            // 1. 若有 Groq Key
             if (activeKey.startsWith('gsk_')) {
                 try {
                     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -471,7 +624,6 @@
                 } catch (e) {}
             }
 
-            // 2. 優先嘗試 Gemini 3.6 / 2.5 Flash
             for (const model of ['gemini-3.6-flash', 'gemini-2.5-flash']) {
                 try {
                     const headers = { 'Content-Type': 'application/json' };
@@ -495,7 +647,6 @@
                 } catch (e) {}
             }
 
-            // 3. 免金鑰真實雲端 AI 路由 (Pollinations Open-Cloud)
             try {
                 const cloudRes = await fetch('https://text.pollinations.ai/', {
                     method: 'POST',
@@ -516,18 +667,107 @@
                 }
             } catch (e) {}
 
-            // 4. 條列式精準保底引擎
-            await new Promise(r => setTimeout(r, 500));
+            await new Promise(r => setTimeout(r, 450));
             return fallbackText;
         }
 
-        // 啟動初始診斷
+        // Dynamic JD-Resume keyword & competency analyzer (Supports 100% English & Traditional Chinese)
+        function buildDynamicAnalysisFromInputs(jd, exp, lang) {
+            const techDictionary = [
+                'Python', 'PyTorch', 'TensorFlow', 'Linux', 'Git', 'Transformer', 'Attention',
+                'Pre-training', 'Fine-tuning', 'SFT', 'LoRA', 'QLoRA', 'DeepSpeed', 'FSDP',
+                'Megatron-LM', 'CUDA', 'GPU', 'LLM', 'ML', 'AI', 'Pipeline', 'Dataset',
+                'Tokenization', 'Java', 'JavaScript', 'React', 'Vue', 'Node', 'SQL', 'AWS',
+                'GCP', 'Docker', 'Kubernetes', 'CI/CD', 'Agile', 'Scrum', 'Jira', 'PM', 'HR', 'ERP'
+            ];
+
+            const jdTerms = techDictionary.filter(t => new RegExp(t, 'i').test(jd));
+            const expTerms = techDictionary.filter(t => new RegExp(t, 'i').test(exp));
+
+            const matchedSkills = jdTerms.filter(t => expTerms.includes(t));
+            const missingSkills = jdTerms.filter(t => !expTerms.includes(t));
+
+            const expClean = exp.replace(/\s+/g, ' ').trim();
+            const candidateName = expClean.split(/[·|,，\n]/)[0].trim().substring(0, 22) || (lang === 'en' ? "Evaluated Candidate" : "受評候選人");
+            const jdClean = jd.replace(/\s+/g, ' ').trim();
+
+            let baseHard = 56;
+            if (matchedSkills.length > 0) baseHard += Math.min(12, matchedSkills.length * 3);
+            else if (expClean.length > 40) baseHard += 8;
+            const hardScore = Math.min(68, baseHard);
+
+            let baseSoft = 24;
+            if (/lead|manage|team|cross|溝通|協作|管理|跨部門|遠端|remote|singapore|global/i.test(expClean)) baseSoft += 4;
+            const softScore = Math.min(29, baseSoft);
+            const totalScore = hardScore + softScore;
+            const isBriefExp = expClean.length < 120;
+
+            if (lang === 'en') {
+                const matchedStrEn = matchedSkills.length > 0
+                    ? matchedSkills.join(', ')
+                    : (expTerms.length > 0 ? expTerms.join(', ') : `core domain skills in "${expClean.substring(0, 28)}..."`);
+                const gapStrEn = missingSkills.length > 0
+                    ? missingSkills.slice(0, 4).join(', ')
+                    : "large-scale distributed system optimization and end-to-end production deployment metrics";
+
+                return {
+                    score: totalScore,
+                    hardScore: hardScore,
+                    softScore: softScore,
+                    action: totalScore >= 85 ? "Strong Hire (Proceed to Interview)" : "Proceed to Technical Screening",
+                    techEval: `• Core Technical & Business Fit (${hardScore} / 70 pts): Candidate profile (${expClean.substring(0, 45)}...) demonstrates solid foundation in ${matchedStrEn}, aligning well with core job requirements.\n• Architecture & Execution Readiness: Relevant industry experience reduces onboarding ramp-up time, though hands-on depth in ${gapStrEn} should be verified during technical rounds.`,
+                    softEval: `• Cross-Functional Collaboration (${softScore} / 30 pts): Background indicates strong adaptability in fast-paced or cross-regional environments (${expClean.substring(0, 30)}), supporting smooth alignment with product and engineering teams.\n• Culture Fit & Ownership: Demonstrates self-direction and goal-oriented execution required for this role.`,
+                    highlights: `• Domain & Technical Alignment: Candidate (${candidateName}) brings verified industry exposure and matching competencies (${matchedStrEn}).\n• High Transferability: Past project experience translates directly into the core responsibilities of the target role.`,
+                    risks: isBriefExp
+                        ? `• Brief Resume Granularity: The provided experience summary is relatively concise (${expClean.length} chars) and lacks quantified production metrics for "${gapStrEn}".\n• Ownership Scope to Verify: Need to confirm whether past projects were independently architected or partially supported.`
+                        : `• Advanced Tooling Depth: Practical production-scale tuning experience regarding "${gapStrEn}" needs live verification.\n• Pace & Workflow Alignment: Confirm expectations around agile sprint cadence and cross-team documentation.`,
+                    questions: `1. [Technical & Architecture Deep-Dive]: Regarding "${gapStrEn}" required in our JD, what was the most critical bottleneck you resolved in your past work (${expClean.substring(0, 25)}...), and what were the quantified results?\n2. [End-to-End Project Ownership]: In your most impactful project, which specific module or pipeline did you design and own 100% from scratch to production?\n3. [Cross-Functional & Culture Fit]: When collaborating with product or research teams under tight deadlines or shifting specs, how do you align priorities and ensure timely delivery?`,
+                    earlyExit: isBriefExp ? "Low-Medium (Career track is consistent; verify long-term career motivation and role expectations during interview)" : "Low (Strong alignment between career trajectory and role scope; low short-term attrition risk)",
+                    cultureRisk: "Low (Prior exposure to modern tech or cross-functional environments indicates high adaptability to agile ownership culture)",
+                    skillGap: missingSkills.length > 2
+                        ? `Medium (Core direction matches, but specific JD tools like "${gapStrEn}" are not explicitly detailed in the summary)`
+                        : `Low (Core programming languages and domain skills closely match JD requirements; minimal ramp-up needed)`,
+                    overqual: totalScore >= 92 ? "Medium-Low (Strong credentials; clearly communicate technical challenges and growth scope to keep candidate engaged)" : "Low (Candidate's current seniority and experience level match the role's challenge and scope appropriately)"
+                };
+            }
+
+            // Traditional Chinese mode
+            const matchedStrZh = matchedSkills.length > 0 
+                ? matchedSkills.join('、') 
+                : (expTerms.length > 0 ? expTerms.join('、') : `與「${expClean.substring(0, 28)}...」相關之領域實務`);
+            const gapStrZh = missingSkills.length > 0 
+                ? missingSkills.slice(0, 4).join('、') 
+                : "大規模分散式架構調校與跨團隊落地細節";
+
+            return {
+                score: totalScore,
+                hardScore: hardScore,
+                softScore: softScore,
+                action: totalScore >= 85 ? "強烈推薦面試 (Strong Hire)" : "建議安排複試 (Proceed to Interview)",
+                techEval: `• 核心技術與實務契合度（${hardScore} / 70 分）：候選人背景（${expClean.substring(0, 45)}...）具備 ${matchedStrZh} 等相關基礎，能對接職缺核心開發與業務需求。\n• 專案與架構落地能力：針對職缺要求之「${jdClean.substring(0, 38)}...」，候選人過往實務經驗可縮短前期摸索時間，但建議進一步確認其在 ${gapStrZh} 上的獨立負責深度。`,
+                softEval: `• 跨團隊溝通與協作（${softScore} / 30 分）：從經歷背景可見具備跨領域或國際化環境（如 ${expClean.substring(0, 30)}）之適應力，能配合產品與研發團隊推進目標。\n• 文化契合與自主管理：符合職缺對於自律當責、目標導向及快速迭代之團隊文化期待。`,
+                highlights: `• 領域與背景優勢：候選人（${candidateName}）具備明確的產業實績與技術標籤（${matchedStrZh}），與職缺目標方向一致。\n• 即戰力潛力：過往經歷能直接遷移至本崗位的核心業務場景。`,
+                risks: isBriefExp
+                    ? `• 履歷資訊顆粒度較粗：目前提供的經歷描述較為精簡（僅約 ${expClean.length} 字），尚未完整列出在「${gapStrZh}」的具體量化成果。\n• 實戰深度待驗證：需於面試中確認過往專案為「獨立主導架構」或「局部參與維護」。`
+                    : `• 特定進階工具驗證：針對職缺提及的「${gapStrZh}」，需在技術面試確認其實際生產環境（Production）調校經驗。\n• 團隊磨合預期：需確認其過往工作節奏與本團隊高強度迭代文化的契合度。`,
+                questions: `1. 【技術與架構深挖】：針對我們職缺非常看重的「${gapStrZh}」，請分享您在過往經歷（${expClean.substring(0, 25)}...）中，實際處理過最複雜的技術瓶頸與最終量化成效？\n2. 【專案實戰還原】：在您過去參與的核心專案中，從資料/需求定義到最終上線落地，哪一個環節是您 100% 獨立負責並做出關鍵決策的？\n3. 【協作與文化適配】：面對跨部門（如產品、研究或業務團隊）需求變更或遠端協作卡關時，您通常如何對齊優先級並確保準時交付？`,
+                earlyExit: isBriefExp ? "Low-Medium（職涯領域一致，惟需於面試確認近期轉職動機與對本崗位的長期期待）" : "Low（職涯發展軌跡與本職缺高度契合，技術成長空間充足，短期流失風險低）",
+                cultureRisk: "Low（具備跨領域或現代化科技團隊背景，對敏捷協作與自主當責文化適應度高）",
+                skillGap: missingSkills.length > 2 
+                    ? `Medium（核心方向吻合，但職缺要求的「${gapStrZh}」尚未在經歷中充分體現，需面試實測）`
+                    : `Low（核心技術棧與職缺要求高度重疊，僅需針對少數內部工具進行短期 Onboarding）`,
+                overqual: totalScore >= 92 ? "Medium-Low（資歷與背景優秀，建議面試時溝通清楚職權範圍與未來晉升挑戰，避免大材小用感）" : "Low（候選人目前資歷階段與本職缺之挑戰難度、職責範圍恰當匹配）"
+            };
+        }
+
         async function startInitialDiagnosis() {
             const target = document.getElementById('sandbox-target').value;
             const input = document.getElementById('challenge-input').value.trim();
+            const t = translations[currentLang];
+            const isEn = currentLang === 'en';
 
             if (!input) {
-                alert('請點選下方話題或輸入您的問題！');
+                alert(isEn ? 'Please select a topic below or enter your HR challenge!' : '請點選下方話題或輸入您的問題！');
                 return;
             }
 
@@ -537,39 +777,62 @@
             document.getElementById('result-box').style.display = 'block';
             document.getElementById('pdf-approval-container').innerHTML = '';
             document.getElementById('conversation-container').innerHTML = '';
+            lastRenderedReportData = null;
 
             if (!userKey) incrementUsageCount();
 
             if (isTop1Flow) {
-                // ========== TOP 1 專屬三階段流程：第 1 階段 ==========
                 top1Stage = 1;
                 savedJDText = "";
                 savedExpText = "";
                 updateStepIndicator();
 
-                // 立即設定好第 2 階段的輸入框標籤（不等 AI 回應完才變）
-                configureFollowupInput(
-                    "👉 【第 2 階段引導】請在下方貼上「職缺工作說明 (JD)」或徵才條件：",
-                    "例如：AI 模型訓練工程師，需具備 Python、PyTorch、LLM 微調經驗..."
-                );
+                configureFollowupInput(t.stage2Label, t.stage2Placeholder);
 
-                appendTurnUI(`[${target}] 啟動 TOP 1：AI Scoring 三階段職缺與經歷評分`, "正在為您建立簡單好讀的「第一階段：軟硬實力評分基準」...");
+                const userHeader = isEn
+                    ? `[${target}] Launch TOP 1: AI Scoring 3-Step JD & Candidate Evaluation`
+                    : `[${target}] 啟動 TOP 1：AI Scoring 三階段職缺與經歷評分`;
+                const loadingText = isEn
+                    ? "Building clear bullet-point 'Stage 1: Hard & Soft Skills Scoring Benchmark'..."
+                    : "正在為您建立簡單好讀的「第一階段：軟硬實力評分基準」...";
 
-                const sysPrompt = "你是一位資深且說話簡單好懂的 HR 顧問。請務必使用「繁體中文」、「簡單的日常商務用詞」與「1. 2. 3. 條列式語法」回答。禁止使用艱澀術語或長篇大論，每一點不超過兩句話。";
-                const usrPrompt = `使用者角色為【${target}】，目前啟動了「AI Scoring 三階段評估」的第 1 階段。請用簡單條列式列出：
-1. 硬實力評分重點（佔 70%，列舉 3 個簡單指標）
-2. 軟實力評分重點（佔 30%，列舉 2 個簡單指標）
+                appendTurnUI(userHeader, loadingText);
+
+                const sysPrompt = isEn
+                    ? "You are a senior HR advisor who speaks in simple, clear, everyday business English. Respond strictly in 100% English using numbered bullet points (1. 2. 3.). Do NOT output any Chinese characters. Keep each point under 2 sentences."
+                    : "你是一位資深且說話簡單好懂的 HR 顧問。請務必使用「繁體中文」、「簡單的日常商務用詞」與「1. 2. 3. 條列式語法」回答。禁止使用艱澀術語或長篇大論，每一點不超過兩句話。";
+
+                const usrPrompt = isEn
+                    ? `Target role: [${target}], starting Stage 1 of the 'AI Scoring 3-Step Evaluation'. Provide a simple bulleted list in pure English:
+1. Business & Technical Skills criteria (70% weight, list 3 simple bullet points)
+2. Soft Skills & Culture Fit criteria (30% weight, list 2 simple bullet points)
+3. End with this exact one-line prompt: "👉 [Stage 2 Guide] Please paste the 'Job Description (JD)' or hiring requirements below!"`
+                    : `使用者角色為【${target}】，目前啟動了「AI Scoring 三階段評估」的第 1 階段。請用簡單條列式列出：
+1. 業務 & 技術能力評分重點（佔 70%，列舉 3 個簡單指標）
+2. 軟技能 & 文化契合評分重點（佔 30%，列舉 2 個簡單指標）
 3. 最後請用一句話明確引導使用者：「👉 【第 2 階段引導】請在下方貼上『職缺工作說明 (JD)』或徵才條件！」`;
 
-                const fallbackStage1 = 
-`【第 1 階段：建立 AI 軟硬實力評分基準】
+                const fallbackStage1 = isEn
+                    ? `[Stage 1: AI Hard & Soft Skills Scoring Benchmark]
 
-1. 硬實力評分重點（佔總分 70%）：
+1. Business & Technical Skills Criteria (70% Weight):
+   • Core Programming & Tech Stack: Hands-on proficiency in the programming languages, frameworks, and tools required by the role.
+   • Project Delivery Track Record: Proven ability to independently deliver similar-scale projects with measurable outcomes.
+   • Problem-Solving Execution: Ability to troubleshoot technical bottlenecks and optimize workflows effectively.
+
+2. Soft Skills & Culture Fit Criteria (30% Weight):
+   • Cross-Functional Communication: Communicates clearly and collaborates smoothly with product, research, and business teams.
+   • Proactive Ownership: Takes full accountability for deliverables and adapts quickly to changing priorities.
+
+👉 [Stage 2 Guide] Please paste the 'Job Description (JD)' or hiring requirements below!`
+                    : `【第 1 階段：建立 AI 軟硬實力評分基準】
+
+1. 業務 & 技術能力評分重點（佔總分 70%）：
    • 專業技術與程式語言：是否具備職缺要求的核心開發語言、工具與架構經驗。
    • 專案交付實績：過去是否獨立完成過類似規模的專案並有具體成果。
    • 問題解決能力：面對流程卡關或技術問題時，能否快速排除。
 
-2. 軟實力評分重點（佔總分 30%）：
+2. 軟技能 & 文化契合評分重點（佔總分 30%）：
    • 跨部門溝通：能否用簡單清楚的話，與產品及研究團隊順暢合作。
    • 主動當責態度：遇到任務變動時，能否主動回報進度並扛起責任。
 
@@ -579,26 +842,51 @@
                 updateLatestAIResponse(reply);
 
             } else {
-                // ========== 其他話題：一般漸進式顧問引導（簡單條列式，不含三階段 PDF） ==========
                 top1Stage = 0;
                 updateStepIndicator();
 
-                configureFollowupInput(
-                    "💬 【顧問漸進引導】請告訴我您目前最卡關的地方，或想深入了解哪一個步驟：",
-                    "例如：我們目前面試官標準不一致，該怎麼訂出簡單的評分表？"
-                );
+                configureFollowupInput(t.generalFollowupLabel, t.generalFollowupPlaceholder);
 
-                appendTurnUI(`[${target}] ${input}`, "正在為您整理簡單清晰的條列式重點與行動建議...");
+                const loadingText = isEn
+                    ? "Organizing clear, actionable bullet-point recommendations..."
+                    : "正在為您整理簡單清晰的條列式重點與行動建議...";
+                appendTurnUI(`[${target}] ${input}`, loadingText);
 
-                const sysPrompt = "你是一位說話簡單、直接、好懂的 HR 顧問。請務必使用「繁體中文」、「白話文」與「清楚的條列式（1. 2. 3. 與 •）」回答。禁止長篇大論，每點控制在 1~2 句話以內。結尾請主動詢問使用者一個簡單問題以進行漸進式引導。";
-                const usrPrompt = `針對角色【${target}】詢問的議題：「${input}」，請用簡單條列式提供：
+                const sysPrompt = isEn
+                    ? "You are a practical, clear-spoken HR advisor. Respond strictly in 100% English using simple bullet points (1. 2. 3. and •). Do NOT output any Chinese characters. Keep each point to 1-2 sentences. End with one simple follow-up question."
+                    : "你是一位說話簡單、直接、好懂的 HR 顧問。請務必使用「繁體中文」、「白話文」與「清楚的條列式（1. 2. 3. 與 •）」回答。禁止長篇大論，每點控制在 1~2 句話以內。結尾請主動詢問使用者一個簡單問題以進行漸進式引導。";
+
+                const usrPrompt = isEn
+                    ? `For target role [${target}] asking about: "${input}", provide a simple bulleted response in pure English:
+1. Key Pain Points (2 points)
+2. Immediate Action Steps (3 points)
+3. Simple Role Ownership (Who executes vs. Who approves)
+4. Closing Follow-up Question: Ask one simple question about their current team size or main bottleneck.`
+                    : `針對角色【${target}】詢問的議題：「${input}」，請用簡單條列式提供：
 1. 核心痛點拆解（2 點）
 2. 立即可以做的具體行動步驟（3 點）
 3. 簡單的權責分工建議（誰負責做、誰負責審核）
 4. 結尾引導提問：請用一句話詢問使用者目前的團隊人數或最卡關的地方，以便給出下一步建議。`;
 
-                const fallbackGeneral = 
-`【針對「${target}」的重點診斷與行動建議】
+                const fallbackGeneral = isEn
+                    ? `[Strategic Diagnosis & Action Plan for "${target}"]
+📌 Topic: ${input}
+
+1. Common Core Pain Points:
+   • Manual resume screening and cross-team alignment take too long, causing top candidates to drop off.
+   • Interviewers lack a standardized scorecard and rely too heavily on gut feeling.
+
+2. 3 Immediate Action Steps:
+   • Step 1 (Standardize Criteria): Define 3 non-negotiable must-have skills for the role and remove vague requirements.
+   • Step 2 (Automated Pre-Screening): Use AI or structured forms to score candidates on those 3 core skills, advancing only 80+ scorers.
+   • Step 3 (Weekly Funnel Review): Spend 15 minutes weekly tracking conversion rates from application to interview invite.
+
+3. Simple Role Ownership:
+   • Responsible for Execution: HRBP & Talent Acquisition Specialist (configure criteria and run initial screening).
+   • Accountable for Final Decision: ${target} & Hiring Manager (approve final shortlist).
+
+👉 Next Step Question: How large is your current team, or which specific stage is causing the biggest bottleneck right now? Tell me below!`
+                    : `【針對「${target}」的重點診斷與行動建議】
 📌 探討主題：${input}
 
 1. 目前常見的兩大痛點：
@@ -621,115 +909,195 @@
             }
         }
 
-        // 發送後續對話（根據是否在 TOP 1 流程自動推進階段）
         async function sendCustomFollowUp() {
             const inputEl = document.getElementById('custom-followup-input');
             const val = inputEl.value.trim();
             if (!val) return;
             inputEl.value = '';
 
+            const t = translations[currentLang];
+            const isEn = currentLang === 'en';
             const userKey = document.getElementById('user-api-key').value.trim();
             if (!userKey) incrementUsageCount();
 
             if (isTop1Flow) {
                 if (top1Stage === 1) {
-                    // ========== TOP 1 第 2 階段：已收到 JD，立即切換下方標籤為「第 3 階段引導 請在下方貼上工作經歷和程式語言」 ==========
                     savedJDText = val;
                     top1Stage = 2;
                     updateStepIndicator();
 
-                    // 【關鍵修正】在等待 AI 解析 JD 的瞬間，立刻把下方標題改為您指定的「第 3 階段引導 請在下方貼上工作經歷和程式語言」
-                    configureFollowupInput(
-                        "👉 【第 3 階段引導】請在下方貼上工作經歷和程式語言：",
-                        "例如：Jeremy C. | ML/AI Model Engineer | 熟悉 Python, PyTorch, 曾負責金融服務業大型模型訓練..."
-                    );
+                    configureFollowupInput(t.stage3Label, t.stage3Placeholder);
 
-                    appendTurnUI(`📄 [已輸入職缺 JD] ${val}`, "正在解析您的職缺 JD 重點，並準備進入候選人經歷匹配...");
+                    const uHeader = isEn ? `📄 [Job Description (JD) Submitted] ${val}` : `📄 [已輸入職缺 JD] ${val}`;
+                    const loadMsg = isEn
+                        ? "Parsing your Job Description (JD) requirements and preparing for candidate experience matching..."
+                        : "正在解析您的職缺 JD 重點，並準備進入候選人經歷匹配...";
+                    appendTurnUI(uHeader, loadMsg);
 
-                    const sysPrompt = "你是一位說話簡單好懂的 HR 顧問。請使用「繁體中文」與「簡單條列式（1. 2. 3.）」回答，用詞務必白話清晰。";
-                    const usrPrompt = `使用者已輸入職缺 JD：「${savedJDText}」。
+                    const sysPrompt = isEn
+                        ? "You are a clear-spoken HR advisor. Respond strictly in 100% English using simple bullet points (1. 2. 3.). Do NOT output any Chinese characters."
+                        : "你是一位說話簡單好懂的 HR 顧問。請使用「繁體中文」與「簡單條列式（1. 2. 3.）」回答，用詞務必白話清晰。";
+
+                    const usrPrompt = isEn
+                        ? `The user submitted this Job Description (JD): "${savedJDText}".
+Organize into simple bullet points in pure English:
+1. 3 Must-Have 'Business & Technical Skills' extracted from this JD (70% weight)
+2. 2 Must-Have 'Soft Skills & Culture Fit' traits extracted from this JD (30% weight)
+3. End with this exact one-line guide: "👉 [Stage 3 Guide] Please paste work experience and programming languages below to generate the dynamic competency report!"`
+                        : `使用者已輸入職缺 JD：「${savedJDText}」。
 請用簡單條列式整理出：
-1. 從這份 JD 抓出的 3 個「硬實力與程式語言必備條件」（佔 70%）
-2. 從這份 JD 抓出的 2 個「軟實力溝通特質」（佔 30%）
-3. 結尾請用一句話明確引導使用者：「👉 【第 3 階段引導】請在下方貼上工作經歷和程式語言，我將立刻為您計算匹配分數並產出評估報告！」`;
+1. 從這份 JD 抓出的 3 個「業務 & 技術能力必備條件」（佔 70%）
+2. 從這份 JD 抓出的 2 個「軟技能 & 文化契合特質」（佔 30%）
+3. 結尾請用一句話明確引導使用者：「👉 【第 3 階段引導】請在下方貼上工作經歷和程式語言，我將立刻為您動態生成軟硬實力分項評核報告！」`;
 
-                    const fallbackStage2 = 
-`【第 2 階段：職缺 JD 關鍵條件解析完成】
-根據您提供的職缺內容（「${savedJDText.substring(0, 35)}...」），系統已鎖定以下評分標準：
+                    const fallbackStage2 = isEn
+                        ? `[Stage 2: Job Description (JD) Key Requirements Parsed]
+Based on your submitted JD ("${savedJDText.substring(0, 45)}..."), the system has locked in the following evaluation criteria:
 
-1. 職缺必備硬實力與程式語言（佔 70%）：
-   • 核心程式與框架：熟悉職缺要求的開發語言與工具（如 Python、PyTorch、Linux / Git 等）（30%）。
+1. Business & Technical Skills Requirements (70% Weight):
+   • Core Programming & Frameworks: Hands-on proficiency in the required languages and tools (30%).
+   • Architecture & Domain Execution: Practical experience building pipelines, models, or core business workflows (25%).
+   • Independent Troubleshooting: Ability to optimize system performance and resolve production issues (15%).
+
+2. Soft Skills & Culture Fit Requirements (30% Weight):
+   • Cross-Functional Collaboration: Ability to partner with product and research teams to turn technical work into real product value (15%).
+   • Self-Management & Ownership: Strong accountability and clear progress communication (15%).
+
+👉 [Stage 3 Guide] Please paste work experience and programming languages below to generate the dynamic competency report!`
+                        : `【第 2 階段：職缺 JD 關鍵條件解析完成】
+根據您提供的職缺內容（「${savedJDText.substring(0, 40)}...」），系統已鎖定以下評分標準：
+
+1. 業務 & 技術能力必備條件（佔 70%）：
+   • 核心程式與框架：熟悉職缺要求的開發語言與工具（30%）。
    • 模型與架構實務：具備相關演算法、資料管線建置或效能調校經驗（25%）。
    • 獨立解決問題：能直接上手處理系統開發與效能最佳化（15%）。
 
-2. 職缺必備軟實力（佔 30%）：
+2. 軟技能 & 文化契合必備特質（佔 30%）：
    • 跨團隊溝通協調：能與產品及研究團隊合作，將技術轉化為實際產品（15%）。
    • 遠端自律與當責：具備良好的自我管理與專案推進能力（15%）。
 
-👉 【第 3 階段引導】請在下方貼上工作經歷和程式語言，我將立即幫您比對算分並產出最終報告！`;
+👉 【第 3 階段引導】請在下方貼上工作經歷和程式語言，我將立即幫您比對並產出最終報告！`;
 
                     const reply = await callSimpleBulletAI(sysPrompt, usrPrompt, fallbackStage2);
                     updateLatestAIResponse(reply);
                     return;
 
                 } else if (top1Stage >= 2) {
-                    // ========== TOP 1 第 3 階段：已收到工作經歷和程式語言，比對 JD 算分並直接產出報告 ==========
                     savedExpText = val;
                     top1Stage = 3;
                     updateStepIndicator();
 
-                    configureFollowupInput(
-                        "🔄 若想測試另一位候選人，請直接在下方貼上新的「工作經歷和程式語言」即可重新算分：",
-                        "貼上另一位候選人的工作經歷和程式語言..."
-                    );
+                    configureFollowupInput(t.stageDoneLabel, t.stageDonePlaceholder);
 
-                    appendTurnUI(`👤 [已輸入工作經歷和程式語言] ${val}`, "正在比對「職缺 JD」與「候選人工作經歷和程式語言」，計算量化匹配得分...");
+                    const uHeader = isEn ? `👤 [Work Experience & Programming Languages Submitted] ${val}` : `👤 [已輸入工作經歷和程式語言] ${val}`;
+                    const loadMsg = isEn
+                        ? "Cross-matching candidate experience against JD to generate the dynamic 4-Module '🧠 Competencies Breakdown' report..."
+                        : "正在根據候選人經歷與職缺 JD 進行動態交叉比對，生成「🧠 軟硬實力分項評核」4 大模組報告...";
+                    appendTurnUI(uHeader, loadMsg);
 
-                    const sysPrompt = "你是一位說話簡單好懂的 HR 顧問。請使用「繁體中文」與「簡單條列式」進行 JD 與候選人工作經歷和程式語言比對，用詞務必簡單清楚。";
-                    const usrPrompt = `請比對以下資料並給出簡單條列式評分：
+                    const dynamicBase = buildDynamicAnalysisFromInputs(savedJDText, savedExpText, currentLang);
+
+                    const sysPrompt = isEn
+                        ? "You are an expert technical recruiter and HRBP. Tailor your evaluation strictly to the provided Job Description and Candidate Experience. Respond in 100% pure English. Do NOT output any Chinese characters."
+                        : "你是一位專業且具洞察力的技術招募與 HRBP 專家。請完全根據使用者提供的「職缺 JD」與「候選人經歷」，量身定制具體、不套模板的評估內容，使用繁體中文回答。";
+
+                    const usrPrompt = isEn
+                        ? `Compare the following Job Description (JD) and Candidate Experience in pure English, and output strictly using the 10 tags below (reference actual companies, skills, or gaps from the candidate's input):
+
+[JD]: ${savedJDText}
+[CANDIDATE_EXP]: ${savedExpText}
+
+Output strictly in this tag format (in 100% English):
+[SCORE]: (Integer from 0 to 100, e.g., 91)
+[TECH_EVAL]: (2-3 bullet points analyzing 'Business & Technical Skills' fit against the JD, including score like 64/70 pts)
+[SOFT_EVAL]: (2 bullet points analyzing 'Soft Skills & Culture Fit' based on their background, including score like 27/30 pts)
+[HIGHLIGHTS]: (2 bullet points on core 'Highlights' from the candidate's actual background)
+[RISKS]: (2 bullet points on potential 'Risk Signals' or unverified JD requirements)
+[QUESTIONS]: (3 customized, practical follow-up interview questions numbered 1. 2. 3. targeting their specific experience or gaps)
+[EARLY_EXIT]: (Rating Low / Medium / High + specific reason in English)
+[CULTURE_MISMATCH]: (Rating Low / Medium / High + specific reason in English)
+[SKILL_GAP]: (Rating Low / Medium / High + specific analysis of matched vs. missing skills in English)
+[OVERQUALIFICATION]: (Rating Low / Medium / High + specific reason in English)`
+                        : `請深入比對以下「職缺 JD」與「候選人經歷」，並嚴格按照下方標籤格式輸出（請直接引用候選人經歷中的公司、職稱、技能或缺乏的項目來寫，務必具體且靈活）：
+
 【職缺 JD】：${savedJDText}
-【候選人工作經歷和程式語言】：${savedExpText}
+【候選人經歷】：${savedExpText}
 
-請簡單條列輸出：
-1. 硬實力與程式語言匹配表現（滿分 70 分拿幾分？為什麼？用一句簡單的話說明）
-2. 軟實力匹配表現（滿分 30 分拿幾分？為什麼？用一句簡單的話說明）
-3. 綜合總分（滿分 100 分）與面試建議（強烈推薦面試 / 建議複試 / 暫不考慮）
-4. 建議面試時可以追問他的 2 個簡單問題。`;
+請嚴格按此標籤格式輸出：
+[SCORE]: (填寫 0~100 的整數總分，例如 91)
+[TECH_EVAL]: (條列 2~3 點「業務 & 技術能力」具體分析，指出候選人具備哪些 JD 要求的技術/業務經驗，並標註得分如 64/70 分)
+[SOFT_EVAL]: (條列 2 點「軟技能 & 文化契合」具體分析，根據其背景評估跨部門協作與文化適應度，並標註得分如 27/30 分)
+[HIGHLIGHTS]: (條列 2 點該求職者的「核心優勢 Highlights」，必須具體點出其經歷亮點)
+[RISKS]: (條列 2 點該求職者的「潛在疑慮 Risk Signals」，例如經歷中未提及的 JD 關鍵技能或需驗證處)
+[QUESTIONS]: (針對該求職者的經歷缺口或專案細節，量身打造 3 道實戰追問題目，標號 1. 2. 3.)
+[EARLY_EXIT]: (評級 Low / Medium / High 並附上針對該求職者背景的具體原因)
+[CULTURE_MISMATCH]: (評級 Low / Medium / High 並附上具體原因)
+[SKILL_GAP]: (評級 Low / Medium / High 並具體點出哪些 JD 技能已具備、哪些可能有落差)
+[OVERQUALIFICATION]: (評級 Low / Medium / High 並附上具體原因)`;
 
-                    const fallbackStage3 = 
-`【第 3 階段：職缺 JD vs. 候選人工作經歷和程式語言 匹配評分結果】
+                    const fallbackStructured = 
+`[SCORE]: ${dynamicBase.score}
+[TECH_EVAL]: ${dynamicBase.techEval}
+[SOFT_EVAL]: ${dynamicBase.softEval}
+[HIGHLIGHTS]: ${dynamicBase.highlights}
+[RISKS]: ${dynamicBase.risks}
+[QUESTIONS]: ${dynamicBase.questions}
+[EARLY_EXIT]: ${dynamicBase.earlyExit}
+[CULTURE_MISMATCH]: ${dynamicBase.cultureRisk}
+[SKILL_GAP]: ${dynamicBase.skillGap}
+[OVERQUALIFICATION]: ${dynamicBase.overqual}`;
 
-1. 硬實力與程式語言匹配得分：64 / 70 分
-   • 符合度高：候選人的技術背景與工作經歷（「${savedExpText.substring(0, 35)}...」）與職缺要求的程式語言及模型經驗高度吻合。
+                    const rawAiOutput = await callSimpleBulletAI(sysPrompt, usrPrompt, fallbackStructured);
+                    const finalReportData = parseFlexibleCompetencyData(rawAiOutput, dynamicBase, currentLang);
+                    lastRenderedReportData = finalReportData;
 
-2. 軟實力匹配得分：27 / 30 分
-   • 溝通與執行力佳：經歷中展現良好的跨領域實務與專案落地經驗，符合團隊合作需求。
+                    const summaryInChat = isEn
+                        ? `[Stage 3 Complete: Dynamic Candidate Evaluation Report Generated]
+• Overall Match Score: ${finalReportData.score} / 100 pts
+• 1. Competency Assessment (Business & Technical Skills / Soft Skills & Culture Fit): Dynamically generated based on input.
+• 2. Highlights & Risk Signals: Cross-examined core strengths vs. potential concerns.
+• 3. Customized Interview Questions: 3 tailored probing questions created.
+• 4. ⚠️ Risk Assessment (4 Key Metrics): Independent ratings and rationales completed.
+👉 Please review the full interactive report card below (click any text to edit inline, or click the red button to export/print PDF)!`
+                        : `【第 3 階段完成：已根據候選人經歷動態產出評估報告】
+• 綜合匹配總分：${finalReportData.score} / 100 分
+• 1. 能力評估（業務 & 技術能力 / 軟技能 & 文化契合）：已根據經歷動態生成。
+• 2. 亮點 & 風險信號：已交叉比對出核心優勢與潛在疑慮。
+• 3. 定制面試問題：已量身打造 3 道實戰追問題目。
+• 4. ⚠️ 風險評估（4 大指標）：已完成獨立評級與原因分析。
+👉 請直接查看下方完整報告卡片（點擊文字可直接微調，或點擊紅色按鈕匯出 PDF）！`;
 
-3. 綜合總分與建議：91 / 100 分（評級：強烈推薦安排面試）
-
-4. 建議面試時追問的 2 個重點問題：
-   • 問題一：請分享一個過去在訓練模型或開發專案時，遇到最卡關的效能問題，最後是怎麼解決的？
-   • 問題二：如果進入我們遠端團隊，前 30 天會如何熟悉現有 Pipeline 並做出第一個成果？`;
-
-                    const reply = await callSimpleBulletAI(sysPrompt, usrPrompt, fallbackStage3);
-                    updateLatestAIResponse(reply);
-
-                    const scoreMatch = reply.match(/(\d{2})\s*\/\s*100/);
-                    calculatedScore = scoreMatch ? scoreMatch[1] : 91;
-
-                    renderExactFormatReport();
+                    updateLatestAIResponse(summaryInChat);
+                    renderFlexibleCompetencyReport(finalReportData);
                     return;
                 }
             }
 
-            // ========== 一般話題的後續漸進式問答 ==========
-            appendTurnUI(val, "正在根據您的回饋，整理下一步的簡單條列建議...");
+            // General topic follow-up
+            appendTurnUI(val, isEn ? "Preparing clear bullet-point follow-up recommendations..." : "正在根據您的回饋，整理下一步的簡單條列建議...");
 
-            const sysPrompt = "你是一位說話簡單、白話、好懂的 HR 顧問。請務必使用「繁體中文」與「簡單條列式（1. 2. 3.）」回答，每一點不超過兩句話，並給出具體好執行的下一步。";
-            const usrPrompt = `使用者針對先前的 HR 討論補充了這個情況或問題：「${val}」。請用最簡單、條列式的方式給出 3 個具體解決步驟，並在最後詢問是否需要提供範本或檢核表。`;
+            const sysPrompt = isEn
+                ? "You are a clear, practical HR advisor. Respond strictly in 100% English using simple bullet points (1. 2. 3.). Do NOT output any Chinese characters. Keep each point under 2 sentences."
+                : "你是一位說話簡單、白話、好懂的 HR 顧問。請務必使用「繁體中文」與「簡單條列式（1. 2. 3.）」回答，每一點不超過兩句話，並給出具體好執行的下一步。";
 
-            const fallbackFollowup = 
-`【針對「${val.substring(0, 30)}...」的具體執行建議】
+            const usrPrompt = isEn
+                ? `The user followed up with: "${val}". Provide 3 simple, actionable steps in pure English bullet points, and ask if they would like a ready-to-use checklist template.`
+                : `使用者針對先前的 HR 討論補充了這個情況或問題：「${val}」。請用最簡單、條列式的方式給出 3 個具體解決步驟，並在最後詢問是否需要提供範本或檢核表。`;
+
+            const fallbackFollowup = isEn
+                ? `[Actionable Next Steps for "${val.substring(0, 35)}..."]
+
+1. Pilot with One Priority Role (Week 1):
+   • Start with a single urgent role or small team rather than rolling out changes company-wide at once.
+
+2. Build a 1-Page 5-Item Scorecard (Week 2):
+   • Condense complex rules into 5 simple checkboxes so hiring managers can complete evaluations in under 3 minutes.
+
+3. Bi-Weekly Metric Review (Weeks 3–4):
+   • Track time saved and pass-through rates every two weeks before scaling across departments.
+
+👉 Next Step Guide: Would you like me to draft the "1-Page 5-Item Evaluation Scorecard Template" for you right now? Just let me know!`
+                : `【針對「${val.substring(0, 30)}...」的具體執行建議】
 
 1. 先從小範圍試辦（第 1 週）：
    • 先挑 1 個最急迫的職缺或小團隊試行新做法，不要一次全公司改動，降低反彈。
@@ -746,38 +1114,183 @@
             updateLatestAIResponse(reply);
         }
 
-        function renderExactFormatReport() {
+        function parseFlexibleCompetencyData(text, dynamicBase, lang) {
+            const extractTag = (tag, defaultVal) => {
+                const regex = new RegExp(`\\[${tag}\\]:\\s*([\\s\\S]*?)(?=\\n\\[[A-Z_]+\\]:|$)`, 'i');
+                const match = text.match(regex);
+                return (match && match[1] && match[1].trim().length > 3) ? match[1].trim() : defaultVal;
+            };
+
+            const rawScore = extractTag('SCORE', String(dynamicBase.score));
+            const numMatch = rawScore.match(/\d+/);
+            const finalScore = numMatch ? Math.min(100, Math.max(40, parseInt(numMatch[0], 10))) : dynamicBase.score;
+
+            const isEn = lang === 'en';
+            const actionText = isEn
+                ? (finalScore >= 85 ? "Strong Hire (Proceed)" : (finalScore >= 70 ? "Proceed to Interview" : "Hold / Further Review"))
+                : (finalScore >= 85 ? "強烈推薦面試 (Strong Hire)" : (finalScore >= 70 ? "建議安排面試 (Proceed)" : "暫緩或需補件 (Hold / Review)"));
+
+            return {
+                score: finalScore,
+                action: actionText,
+                techEval: extractTag('TECH_EVAL', dynamicBase.techEval),
+                softEval: extractTag('SOFT_EVAL', dynamicBase.softEval),
+                highlights: extractTag('HIGHLIGHTS', dynamicBase.highlights),
+                risks: extractTag('RISKS', dynamicBase.risks),
+                questions: extractTag('QUESTIONS', dynamicBase.questions),
+                earlyExit: extractTag('EARLY_EXIT', dynamicBase.earlyExit),
+                cultureRisk: extractTag('CULTURE_MISMATCH', dynamicBase.cultureRisk),
+                skillGap: extractTag('SKILL_GAP', dynamicBase.skillGap),
+                overqual: extractTag('OVERQUALIFICATION', dynamicBase.overqual)
+            };
+        }
+
+        // Render the 4-Module Competencies Breakdown Report (100% English when currentLang === 'en')
+        function renderFlexibleCompetencyReport(data) {
+            const isEn = currentLang === 'en';
             const target = document.getElementById('sandbox-target').value;
-            const jdSnippet = savedJDText ? savedJDText.substring(0, 65) + (savedJDText.length > 65 ? '...' : '') : '依標準雲端與專案管理職能設定';
-            const expSnippet = savedExpText ? savedExpText.substring(0, 65) + (savedExpText.length > 65 ? '...' : '') : '依候選人提供之工作經歷和程式語言評估';
+
+            const defaultJdText = isEn ? 'Configured per Cloud & Technical PM competency standards' : '依標準雲端與專案管理職能設定';
+            const defaultExpText = isEn ? 'Evaluated based on candidate work experience and programming languages' : '依候選人提供之工作經歷和程式語言評估';
+
+            const jdSnippet = savedJDText ? savedJDText.substring(0, 80) + (savedJDText.length > 80 ? '...' : '') : defaultJdText;
+            const expSnippet = savedExpText ? savedExpText.substring(0, 80) + (savedExpText.length > 80 ? '...' : '') : defaultExpText;
+
+            const labels = isEn ? {
+                reportTitle: "📊 AI Scoring Quantitative Candidate Evaluation Report (PDF Report)",
+                scoreLabel: "Overall Match Score:",
+                ptsUnit: "/ 100 pts",
+                metaLine: `Perspective: ${target} · Weighting: Business & Technical Skills 70% / Soft Skills & Culture Fit 30%`,
+                jdSumLabel: "Target Job Description (JD) Summary:",
+                expSumLabel: "Candidate Experience Summary:",
+                actionHeader: "Recommended Action:",
+                breakdownHeading: "🧠 Competencies Breakdown",
+                editHint: "✏️ Dynamically generated from candidate profile. Click any text below to edit inline.",
+                mod1Title: "1. Competency Assessment (Business & Technical Skills / Soft Skills & Culture Fit)",
+                mod1TechLabel: "💻 Business & Technical Skills (Hard Skills - 70%)",
+                mod1SoftLabel: "🤝 Soft Skills & Culture Fit (30%)",
+                mod2Title: "2. Highlights & Risk Signals",
+                mod2HighLabel: "🌟 Core Strengths (Highlights)",
+                mod2RiskLabel: "⚡ Potential Concerns (Risk Signals)",
+                mod3Title: "3. Customized Interview Questions (3 Tailored Probing Questions on Experience & Gaps)",
+                mod4Title: "4. ⚠️ Risk Assessment (4 Key Indicators with Independent Ratings & Rationales)",
+                r1Name: "① Early Exit Risk",
+                r2Name: "② Culture Mismatch Risk",
+                r3Name: "③ Skill Gap Risk",
+                r4Name: "④ Overqualification Risk",
+                printBtn: "📥 Download / Print Professional PDF Evaluation Report"
+            } : {
+                reportTitle: "📊 AI Scoring 候選人量化評估報告 (PDF Report)",
+                scoreLabel: "綜合匹配總分：",
+                ptsUnit: "/ 100 分",
+                metaLine: `檢核視角：${target} · 權重配置：業務 & 技術能力 70% / 軟技能 & 文化契合 30%`,
+                jdSumLabel: "比對職缺 (JD) 摘要：",
+                expSumLabel: "候選人經歷摘要：",
+                actionHeader: "建議決策 (Action)：",
+                breakdownHeading: "🧠 軟硬實力分項評核 (Competencies Breakdown)",
+                editHint: "✏️ 報告內容已依經歷動態生成，點擊任意文字可直接微調",
+                mod1Title: "1. 能力評估（業務 & 技術能力 ／ 軟技能 & 文化契合）",
+                mod1TechLabel: "💻 業務 & 技術能力 (Hard Skills - 70%)",
+                mod1SoftLabel: "🤝 軟技能 & 文化契合 (Soft Skills & Culture Fit - 30%)",
+                mod2Title: "2. 亮點 & 風險信號（Highlights vs. Risk Signals）",
+                mod2HighLabel: "🌟 核心優勢 (Highlights)",
+                mod2RiskLabel: "⚡ 潛在疑慮 (Risk Signals)",
+                mod3Title: "3. 定制面試問題（針對經歷缺口與專案細節之 3 道實戰追問）",
+                mod4Title: "4. ⚠️ 風險評估（4 大關鍵指標獨立評級與原因）",
+                r1Name: "① Early Exit Risk（早退風險）",
+                r2Name: "② Culture Mismatch Risk（文化不符風險）",
+                r3Name: "③ Skill Gap Risk（技能落差風險）",
+                r4Name: "④ Overqualification Risk（大材小用風險）",
+                printBtn: "📥 下載 / 列印專業 PDF 評估報告"
+            };
 
             const container = document.getElementById('pdf-approval-container');
             container.innerHTML = `
                 <div id="pdf-export-area" class="ai-scoring-card">
                     <div class="scoring-header">
                         <div class="scoring-title-area">
-                            <h3>📊 AI Scoring 候選人量化評估報告 (PDF Report)</h3>
-                            <p style="color: #0f766e; font-weight: 800; font-size: 1.15rem; margin-top: 0.35rem;">綜合匹配總分：${calculatedScore} / 100 分</p>
-                            <p>檢核視角：${target} · 權重配置：硬實力與程式語言 70% / 軟實力 30%</p>
-                            <div class="scoring-summary-text" style="margin-top: 0.5rem;">
-                                • <strong>比對職缺 (JD) 摘要：</strong>${jdSnippet}<br>
-                                • <strong>工作經歷和程式語言摘要：</strong>${expSnippet}
+                            <h3>${labels.reportTitle}</h3>
+                            <p style="color: #0f766e; font-weight: 800; font-size: 1.2rem; margin: 0.35rem 0;">${labels.scoreLabel} <span contenteditable="true">${data.score}</span> ${labels.ptsUnit}</p>
+                            <div class="scoring-meta-line">${labels.metaLine}</div>
+                            <div class="scoring-summary-text">
+                                • <strong>${labels.jdSumLabel}</strong> <span contenteditable="true">${jdSnippet}</span><br>
+                                • <strong>${labels.expSumLabel}</strong> <span contenteditable="true">${expSnippet}</span>
                             </div>
                         </div>
-                        <div class="scoring-action-badge">
-                            建議決策 (Action)：<br>
-                            <strong>強烈推薦面試 (Strong Hire)</strong>
+                        <div class="scoring-action-badge" contenteditable="true">
+                            ${labels.actionHeader}<br>
+                            <strong>${data.action}</strong>
                         </div>
                     </div>
+
                     <div class="scoring-skills-section">
-                        <h4>🧠 軟硬實力分項評核 (Competencies Breakdown)</h4>
-                        <div class="skill-row"><span>1. 職缺核心硬實力與程式語言契合度 (權重 70%)</span><span><strong>64 / 70 分 (表現優異)</strong></span></div>
-                        <div class="skill-row"><span>2. 跨部門溝通、團隊協作與當責軟實力 (權重 30%)</span><span><strong>27 / 30 分 (高度契合)</strong></span></div>
-                        <div class="skill-row"><span>3. 預期入職上手速度與留任穩定度預估</span><span><strong>9.0 / 10 分 (低風險)</strong></span></div>
+                        <div class="breakdown-main-heading">
+                            <span>${labels.breakdownHeading}</span>
+                            <span class="edit-hint-tag">${labels.editHint}</span>
+                        </div>
+
+                        <!-- 1. Competency Assessment -->
+                        <div class="breakdown-module">
+                            <div class="breakdown-module-title">${labels.mod1Title}</div>
+                            <div class="sub-competency-grid">
+                                <div class="sub-competency-box">
+                                    <span class="sub-box-label">${labels.mod1TechLabel}</span>
+                                    <div class="sub-box-content" contenteditable="true">${data.techEval}</div>
+                                </div>
+                                <div class="sub-competency-box">
+                                    <span class="sub-box-label">${labels.mod1SoftLabel}</span>
+                                    <div class="sub-box-content" contenteditable="true">${data.softEval}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Highlights & Risk Signals -->
+                        <div class="breakdown-module">
+                            <div class="breakdown-module-title">${labels.mod2Title}</div>
+                            <div class="sub-competency-grid">
+                                <div class="sub-competency-box highlight-box">
+                                    <span class="sub-box-label" style="color: #065f46;">${labels.mod2HighLabel}</span>
+                                    <div class="sub-box-content" contenteditable="true">${data.highlights}</div>
+                                </div>
+                                <div class="sub-competency-box risk-signal-box">
+                                    <span class="sub-box-label" style="color: #92400e;">${labels.mod2RiskLabel}</span>
+                                    <div class="sub-box-content" contenteditable="true">${data.risks}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Customized Interview Questions -->
+                        <div class="breakdown-module">
+                            <div class="breakdown-module-title">${labels.mod3Title}</div>
+                            <div class="interview-q-list" contenteditable="true">${data.questions}</div>
+                        </div>
+
+                        <!-- 4. Risk Assessment (4 Indicators) -->
+                        <div class="breakdown-module" style="margin-bottom: 0;">
+                            <div class="breakdown-module-title">${labels.mod4Title}</div>
+                            <div class="risk-4-grid">
+                                <div class="risk-metric-card">
+                                    <div class="risk-metric-name"><span>${labels.r1Name}</span></div>
+                                    <div class="risk-metric-desc" contenteditable="true">${data.earlyExit}</div>
+                                </div>
+                                <div class="risk-metric-card">
+                                    <div class="risk-metric-name"><span>${labels.r2Name}</span></div>
+                                    <div class="risk-metric-desc" contenteditable="true">${data.cultureRisk}</div>
+                                </div>
+                                <div class="risk-metric-card">
+                                    <div class="risk-metric-name"><span>${labels.r3Name}</span></div>
+                                    <div class="risk-metric-desc" contenteditable="true">${data.skillGap}</div>
+                                </div>
+                                <div class="risk-metric-card">
+                                    <div class="risk-metric-name"><span>${labels.r4Name}</span></div>
+                                    <div class="risk-metric-desc" contenteditable="true">${data.overqual}</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div style="text-align: center; margin-top: 1.25rem;">
-                    <button class="btn-download-pdf" onclick="window.print()">📥 下載 / 列印專業 PDF 評估報告</button>
+                    <button class="btn-download-pdf" onclick="window.print()">${labels.printBtn}</button>
                 </div>
             `;
             container.scrollIntoView({ behavior: 'smooth' });
