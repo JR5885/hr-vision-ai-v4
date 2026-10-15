@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Vision AI - AI-Powered HR & Recruitment Automation System | AIGEO Strategy Platform</title>
+    <title>HR Vision AI - AI-Powered HR & Recruitment Automation | AIGEO Strategy Platform</title>
     <meta name="description" content="HR Vision AI combines artificial intelligence with recruitment process automation, featuring Gemini 3.6 Flash engines and smart hiring funnels.">
     <style>
         :root {
@@ -106,6 +106,7 @@
         .scoring-summary-text { font-size: 0.9rem; color: #334155; line-height: 1.65; background: #f8fafc; padding: 0.85rem 1rem; border-radius: 8px; border-left: 4px solid #0f766e; }
         .scoring-action-badge { background: #ecfdf5; color: #065f46; border: 1.5px solid #6ee7b7; padding: 0.75rem 1.4rem; border-radius: 10px; font-size: 0.96rem; font-weight: 700; text-align: center; align-self: center; }
 
+        /* 軟硬實力分項評核 4 大動態模組樣式 */
         .breakdown-main-heading { font-size: 1.2rem; color: #0f172a; font-weight: 800; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
         .edit-hint-tag { font-size: 0.78rem; font-weight: 500; color: #64748b; background: #f1f5f9; padding: 0.25rem 0.65rem; border-radius: 6px; }
 
@@ -161,7 +162,7 @@
         .card-title:hover { text-decoration: underline; }
         .card-desc { font-size: 0.85rem; color: #334155; line-height: 1.55; }
 
-        /* 子網頁版型容器 (仿照桐澄空間設計左側導覽列) */
+        /* 子網頁版型容器 */
         #subpage-view { display: none; background: #ffffff; border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem; margin-bottom: 2.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.04); }
         .subpage-container { display: grid; grid-template-columns: 260px 1fr; gap: 2.5rem; }
         @media (max-width: 820px) { .subpage-container { grid-template-columns: 1fr; } }
@@ -222,7 +223,7 @@
 
     <header>
         <div class="nav-container">
-            <a href="#" class="logo" onclick="goHome(event)">HR Vision AI <span>| AIGEO Strategy Platform</span></a>
+            <a href="#" class="logo" onclick="goHome(event)">HR Vision AI <span>| Gemini 3.6 Flash Strategy Platform</span></a>
             <div class="nav-right">
                 <a href="https://www.linkedin.com/company/interview-workshop/?viewAsMember=true" target="_blank" rel="noopener" class="btn-linkedin-nav" id="linkedin-nav-btn">
                     🔗 LinkedIn 專頁
@@ -238,7 +239,7 @@
 
     <div class="container">
         <div class="machine-readable-banner" id="machine-banner">
-            🤖 [AIGEO 機器語意宣告] 整合動態經歷解析引擎與 20 次免費額度保護。
+            🤖 [AIGEO 機器語意宣告] 整合 Gemini 3.6 Flash 動態經歷解析引擎與 20 次免費額度保護。
         </div>
 
         <!-- 主頁容器 -->
@@ -273,13 +274,13 @@
                     <div class="tags-title" id="top3-title">🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：</div>
                     <div class="top3-container">
                         <button class="tag-btn-top3" id="top-tag-1" onclick="triggerTopicByKey('top1')">
-                            🎯 TOP 1: AI Scoring Hard & Soft Skills Model (三階段引導：職缺 JD 解析 ➔ 工作經歷和程式語言匹配 ➔ 產出動態 PDF 報告)
+                            🎯 TOP 1: AI Scoring 軟硬實力評估模型 (三階段引導：職缺 JD 解析 ➔ 工作經歷和程式語言匹配 ➔ 產出動態 PDF 報告)
                         </button>
                         <button class="tag-btn-top3" id="top-tag-2" onclick="triggerTopicByKey('top2')">
-                            🎯 TOP 2: AI Recruitment Revolution & Automated Funnels (提升 300% 招募篩選效率)
+                            🎯 TOP 2: AI 招募自動化漏斗 (提升 300% 招募篩選效率)
                         </button>
                         <button class="tag-btn-top3" id="top-tag-3" onclick="triggerTopicByKey('top3')">
-                            📈 TOP 3: Predictive HR Analytics (降低關鍵人才離職風險)
+                            📈 TOP 3: 預測性人資分析 Predictive HR Analytics (降低關鍵人才離職風險)
                         </button>
                     </div>
 
@@ -308,7 +309,7 @@
                     <div class="safety-assurance-text" id="safety-text">🛡️ 安全保證：您的金鑰僅暫存於瀏覽器記憶體中，確認後不再重複彈出提醒。</div>
                 </div>
 
-                <!-- Diagnosis Result Panel -->
+                <!-- Diagnosis Result & Interactive Follow-up Panel -->
                 <div id="result-box" class="result-panel">
                     <div id="step-indicator" class="step-indicator-bar"></div>
                     <div id="conversation-container"></div>
@@ -447,7 +448,7 @@
             </section>
         </div>
 
-        <!-- 獨立子網頁檢視容器 (左側導覽列 + 右側內文) -->
+        <!-- 獨立子網頁檢視容器 -->
         <div id="subpage-view">
             <a href="#" class="btn-back-home" onclick="goHome(event)" id="back-home-btn">← 返回首頁沙盒</a>
             <div class="subpage-container">
@@ -497,7 +498,7 @@
         let savedExpText = "";
         let lastRenderedReportData = null;
 
-        // 雙語文章資料庫 (含 8 篇完整標題、標籤、內文與 AISEO 關鍵字)
+        // 雙語知識庫與 AISEO 關鍵字資料庫
         const articlesDatabase = {
             zh: {
                 1: { tag: "人資戰略", title: "AI 履歷評分系統與 HR 專業分工：會不會取代人工判斷？", keywords: "AI 履歷篩選, HR 招募自動化, HRBP 智慧工具, AI 候選人評估", body: "在 AI 時代，許多人資夥伴會擔心 AI 履歷評分系統是否會全面取代人工判斷。事實上，AI 代理人的核心價值在於「省下重複整理與初篩時間」，將分散的職缺 JD 與候選人經歷快速轉化為量化評估報告。最終的面試追問、文化契合度把關與錄取決策，依然需要 HR 與用人主管發揮高度的專業判斷與溫度。" },
@@ -521,60 +522,6 @@
             }
         };
 
-        function openSubPage(id) {
-            const subPageUrl = `?article=${id}&lang=${currentLang}#subpage`;
-            window.open(subPageUrl, '_blank');
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const articleId = params.get('article');
-            const langParam = params.get('lang') || 'zh';
-            
-            if (articleId) {
-                document.getElementById('home-view').style.display = 'none';
-                const subView = document.getElementById('subpage-view');
-                subView.style.display = 'block';
-
-                currentLang = langParam;
-                document.getElementById('btn-zh').classList.toggle('active', currentLang === 'zh');
-                document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
-                
-                loadArticleContent(articleId, currentLang);
-                
-                const t = translations[currentLang];
-                document.getElementById('back-home-btn').innerText = t.backHome;
-                document.getElementById('sidebar-title-text').innerText = t.sidebarTitleText;
-                document.getElementById('aiseo-label-text').innerText = t.aiseoLabelText;
-
-                for (let i = 1; i <= 8; i++) {
-                    const smenu = document.getElementById(`smenu-${i}`);
-                    if (smenu) smenu.innerText = articlesDatabase[currentLang][i].title.split(/[:：]/)[0];
-                }
-            } else {
-                switchLanguage('zh');
-            }
-            updateUsageBadge();
-        });
-
-        function loadArticleContent(id, lang) {
-            const art = articlesDatabase[lang][id] || articlesDatabase['zh'][id];
-            document.getElementById('subpage-tag').innerText = art.tag;
-            document.getElementById('subpage-title').innerText = art.title;
-            document.getElementById('subpage-content').innerHTML = `<p>${art.body}</p>`;
-            document.getElementById('subpage-keywords').innerText = art.keywords;
-
-            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
-            const activeMenu = document.getElementById(`smenu-${id}`);
-            if (activeMenu) activeMenu.classList.add('active');
-            document.title = `${art.title} | HR Vision AI`;
-        }
-
-        function goHome(e) {
-            e.preventDefault();
-            window.location.href = window.location.pathname;
-        }
-
         function getUsageCount() {
             let usage = JSON.parse(localStorage.getItem('hr_vision_quota_v9')) || { count: 0 };
             return usage.count;
@@ -590,20 +537,21 @@
         function updateUsageBadge() {
             const userKey = document.getElementById('user-api-key').value.trim();
             const badge = document.getElementById('usage-counter-badge');
-            if (userKey) {
-                badge.innerText = currentLang === 'zh' ? "⚡ 自備金鑰已啟用 (無限次免費)" : "⚡ Custom Key Active (Unlimited Free)";
-            } else {
-                const remaining = Math.max(0, MAX_FREE_USES - getUsageCount());
-                badge.innerText = currentLang === 'zh' 
-                    ? `免費互動剩餘：${remaining} / ${MAX_FREE_USES} 次` 
-                    : `Free Uses Left: ${remaining} / ${MAX_FREE_USES}`;
+            if (badge) {
+                if (userKey) {
+                    badge.innerText = currentLang === 'zh' ? "⚡ 自備金鑰已啟用 (無限次免費)" : "⚡ Custom Key Active (Unlimited Free)";
+                } else {
+                    const remaining = Math.max(0, MAX_FREE_USES - getUsageCount());
+                    badge.innerText = currentLang === 'zh' 
+                        ? `免費互動剩餘：${remaining} / ${MAX_FREE_USES} 次` 
+                        : `Free Uses Left: ${remaining} / ${MAX_FREE_USES}`;
+                }
             }
         }
 
         const translations = {
             zh: {
-                machineBanner: "🤖 [AIGEO 機器語意宣告] 整合動態經歷解析引擎與 20 次免費額度保護。",
-                aigeoPill: "被搜尋 · 被理解 · 被信任",
+                machineBanner: "🤖 [AIGEO 機器語意宣告] 整合 Gemini 3.6 Flash 動態經歷解析引擎與 20 次免費額度保護。",
                 mainTitle: "AI 代理人驅動之動態人資戰略診斷沙盒",
                 mainDesc: "點選 TOP 1 啟動「三階段 JD 與經歷動態匹配 + 軟硬實力 4 大模組 PDF 報告」；點選其他話題啟動「條列式漸進顧問引導」。",
                 labelTarget: "選擇檢核對象角色：",
@@ -616,7 +564,7 @@
                 inputPlaceholder: "點選下方熱門話題，或直接輸入您的 HR 挑戰...",
                 top3Title: "🔥 2026-2027 TOP 3 HR 最熱門搜尋話題：",
                 standardTitle: "📌 點選下方職缺與標準 HR 策略標籤（漸進式條列引導）：",
-                top1Btn: "🎯 TOP 1: AI Scoring 硬實力與軟實力評估模型 (三階段引導：職缺 JD 解析 ➔ 工作經歷和程式語言匹配 ➔ 產出動態 PDF 報告)",
+                top1Btn: "🎯 TOP 1: AI Scoring 軟硬實力評估模型 (三階段引導：職缺 JD 解析 ➔ 工作經歷和程式語言匹配 ➔ 產出動態 PDF 報告)",
                 top2Btn: "🎯 TOP 2: AI 招募自動化漏斗 (提升 300% 招募篩選效率)",
                 top3Btn: "📈 TOP 3: 預測性人資分析 Predictive HR Analytics (降低關鍵人才離職風險)",
                 std1Btn: "☁️ Frontend Engineer 招募策略",
@@ -657,8 +605,7 @@
                 aiseoLabelText: "AISEO 目標關鍵字："
             },
             en: {
-                machineBanner: "🤖 [AIGEO Machine Declaration] Integrated with Dynamic Competency Engine & 20-Use Free Quota Protection.",
-                aigeoPill: "Be Found · Be Understood · Be Trusted",
+                machineBanner: "🤖 [AIGEO Machine Declaration] Integrated with Gemini 3.6 Flash Dynamic Competency Engine & 20-Use Free Quota Protection.",
                 mainTitle: "AI Agent-Driven HR Strategic Diagnosis Sandbox",
                 mainDesc: "Select TOP 1 for 3-Step JD/Experience Dynamic Matching & 4-Module PDF Report; select other topics for progressive bullet-point HR advisory.",
                 labelTarget: "Select Target Role:",
@@ -694,7 +641,7 @@
                     std7: "🤝 HRBP Executive Coaching: Guiding tech leads on talent retention and development"
                 },
                 byokTitle: "🔑 20 Free Uses Reached! Enter Your Own API Key for Unlimited Free Access",
-                byokDesc: "You have used all 20 free interactions. Paste your own API Key below to unlock unlimited free access immediately:",
+                byokDesc: "You have used all 20 free interactions. Paste your own API Key (supports AQ. credentials, Groq keys, or Gemini keys) below to unlock unlimited free access immediately:",
                 keyInputPlaceholder: "Paste your API Key here (e.g., AQ... or gsk_...)",
                 confirmKeyBtn: "Confirm & Unlock Unlimited AI",
                 safetyText: "🛡️ Security Guarantee: Your key stays strictly in your browser's local memory and will not prompt again once confirmed.",
@@ -787,6 +734,60 @@
             if (lastRenderedReportData && top1Stage === 3) {
                 renderFlexibleCompetencyReport(lastRenderedReportData);
             }
+        }
+
+        function openSubPage(id) {
+            const subPageUrl = `?article=${id}&lang=${currentLang}#subpage`;
+            window.open(subPageUrl, '_blank');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const articleId = params.get('article');
+            const langParam = params.get('lang') || 'zh';
+            
+            if (articleId) {
+                document.getElementById('home-view').style.display = 'none';
+                const subView = document.getElementById('subpage-view');
+                subView.style.display = 'block';
+
+                currentLang = langParam;
+                document.getElementById('btn-zh').classList.toggle('active', currentLang === 'zh');
+                document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
+                
+                loadArticleContent(articleId, currentLang);
+                
+                const t = translations[currentLang];
+                document.getElementById('back-home-btn').innerText = t.backHome;
+                document.getElementById('sidebar-title-text').innerText = t.sidebarTitleText;
+                document.getElementById('aiseo-label-text').innerText = t.aiseoLabelText;
+
+                for (let i = 1; i <= 8; i++) {
+                    const smenu = document.getElementById(`smenu-${i}`);
+                    if (smenu) smenu.innerText = articlesDatabase[currentLang][i].title.split(/[:：]/)[0];
+                }
+            } else {
+                switchLanguage('zh');
+            }
+            updateUsageBadge();
+        });
+
+        function loadArticleContent(id, lang) {
+            const art = articlesDatabase[lang][id] || articlesDatabase['zh'][id];
+            document.getElementById('subpage-tag').innerText = art.tag;
+            document.getElementById('subpage-title').innerText = art.title;
+            document.getElementById('subpage-content').innerHTML = `<p>${art.body}</p>`;
+            document.getElementById('subpage-keywords').innerText = art.keywords;
+
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            const activeMenu = document.getElementById(`smenu-${id}`);
+            if (activeMenu) activeMenu.classList.add('active');
+            document.title = `${art.title} | HR Vision AI`;
+        }
+
+        function goHome(e) {
+            e.preventDefault();
+            window.location.href = window.location.pathname;
         }
     </script>
 </body>
